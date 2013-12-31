@@ -52,8 +52,8 @@ uint8_t pkt_count = 0;
 
 // Assumptions:
 //   "Direction" pairs are connected.  0/1, 2/3, 4/5, etc
-//   Even numbered directions can have turnouts.  Wired off for "main" if they don't exist.  Signals are separate frog-end signals.
-//   Odd numbered directions have no turnouts.  Signals are 2-headed point-end signals using the turnout position from across the diamond.
+//   Even numbered directions can have turnouts (frog end).  Wired off for "main" if they don't exist.  Signals are separate signals.
+//   Odd numbered directions have no turnouts (point end).  Signals are 2-headed signals using the turnout position from across the diamond.
 
 typedef enum
 {
@@ -72,7 +72,7 @@ InterlockState state[NUM_DIRECTIONS];
 typedef struct
 {
 	uint8_t enable;
-	uint16_t timer;  // decisecs
+	volatile uint16_t timer;  // decisecs
 	uint8_t approachTime;
 	uint8_t totalTime;
 	uint8_t sound;
@@ -80,7 +80,7 @@ typedef struct
 
 Simulator simulator[NUM_DIRECTIONS];
 
-uint16_t timeout[NUM_DIRECTIONS];  // decisecs
+volatile uint16_t timeout[NUM_DIRECTIONS];  // decisecs
 uint8_t timeoutSeconds = 5;  // FIXME: load value from EEPROM
 uint8_t lockoutSeconds = 5;  // FIXME: load value from EEPROM
 
@@ -112,6 +112,21 @@ uint8_t signalMain[NUM_DIRECTIONS];
 uint8_t signalSecondary[NUM_DIRECTIONS];
 
 
+volatile uint8_t events = 0;
+#define EVENT_READ_INPUTS    0x01
+#define EVENT_WRITE_OUTPUTS  0x02
+#define EVENT_REINIT_OUTPUTS 0x04
+#define EVENT_I2C_ERROR      0x40
+#define EVENT_BLINKY         0x80
+
+
+// Misc variables
+uint8_t debounced_inputs[2], old_debounced_inputs[2];
+uint8_t clock_a[2] = {0,0}, clock_b[2] = {0,0};
+uint8_t xioInputs[2];
+
+
+
 // ******** Start 100 Hz Timer, 0.16% error version (Timer 0)
 // If you can live with a slightly less accurate timer, this one only uses Timer 0, leaving Timer 1 open
 // for more advanced things that actually need a 16 bit timer/counter
@@ -128,7 +143,7 @@ volatile uint16_t update_decisecs=10;
 
 void initialize100HzTimer(void)
 {
-	// Set up timer 1 for 100Hz interrupts
+	// Set up timer 0 for 100Hz interrupts
 	TCNT0 = 0;
 	OCR0A = 0xC2;
 	ticks = 0;
@@ -140,6 +155,10 @@ void initialize100HzTimer(void)
 
 ISR(TIMER0_COMPA_vect)
 {
+	// Read inputs every 2 ticks = 20ms
+	if (ticks & 0x01)
+		events |= EVENT_READ_INPUTS;
+
 	if (++ticks >= 10)
 	{
 		uint8_t i;
@@ -153,6 +172,13 @@ ISR(TIMER0_COMPA_vect)
 			if(simulator[i].timer)
 				simulator[i].timer--;
 		}
+		
+		// Blinky event?
+
+		// Write outputs every 100ms
+		events |= EVENT_WRITE_OUTPUTS;
+		
+		// FIXME: Add XIO reset code?
 	}
 }
 
@@ -181,6 +207,50 @@ ISR(ADC_vect)
 	}
 }
 */
+
+
+
+void xioInputRead()
+{
+	// FIXME
+	if(PIND & _BV(PD0))
+		xioInputs[1] |= _BV(0);
+	else
+		xioInputs[1] &= ~_BV(0);
+
+	// Approach blocks
+	if(PIND & _BV(PD7))
+		xioInputs[0] |= _BV(2);
+	else
+		xioInputs[0] &= ~_BV(2);
+
+	if(PIND & _BV(PD6))
+		xioInputs[0] |= _BV(1);
+	else
+		xioInputs[0] &= ~_BV(1);
+
+	if(PIND & _BV(PD5))
+		xioInputs[0] |= _BV(0);
+	else
+		xioInputs[0] &= ~_BV(0);
+
+	if(PIND & _BV(PD4))
+		xioInputs[0] |= _BV(3);
+	else
+		xioInputs[0] &= ~_BV(3);
+
+	if(PIND & _BV(PD3))
+		xioInputs[0] |= _BV(5);
+	else
+		xioInputs[0] &= ~_BV(5);
+
+	// Interlocking block
+	if(PIND & _BV(PD2))
+		xioInputs[0] |= _BV(6);
+	else
+		xioInputs[0] &= ~_BV(6);
+}
+
 
 
 void PktHandler(void)
@@ -401,6 +471,11 @@ void init(void)
 	
 	interlockingStatus = 0;
 	
+	xioInputs[0] = 0;
+	xioInputs[1] = 0;
+
+	for(i=0; i<sizeof(debounced_inputs); i++)
+		debounced_inputs[i] = old_debounced_inputs[i] = 0;
 }
 
 uint8_t approachBlockOccupancy(uint8_t direction)
@@ -432,47 +507,93 @@ void startSound(uint8_t sound)
 
 void readInputs(void)
 {
-	// Read occupancy into occupancy[] array and interlockOccupancy.  Force siding occupancy = 0 on directions without a siding.
-	// Debounce
+	// Read occupancy into occupancy[] array and interlockingOccupancy.  Force siding occupancy = 0 on directions without a siding.
 	// Read turnout positions; force directions without turnouts to main
+
+	// debounced_inputs[0]
+	// D0: Block Detect #0 main
+	// D1: Block Detect #0 siding
+	// D2: Block Detect #1
+	// D3: Block Detect #2 main
+	// D4: Block Detect #2 siding
+	// D5: Block Detect #3
+	// D6: Block Detect Interlocking
+	// D7: unassigned
+
+	// debounced_inputs[1]
+	// E0: Direction #0 turnout position
+	// E1: Direction #2 turnout position
+	// E2 - E3: Manual interlock direction
+	// E4: Manual interlock set
+	// E5: Sound trigger #1
+	// E6: Sound trigger #2
+	// E7: unassigned
+
+	uint8_t delta;
+	uint8_t i;
 	
-	if(PIND & _BV(PD0))
+	xioInputRead();
+
+	for(i=0; i<2; i++)
+	{
+		// Vertical counter debounce courtesy 
+		delta = xioInputs[i] ^ debounced_inputs[i];
+		clock_a[i] ^= clock_b[i];
+		clock_b[i]  = ~(clock_b[i]);
+		clock_a[i] &= delta;
+		clock_b[i] &= delta;
+		debounced_inputs[i] ^= ~(~delta | clock_a[i] | clock_b[i]);
+	}
+
+	// Get the physical turnout inputs from debounced
+	if(debounced_inputs[1] & _BV(0))
 		turnout[0] = TURNOUT_SIDING;
 	else
 		turnout[0] = TURNOUT_MAIN;
 
-	// Approach blocks
-	if(PIND & _BV(PD7))
-		approachOccupancy[1] |= OCCUPANCY_MAIN;
+	if(debounced_inputs[1] & _BV(1))
+		turnout[2] = TURNOUT_SIDING;
 	else
-		approachOccupancy[1] &= ~OCCUPANCY_MAIN;
+		turnout[2] = TURNOUT_MAIN;
 
-	if(PIND & _BV(PD6))
-		approachOccupancy[0] |= OCCUPANCY_SIDING;
-	else
-		approachOccupancy[0] &= ~OCCUPANCY_SIDING;
-
-	if(PIND & _BV(PD5))
+	// Get the physical occupancy inputs from debounced
+	if(debounced_inputs[0] & _BV(0))
 		approachOccupancy[0] |= OCCUPANCY_MAIN;
 	else
 		approachOccupancy[0] &= ~OCCUPANCY_MAIN;
 
-	if(PIND & _BV(PD4))
+	if(debounced_inputs[0] & _BV(1))
+		approachOccupancy[0] |= OCCUPANCY_SIDING;
+	else
+		approachOccupancy[0] &= ~OCCUPANCY_SIDING;
+
+	if(debounced_inputs[0] & _BV(2))
+		approachOccupancy[1] |= OCCUPANCY_MAIN;
+	else
+		approachOccupancy[1] &= ~OCCUPANCY_MAIN;
+
+	if(debounced_inputs[0] & _BV(3))
 		approachOccupancy[2] |= OCCUPANCY_MAIN;
 	else
 		approachOccupancy[2] &= ~OCCUPANCY_MAIN;
 
-	if(PIND & _BV(PD3))
+	if(debounced_inputs[0] & _BV(4))
+		approachOccupancy[2] |= OCCUPANCY_SIDING;
+	else
+		approachOccupancy[2] &= ~OCCUPANCY_SIDING;
+
+	if(debounced_inputs[0] & _BV(5))
 		approachOccupancy[3] |= OCCUPANCY_MAIN;
 	else
 		approachOccupancy[3] &= ~OCCUPANCY_MAIN;
 
-	// Interlocking block
-	if(PIND & _BV(PD2))
+	if(debounced_inputs[0] & _BV(6))
 		interlockingOccupancy |= OCCUPANCY_MAIN;
 	else
 		interlockingOccupancy &= ~OCCUPANCY_MAIN;
 
+	old_debounced_inputs[0] = debounced_inputs[0];
+	old_debounced_inputs[1] = debounced_inputs[1];
 }
 
 void InterlockingToSignals(void)
@@ -528,8 +649,86 @@ void InterlockingToSignals(void)
 
 void SignalsToOutputs(void)
 {
+	// A0 - A2: west approach main signal  
+	// A3 - A5: west approach siding signal
+	// A6 - B0: south approach main signal  
+	// B1 - B3: south approach siding signal
+	// B4 - B6: east approach top signal   
+	// B7 - C1: east approach bottom signal
+	// C2 - C4: north approach top signal   
+	// C5 - C7: north approach bottom signal
+
+	switch(signalMain[0])
+	{
+		case ASPECT_GREEN:
+			PORTC |= _BV(0);
+			PORTC &= ~_BV(1);
+			break;
+		case ASPECT_YELLOW:
+			PORTC |= _BV(0);
+			PORTC |= _BV(1);
+			break;
+		case ASPECT_RED:
+			PORTC &= ~_BV(0);
+			PORTC |= _BV(1);
+			break;
+	}
+
+	switch(signalSecondary[0])
+	{
+		case ASPECT_GREEN:
+			PORTC |= _BV(2);
+			PORTC &= ~_BV(3);
+			break;
+		case ASPECT_YELLOW:
+			PORTC |= _BV(2);
+			PORTC |= _BV(3);
+			break;
+		case ASPECT_RED:
+			PORTC &= ~_BV(2);
+			PORTC |= _BV(3);
+			break;
+	}
+
+
+/*
+	switch(signalMain[1])
+	{
+		case ASPECT_GREEN:
+			PORTC |= _BV(0);
+			PORTC &= ~_BV(1);
+			break;
+		case ASPECT_YELLOW:
+			PORTC |= _BV(0);
+			PORTC |= _BV(1);
+			break;
+		case ASPECT_RED:
+			PORTC &= ~_BV(0);
+			PORTC |= _BV(1);
+			break;
+	}
+
+	switch(signalSecondary[1])
+	{
+		case ASPECT_GREEN:
+			PORTC |= _BV(2);
+			PORTC &= ~_BV(3);
+			break;
+		case ASPECT_YELLOW:
+			PORTC |= _BV(2);
+			PORTC |= _BV(3);
+			break;
+		case ASPECT_RED:
+			PORTC &= ~_BV(2);
+			PORTC |= _BV(3);
+			break;
+	}
+*/
+
+
+/*
 	uint8_t i;
-	
+
 	for(i=0; i<NUM_DIRECTIONS; i++)
 	{
 		if(ASPECT_GREEN == signalMain[i])
@@ -537,6 +736,7 @@ void SignalsToOutputs(void)
 		else
 			PORTC &= ~_BV(i);
 	}
+*/
 }
 
 
@@ -568,19 +768,25 @@ int main(void)
 	{
 		wdt_reset();
 		
-		readInputs();
-		
-/*		for(i=0; i<NUM_DIRECTIONS; i++)*/
-/*		{*/
-/*			if(approachOccupancy[i])*/
-/*				PORTC |= _BV(i);*/
-/*			else*/
-/*				PORTC &= ~_BV(i);*/
-/*		}*/
-/*		if(interlockingOccupancy)*/
-/*			PORTC |= _BV(PC0);*/
-/*		else*/
-/*			PORTC &= ~_BV(PC0);*/
+		if (events & EVENT_I2C_ERROR)
+		{
+// FIXME
+//			i2cResetCounter++;
+//			xioInitialize();
+		}
+
+		if (events & EVENT_REINIT_OUTPUTS)
+		{
+// FIXME
+//			xioDirectionSet();
+			events &= ~(EVENT_REINIT_OUTPUTS);
+		}
+
+		if(events & (EVENT_READ_INPUTS))
+		{
+			readInputs();
+			events &= ~(EVENT_READ_INPUTS);
+		}			
 
 		// Process state machines
 		for(i=0; i<NUM_DIRECTIONS; i++)
@@ -706,7 +912,14 @@ int main(void)
 		}
 
 		InterlockingToSignals();
-		SignalsToOutputs();
+
+		// Send output
+		if (events & EVENT_WRITE_OUTPUTS)
+		{
+			SignalsToOutputs();
+//			xioOutputWrite();
+			events &= ~(EVENT_WRITE_OUTPUTS);
+		}
 
 
 #ifdef MRBEE
