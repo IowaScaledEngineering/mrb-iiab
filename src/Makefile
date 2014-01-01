@@ -28,7 +28,7 @@
 BASE_NAME = mrb-iiab
 
 # ATmega328P 20MHz @ 5.0V
-DEVICE  = atmega328p
+DEVICE  = atmega328
 F_CPU   = 20000000  # Hz
 FUSE_L  = 0xD7
 FUSE_H  = 0xD1
@@ -37,8 +37,8 @@ FUSE_E  = 0x04
 
 # MRBus
 DEFINES = -DMRBUS
-SRCS = $(BASE_NAME).c ../../mrbus2/src/mrbus-avr.c ../../mrbus2/src/mrbus-crc.c ../../mrbus2/src/mrbus-queue.c
-INCS = ../../mrbus/src/mrbus.h ../../mrbus/src/mrbus-avr.h
+SRCS = $(BASE_NAME).c ../../mrbus2/src/mrbus-avr.c ../../mrbus2/src/mrbus-crc.c ../../mrbus2/src/mrbus-queue.c ../../libs/avr-i2c/avr-i2c-master.c
+INCS = ../../mrbus/src/mrbus.h ../../mrbus/src/mrbus-avr.hh ../../libs/avr-i2c/avr-i2c-master.h
 
 # MRBee
 #DEFINES = -DMRBEE -DMRBEE_BAUD=115200
@@ -49,7 +49,7 @@ AVRDUDE = avrdude -c usbtiny -p $(DEVICE) -B1
 AVRDUDE_SLOW = avrdude -c usbtiny -p $(DEVICE) -B32
 
 OBJS = ${SRCS:.c=.o}
-INCLUDES = -I. -I../../mrbus2/src 
+INCLUDES = -I. -I../../mrbus2/src -I../../libs/avr-i2c/
 CFLAGS  = $(INCLUDES) -Wall -O2 -std=gnu99 -ffunction-sections -fdata-sections
 LDFLAGS = -Wl,-gc-sections
 

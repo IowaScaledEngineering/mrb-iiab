@@ -26,6 +26,9 @@ LICENSE:
 #include <avr/wdt.h>
 #include <util/delay.h>
 
+#include "mrbus.h"
+#include "avr-i2c-master.h"
+
 #ifdef MRBEE
 // If wireless, redefine the common variables and functions
 #include "mrbee.h"
@@ -44,8 +47,14 @@ LICENSE:
 #include "mrbus.h"
 
 uint8_t mrbus_dev_addr = 0;
-
 uint8_t pkt_count = 0;
+
+
+#define EE_BLINKY_COUNTER   0x10
+#define EE_SIGNAL_CONFIG    0x20
+#define EE_DETECT_POLARITY  0x30
+#define EE_TURNOUT_POLARITY 0x31
+
 
 // interlockingStatus currently limits this to a maximum of 7
 #define NUM_DIRECTIONS 4
@@ -108,8 +117,7 @@ uint8_t interlockingStatus;
 #define ASPECT_GREEN     0x01
 #define ASPECT_OFF       0x00
 
-uint8_t signalMain[NUM_DIRECTIONS];
-uint8_t signalSecondary[NUM_DIRECTIONS];
+uint8_t signalHeads[2 * NUM_DIRECTIONS];
 
 
 volatile uint8_t events = 0;
@@ -123,8 +131,12 @@ volatile uint8_t events = 0;
 // Misc variables
 uint8_t debounced_inputs[2], old_debounced_inputs[2];
 uint8_t clock_a[2] = {0,0}, clock_b[2] = {0,0};
-uint8_t xioInputs[2];
+uint8_t xio1Inputs[2];
+uint8_t xio1Outputs[5];
 
+uint8_t i2cResetCounter = 0;
+volatile uint8_t blinkyCounter = 0;
+uint8_t blinkyCounter_decisecs = 5;  // FIXME: load from EEPROM
 
 
 // ******** Start 100 Hz Timer, 0.16% error version (Timer 0)
@@ -173,12 +185,14 @@ ISR(TIMER0_COMPA_vect)
 				simulator[i].timer--;
 		}
 		
-		// Blinky event?
+		if (++blinkyCounter > blinkyCounter_decisecs)
+		{
+			events ^= EVENT_BLINKY;
+			blinkyCounter = 0;
+		}
 
 		// Write outputs every 100ms
 		events |= EVENT_WRITE_OUTPUTS;
-		
-		// FIXME: Add XIO reset code?
 	}
 }
 
@@ -209,49 +223,129 @@ ISR(ADC_vect)
 */
 
 
+/* 0x00-0x04 - input registers */
+/* 0x08-0x0C - output registers */
+/* 0x18-0x1C - direction registers - 0 is output, 1 is input */
+
+#define I2C_RESET         0
+#define I2C_OUTPUT_ENABLE 1
+#define I2C_IRQ           2
+#define I2C_XIO1_ADDRESS 0x4E
+
+void xioDirectionSet()
+{
+	uint8_t i2cBuf[8];
+
+	i2cBuf[0] = I2C_XIO1_ADDRESS;
+	i2cBuf[1] = 0x80 | 0x18;  // 0x80 is auto-increment
+	i2cBuf[2] = 0;
+	i2cBuf[3] = 0;
+	i2cBuf[4] = 0;
+	i2cBuf[5] = 0xFF;
+	i2cBuf[6] = 0x1F;
+	i2c_transmit(i2cBuf, 7, 1);
+	while(i2c_busy());
+	
+	// FIXME: Set polarity of inputs
+}
+
+void xioInitialize()
+{
+	events |= EVENT_I2C_ERROR;
+
+	PORTB &= ~(_BV(I2C_RESET) | _BV(I2C_OUTPUT_ENABLE));
+	DDRB |= _BV(I2C_RESET) | _BV(I2C_OUTPUT_ENABLE);
+	_delay_us(1);
+	PORTB &= ~(_BV(I2C_OUTPUT_ENABLE));
+	PORTB |= _BV(I2C_RESET);
+	_delay_us(1);
+
+	xioDirectionSet();
+	
+	if (i2c_transaction_successful())
+	{
+		events &= ~(EVENT_I2C_ERROR);
+	}
+}
+
+void xioOutputWrite()
+{
+	uint8_t i2cBuf[8];
+	uint8_t i;
+
+	// Reinforce direction
+	xioDirectionSet();
+
+	while(i2c_busy());
+
+	if (!i2c_transaction_successful())
+		events |= EVENT_I2C_ERROR;
+
+	i2cBuf[0] = I2C_XIO1_ADDRESS;
+	i2cBuf[1] = 0x80 | 0x08;  // 0x80 is auto-increment
+	for(i=0; i<sizeof(xio1Outputs); i++)
+		i2cBuf[2+i] = xio1Outputs[i];
+
+	i2c_transmit(i2cBuf, 2+sizeof(xio1Outputs), 1);
+}
 
 void xioInputRead()
 {
-	// FIXME
-	if(PIND & _BV(PD0))
-		xioInputs[1] |= _BV(0);
-	else
-		xioInputs[1] &= ~_BV(0);
+	uint8_t i2cBuf[4];
+	uint8_t successful = 0;
 
-	// Approach blocks
-	if(PIND & _BV(PD7))
-		xioInputs[0] |= _BV(2);
-	else
-		xioInputs[0] &= ~_BV(2);
+	if (events & EVENT_I2C_ERROR)
+		return;
 
-	if(PIND & _BV(PD6))
-		xioInputs[0] |= _BV(1);
-	else
-		xioInputs[0] &= ~_BV(1);
+	while(i2c_busy());
 
-	if(PIND & _BV(PD5))
-		xioInputs[0] |= _BV(0);
-	else
-		xioInputs[0] &= ~_BV(0);
+	if (!i2c_transaction_successful())
+		events |= EVENT_I2C_ERROR;
 
-	if(PIND & _BV(PD4))
-		xioInputs[0] |= _BV(3);
-	else
-		xioInputs[0] &= ~_BV(3);
+	i2cBuf[0] = I2C_XIO1_ADDRESS;
+	i2cBuf[1] = 0x80 | 0x03;  // 0x80 is auto-increment, 0x03 is the first register with inputs
+	i2c_transmit(i2cBuf, 2, 0);
+	i2cBuf[0] = I2C_XIO1_ADDRESS | 0x01;
+	i2c_transmit(i2cBuf, 3, 1);
+	while(i2c_busy());
+	successful = i2c_receive(i2cBuf, 3);
 
-	if(PIND & _BV(PD3))
-		xioInputs[0] |= _BV(5);
+	if (!successful)
+		// In the event of a read hose-out, don't put crap in the input buffer
+		events |= EVENT_I2C_ERROR;
 	else
-		xioInputs[0] &= ~_BV(5);
-
-	// Interlocking block
-	if(PIND & _BV(PD2))
-		xioInputs[0] |= _BV(6);
-	else
-		xioInputs[0] &= ~_BV(6);
+	{
+		xio1Inputs[0] = i2cBuf[1];
+		xio1Inputs[1] = i2cBuf[2];	
+	}
 }
 
 
+
+void readEEPROM()
+{
+	// Initialize MRBus address
+	mrbus_dev_addr = eeprom_read_byte((uint8_t*)MRBUS_EE_DEVICE_ADDR);
+	// Bogus addresses, fix to default address
+	if (0xFF == mrbus_dev_addr || 0x00 == mrbus_dev_addr)
+	{
+		mrbus_dev_addr = 0x03;
+		eeprom_write_byte((uint8_t*)MRBUS_EE_DEVICE_ADDR, mrbus_dev_addr);
+	}
+	
+	// Load MRBus update period
+	update_decisecs = (uint16_t)eeprom_read_byte((uint8_t*)MRBUS_EE_DEVICE_UPDATE_L) 
+		| (((uint16_t)eeprom_read_byte((uint8_t*)MRBUS_EE_DEVICE_UPDATE_H)) << 8);
+	// This line assures that update_decisecs is at least 1
+	update_decisecs = max(1, update_decisecs);
+
+	// Load blinky time period
+	blinkyCounter_decisecs = eeprom_read_byte((uint8_t*)EE_BLINKY_COUNTER);
+	
+	// FIXME: Load signal configs
+	
+	// FIXME: Load input polarity config
+}
 
 void PktHandler(void)
 {
@@ -319,8 +413,7 @@ void PktHandler(void)
 		eeprom_write_byte((uint8_t*)(uint16_t)rxBuffer[6], rxBuffer[7]);
 		txBuffer[6] = rxBuffer[6];
 		txBuffer[7] = rxBuffer[7];
-		if (MRBUS_EE_DEVICE_ADDR == rxBuffer[6])
-			mrbus_dev_addr = eeprom_read_byte((uint8_t*)MRBUS_EE_DEVICE_ADDR);
+		readEEPROM();
 		txBuffer[MRBUS_PKT_SRC] = mrbus_dev_addr;
 		mrbusPktQueuePush(&mrbusTxQueue, txBuffer, txBuffer[MRBUS_PKT_LEN]);
 		goto PktIgnore;	
@@ -413,28 +506,8 @@ void init(void)
 
 	pkt_count = 0;
 
-	// Initialize MRBus address from EEPROM address 1
-	mrbus_dev_addr = eeprom_read_byte((uint8_t*)MRBUS_EE_DEVICE_ADDR);
-	// Bogus addresses, fix to default address
-	if (0xFF == mrbus_dev_addr || 0x00 == mrbus_dev_addr)
-	{
-		mrbus_dev_addr = 0x03;
-		eeprom_write_byte((uint8_t*)MRBUS_EE_DEVICE_ADDR, mrbus_dev_addr);
-	}
+	readEEPROM();
 	
-	update_decisecs = (uint16_t)eeprom_read_byte((uint8_t*)MRBUS_EE_DEVICE_UPDATE_L) 
-		| (((uint16_t)eeprom_read_byte((uint8_t*)MRBUS_EE_DEVICE_UPDATE_H)) << 8);
-
-	// This line assures that update_decisecs is at least 1
-	update_decisecs = max(1, update_decisecs);
-	
-	// FIXME: This line assures that update_decisecs is 2 seconds or less
-	// You probably don't want this, but it prevents new developers from wondering
-	// why their new node doesn't transmit (uninitialized eeprom will make the update
-	// interval 64k decisecs, or about 110 hours)  You'll probably want to make this
-	// something more sane for your node type, or remove it entirely.
-	update_decisecs = min(20, update_decisecs);
-
 	// Reset state machines
 	for(i=0; i<NUM_DIRECTIONS; i++)
 	{
@@ -454,13 +527,6 @@ void init(void)
 	ADCSRA |= _BV(ADEN) | _BV(ADSC) | _BV(ADIE) | _BV(ADIF);
 */
 
-	// FIXME: Arduino specific debug ports
-	PORTC &= 0xF0;  // PC0-PC3 as outputs, driven low
-	DDRC |= 0x0F;
-	
-	DDRD &= 0x00;
-	PORTD |= 0xFF;  // PD0-PD7 as inputs, pull-up enabled
-
 	// Reset all occupancy to 0
 	for(i=0; i<NUM_DIRECTIONS; i++)
 	{
@@ -471,8 +537,8 @@ void init(void)
 	
 	interlockingStatus = 0;
 	
-	xioInputs[0] = 0;
-	xioInputs[1] = 0;
+	xio1Inputs[0] = 0;
+	xio1Inputs[1] = 0;
 
 	for(i=0; i<sizeof(debounced_inputs); i++)
 		debounced_inputs[i] = old_debounced_inputs[i] = 0;
@@ -511,23 +577,23 @@ void readInputs(void)
 	// Read turnout positions; force directions without turnouts to main
 
 	// debounced_inputs[0]
-	// D0: Block Detect #0 main
-	// D1: Block Detect #0 siding
-	// D2: Block Detect #1
-	// D3: Block Detect #2 main
-	// D4: Block Detect #2 siding
-	// D5: Block Detect #3
-	// D6: Block Detect Interlocking
-	// D7: unassigned
+	//   D0: Block Detect #0 main
+	//   D1: Block Detect #0 siding
+	//   D2: Block Detect #1
+	//   D3: Block Detect #2 main
+	//   D4: Block Detect #2 siding
+	//   D5: Block Detect #3
+	//   D6: Block Detect Interlocking
+	//   D7: unassigned
 
 	// debounced_inputs[1]
-	// E0: Direction #0 turnout position
-	// E1: Direction #2 turnout position
-	// E2 - E3: Manual interlock direction
-	// E4: Manual interlock set
-	// E5: Sound trigger #1
-	// E6: Sound trigger #2
-	// E7: unassigned
+	//   E0: Direction #0 turnout position
+	//   E1: Direction #2 turnout position
+	//   E2 - E3: Manual interlock direction
+	//   E4: Manual interlock set
+	//   E5: Sound trigger #1 (output)
+	//   E6: Sound trigger #2 (output)
+	//   E7: unassigned
 
 	uint8_t delta;
 	uint8_t i;
@@ -537,7 +603,7 @@ void readInputs(void)
 	for(i=0; i<2; i++)
 	{
 		// Vertical counter debounce courtesy 
-		delta = xioInputs[i] ^ debounced_inputs[i];
+		delta = xio1Inputs[i] ^ debounced_inputs[i];
 		clock_a[i] ^= clock_b[i];
 		clock_b[i]  = ~(clock_b[i]);
 		clock_a[i] &= delta;
@@ -611,14 +677,14 @@ void InterlockingToSignals(void)
 				if(turnout[i-1])
 				{
 					// Opposite turnout set for siding
-					signalMain[i] = ASPECT_RED;
-					signalSecondary[i] = ASPECT_YELLOW;
+					signalHeads[2*i] = ASPECT_RED;
+					signalHeads[(2*i)+1] = ASPECT_YELLOW;
 				}
 				else
 				{
 					// Opposite turnout set for main
-					signalMain[i] = ASPECT_GREEN;
-					signalSecondary[i] = ASPECT_RED;
+					signalHeads[2*i] = ASPECT_GREEN;
+					signalHeads[(2*i)+1] = ASPECT_RED;
 				}
 			}
 			else
@@ -627,116 +693,133 @@ void InterlockingToSignals(void)
 				if(turnout[i])
 				{
 					// Turnout set for siding
-					signalMain[i] = ASPECT_RED;
-					signalSecondary[i] = ASPECT_GREEN;
+					signalHeads[2*i] = ASPECT_RED;
+					signalHeads[(2*i)+1] = ASPECT_GREEN;
 				}
 				else
 				{
 					// Turnout set for main
-					signalMain[i] = ASPECT_GREEN;
-					signalSecondary[i] = ASPECT_RED;
+					signalHeads[2*i] = ASPECT_GREEN;
+					signalHeads[(2*i)+1] = ASPECT_RED;
 				}
 			}
 		}
 		else
 		{
 			// Default to most restrictive
-			signalMain[i] = ASPECT_RED;
-			signalSecondary[i] = ASPECT_RED;
+			signalHeads[2*i] = ASPECT_RED;
+			signalHeads[(2*i)+1] = ASPECT_RED;
 		}
 	}
 }
 
+// SignalsToOutputs is responsible for converting the signal head aspects in the
+// signalHeads[] array to the physical wires on the XIO.
+// Thus, it's hardware configuration dependent.
+
+typedef struct
+{
+	const uint8_t signalHead;
+	const uint8_t greenByte;
+	const uint8_t greenMask;
+	const uint8_t yellow1Byte;
+	const uint8_t yellow1Mask;
+	const uint8_t yellow2Byte;
+	const uint8_t yellow2Mask;
+	const uint8_t redByte;
+	const uint8_t redMask;
+	const uint8_t lunarByte;
+	const uint8_t lunarMask;
+} SignalPinDefinition;
+
+const SignalPinDefinition sigPinDefs[8] = 
+{//     green----  yellow1--  yellow2--  red------  lunar----
+	{0, 0, _BV(0), 0, _BV(1), 0, _BV(1), 0, _BV(2), 0, _BV(2)},
+	{1, 0, _BV(3), 0, _BV(4), 0, _BV(4), 0, _BV(5), 0, _BV(5)},
+	{2, 0, _BV(6), 0, _BV(7), 0, _BV(7), 1, _BV(0), 1, _BV(0)},
+	{3, 1, _BV(1), 1, _BV(2), 1, _BV(2), 1, _BV(3), 1, _BV(3)},
+	{4, 1, _BV(4), 1, _BV(5), 1, _BV(5), 1, _BV(6), 1, _BV(6)},
+	{5, 1, _BV(7), 2, _BV(0), 2, _BV(0), 2, _BV(1), 2, _BV(1)},
+	{6, 2, _BV(2), 2, _BV(3), 2, _BV(3), 2, _BV(4), 2, _BV(4)},
+	{7, 2, _BV(5), 2, _BV(6), 2, _BV(6), 2, _BV(7), 2, _BV(7)},
+};
+
+// Signal Heads (G, Y, R)
+// 0: A0 - A2: #0 approach main signal  
+// 1: A3 - A5: #0 approach siding signal
+// 2: A6 - B0: #1 approach top signal
+// 3: B1 - B3: #1 approach bottom signal
+// 4: B4 - B6: #2 approach main signal
+// 5: B7 - C1: #2 approach siding signal
+// 6: C2 - C4: #3 approach top signal
+// 7: C5 - C7: #3 approach bottom signal
+
 void SignalsToOutputs(void)
 {
-	// A0 - A2: west approach main signal  
-	// A3 - A5: west approach siding signal
-	// A6 - B0: south approach main signal  
-	// B1 - B3: south approach siding signal
-	// B4 - B6: east approach top signal   
-	// B7 - C1: east approach bottom signal
-	// C2 - C4: north approach top signal   
-	// C5 - C7: north approach bottom signal
-
-	switch(signalMain[0])
+	uint8_t sigDefIdx;
+	for(sigDefIdx=0; sigDefIdx<sizeof(sigPinDefs)/sizeof(SignalPinDefinition); sigDefIdx++)
 	{
-		case ASPECT_GREEN:
-			PORTC |= _BV(0);
-			PORTC &= ~_BV(1);
-			break;
-		case ASPECT_YELLOW:
-			PORTC |= _BV(0);
-			PORTC |= _BV(1);
-			break;
-		case ASPECT_RED:
-			PORTC &= ~_BV(0);
-			PORTC |= _BV(1);
-			break;
+		uint8_t redByte = sigPinDefs[sigDefIdx].redByte;
+		uint8_t redMask = sigPinDefs[sigDefIdx].redMask;
+		uint8_t yellow1Byte = sigPinDefs[sigDefIdx].yellow1Byte;
+		uint8_t yellow1Mask = sigPinDefs[sigDefIdx].yellow1Mask;
+		uint8_t yellow2Byte = sigPinDefs[sigDefIdx].yellow2Byte;
+		uint8_t yellow2Mask = sigPinDefs[sigDefIdx].yellow2Mask;
+		uint8_t greenByte = sigPinDefs[sigDefIdx].greenByte;
+		uint8_t greenMask = sigPinDefs[sigDefIdx].greenMask;
+		uint8_t lunarByte = sigPinDefs[sigDefIdx].lunarByte;
+		uint8_t lunarMask = sigPinDefs[sigDefIdx].lunarMask;
+
+		// Start by turning off all lights
+		xio1Outputs[redByte] &= ~(redMask);
+		xio1Outputs[yellow1Byte] &= ~(yellow1Mask);
+		xio1Outputs[yellow2Byte] &= ~(yellow2Mask);
+		xio1Outputs[greenByte] &= ~(greenMask);
+		xio1Outputs[lunarByte] &= ~(lunarMask);
+
+		switch(signalHeads[sigPinDefs[sigDefIdx].signalHead])
+		{
+			// FIXME: Add CC/CA configuration
+			case ASPECT_OFF:
+				break;
+		
+			case ASPECT_GREEN:
+				xio1Outputs[greenByte] |= greenMask;
+				break;
+		
+			case ASPECT_FL_GREEN:
+				if (events & EVENT_BLINKY)
+					xio1Outputs[greenByte] |= greenMask;
+				break;
+
+			case ASPECT_YELLOW:
+				xio1Outputs[yellow1Byte] |= yellow1Mask;
+				xio1Outputs[yellow2Byte] |= yellow2Mask;
+				break;
+		
+			case ASPECT_FL_YELLOW:
+				if (events & EVENT_BLINKY)
+				{
+					xio1Outputs[yellow1Byte] |= yellow1Mask;
+					xio1Outputs[yellow2Byte] |= yellow2Mask;
+				}
+				break;
+		
+			case ASPECT_LUNAR:
+				xio1Outputs[lunarByte] |= lunarMask;
+				break;
+		
+			case ASPECT_RED:
+			default:
+				xio1Outputs[redByte] |= redMask;			
+				break;
+
+			case ASPECT_FL_RED:
+				if (events & EVENT_BLINKY)
+					xio1Outputs[redByte] |= redMask;
+				break;
+		}
 	}
-
-	switch(signalSecondary[0])
-	{
-		case ASPECT_GREEN:
-			PORTC |= _BV(2);
-			PORTC &= ~_BV(3);
-			break;
-		case ASPECT_YELLOW:
-			PORTC |= _BV(2);
-			PORTC |= _BV(3);
-			break;
-		case ASPECT_RED:
-			PORTC &= ~_BV(2);
-			PORTC |= _BV(3);
-			break;
-	}
-
-
-/*
-	switch(signalMain[1])
-	{
-		case ASPECT_GREEN:
-			PORTC |= _BV(0);
-			PORTC &= ~_BV(1);
-			break;
-		case ASPECT_YELLOW:
-			PORTC |= _BV(0);
-			PORTC |= _BV(1);
-			break;
-		case ASPECT_RED:
-			PORTC &= ~_BV(0);
-			PORTC |= _BV(1);
-			break;
-	}
-
-	switch(signalSecondary[1])
-	{
-		case ASPECT_GREEN:
-			PORTC |= _BV(2);
-			PORTC &= ~_BV(3);
-			break;
-		case ASPECT_YELLOW:
-			PORTC |= _BV(2);
-			PORTC |= _BV(3);
-			break;
-		case ASPECT_RED:
-			PORTC &= ~_BV(2);
-			PORTC |= _BV(3);
-			break;
-	}
-*/
-
-
-/*
-	uint8_t i;
-
-	for(i=0; i<NUM_DIRECTIONS; i++)
-	{
-		if(ASPECT_GREEN == signalMain[i])
-			PORTC |= _BV(i);
-		else
-			PORTC &= ~_BV(i);
-	}
-*/
 }
 
 
@@ -760,9 +843,11 @@ int main(void)
 	// Initialize MRBus core
 	mrbusPktQueueInitialize(&mrbusTxQueue, mrbusTxPktBufferArray, MRBUS_TX_BUFFER_DEPTH);
 	mrbusPktQueueInitialize(&mrbusRxQueue, mrbusRxPktBufferArray, MRBUS_RX_BUFFER_DEPTH);
-//	mrbusInit();
+	mrbusInit();
 
 	sei();	
+	i2c_master_init();
+	xioInitialize();
 
 	while (1)
 	{
@@ -770,16 +855,8 @@ int main(void)
 		
 		if (events & EVENT_I2C_ERROR)
 		{
-// FIXME
-//			i2cResetCounter++;
-//			xioInitialize();
-		}
-
-		if (events & EVENT_REINIT_OUTPUTS)
-		{
-// FIXME
-//			xioDirectionSet();
-			events &= ~(EVENT_REINIT_OUTPUTS);
+			i2cResetCounter++;
+			xioInitialize();
 		}
 
 		if(events & (EVENT_READ_INPUTS))
@@ -917,7 +994,7 @@ int main(void)
 		if (events & EVENT_WRITE_OUTPUTS)
 		{
 			SignalsToOutputs();
-//			xioOutputWrite();
+			xioOutputWrite();
 			events &= ~(EVENT_WRITE_OUTPUTS);
 		}
 
@@ -929,8 +1006,6 @@ int main(void)
 		if (mrbusPktQueueDepth(&mrbusRxQueue))
 			PktHandler();
 			
-		// FIXME: Do any module-specific behaviours here in the loop.
-		
 		if (decisecs >= update_decisecs && !(mrbusPktQueueFull(&mrbusTxQueue)))
 		{
 			uint8_t txBuffer[MRBUS_BUFFER_SIZE];
@@ -944,7 +1019,6 @@ int main(void)
 			decisecs = 0;
 		}	
 
-/*
 		if (mrbusPktQueueDepth(&mrbusTxQueue))
 		{
 			uint8_t fail = mrbusTransmit();
@@ -973,7 +1047,6 @@ int main(void)
 #endif
 			}
 		}
-*/
 	}
 }
 
