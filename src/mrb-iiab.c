@@ -49,11 +49,18 @@ LICENSE:
 uint8_t mrbus_dev_addr = 0;
 uint8_t pkt_count = 0;
 
-
-#define EE_BLINKY_COUNTER   0x10
-#define EE_SIGNAL_CONFIG    0x20
-#define EE_DETECT_POLARITY  0x30
-#define EE_TURNOUT_POLARITY 0x31
+// Timeout = debounce applied to positive detection when that detection goes away (used to "coast" through point-style optical detectors)
+// Lockout = time after interlocking clears during which the train from the opposite direction cannot get the interlocking (lets it finish leaving)
+// 		FIXME: need to apply lockout to opposite direction, not same direction - maybe instead of a timeout, wait for block to clear (or turnout to be thrown)
+// 		FIXME: if turnout is changed, lockout should be cancelled to allow train waiting in siding to take interlocking
+// Delay = Delay between interlocking getting cleared and any other train getting a signal
+#define EE_TIMEOUT_SECONDS  0x10
+#define EE_LOCKOUT_SECONDS  0x11
+#define EE_DELAY_SECONDS    0x12
+#define EE_BLINKY_DECISECS  0x13
+#define EE_DETECT_POLARITY  0x20
+#define EE_TURNOUT_POLARITY 0x21
+#define EE_SIGNAL_CONFIG    0x30
 
 
 // interlockingStatus currently limits this to a maximum of 7
@@ -90,8 +97,8 @@ typedef struct
 Simulator simulator[NUM_DIRECTIONS];
 
 volatile uint16_t timeout[NUM_DIRECTIONS];  // decisecs
-uint8_t timeoutSeconds = 5;  // FIXME: load value from EEPROM
-uint8_t lockoutSeconds = 5;  // FIXME: load value from EEPROM
+uint8_t timeoutSeconds = 5;
+uint8_t lockoutSeconds = 5;
 
 #define OCCUPANCY_MAIN   0x01
 #define OCCUPANCY_SIDING 0x02
@@ -136,7 +143,7 @@ uint8_t xio1Outputs[5];
 
 uint8_t i2cResetCounter = 0;
 volatile uint8_t blinkyCounter = 0;
-uint8_t blinkyCounter_decisecs = 5;  // FIXME: load from EEPROM
+uint8_t blinkyCounter_decisecs = 5;
 
 
 // ******** Start 100 Hz Timer, 0.16% error version (Timer 0)
@@ -340,7 +347,10 @@ void readEEPROM()
 	update_decisecs = max(1, update_decisecs);
 
 	// Load blinky time period
-	blinkyCounter_decisecs = eeprom_read_byte((uint8_t*)EE_BLINKY_COUNTER);
+	blinkyCounter_decisecs = eeprom_read_byte((uint8_t*)EE_BLINKY_DECISECS);
+	
+	timeoutSeconds = eeprom_read_byte((uint8_t*)EE_TIMEOUT_SECONDS);
+	lockoutSeconds = eeprom_read_byte((uint8_t*)EE_LOCKOUT_SECONDS);
 	
 	// FIXME: Load signal configs
 	
