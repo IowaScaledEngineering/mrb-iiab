@@ -50,14 +50,14 @@ uint8_t mrbus_dev_addr = 0;
 uint8_t pkt_count = 0;
 
 // Timeout = debounce applied to positive detection when that detection goes away (used to "coast" through point-style optical detectors)
-// Lockout = time after interlocking clears during which the train from the opposite direction cannot get the interlocking (lets it finish leaving)
-// 		FIXME: need to apply lockout to opposite direction, not same direction - maybe instead of a timeout, wait for block to clear (or turnout to be thrown)
-// 		FIXME: if turnout is changed, lockout should be cancelled to allow train waiting in siding to take interlocking
+// Lockout = time after interlocking clears during which the train from the opposite direction (or same train leaving) cannot get the interlocking (lets train finish leaving)
 // Delay = Delay between interlocking getting cleared and any other train getting a signal
+// Debouce = debounce applied to interlocking block detection going low.  Filters momentary non-detects to prevent premature switch from OCCUPIED to CLEAR state.
 #define EE_TIMEOUT_SECONDS  0x10
 #define EE_LOCKOUT_SECONDS  0x11
 #define EE_DELAY_SECONDS    0x12
-#define EE_BLINKY_DECISECS  0x13
+#define EE_DEBOUNCE_SECONDS 0x13
+#define EE_BLINKY_DECISECS  0x1F
 #define EE_DETECT_POLARITY  0x20
 #define EE_TURNOUT_POLARITY 0x21
 #define EE_SIGNAL_CONFIG    0x30
@@ -97,8 +97,14 @@ typedef struct
 Simulator simulator[NUM_DIRECTIONS];
 
 volatile uint16_t timeout[NUM_DIRECTIONS];  // decisecs
-uint8_t timeoutSeconds = 5;
-uint8_t lockoutSeconds = 5;
+uint8_t timeoutSeconds;
+uint8_t lockoutSeconds;
+
+uint8_t interlockingDelaySeconds;
+volatile uint16_t interlockingDelayTimer;
+
+uint8_t interlockingDebounceSeconds;
+volatile uint16_t interlockingDebounceTimer;
 
 #define OCCUPANCY_MAIN   0x01
 #define OCCUPANCY_SIDING 0x02
@@ -109,7 +115,8 @@ uint8_t interlockingOccupancy;
 #define TURNOUT_MAIN   0
 #define TURNOUT_SIDING 1
 
-uint8_t turnout[NUM_DIRECTIONS];
+uint8_t turnout[NUM_DIRECTIONS];  // Inefficient since only 1/2 the directions can have turnouts, but done this way for symmetry in the indexes
+uint8_t turnoutOriginal[NUM_DIRECTIONS];
 
 #define INTERLOCKING_LOCKED 0x80
 uint8_t interlockingStatus;
@@ -191,6 +198,12 @@ ISR(TIMER0_COMPA_vect)
 			if(simulator[i].timer)
 				simulator[i].timer--;
 		}
+		
+		if(interlockingDelayTimer)
+			interlockingDelayTimer--;
+		
+		if(interlockingDebounceTimer)
+			interlockingDebounceTimer--;
 		
 		if (++blinkyCounter > blinkyCounter_decisecs)
 		{
@@ -351,6 +364,8 @@ void readEEPROM()
 	
 	timeoutSeconds = eeprom_read_byte((uint8_t*)EE_TIMEOUT_SECONDS);
 	lockoutSeconds = eeprom_read_byte((uint8_t*)EE_LOCKOUT_SECONDS);
+	interlockingDelaySeconds = eeprom_read_byte((uint8_t*)EE_DELAY_SECONDS);
+	interlockingDebounceSeconds = eeprom_read_byte((uint8_t*)EE_DEBOUNCE_SECONDS);
 	
 	// FIXME: Load signal configs
 	
@@ -542,11 +557,15 @@ void init(void)
 	{
 		approachOccupancy[i] = 0;
 		turnout[i] = TURNOUT_MAIN;
+		timeout[i] = 0;
+		simulator[i].timer = 0;
 	}
+
 	interlockingOccupancy = 0;
-	
 	interlockingStatus = 0;
 	
+	interlockingDelayTimer = 0;
+
 	xio1Inputs[0] = 0;
 	xio1Inputs[1] = 0;
 
@@ -566,14 +585,31 @@ uint8_t interlockingBlockOccupancy(void)
 
 uint8_t requestInterlocking(uint8_t direction)
 {
+	uint16_t temp16;
+	ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
+	{
+		temp16 = interlockingDelayTimer;
+	}
+
 	if(interlockingStatus & INTERLOCKING_LOCKED)
 		return 0;  // Already locked
 	else if(interlockingBlockOccupancy())
 		return 0;  // Interlocking occupied
+	else if(temp16)
+		return 0;  // Delay active after last train
 	
 	// Everything good.  Take it.
 	interlockingStatus = INTERLOCKING_LOCKED | _BV(direction);
 	return 1;
+}
+
+void clearInterlocking(void)
+{
+	interlockingStatus = 0;
+	ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
+	{
+		interlockingDelayTimer = 10 * interlockingDelaySeconds;
+	}
 }
 
 void startSound(uint8_t sound)
@@ -666,7 +702,26 @@ void readInputs(void)
 	if(debounced_inputs[0] & _BV(6))
 		interlockingOccupancy |= OCCUPANCY_MAIN;
 	else
-		interlockingOccupancy &= ~OCCUPANCY_MAIN;
+	{
+		uint16_t temp16;
+		ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
+		{
+			temp16 = interlockingDebounceTimer;
+		}
+		if(old_debounced_inputs[0] & _BV(6))
+		{
+			// Falling edge, set extra debounce timer
+			ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
+			{
+				interlockingDebounceTimer = 10 * interlockingDebounceSeconds;
+			}
+		}
+		else if(!temp16)
+		{
+			// Low input and debounce has expired, clear occupancy
+			interlockingOccupancy &= ~OCCUPANCY_MAIN;
+		}
+	}
 
 	old_debounced_inputs[0] = debounced_inputs[0];
 	old_debounced_inputs[1] = debounced_inputs[1];
@@ -678,47 +733,54 @@ void InterlockingToSignals(void)
 	
 	for(i=0; i<NUM_DIRECTIONS; i++)
 	{
-		if(interlockingStatus & _BV(i))
+		switch(state[i])
 		{
-			// Direction 'i' cleared for interlocking; set signals appropriately
-			if(i % 2)
-			{
-				// Odd direction = point end
-				if(turnout[i-1])
+			case STATE_CLEARANCE:
+			case STATE_TIMEOUT:
+			case STATE_TIMER:
+				if(i % 2)
 				{
-					// Opposite turnout set for siding
-					signalHeads[2*i] = ASPECT_RED;
-					signalHeads[(2*i)+1] = ASPECT_YELLOW;
+					// Odd direction = point end
+					if(turnout[i-1])
+					{
+						// Opposite turnout set for siding
+						signalHeads[2*i] = ASPECT_RED;
+						signalHeads[(2*i)+1] = ASPECT_YELLOW;
+					}
+					else
+					{
+						// Opposite turnout set for main
+						signalHeads[2*i] = ASPECT_GREEN;
+						signalHeads[(2*i)+1] = ASPECT_RED;
+					}
 				}
 				else
 				{
-					// Opposite turnout set for main
-					signalHeads[2*i] = ASPECT_GREEN;
-					signalHeads[(2*i)+1] = ASPECT_RED;
+					// Even direction = frog end
+					if(turnout[i])
+					{
+						// Turnout set for siding
+						signalHeads[2*i] = ASPECT_RED;
+						signalHeads[(2*i)+1] = ASPECT_GREEN;
+					}
+					else
+					{
+						// Turnout set for main
+						signalHeads[2*i] = ASPECT_GREEN;
+						signalHeads[(2*i)+1] = ASPECT_RED;
+					}
 				}
-			}
-			else
-			{
-				// Even direction = frog end
-				if(turnout[i])
-				{
-					// Turnout set for siding
-					signalHeads[2*i] = ASPECT_RED;
-					signalHeads[(2*i)+1] = ASPECT_GREEN;
-				}
-				else
-				{
-					// Turnout set for main
-					signalHeads[2*i] = ASPECT_GREEN;
-					signalHeads[(2*i)+1] = ASPECT_RED;
-				}
-			}
-		}
-		else
-		{
-			// Default to most restrictive
-			signalHeads[2*i] = ASPECT_RED;
-			signalHeads[(2*i)+1] = ASPECT_RED;
+				break;
+			case STATE_OCCUPIED:
+				// FIXME: debug aspect to make state distict from others
+				signalHeads[2*i] = ASPECT_FL_YELLOW;
+				signalHeads[(2*i)+1] = ASPECT_FL_YELLOW;
+				break;
+			default:
+				// Default to most restrictive aspect
+				signalHeads[2*i] = ASPECT_RED;
+				signalHeads[(2*i)+1] = ASPECT_RED;
+				break;
 		}
 	}
 }
@@ -897,13 +959,20 @@ int main(void)
 				case STATE_REQUEST:
 					if(requestInterlocking(i))
 					{
-						// Request for interlocking approved; signals will get set by interlockingStatus
+						// Request for interlocking approved
 						state[i] = STATE_CLEARANCE;
+						turnoutOriginal[i] = turnout[i];  // Save turnout state in case it changes
 					}
 					// Stay here if request not approved
 					break;
 				case STATE_CLEARANCE:
-					if(simulator[i].enable)
+					if(turnout[i] != turnoutOriginal[i])
+					{
+						// Turnout changed, go back to IDLE
+						clearInterlocking();
+						state[i] = STATE_IDLE;
+					}
+					else if(simulator[i].enable)
 					{
 						// Priority given to simulated train
 						ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
@@ -934,7 +1003,13 @@ int main(void)
 					{
 						temp16 = timeout[i];
 					}
-					if(!temp16)
+					if(turnout[i] != turnoutOriginal[i])
+					{
+						// Turnout changed, go back to IDLE
+						clearInterlocking();
+						state[i] = STATE_IDLE;
+					}
+					else if(!temp16)
 					{
 						// Timed out.  Reset
 						state[i] = STATE_CLEAR;
@@ -962,9 +1037,6 @@ int main(void)
 					}
 					break;
 				case STATE_OCCUPIED:
-					// Set home signal to "stop" but keep locked
-					interlockingStatus = INTERLOCKING_LOCKED;
-
 					ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
 					{
 						temp16 = simulator[i].timer;
@@ -981,9 +1053,8 @@ int main(void)
 					}
 					break;
 				case STATE_CLEAR:
-					// Clear interlocking lock and any signals still set to proceed (in the event of a timeout)
-					interlockingStatus = 0;
-
+					clearInterlocking();
+					
 					simulator[i].enable = 0;
 					ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
 					{
@@ -992,6 +1063,10 @@ int main(void)
 					state[i] = STATE_LOCKOUT;
 					break;
 				case STATE_LOCKOUT:
+					// FIXME: Only exit if opposite appraoch block is also clear
+					// FIXME: Exit immediately if turnout is changed from state when lockout state was entered
+					// FIXME: need to apply lockout to opposite direction, not same direction
+					// FIXME: if turnout is changed, lockout should be cancelled to allow train waiting in siding to take interlocking
 					if(!timeout[i])
 						state[i] = STATE_IDLE;
 					break;
