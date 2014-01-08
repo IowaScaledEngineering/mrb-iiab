@@ -80,10 +80,10 @@ typedef enum
 	STATE_TIMER,
 	STATE_OCCUPIED,
 	STATE_CLEAR,
-	STATE_LOCKOUT,
 } InterlockState;
 
 InterlockState state[NUM_DIRECTIONS];
+uint8_t stateChange;
 
 typedef struct
 {
@@ -96,15 +96,17 @@ typedef struct
 
 Simulator simulator[NUM_DIRECTIONS];
 
-volatile uint16_t timeout[NUM_DIRECTIONS];  // decisecs
 uint8_t timeoutSeconds;
+volatile uint16_t timeoutTimer[NUM_DIRECTIONS];  // decisecs
+
 uint8_t lockoutSeconds;
+volatile uint16_t lockoutTimer[NUM_DIRECTIONS];  // decisecs
 
 uint8_t interlockingDelaySeconds;
-volatile uint16_t interlockingDelayTimer;
+volatile uint16_t interlockingDelayTimer;  // decisecs
 
 uint8_t interlockingDebounceSeconds;
-volatile uint16_t interlockingDebounceTimer;
+volatile uint16_t interlockingDebounceTimer;  // decisecs
 
 #define OCCUPANCY_MAIN   0x01
 #define OCCUPANCY_SIDING 0x02
@@ -193,8 +195,10 @@ ISR(TIMER0_COMPA_vect)
 		for(i=0; i<NUM_DIRECTIONS; i++)
 		{
 			// Manage timers
-			if(timeout[i])
-				timeout[i]--;
+			if(timeoutTimer[i])
+				timeoutTimer[i]--;
+			if(lockoutTimer[i])
+				lockoutTimer[i]--;
 			if(simulator[i].timer)
 				simulator[i].timer--;
 		}
@@ -219,8 +223,6 @@ ISR(TIMER0_COMPA_vect)
 // End of 100Hz timer
 
 // **** Bus Voltage Monitor
-/*
-// Uncomment this block (and the ADC initialization in the init() function) if you want to continuously monitor bus voltage
 
 volatile uint8_t busVoltage=0;
 
@@ -240,7 +242,6 @@ ISR(ADC_vect)
 		busVoltageCount = 0;
 	}
 }
-*/
 
 
 /* 0x00-0x04 - input registers */
@@ -539,9 +540,6 @@ void init(void)
 		state[i] = STATE_IDLE;
 	}
 	
-/*
-// Uncomment this block to set up the ADC to continuously monitor the bus voltage using a 3:1 divider tied into the ADC7 input
-// You also need to uncomment the ADC ISR near the top of the file
 	// Setup ADC
 	ADMUX  = 0x47;  // AVCC reference; ADC7 input
 	ADCSRA = _BV(ADATE) | _BV(ADIF) | _BV(ADPS2) | _BV(ADPS1); // 128 prescaler
@@ -550,14 +548,14 @@ void init(void)
 
 	busVoltage = 0;
 	ADCSRA |= _BV(ADEN) | _BV(ADSC) | _BV(ADIE) | _BV(ADIF);
-*/
 
 	// Reset all occupancy to 0
 	for(i=0; i<NUM_DIRECTIONS; i++)
 	{
 		approachOccupancy[i] = 0;
 		turnout[i] = TURNOUT_MAIN;
-		timeout[i] = 0;
+		timeoutTimer[i] = 0;
+		lockoutTimer[i] = 0;
 		simulator[i].timer = 0;
 	}
 
@@ -585,17 +583,17 @@ uint8_t interlockingBlockOccupancy(void)
 
 uint8_t requestInterlocking(uint8_t direction)
 {
-	uint16_t temp16;
+	uint16_t temp_uint16;
 	ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
 	{
-		temp16 = interlockingDelayTimer;
+		temp_uint16 = interlockingDelayTimer;
 	}
 
 	if(interlockingStatus & INTERLOCKING_LOCKED)
 		return 0;  // Already locked
 	else if(interlockingBlockOccupancy())
 		return 0;  // Interlocking occupied
-	else if(temp16)
+	else if(temp_uint16)
 		return 0;  // Delay active after last train
 	
 	// Everything good.  Take it.
@@ -645,6 +643,8 @@ void readInputs(void)
 	uint8_t i;
 	
 	xioInputRead();
+	
+	xio1Inputs[1] &= 0x9F;  // Mask off Sound trigger outputs
 
 	for(i=0; i<2; i++)
 	{
@@ -703,10 +703,10 @@ void readInputs(void)
 		interlockingOccupancy |= OCCUPANCY_MAIN;
 	else
 	{
-		uint16_t temp16;
+		uint16_t temp_uint16;
 		ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
 		{
-			temp16 = interlockingDebounceTimer;
+			temp_uint16 = interlockingDebounceTimer;
 		}
 		if(old_debounced_inputs[0] & _BV(6))
 		{
@@ -716,7 +716,7 @@ void readInputs(void)
 				interlockingDebounceTimer = 10 * interlockingDebounceSeconds;
 			}
 		}
-		else if(!temp16)
+		else if(!temp_uint16)
 		{
 			// Low input and debounce has expired, clear occupancy
 			interlockingOccupancy &= ~OCCUPANCY_MAIN;
@@ -902,8 +902,8 @@ MRBusPacket mrbusRxPktBufferArray[MRBUS_RX_BUFFER_DEPTH];
 
 int main(void)
 {
-	uint8_t i;
-	uint16_t temp16;
+	uint8_t i, dir, temp_uint8;
+	uint16_t temp_uint16;
 	
 	// Application initialization
 	init();
@@ -938,137 +938,140 @@ int main(void)
 		}			
 
 		// Process state machines
-		for(i=0; i<NUM_DIRECTIONS; i++)
+		for(dir=0; dir<NUM_DIRECTIONS; dir++)
 		{
 			wdt_reset();
 
-			switch(state[i])
+			switch(state[dir])
 			{
 				case STATE_IDLE:
-					if(simulator[i].enable)
+					if(simulator[dir].enable)
 					{
 						// Simulated train enabled, so proceed
-						state[i] = STATE_REQUEST;
+						state[dir] = STATE_REQUEST;
 					}
-					else if(approachBlockOccupancy(i))
+					else if(approachBlockOccupancy(dir))
 					{
 						// Train in approach block, proceed
-						state[i] = STATE_REQUEST;
+						state[dir] = STATE_REQUEST;
 					}
 					break;
 				case STATE_REQUEST:
-					if(requestInterlocking(i))
+					// Request interlocking, but only if not in lockout state or turnout has changed
+					if( !lockoutTimer[dir] || (turnout[dir] != turnoutOriginal[dir]) )
 					{
-						// Request for interlocking approved
-						state[i] = STATE_CLEARANCE;
-						turnoutOriginal[i] = turnout[i];  // Save turnout state in case it changes
+						lockoutTimer[dir] = 0;  // Clear timer in the event the turnout change got us here
+						if(requestInterlocking(dir))
+						{
+							// Request for interlocking approved
+							state[dir] = STATE_CLEARANCE;
+							turnoutOriginal[dir] = turnout[dir];  // Save turnout state in case it changes in CLEARANCE or TIMEOUT
+						}
 					}
 					// Stay here if request not approved
+					// Don't update turnoutOriginal - that's done when the lockout is set in the CLEAR state
 					break;
 				case STATE_CLEARANCE:
-					if(turnout[i] != turnoutOriginal[i])
+					if(turnout[dir] != turnoutOriginal[dir])
 					{
 						// Turnout changed, go back to IDLE
 						clearInterlocking();
-						state[i] = STATE_IDLE;
+						state[dir] = STATE_IDLE;
 					}
-					else if(simulator[i].enable)
+					else if(simulator[dir].enable)
 					{
 						// Priority given to simulated train
 						ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
 						{
-							simulator[i].timer = 10 * simulator[i].totalTime;
+							simulator[dir].timer = 10 * simulator[dir].totalTime;
 						}
-						startSound(simulator[i].sound);
-						state[i] = STATE_TIMER;
+						startSound(simulator[dir].sound);
+						state[dir] = STATE_TIMER;
 					}
-					else if(!approachBlockOccupancy(i))
+					else if(!approachBlockOccupancy(dir))
 					{
 						// No occupany in approach block, start timeout
 						ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
 						{
-							timeout[i] = 10 * timeoutSeconds;
+							timeoutTimer[dir] = 10 * timeoutSeconds;
 						}
-						state[i] = STATE_TIMEOUT;
+						state[dir] = STATE_TIMEOUT;
 					}
 					else if(interlockingBlockOccupancy())
 					{
 						// Train has entered interlocking, proceed
-						state[i] = STATE_OCCUPIED;
+						state[dir] = STATE_OCCUPIED;
 					}
 					// Wait here if no exit conditions met
 					break;
 				case STATE_TIMEOUT:
 					ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
 					{
-						temp16 = timeout[i];
+						temp_uint16 = timeoutTimer[dir];
 					}
-					if(turnout[i] != turnoutOriginal[i])
+					if(turnout[dir] != turnoutOriginal[dir])
 					{
 						// Turnout changed, go back to IDLE
 						clearInterlocking();
-						state[i] = STATE_IDLE;
+						state[dir] = STATE_IDLE;
 					}
-					else if(!temp16)
+					else if(!temp_uint16)
 					{
 						// Timed out.  Reset
-						state[i] = STATE_CLEAR;
+						state[dir] = STATE_CLEAR;
 					}
-					else if(approachBlockOccupancy(i))
+					else if(approachBlockOccupancy(dir))
 					{
 						// Approach detector covered again, go back
-						state[i] = STATE_CLEARANCE;
+						state[dir] = STATE_CLEARANCE;
 					}
 					else if(interlockingBlockOccupancy())
 					{
 						// Train has entered interlocking, proceed
-						state[i] = STATE_OCCUPIED;
+						state[dir] = STATE_OCCUPIED;
 					}
 					break;
 				case STATE_TIMER:
 					ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
 					{
-						temp16 = simulator[i].timer;
+						temp_uint16 = simulator[dir].timer;
 					}
-					if( temp16 <= (10 * (simulator[i].totalTime - simulator[i].approachTime)) )
+					if( temp_uint16 <= (10 * (simulator[dir].totalTime - simulator[dir].approachTime)) )
 					{
 						// Approach time has run out, assume simulated train is in interlocking now
-						state[i] = STATE_OCCUPIED;
+						state[dir] = STATE_OCCUPIED;
 					}
 					break;
 				case STATE_OCCUPIED:
 					ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
 					{
-						temp16 = simulator[i].timer;
+						temp_uint16 = simulator[dir].timer;
 					}
-					if(!simulator[i].enable && !interlockingBlockOccupancy())
+					if(!simulator[dir].enable && !interlockingBlockOccupancy())
 					{
 						// Non-simulated: proceed if interlocking block is clear
-						state[i] = STATE_CLEAR;
+						state[dir] = STATE_CLEAR;
 					}
-					else if(simulator[i].enable && !temp16)
+					else if(simulator[dir].enable && !temp_uint16)
 					{
 						// Simulated train: proceed once simTime timer expires
-						state[i] = STATE_CLEAR;
+						state[dir] = STATE_CLEAR;
 					}
 					break;
 				case STATE_CLEAR:
 					clearInterlocking();
 					
-					simulator[i].enable = 0;
+					simulator[dir].enable = 0;
+
+					// Set lockout on opposite approach
+					temp_uint8 = (dir % 2) ? (dir - 1) : (dir + 1);
 					ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
 					{
-						timeout[i] = 10 * lockoutSeconds;
+						lockoutTimer[temp_uint8] = 10 * lockoutSeconds;
 					}
-					state[i] = STATE_LOCKOUT;
-					break;
-				case STATE_LOCKOUT:
-					// FIXME: Only exit if opposite appraoch block is also clear
-					// FIXME: Exit immediately if turnout is changed from state when lockout state was entered
-					// FIXME: need to apply lockout to opposite direction, not same direction
-					// FIXME: if turnout is changed, lockout should be cancelled to allow train waiting in siding to take interlocking
-					if(!timeout[i])
-						state[i] = STATE_IDLE;
+					turnoutOriginal[temp_uint8] = turnout[temp_uint8];  // Save turnout state for cancelling lockout
+
+					state[dir] = STATE_IDLE;
 					break;
 			}
 		}
@@ -1091,18 +1094,71 @@ int main(void)
 		if (mrbusPktQueueDepth(&mrbusRxQueue))
 			PktHandler();
 			
-		if (decisecs >= update_decisecs && !(mrbusPktQueueFull(&mrbusTxQueue)))
-		{
-			uint8_t txBuffer[MRBUS_BUFFER_SIZE];
+		uint8_t txBuffer[MRBUS_BUFFER_SIZE];
 
+		if ( ((decisecs >= update_decisecs) || (stateChange)) && !(mrbusPktQueueFull(&mrbusTxQueue)) )
+		{
 			txBuffer[MRBUS_PKT_SRC] = mrbus_dev_addr;
 			txBuffer[MRBUS_PKT_DEST] = 0xFF;
-			txBuffer[MRBUS_PKT_LEN] = 7;
-			txBuffer[5] = 'S';
-			txBuffer[6] = pkt_count++;
+			txBuffer[MRBUS_PKT_LEN] = 19;
+			txBuffer[5]  = 'S';
+			txBuffer[6]  = debounced_inputs[0];  // Debounced input status
+			txBuffer[7]  = debounced_inputs[1];
+			txBuffer[8]  = xio1Outputs[0];       // Signal outputs
+			txBuffer[9]  = xio1Outputs[1];
+			txBuffer[10] = xio1Outputs[2];
+			
+			temp_uint8 = xio1Outputs[4];
+			for(i=0; i<NUM_DIRECTIONS; i++)
+			{
+				if(simulator[i].enable)
+					temp_uint8 |= _BV(i);
+			}
+			txBuffer[11] = temp_uint8;           // Sound bits + simulator enables
+			txBuffer[12] = ((state[0] << 4) & 0xF0) | (state[1] & 0x0F);  // State machine states
+			txBuffer[13] = ((state[2] << 4) & 0xF0) | (state[3] & 0x0F);  // State machine states
+
+			ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
+			{
+				temp_uint16 = interlockingDelayTimer;
+			}
+			txBuffer[14] = temp_uint16 / 10;     // Delay timer (seconds)
+
+			ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
+			{
+				temp_uint16 = interlockingDebounceTimer;
+			}
+			txBuffer[15] = temp_uint16 / 10;     // Debounce timer (seconds)
+
+			temp_uint8 = 0;
+			for(i=0; i<NUM_DIRECTIONS; i++)
+			{
+				ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
+				{
+					temp_uint16 = lockoutTimer[i];
+				}
+				if(temp_uint16)
+					temp_uint8 |= _BV(i);
+			}
+			txBuffer[16] = temp_uint8;           // Lockout timer statuses
+
+			temp_uint8 = 0;
+			for(i=0; i<NUM_DIRECTIONS; i++)
+			{
+				ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
+				{
+					temp_uint16 = timeoutTimer[i];
+				}
+				if(temp_uint16)
+					temp_uint8 |= _BV(i);
+			}
+			txBuffer[17] = temp_uint8;           // Timeout timer statuses
+
+			txBuffer[18] = busVoltage;           // Bus voltage
+			
 			mrbusPktQueuePush(&mrbusTxQueue, txBuffer, txBuffer[MRBUS_PKT_LEN]);
 			decisecs = 0;
-		}	
+		}
 
 		if (mrbusPktQueueDepth(&mrbusTxQueue))
 		{
