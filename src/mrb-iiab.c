@@ -79,11 +79,12 @@ typedef enum
 	STATE_TIMEOUT,
 	STATE_TIMER,
 	STATE_OCCUPIED,
+	STATE_LOCKOUT,
 	STATE_CLEAR,
 } InterlockState;
 
 InterlockState state[NUM_DIRECTIONS];
-uint8_t stateChange;
+InterlockState oldState[NUM_DIRECTIONS];
 
 typedef struct
 {
@@ -538,6 +539,7 @@ void init(void)
 	for(i=0; i<NUM_DIRECTIONS; i++)
 	{
 		state[i] = STATE_IDLE;
+		oldState[i] = STATE_IDLE;
 	}
 	
 	// Setup ADC
@@ -974,9 +976,8 @@ int main(void)
 				case STATE_CLEARANCE:
 					if(turnout[dir] != turnoutOriginal[dir])
 					{
-						// Turnout changed, go back to IDLE
-						clearInterlocking();
-						state[dir] = STATE_IDLE;
+						// Turnout changed, reset
+						state[dir] = STATE_CLEAR;
 					}
 					else if(simulator[dir].enable)
 					{
@@ -1011,9 +1012,8 @@ int main(void)
 					}
 					if(turnout[dir] != turnoutOriginal[dir])
 					{
-						// Turnout changed, go back to IDLE
-						clearInterlocking();
-						state[dir] = STATE_IDLE;
+						// Turnout changed, reset
+						state[dir] = STATE_CLEAR;
 					}
 					else if(!temp_uint16)
 					{
@@ -1050,19 +1050,15 @@ int main(void)
 					if(!simulator[dir].enable && !interlockingBlockOccupancy())
 					{
 						// Non-simulated: proceed if interlocking block is clear
-						state[dir] = STATE_CLEAR;
+						state[dir] = STATE_LOCKOUT;
 					}
 					else if(simulator[dir].enable && !temp_uint16)
 					{
 						// Simulated train: proceed once simTime timer expires
-						state[dir] = STATE_CLEAR;
+						state[dir] = STATE_LOCKOUT;
 					}
 					break;
-				case STATE_CLEAR:
-					clearInterlocking();
-					
-					simulator[dir].enable = 0;
-
+				case STATE_LOCKOUT:
 					// Set lockout on opposite approach
 					temp_uint8 = (dir % 2) ? (dir - 1) : (dir + 1);
 					ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
@@ -1070,7 +1066,11 @@ int main(void)
 						lockoutTimer[temp_uint8] = 10 * lockoutSeconds;
 					}
 					turnoutOriginal[temp_uint8] = turnout[temp_uint8];  // Save turnout state for cancelling lockout
-
+					state[dir] = STATE_CLEAR;
+					break;
+				case STATE_CLEAR:
+					clearInterlocking();
+					simulator[dir].enable = 0;
 					state[dir] = STATE_IDLE;
 					break;
 			}
@@ -1086,6 +1086,14 @@ int main(void)
 			events &= ~(EVENT_WRITE_OUTPUTS);
 		}
 
+		uint8_t stateChange = 0;
+		// Check for state changes
+		for(i=0; i<NUM_DIRECTIONS; i++)
+		{
+			if(state[i] != oldState[i])
+				stateChange = 1;
+			oldState[i] = state[i];
+		}
 
 #ifdef MRBEE
 		mrbeePoll();
@@ -1093,7 +1101,7 @@ int main(void)
 		// Handle any packets that may have come in
 		if (mrbusPktQueueDepth(&mrbusRxQueue))
 			PktHandler();
-			
+		
 		uint8_t txBuffer[MRBUS_BUFFER_SIZE];
 
 		if ( ((decisecs >= update_decisecs) || (stateChange)) && !(mrbusPktQueueFull(&mrbusTxQueue)) )
