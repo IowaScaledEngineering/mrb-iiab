@@ -949,46 +949,38 @@ int main(void)
 			switch(state[dir])
 			{
 				case STATE_IDLE:
-					// FIXME: should qualify with lockout timer here, not in REQUEST
-					if(simulator[dir].enable)
+					if(turnoutOriginal[dir] != turnout[dir])
 					{
-						// Simulated train enabled, so proceed
-						state[dir] = STATE_REQUEST;
+						lockoutTimer[dir] = 0;  // Clear lockout timer in the event the turnout changed
+						turnoutOriginal[dir] = turnout[dir];
 					}
-					else if(approachBlockOccupancy(dir))
+					else if( (approachBlockOccupancy(dir) || simulator[dir].enable) && !lockoutTimer[dir] )
 					{
-						// Train in approach block, proceed
+						// Train in approach block (or simulated train) and not in lockout
 						state[dir] = STATE_REQUEST;
 					}
 					break;
-
-// FIXME: remove REQUEST - do request to get out of IDLE into CLEARANCE
-//  if turnout != turnoutOriginal then clear lockout timer
-//  if !lockout then request
-
 				case STATE_REQUEST:
-					// FIXME: put request logic here
-					// Request interlocking, but only if not in lockout state or turnout has changed
-					if( !lockoutTimer[dir] || (turnout[dir] != turnoutOriginal[dir]) )
+					if(requestInterlocking(dir))
 					{
-						lockoutTimer[dir] = 0;  // Clear timer in the event the turnout change got us here
-						if(requestInterlocking(dir))
-						{
-							// Request for interlocking approved
-							state[dir] = STATE_CLEARANCE;
-							turnoutOriginal[dir] = turnout[dir];  // Save turnout state in case it changes in CLEARANCE or TIMEOUT
-						}
+						// Request for interlocking approved
+						state[dir] = STATE_CLEARANCE;
 					}
-					// Stay here if request not approved
-					// Don't update turnoutOriginal - that's done when the lockout is set in the CLEAR state
+					else
+					{
+						// Not approved, go back to idle
+						state[dir] = STATE_IDLE;
+					}
 					break;
 				case STATE_CLEARANCE:
-					if(turnout[dir] != turnoutOriginal[dir])
-					{
-						// Turnout changed, reset
-						state[dir] = STATE_CLEAR;
-					}
-					else if(simulator[dir].enable)
+/*					if(turnout[dir] != turnoutOriginal[dir])*/
+/*					{*/
+/*						// Turnout changed, reset*/
+/*						state[dir] = STATE_CLEAR;*/
+/*					}*/
+/*					else*/ 
+					
+					if(simulator[dir].enable)
 					{
 						// Priority given to simulated train
 						ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
@@ -997,6 +989,11 @@ int main(void)
 						}
 						startSound(simulator[dir].sound);
 						state[dir] = STATE_TIMER;
+					}
+					else if(interlockingBlockOccupancy())
+					{
+						// Train has entered interlocking, proceed
+						state[dir] = STATE_OCCUPIED;
 					}
 					else if(!approachBlockOccupancy(dir))
 					{
@@ -1007,11 +1004,6 @@ int main(void)
 						}
 						state[dir] = STATE_TIMEOUT;
 					}
-					else if(interlockingBlockOccupancy())
-					{
-						// Train has entered interlocking, proceed
-						state[dir] = STATE_OCCUPIED;
-					}
 					// Wait here if no exit conditions met
 					break;
 				case STATE_TIMEOUT:
@@ -1019,25 +1011,27 @@ int main(void)
 					{
 						temp_uint16 = timeoutTimer[dir];
 					}
-					if(turnout[dir] != turnoutOriginal[dir])
-					{
-						// Turnout changed, reset
-						state[dir] = STATE_CLEAR;
-					}
-					else if(!temp_uint16)
+/*					if(turnout[dir] != turnoutOriginal[dir])*/
+/*					{*/
+/*						// Turnout changed, reset*/
+/*						state[dir] = STATE_CLEAR;*/
+/*					}*/
+/*					else */
+					
+					if(!temp_uint16)
 					{
 						// Timed out.  Reset
 						state[dir] = STATE_CLEAR;
-					}
-					else if(approachBlockOccupancy(dir))
-					{
-						// Approach detector covered again, go back
-						state[dir] = STATE_CLEARANCE;
 					}
 					else if(interlockingBlockOccupancy())
 					{
 						// Train has entered interlocking, proceed
 						state[dir] = STATE_OCCUPIED;
+					}
+					else if(approachBlockOccupancy(dir))
+					{
+						// Approach detector covered again, go back
+						state[dir] = STATE_CLEARANCE;
 					}
 					break;
 				case STATE_TIMER:

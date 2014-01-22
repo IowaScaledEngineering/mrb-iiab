@@ -27,9 +27,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="1"
      inkscape:pageshadow="2"
-     inkscape:zoom="1"
-     inkscape:cx="425.15871"
-     inkscape:cy="139.75904"
+     inkscape:zoom="4"
+     inkscape:cx="283.45588"
+     inkscape:cy="225.23212"
      inkscape:document-units="in"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -420,7 +420,7 @@
        transform="translate(78.75,0)">
       <path
          transform="matrix(0.44536083,0,0,0.44536082,247.21237,770.46486)"
-         d="m 277.5,127.75 a 24.25,24.25 0 1 1 -48.5,0 24.25,24.25 0 1 1 48.5,0 z"
+         d="M 277.5,127.75 C 277.5,141.14291 266.64291,152 253.25,152 239.85709,152 229,141.14291 229,127.75 c 0,-13.39291 10.85709,-24.25 24.25,-24.25 13.39291,0 24.25,10.85709 24.25,24.25 z"
          sodipodi:ry="24.25"
          sodipodi:rx="24.25"
          sodipodi:cy="127.75"
@@ -658,6 +658,30 @@
                style="font-size:22.50609398px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;letter-spacing:0px;fill:#ffffff;fill-opacity:1;font-family:Impact;-inkscape-font-specification:Impact Bold">ENGINEERING</tspan></text>
         </g>
       </g>
+    </g>
+    <g
+       id="g3924-2-4-2"
+       transform="translate(135.00219,-4.7550002e-6)">
+      <path
+         transform="matrix(0.44536083,0,0,0.44536082,247.21237,770.46486)"
+         d="M 277.5,127.75 C 277.5,141.14291 266.64291,152 253.25,152 239.85709,152 229,141.14291 229,127.75 c 0,-13.39291 10.85709,-24.25 24.25,-24.25 13.39291,0 24.25,10.85709 24.25,24.25 z"
+         sodipodi:ry="24.25"
+         sodipodi:rx="24.25"
+         sodipodi:cy="127.75"
+         sodipodi:cx="253.25"
+         id="path3918-6-6-2"
+         style="fill:#ff0000;fill-opacity:1;stroke:#000000;stroke-width:2.02083325;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         sodipodi:type="arc" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3920-2-5-5"
+         d="m 367.63675,819.72295 -15.2735,15.2735"
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3922-9-5-2"
+         d="m 367.63675,834.99645 -15.2735,-15.2735"
+         style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
     </g>
   </g>
 </svg>
