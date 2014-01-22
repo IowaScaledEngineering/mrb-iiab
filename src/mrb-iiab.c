@@ -134,6 +134,8 @@ uint8_t interlockingStatus;
 #define ASPECT_GREEN     0x01
 #define ASPECT_OFF       0x00
 
+// FIXME: Change to 2 dimension array?  [direction][head(4x)]
+// FIXME: Or 3 dim?  [direction][track][head]
 uint8_t signalHeads[2 * NUM_DIRECTIONS];
 
 
@@ -551,7 +553,7 @@ void init(void)
 	busVoltage = 0;
 	ADCSRA |= _BV(ADEN) | _BV(ADSC) | _BV(ADIE) | _BV(ADIF);
 
-	// Reset all occupancy to 0
+	// Reset all occupancy to 0, turnouts to main, initialize timers
 	for(i=0; i<NUM_DIRECTIONS; i++)
 	{
 		approachOccupancy[i] = 0;
@@ -947,6 +949,7 @@ int main(void)
 			switch(state[dir])
 			{
 				case STATE_IDLE:
+					// FIXME: should qualify with lockout timer here, not in REQUEST
 					if(simulator[dir].enable)
 					{
 						// Simulated train enabled, so proceed
@@ -958,7 +961,13 @@ int main(void)
 						state[dir] = STATE_REQUEST;
 					}
 					break;
+
+// FIXME: remove REQUEST - do request to get out of IDLE into CLEARANCE
+//  if turnout != turnoutOriginal then clear lockout timer
+//  if !lockout then request
+
 				case STATE_REQUEST:
+					// FIXME: put request logic here
 					// Request interlocking, but only if not in lockout state or turnout has changed
 					if( !lockoutTimer[dir] || (turnout[dir] != turnoutOriginal[dir]) )
 					{
@@ -1123,6 +1132,9 @@ int main(void)
 					temp_uint8 |= _BV(i);
 			}
 			txBuffer[11] = temp_uint8;           // Sound bits + simulator enables
+			
+			// FIXME: Include turnout positions and manual controls
+			
 			txBuffer[12] = ((state[0] << 4) & 0xF0) | (state[1] & 0x0F);  // State machine states
 			txBuffer[13] = ((state[2] << 4) & 0xF0) | (state[3] & 0x0F);  // State machine states
 
