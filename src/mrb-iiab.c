@@ -51,11 +51,11 @@ uint8_t pkt_count = 0;
 
 // Timeout = debounce applied to positive detection when that detection goes away (used to "coast" through point-style optical detectors)
 // Lockout = time after interlocking clears during which the train from the opposite direction (or same train leaving) cannot get the interlocking (lets train finish leaving)
-// Delay = Delay between interlocking getting cleared and any other train getting a signal
+// Timelock = delay between signal going red and any other train getting a proceed signal
 // Debouce = debounce applied to interlocking block detection going low.  Filters momentary non-detects to prevent premature switch from OCCUPIED to CLEAR state.
 #define EE_TIMEOUT_SECONDS  0x10
 #define EE_LOCKOUT_SECONDS  0x11
-#define EE_DELAY_SECONDS    0x12
+#define EE_TIMELOCK_SECONDS 0x12
 #define EE_DEBOUNCE_SECONDS 0x13
 #define EE_BLINKY_DECISECS  0x1F
 #define EE_DETECT_POLARITY  0x20
@@ -66,8 +66,11 @@ uint8_t pkt_count = 0;
 // interlockingStatus currently limits this to a maximum of 7
 #define NUM_DIRECTIONS 4
 
+#define OPPOSITE_DIRECTION(d) ((d)%2)?((d)-1):((d)+1)
+
 // Assumptions:
-//   "Direction" pairs are connected.  0/1, 2/3, 4/5, etc
+//   "Direction" pairs are connected.  0/1, 2/3, etc
+// FIXME: following may not longer be true
 //   Even numbered directions can have turnouts (frog end).  Wired off for "main" if they don't exist.  Signals are separate signals.
 //   Odd numbered directions have no turnouts (point end).  Signals are 2-headed signals using the turnout position from across the diamond.
 
@@ -103,8 +106,8 @@ volatile uint16_t timeoutTimer[NUM_DIRECTIONS];  // decisecs
 uint8_t lockoutSeconds;
 volatile uint16_t lockoutTimer[NUM_DIRECTIONS];  // decisecs
 
-uint8_t interlockingDelaySeconds;
-volatile uint16_t interlockingDelayTimer;  // decisecs
+uint8_t timelockSeconds;
+volatile uint16_t timelockTimer;  // decisecs
 
 uint8_t interlockingDebounceSeconds;
 volatile uint16_t interlockingDebounceTimer;  // decisecs
@@ -206,8 +209,8 @@ ISR(TIMER0_COMPA_vect)
 				simulator[i].timer--;
 		}
 		
-		if(interlockingDelayTimer)
-			interlockingDelayTimer--;
+		if(timelockTimer)
+			timelockTimer--;
 		
 		if(interlockingDebounceTimer)
 			interlockingDebounceTimer--;
@@ -266,7 +269,7 @@ void xioDirectionSet()
 	i2cBuf[3] = 0;
 	i2cBuf[4] = 0;
 	i2cBuf[5] = 0xFF;
-	i2cBuf[6] = 0x1F;
+	i2cBuf[6] = 0x0F;
 	i2c_transmit(i2cBuf, 7, 1);
 	while(i2c_busy());
 	
@@ -368,7 +371,7 @@ void readEEPROM()
 	
 	timeoutSeconds = eeprom_read_byte((uint8_t*)EE_TIMEOUT_SECONDS);
 	lockoutSeconds = eeprom_read_byte((uint8_t*)EE_LOCKOUT_SECONDS);
-	interlockingDelaySeconds = eeprom_read_byte((uint8_t*)EE_DELAY_SECONDS);
+	timelockSeconds = eeprom_read_byte((uint8_t*)EE_TIMELOCK_SECONDS);
 	interlockingDebounceSeconds = eeprom_read_byte((uint8_t*)EE_DEBOUNCE_SECONDS);
 	
 	// FIXME: Load signal configs
@@ -566,7 +569,7 @@ void init(void)
 	interlockingOccupancy = 0;
 	interlockingStatus = 0;
 	
-	interlockingDelayTimer = 0;
+	timelockTimer = 0;
 
 	xio1Inputs[0] = 0;
 	xio1Inputs[1] = 0;
@@ -590,7 +593,7 @@ uint8_t requestInterlocking(uint8_t direction)
 	uint16_t temp_uint16;
 	ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
 	{
-		temp_uint16 = interlockingDelayTimer;
+		temp_uint16 = timelockTimer;
 	}
 
 	if(interlockingStatus & INTERLOCKING_LOCKED)
@@ -598,20 +601,11 @@ uint8_t requestInterlocking(uint8_t direction)
 	else if(interlockingBlockOccupancy())
 		return 0;  // Interlocking occupied
 	else if(temp_uint16)
-		return 0;  // Delay active after last train
+		return 0;  // Timelock active after last train
 	
 	// Everything good.  Take it.
 	interlockingStatus = INTERLOCKING_LOCKED | _BV(direction);
 	return 1;
-}
-
-void clearInterlocking(void)
-{
-	interlockingStatus = 0;
-	ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
-	{
-		interlockingDelayTimer = 10 * interlockingDelaySeconds;
-	}
 }
 
 void startSound(uint8_t sound)
@@ -636,19 +630,20 @@ void readInputs(void)
 
 	// debounced_inputs[1]
 	//   E0: Direction #0 turnout position
-	//   E1: Direction #2 turnout position
-	//   E2 - E3: Manual interlock direction
-	//   E4: Manual interlock set
-	//   E5: Sound trigger #1 (output)
-	//   E6: Sound trigger #2 (output)
-	//   E7: unassigned
+	//   E1: Direction #1 turnout position
+	//   E2: Direction #2 turnout position
+	//   E3: Direction #3 turnout position
+	//   E4: unassigned
+	//   E5: unassigned
+	//   E6: Sound trigger #1 (output)
+	//   E7: Sound trigger #2 (output)
 
 	uint8_t delta;
 	uint8_t i;
 	
 	xioInputRead();
 	
-	xio1Inputs[1] &= 0x9F;  // Mask off Sound trigger outputs
+	xio1Inputs[1] &= 0x0F;  // Mask off Sound trigger outputs
 
 	for(i=0; i<2; i++)
 	{
@@ -662,15 +657,13 @@ void readInputs(void)
 	}
 
 	// Get the physical turnout inputs from debounced
-	if(debounced_inputs[1] & _BV(0))
-		turnout[0] = TURNOUT_SIDING;
-	else
-		turnout[0] = TURNOUT_MAIN;
-
-	if(debounced_inputs[1] & _BV(1))
-		turnout[2] = TURNOUT_SIDING;
-	else
-		turnout[2] = TURNOUT_MAIN;
+	for(i=0; i<NUM_DIRECTIONS; i++)
+	{
+		if(debounced_inputs[1] & _BV(i))
+			turnout[i] = TURNOUT_SIDING;
+		else
+			turnout[i] = TURNOUT_MAIN;
+	}
 
 	// Get the physical occupancy inputs from debounced
 	if(debounced_inputs[0] & _BV(0))
@@ -908,7 +901,9 @@ int main(void)
 {
 	uint8_t i, dir, temp_uint8;
 	uint16_t temp_uint16;
-	
+	uint8_t stateChange = 0;
+	uint8_t turnoutChange = 0;
+
 	// Application initialization
 	init();
 
@@ -941,6 +936,15 @@ int main(void)
 			events &= ~(EVENT_READ_INPUTS);
 		}			
 
+		// Check for turnout changes
+		turnoutChange = 0;
+		for(dir=0; dir<NUM_DIRECTIONS; dir++)
+		{
+			if(turnoutOriginal[dir] != turnout[dir])
+				turnoutChange |= _BV(dir);
+			turnoutOriginal[dir] = turnout[dir];
+		}
+
 		// Process state machines
 		for(dir=0; dir<NUM_DIRECTIONS; dir++)
 		{
@@ -949,38 +953,28 @@ int main(void)
 			switch(state[dir])
 			{
 				case STATE_IDLE:
-					if(turnoutOriginal[dir] != turnout[dir])
+					if(turnoutChange & _BV(dir))
 					{
 						lockoutTimer[dir] = 0;  // Clear lockout timer in the event the turnout changed
-						turnoutOriginal[dir] = turnout[dir];
 					}
-					else if( (approachBlockOccupancy(dir) || simulator[dir].enable) && !lockoutTimer[dir] )
+
+					if( (approachBlockOccupancy(dir) || simulator[dir].enable) && !lockoutTimer[dir] )
 					{
 						// Train in approach block (or simulated train) and not in lockout
-						state[dir] = STATE_REQUEST;
-					}
-					break;
-				case STATE_REQUEST:
-					if(requestInterlocking(dir))
-					{
-						// Request for interlocking approved
-						state[dir] = STATE_CLEARANCE;
-					}
-					else
-					{
-						// Not approved, go back to idle
-						state[dir] = STATE_IDLE;
+						if(requestInterlocking(dir))
+						{
+							// Request for interlocking approved
+							state[dir] = STATE_CLEARANCE;
+						}
 					}
 					break;
 				case STATE_CLEARANCE:
-/*					if(turnout[dir] != turnoutOriginal[dir])*/
-/*					{*/
-/*						// Turnout changed, reset*/
-/*						state[dir] = STATE_CLEAR;*/
-/*					}*/
-/*					else*/ 
-					
-					if(simulator[dir].enable)
+					if( (turnoutChange & _BV(dir)) || (turnoutChange & _BV(OPPOSITE_DIRECTION(dir))) )
+					{
+						// Turnout changed, reset
+						state[dir] = STATE_CLEAR;
+					}
+					else if(simulator[dir].enable)
 					{
 						// Priority given to simulated train
 						ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
@@ -1011,16 +1005,11 @@ int main(void)
 					{
 						temp_uint16 = timeoutTimer[dir];
 					}
-/*					if(turnout[dir] != turnoutOriginal[dir])*/
-/*					{*/
-/*						// Turnout changed, reset*/
-/*						state[dir] = STATE_CLEAR;*/
-/*					}*/
-/*					else */
-					
-					if(!temp_uint16)
+
+					// Give priority to turnouts, then occupancy, then timeout
+					if( (turnoutChange & _BV(dir)) || (turnoutChange & _BV(OPPOSITE_DIRECTION(dir))) )
 					{
-						// Timed out.  Reset
+						// Turnout changed, reset
 						state[dir] = STATE_CLEAR;
 					}
 					else if(interlockingBlockOccupancy())
@@ -1032,6 +1021,11 @@ int main(void)
 					{
 						// Approach detector covered again, go back
 						state[dir] = STATE_CLEARANCE;
+					}
+					else if(!temp_uint16)
+					{
+						// Timed out.  Reset
+						state[dir] = STATE_CLEAR;
 					}
 					break;
 				case STATE_TIMER:
@@ -1063,7 +1057,7 @@ int main(void)
 					break;
 				case STATE_LOCKOUT:
 					// Set lockout on opposite approach
-					temp_uint8 = (dir % 2) ? (dir - 1) : (dir + 1);
+					temp_uint8 = OPPOSITE_DIRECTION(dir);
 					ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
 					{
 						lockoutTimer[temp_uint8] = 10 * lockoutSeconds;
@@ -1072,11 +1066,37 @@ int main(void)
 					state[dir] = STATE_CLEAR;
 					break;
 				case STATE_CLEAR:
-					clearInterlocking();
+					interlockingStatus = 0;
 					simulator[dir].enable = 0;
 					state[dir] = STATE_IDLE;
 					break;
 			}
+		}
+
+		// Check for state changes
+		stateChange = 0;
+		for(i=0; i<NUM_DIRECTIONS; i++)
+		{
+			if(state[i] != oldState[i])
+			{
+				stateChange = 1;
+				if( 
+				    ((STATE_OCCUPIED != oldState[i]) && (STATE_OCCUPIED == state[i])) || 
+				    (((STATE_CLEARANCE == oldState[i]) || (STATE_TIMEOUT == oldState[i])) && (STATE_CLEAR == state[i]))
+				  )
+				{
+					// Transition into OCCUPIED
+					// or...
+					// Transition into CLEAR from CLEARANCE or TIMEOUT
+					// then...
+					// Set TIMELOCK
+					ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
+					{
+						timelockTimer = 10 * timelockSeconds;
+					}
+				}
+			}
+			oldState[i] = state[i];
 		}
 
 		InterlockingToSignals();
@@ -1089,15 +1109,6 @@ int main(void)
 			events &= ~(EVENT_WRITE_OUTPUTS);
 		}
 
-		uint8_t stateChange = 0;
-		// Check for state changes
-		for(i=0; i<NUM_DIRECTIONS; i++)
-		{
-			if(state[i] != oldState[i])
-				stateChange = 1;
-			oldState[i] = state[i];
-		}
-
 #ifdef MRBEE
 		mrbeePoll();
 #endif
@@ -1106,6 +1117,20 @@ int main(void)
 			PktHandler();
 		
 		uint8_t txBuffer[MRBUS_BUFFER_SIZE];
+
+		// 6:  Inputs (Block Detect)
+		// 7:  Inputs (Turnout)
+		// 8:  Signal Outputs Bank #1
+		// 9:  Signal Outputs Bank #2
+		// 10: Signal Outputs Bank #3
+		// 11: [<7:4>][simulator<3:0>.enable]
+		// 12: [state<0>][state<1>]
+		// 13: [state<2>][state<3>]
+		// 14: timelockTimer
+		// 15: debounceTimer
+		// 16: [<7:4>][lockoutTimer<3:0> Status]
+		// 17: [<7:4>][timeoutTimer<3:0> Status]
+		// 18: busVoltage
 
 		if ( ((decisecs >= update_decisecs) || (stateChange)) && !(mrbusPktQueueFull(&mrbusTxQueue)) )
 		{
@@ -1134,9 +1159,9 @@ int main(void)
 
 			ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
 			{
-				temp_uint16 = interlockingDelayTimer;
+				temp_uint16 = timelockTimer;
 			}
-			txBuffer[14] = temp_uint16 / 10;     // Delay timer (seconds)
+			txBuffer[14] = temp_uint16 / 10;     // Timelock timer (seconds)
 
 			ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
 			{
