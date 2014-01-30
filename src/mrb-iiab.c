@@ -77,7 +77,6 @@ uint8_t pkt_count = 0;
 typedef enum
 {
 	STATE_IDLE,
-	STATE_REQUEST,
 	STATE_CLEARANCE,
 	STATE_TIMEOUT,
 	STATE_TIMER,
@@ -155,6 +154,7 @@ uint8_t debounced_inputs[2], old_debounced_inputs[2];
 uint8_t clock_a[2] = {0,0}, clock_b[2] = {0,0};
 uint8_t xio1Inputs[2];
 uint8_t xio1Outputs[5];
+uint8_t testModeEnable;
 
 uint8_t i2cResetCounter = 0;
 volatile uint8_t blinkyCounter = 0;
@@ -494,6 +494,30 @@ void PktHandler(void)
 		while(1);  // Force a watchdog reset
 		sei();
 	}
+	else if ( ('C' == rxBuffer[MRBUS_PKT_TYPE]) && ('T' == rxBuffer[MRBUS_PKT_TYPE+1]) )
+	{
+		// Enable Test Mode
+		debounced_inputs[0] = rxBuffer[7];
+		debounced_inputs[1] = rxBuffer[8];
+		testModeEnable = 1;
+
+		txBuffer[MRBUS_PKT_DEST] = rxBuffer[MRBUS_PKT_SRC];
+		txBuffer[MRBUS_PKT_SRC] = mrbus_dev_addr;
+		txBuffer[MRBUS_PKT_LEN] = 9;
+		txBuffer[MRBUS_PKT_TYPE] = 'c';
+		txBuffer[6] = 't';
+		txBuffer[7] = rxBuffer[7];
+		txBuffer[8] = rxBuffer[8];
+		mrbusPktQueuePush(&mrbusTxQueue, txBuffer, txBuffer[MRBUS_PKT_LEN]);
+
+		goto PktIgnore;
+	}
+	else if ( ('C' == rxBuffer[MRBUS_PKT_TYPE]) && ('N' == rxBuffer[MRBUS_PKT_TYPE+1]) )
+	{
+		// Disable Test Mode
+		testModeEnable = 0;
+		goto PktIgnore;
+	}
 	
 	// FIXME: Train Sim Command Packet
 	// if(STATE_IDLE == state[direction]) { state[direction] = STATE_REQUEST }
@@ -574,6 +598,8 @@ void init(void)
 	xio1Inputs[0] = 0;
 	xio1Inputs[1] = 0;
 
+	testModeEnable = 0;
+	
 	for(i=0; i<sizeof(debounced_inputs); i++)
 		debounced_inputs[i] = old_debounced_inputs[i] = 0;
 }
@@ -645,15 +671,19 @@ void readInputs(void)
 	
 	xio1Inputs[1] &= 0x0F;  // Mask off Sound trigger outputs
 
-	for(i=0; i<2; i++)
+	if(!testModeEnable)
 	{
-		// Vertical counter debounce courtesy 
-		delta = xio1Inputs[i] ^ debounced_inputs[i];
-		clock_a[i] ^= clock_b[i];
-		clock_b[i]  = ~(clock_b[i]);
-		clock_a[i] &= delta;
-		clock_b[i] &= delta;
-		debounced_inputs[i] ^= ~(~delta | clock_a[i] | clock_b[i]);
+		for(i=0; i<2; i++)
+		{
+			// Vertical counter debounce courtesy 
+			delta = xio1Inputs[i] ^ debounced_inputs[i];
+			clock_a[i] ^= clock_b[i];
+			clock_b[i]  = ~(clock_b[i]);
+			clock_a[i] &= delta;
+
+			clock_b[i] &= delta;
+			debounced_inputs[i] ^= ~(~delta | clock_a[i] | clock_b[i]);
+		}
 	}
 
 	// Get the physical turnout inputs from debounced
@@ -758,7 +788,7 @@ void InterlockingToSignals(void)
 					{
 						// Turnout set for siding
 						signalHeads[2*i] = ASPECT_RED;
-						signalHeads[(2*i)+1] = ASPECT_GREEN;
+						signalHeads[(2*i)+1] = ASPECT_YELLOW;
 					}
 					else
 					{
@@ -769,9 +799,8 @@ void InterlockingToSignals(void)
 				}
 				break;
 			case STATE_OCCUPIED:
-				// FIXME: debug aspect to make state distict from others
-				signalHeads[2*i] = ASPECT_FL_YELLOW;
-				signalHeads[(2*i)+1] = ASPECT_FL_YELLOW;
+				signalHeads[2*i] = ASPECT_RED;
+				signalHeads[(2*i)+1] = ASPECT_RED;
 				break;
 			default:
 				// Default to most restrictive aspect
@@ -1140,10 +1169,17 @@ int main(void)
 			txBuffer[5]  = 'S';
 			txBuffer[6]  = debounced_inputs[0];  // Debounced input status
 			txBuffer[7]  = debounced_inputs[1];
-			txBuffer[8]  = xio1Outputs[0];       // Signal outputs
-			txBuffer[9]  = xio1Outputs[1];
-			txBuffer[10] = xio1Outputs[2];
-			
+
+			// Signal outputs
+			uint32_t signalHeadsTemp = 0;
+			for(i=0; i<sizeof(signalHeads); i++)
+			{
+				signalHeadsTemp |= (uint32_t)signalHeads[i] << (3*i);
+			}
+			txBuffer[8]  = (signalHeadsTemp >> 16) & 0xFF;
+			txBuffer[9]  = (signalHeadsTemp >> 8) & 0xFF;
+			txBuffer[10] = (signalHeadsTemp >> 0) & 0xFF;
+
 			temp_uint8 = xio1Outputs[4];
 			for(i=0; i<NUM_DIRECTIONS; i++)
 			{
