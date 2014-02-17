@@ -500,7 +500,9 @@ void PktHandler(void)
 		debounced_inputs[0] = rxBuffer[7];
 		debounced_inputs[1] = rxBuffer[8];
 		testModeEnable = 1;
+		decisecs = update_decisecs;  // Force a status packet
 
+/*
 		txBuffer[MRBUS_PKT_DEST] = rxBuffer[MRBUS_PKT_SRC];
 		txBuffer[MRBUS_PKT_SRC] = mrbus_dev_addr;
 		txBuffer[MRBUS_PKT_LEN] = 9;
@@ -509,7 +511,7 @@ void PktHandler(void)
 		txBuffer[7] = rxBuffer[7];
 		txBuffer[8] = rxBuffer[8];
 		mrbusPktQueuePush(&mrbusTxQueue, txBuffer, txBuffer[MRBUS_PKT_LEN]);
-
+*/
 		goto PktIgnore;
 	}
 	else if ( ('C' == rxBuffer[MRBUS_PKT_TYPE]) && ('N' == rxBuffer[MRBUS_PKT_TYPE+1]) )
@@ -952,6 +954,11 @@ int main(void)
 	while (1)
 	{
 		wdt_reset();
+
+		// Handle any packets that may have come in
+		// Do so before state machine so machine can act on inputs before sending status packet
+		if (mrbusPktQueueDepth(&mrbusRxQueue))
+			PktHandler();
 		
 		if (events & EVENT_I2C_ERROR)
 		{
@@ -1141,10 +1148,6 @@ int main(void)
 #ifdef MRBEE
 		mrbeePoll();
 #endif
-		// Handle any packets that may have come in
-		if (mrbusPktQueueDepth(&mrbusRxQueue))
-			PktHandler();
-		
 		uint8_t txBuffer[MRBUS_BUFFER_SIZE];
 
 		// 6:  Inputs (Block Detect)
@@ -1167,7 +1170,8 @@ int main(void)
 			txBuffer[MRBUS_PKT_DEST] = 0xFF;
 			txBuffer[MRBUS_PKT_LEN] = 19;
 			txBuffer[5]  = 'S';
-			txBuffer[6]  = debounced_inputs[0];  // Debounced input status
+			// Debounced input status
+			txBuffer[6]  = debounced_inputs[0];
 			txBuffer[7]  = debounced_inputs[1];
 
 			// Signal outputs
@@ -1197,13 +1201,13 @@ int main(void)
 			{
 				temp_uint16 = timelockTimer;
 			}
-			txBuffer[14] = temp_uint16 / 10;     // Timelock timer (seconds)
+			txBuffer[14] = (temp_uint16 + 5) / 10;     // Timelock timer (seconds)
 
 			ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
 			{
 				temp_uint16 = interlockingDebounceTimer;
 			}
-			txBuffer[15] = temp_uint16 / 10;     // Debounce timer (seconds)
+			txBuffer[15] = (temp_uint16 + 5) / 10;     // Debounce timer (seconds)
 
 			temp_uint8 = 0;
 			for(i=0; i<NUM_DIRECTIONS; i++)
