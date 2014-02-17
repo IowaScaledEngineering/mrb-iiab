@@ -33,13 +33,16 @@ CFLAGS  = $(INCLUDES) -Wall -Os -std=gnu99
 
 COMPILE = gcc $(DEFINES) $(CFLAGS)
 
-all: panel
+all: panel test
 
 panel: 
 	$(COMPILE) panel.c -o panel
 
+test: 
+	$(COMPILE) test.c -o test
+
 # rule for deleting dependent files (those which can be built by Make):
 clean:
-	rm -f $(OBJS) *.o *~ ansi panel
+	rm -f $(OBJS) *.o *~ panel test
 
 PWD := $(shell pwd)

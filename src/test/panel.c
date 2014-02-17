@@ -57,23 +57,28 @@ void drawSignal(int n)
 	
 	switch(n)
 	{
-		case 1:
+		case 0:
 			movecursor(9,23);
 			printf("|--");
 			break;
-		case 2:
+		case 1:
 			movecursor(7,23);
 			printf("|--");
 			break;
-		case 3:
+		case 2:
 			movecursor(9,52);
 			printf("-");
 			movecursor(9,51);
 			break;
-		case 4:
+		case 3:
 			movecursor(9,54);
 			printf("--|");
 			movecursor(9,53);
+			break;
+		case 4:
+			movecursor(4,54);
+			printf("--|");
+			movecursor(4,53);
 			break;
 		case 5:
 			movecursor(6,54);
@@ -81,15 +86,10 @@ void drawSignal(int n)
 			movecursor(6,53);
 			break;
 		case 6:
-			movecursor(4,54);
-			printf("--|");
-			movecursor(4,53);
-			break;
-		case 7:
 			movecursor(14,27);
 			printf("-");
 			break;
-		case 8:
+		case 7:
 			movecursor(14,23);
 			printf("|--");
 			break;
@@ -445,7 +445,7 @@ int main(void)
 
 	while(1)
 	{
-		for(i=1; i<=8; i++)
+		for(i=0; i<8; i++)
 			drawSignal(i);
 		for(i=0; i<4; i++)
 			drawOccupancy(i);
