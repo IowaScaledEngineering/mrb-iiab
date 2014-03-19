@@ -8,6 +8,17 @@
 #define MRBFS_PATH  "/mrbfs/bus0/0x03-mrb-iiab"
 #define MRBFS_TXPKT "/mrbfs/bus0/txPacket"
 
+#define RUN_TEST(fn)                                                                               \
+	fn;                                                                                            \
+	if(fail)                                                                                       \
+	{                                                                                              \
+		if(system("cp /mrbfs/interfaces/ci2/pktLog pktlog.$(date +%Y%m%d-%H%M%S)") == -1)          \
+			printf("system command failed (pktlog)\n");                                            \
+		if(system("cp /home/data/design/mrbfs/mrbfs.log mrbfs.$(date +%Y%m%d-%H%M%S)") == -1)      \
+			printf("system command failed (mrbfs.log)\n");                                         \
+		exit(0);                                                                                   \
+	}                                                                                              \
+
 #define SRC_ADDR 0xFD
 #define DUT_ADDR 0x03
 
@@ -60,12 +71,19 @@ const char *aspectString[8];
 #define OCC_WEST_MAIN    0x01
 #define OCC_WEST_SIDING  0x02
 #define OCC_EAST_MAIN    0x04
-#define OCC_EAST_SIDING  0x00
 #define OCC_NORTH_MAIN   0x08
 #define OCC_NORTH_SIDING 0x10
 #define OCC_SOUTH_MAIN   0x20
-#define OCC_SOUTH_SIDING 0x00
 #define OCC_INTERLOCKING 0x40
+
+#define SIGNAL_EB_MAIN    0
+#define SIGNAL_EB_SIDING  1
+#define SIGNAL_WB_TOP     2
+#define SIGNAL_WB_BOTTOM  3
+#define SIGNAL_SB_MAIN    4
+#define SIGNAL_SB_SIDING  5
+#define SIGNAL_NB_TOP     6
+#define SIGNAL_NB_BOTTOM  7
 
 #define TURNOUT_WEST  0x01
 #define TURNOUT_EAST  0x02
@@ -131,98 +149,68 @@ void assertFloat(char *msg, float actual, float expect, float tolerance)
 	printf("\n");
 }
 
-void assertAspect(char *msg, int actual, int expect)
+void waitForNewPacket(void)
 {
-	textcolor(BRIGHT, BLUE, BLACK);
-	printf("%s: Actual=%s, Expect=%s ", msg, aspectString[actual], aspectString[expect]);
-
-	if(actual == expect)
-	{
-		pass++;
-	}
-	else
-	{
-		textcolor(BRIGHT, RED, BLACK);
-		printf("***Fail*** ");
-		fail++;
-	}
-	
-	textcolor(RESET, WHITE, BLACK);
-	printf("\n");
-}
-
-void sendCommand(void)
-{
-	char pkt[32];
+	char path[256];
+	int startCount = 0, count = 0;
 	FILE *fptr;
-	
-	// FIXME: xor (invert) bits based on polarity configuration
-	snprintf(pkt, sizeof(pkt), "%02X->%02X %02X %02X %02X %02X", SRC_ADDR, DUT_ADDR, 'C', 'T', occupancy, turnouts);
-	textcolor(RESET, YELLOW, BLACK);
-	printf("Sending packet [%s]\n", pkt);
-	textcolor(RESET, WHITE, BLACK);
 
-	// FIXME: Send, wait 1 sec, check that turnout and occupancy are correct.  If not, resend.
+	// Wait for an updated status packet
 
-	if( NULL != (fptr = fopen(MRBFS_TXPKT, "w")) )
+	snprintf(path, sizeof(path), "%s/rxCounter", MRBFS_PATH);
+
+	if( NULL != (fptr = fopen(path, "r")) )
 	{
-		fprintf(fptr, "%s\n", pkt);
-		fclose(fptr);
+		if(!fscanf(fptr, "%d", &startCount))
+		{
+			textcolor(RESET, WHITE, RED);
+			printf("Failed to read %s!\n", path);
+			textcolor(RESET, WHITE, BLACK);
+			fclose(fptr);
+			return;
+		}
 	}
 	else
 	{
 		textcolor(RESET, WHITE, RED);
-		printf("Failed to open %s!\n", MRBFS_TXPKT);
+		printf("Failed to open %s!\n", path);
 		textcolor(RESET, WHITE, BLACK);
+		return;
 	}
-
+	fclose(fptr);
 	usleep(100000);
 
-	// Send again 100ms later just to be safe
-  	if( NULL != (fptr = fopen(MRBFS_TXPKT, "w")) )
+	do
 	{
-		fprintf(fptr, "%s\n", pkt);
+		if( NULL != (fptr = fopen(path, "r")) )
+		{
+			if(!fscanf(fptr, "%d", &count))
+			{
+				textcolor(RESET, WHITE, RED);
+				printf("Failed to read %s!\n", path);
+				textcolor(RESET, WHITE, BLACK);
+				fclose(fptr);
+				return;
+			}
+		}
+		else
+		{
+			textcolor(RESET, WHITE, RED);
+			printf("Failed to open %s!\n", path);
+			textcolor(RESET, WHITE, BLACK);
+			return;
+		}
 		fclose(fptr);
-	}
-	else
-	{
-		textcolor(RESET, WHITE, RED);
-		printf("Failed to open %s!\n", MRBFS_TXPKT);
-		textcolor(RESET, WHITE, BLACK);
-	}
-
-	usleep(900000);  // Wait additional 900ms to make a complete 1 second delay (to give time for response packet)
-}
-
-void writeEeprom(int addr, int val)
-{
-	char pkt[32];
-	FILE *fptr;
-	
-	snprintf(pkt, sizeof(pkt), "%02X->%02X %02X %02X %02X", SRC_ADDR, DUT_ADDR, 'W', addr, val);
-	textcolor(RESET, YELLOW, BLACK);
-	printf("Sending packet [%s]\n", pkt);
-	textcolor(RESET, WHITE, BLACK);
-
-	if( NULL != (fptr = fopen(MRBFS_TXPKT, "w")) )
-	{
-		fprintf(fptr, "%s\n", pkt);
-		fclose(fptr);
-	}
-	else
-	{
-		textcolor(RESET, WHITE, RED);
-		printf("Failed to open %s!\n", MRBFS_TXPKT);
-		textcolor(RESET, WHITE, BLACK);
-	}
-	
-	sleep(1);	
+		usleep(100000);  // Delay after to give mrbfs time to process new information
+	} while(count < (startCount+1));
 }
 
 int getSignal(int signal)
 {
 	char path[256], data[256];
 	FILE *fptr;
+
+	waitForNewPacket();
 	
 	snprintf(path, sizeof(path), "%s/signalhead_%d", MRBFS_PATH, signal);
 	
@@ -253,6 +241,67 @@ int getSignal(int signal)
 		return ASPECT_GREEN;
 	
 	return -1;
+}
+
+
+void assertAspect(char *msg, int signal, int expect)
+{
+	int passed = 0;
+	int retries = 3;
+	
+	while((!passed) && retries)
+	{
+		textcolor(BRIGHT, BLUE, BLACK);
+		int actual = getSignal(signal);
+		printf("%s: Actual=%s, Expect=%s ", msg, aspectString[actual], aspectString[expect]);
+
+		if(actual == expect)
+			passed = 1;
+		else if(--retries)
+		{
+			printf("***Retry***\n");
+			waitForNewPacket();
+		}
+	}
+	
+	if(passed)
+	{
+		pass++;
+	}
+	else
+	{
+		textcolor(BRIGHT, RED, BLACK);
+		printf("***Fail*** ");
+		fail++;
+	}
+
+	textcolor(RESET, WHITE, BLACK);
+	printf("\n");
+}
+
+void writeEeprom(int addr, int val)
+{
+	char pkt[32];
+	FILE *fptr;
+	
+	snprintf(pkt, sizeof(pkt), "%02X->%02X %02X %02X %02X", SRC_ADDR, DUT_ADDR, 'W', addr, val);
+	textcolor(RESET, YELLOW, BLACK);
+	printf("Sending packet [%s]\n", pkt);
+	textcolor(RESET, WHITE, BLACK);
+
+	if( NULL != (fptr = fopen(MRBFS_TXPKT, "w")) )
+	{
+		fprintf(fptr, "%s\n", pkt);
+		fclose(fptr);
+	}
+	else
+	{
+		textcolor(RESET, WHITE, RED);
+		printf("Failed to open %s!\n", MRBFS_TXPKT);
+		textcolor(RESET, WHITE, BLACK);
+	}
+	
+	sleep(1);	
 }
 
 int getState(int dir)
@@ -292,6 +341,36 @@ int getLockout(int dir)
 	FILE *fptr;
 	
 	snprintf(path, sizeof(path), "%s/lockoutStatus%d", MRBFS_PATH, dir);
+	
+	if( NULL != (fptr = fopen(path, "r")) )
+	{
+		if(!fscanf(fptr, "%d", &data))
+		{
+			textcolor(RESET, WHITE, RED);
+			printf("Failed to read %s!\n", path);
+			textcolor(RESET, WHITE, BLACK);
+			return -1;
+		}
+		fclose(fptr);
+	}
+	else
+	{
+		textcolor(RESET, WHITE, RED);
+		printf("Failed to open %s!\n", path);
+		textcolor(RESET, WHITE, BLACK);
+		return -1;
+	}
+	
+	return data;
+}
+
+int getTimeout(int dir)
+{
+	char path[256];
+	int data;
+	FILE *fptr;
+	
+	snprintf(path, sizeof(path), "%s/timeoutStatus%d", MRBFS_PATH, dir);
 	
 	if( NULL != (fptr = fopen(path, "r")) )
 	{
@@ -431,6 +510,135 @@ int getOccupancy(int dir)
 	return data;
 }
 
+int getTurnout(int dir)
+{
+	char path[256];
+	char position[16];
+	int data;
+	FILE *fptr;
+	
+	switch (dir)
+	{
+		case DIR_WEST:
+			snprintf(path, sizeof(path), "%s/turnout_dir0", MRBFS_PATH);
+			break;
+		case DIR_EAST:
+			snprintf(path, sizeof(path), "%s/turnout_dir1", MRBFS_PATH);
+			break;
+		case DIR_NORTH:
+			snprintf(path, sizeof(path), "%s/turnout_dir2", MRBFS_PATH);
+			break;
+		case DIR_SOUTH:
+			snprintf(path, sizeof(path), "%s/turnout_dir3", MRBFS_PATH);
+			break;
+		default:
+			snprintf(path, sizeof(path), "%s/unknown_turnout", MRBFS_PATH);
+			break;
+	}
+	
+	if( NULL != (fptr = fopen(path, "r")) )
+	{
+		if(!fscanf(fptr, "%s", position))
+		{
+			textcolor(RESET, WHITE, RED);
+			printf("Failed to read %s!\n", path);
+			textcolor(RESET, WHITE, BLACK);
+			return -1;
+		}
+		fclose(fptr);
+	}
+	else
+	{
+		textcolor(RESET, WHITE, RED);
+		printf("Failed to open %s!\n", path);
+		textcolor(RESET, WHITE, BLACK);
+		return -1;
+	}
+	
+	if(NULL != strstr(position, "normal"))
+		data = 0;
+	else
+		data = 1;
+	
+	return data;
+}
+
+void sendCommand(void)
+{
+	char pkt[32];
+	FILE *fptr;
+	
+	// FIXME: xor (invert) bits based on polarity configuration
+	snprintf(pkt, sizeof(pkt), "%02X->%02X %02X %02X %02X %02X", SRC_ADDR, DUT_ADDR, 'C', 'T', occupancy, turnouts);
+
+	int i=3;
+	while(i)
+	{
+		// Try sending packet
+		textcolor(RESET, YELLOW, BLACK);
+		printf("Sending packet [%s]\n", pkt);
+		textcolor(RESET, WHITE, BLACK);
+
+		if( NULL != (fptr = fopen(MRBFS_TXPKT, "w")) )
+		{
+			fprintf(fptr, "%s\n", pkt);
+			fclose(fptr);
+		}
+		else
+		{
+			textcolor(RESET, WHITE, RED);
+			printf("Failed to open %s!\n", MRBFS_TXPKT);
+			textcolor(RESET, WHITE, BLACK);
+		}
+		
+		// Wait for response
+		usleep(100000);
+		
+		// Check state
+		int foo = 0, j;
+		for(j=0; j<7; j++)
+		{
+			if( getOccupancy(1 << j) != ((occupancy >> j)&0x01) )
+				foo = 1;
+		}
+		for(j=0; j<4; j++)
+		{
+			if( getTurnout(j) != ((turnouts >> j)&0x01) )
+				foo = 1;
+		}
+		
+		if(!foo)
+			break;
+		i--;
+	}
+	
+	if(!i)
+	{
+		textcolor(RESET, WHITE, RED);
+		printf("Failed to confirm response to command!\n");
+		textcolor(RESET, WHITE, BLACK);
+	}
+
+/*
+	usleep(100000);
+
+	// Send again 100ms later just to be safe
+  	if( NULL != (fptr = fopen(MRBFS_TXPKT, "w")) )
+	{
+		fprintf(fptr, "%s\n", pkt);
+		fclose(fptr);
+	}
+	else
+	{
+		textcolor(RESET, WHITE, RED);
+		printf("Failed to open %s!\n", MRBFS_TXPKT);
+		textcolor(RESET, WHITE, BLACK);
+	}
+
+	usleep(900000);  // Wait additional 900ms to make a complete 1 second delay (to give time for response packet)
+*/
+}
+
 void clearAll(void)
 {
 	printf("Clearing...\n");
@@ -439,6 +647,11 @@ void clearAll(void)
 	turnouts = 0;
 	sendCommand();
 	
+	sleep(1);  // Wait for things to catch up
+	
+	int i=0;
+	
+	printf("Waiting for states and timers to clear.");
 	while( 
 		getState(DIR_WEST) ||
 		getState(DIR_EAST) ||
@@ -449,7 +662,17 @@ void clearAll(void)
 		getLockout(DIR_NORTH) ||
 		getLockout(DIR_SOUTH) ||
 		getTimelock()
-		);
+		)
+	{
+		usleep(100000);
+		if(++i > 10)
+		{
+			printf(".");
+			fflush(stdout);
+			i = 0;
+		}
+	}
+	printf("\n");
 }
 
 void testEastboundSouthbound(int dir, int track, int leaveBeforeDebounce)
@@ -479,35 +702,35 @@ void testEastboundSouthbound(int dir, int track, int leaveBeforeDebounce)
 	}
 	sendCommand();
 	
-	assertAspect("Train arrives, gets proceed indication", getSignal(signal), track?ASPECT_YELLOW:ASPECT_GREEN);
-	assertAspect("Red signal on other track", getSignal(track?signal-1:signal+1), ASPECT_RED);
+	assertAspect("Train arrives, gets proceed indication", signal, track?ASPECT_YELLOW:ASPECT_GREEN);
+	assertAspect("Red signal on other track", track?signal-1:signal+1, ASPECT_RED);
 
 	occupancy |= OCC_INTERLOCKING;
 	sendCommand();
-	assertAspect("Enters interlocking, red signal", getSignal(signal), ASPECT_RED);
+	assertAspect("Enters interlocking, red signal", signal, ASPECT_RED);
 
 	occupancy |= (DIR_EAST==dir)?OCC_EAST_MAIN:OCC_SOUTH_MAIN;
 	sendCommand();
-	assertAspect("Enters opposite approach, red signal", getSignal(signal), ASPECT_RED);
+	assertAspect("Enters opposite approach, red signal", signal, ASPECT_RED);
 	assertInt("No lockout", getLockout((DIR_EAST==dir)?DIR_EAST:DIR_SOUTH), 0);
 	
 	occupancy &= (DIR_EAST==dir) ? (track?~OCC_WEST_SIDING:~OCC_WEST_MAIN) : (track?~OCC_NORTH_SIDING:~OCC_NORTH_MAIN);
 	sendCommand();
-	assertAspect("Approach clear, red signal", getSignal(signal), ASPECT_RED);
+	assertAspect("Approach clear, red signal", signal, ASPECT_RED);
 	assertInt("No lockout", getLockout((DIR_EAST==dir)?DIR_EAST:DIR_SOUTH), 0);
 
 	occupancy &= ~OCC_INTERLOCKING;
 	sendCommand();
-	assertAspect("Interlocking cleared, red signal", getSignal(signal), ASPECT_RED);
-	sleep(1);
-	assertFloat("DEBOUNCE timer running", getDebounce(), debounceTime-1, 1);
+	assertAspect("Interlocking cleared, red signal", signal, ASPECT_RED);
+	waitForNewPacket();
+	assertInt("DEBOUNCE timer running", 0!=getDebounce(), 1);
 	
 	if(leaveBeforeDebounce)
 	{
 		occupancy &= (DIR_EAST==dir)?~OCC_EAST_MAIN:~OCC_SOUTH_MAIN;
 		sendCommand();
-		assertAspect("Opposite approach cleared, red signal", getSignal(signal), ASPECT_RED);
-		assertFloat("DEBOUNCE timer still running", getDebounce(), debounceTime-2, 1);
+		assertAspect("Opposite approach cleared, red signal", signal, ASPECT_RED);
+		assertInt("DEBOUNCE timer running", 0!=getDebounce(), 1);
 	}
 	
 	while(getDebounce())
@@ -518,15 +741,15 @@ void testEastboundSouthbound(int dir, int track, int leaveBeforeDebounce)
 	}
 	printf("\n");
 
-	assertAspect("DEBOUNCE expired, red signal", getSignal(signal), ASPECT_RED);
-	sleep(1);
+	assertAspect("DEBOUNCE expired, red signal", signal, ASPECT_RED);
+	waitForNewPacket();
 	assertInt("LOCKOUT timer running", getLockout((DIR_EAST==dir)?DIR_EAST:DIR_SOUTH), 1);
 
 	if(!leaveBeforeDebounce)
 	{
 		occupancy &= (DIR_EAST==dir)?~OCC_EAST_MAIN:~OCC_SOUTH_MAIN;
 		sendCommand();
-		assertAspect("Opposite approach cleared, red signal", getSignal(signal), ASPECT_RED);
+		assertAspect("Opposite approach cleared, red signal", signal, ASPECT_RED);
 		assertInt("LOCKOUT timer running", getLockout((DIR_EAST==dir)?DIR_EAST:DIR_SOUTH), 1);
 	}
 
@@ -538,7 +761,7 @@ void testEastboundSouthbound(int dir, int track, int leaveBeforeDebounce)
 	}
 	printf("\n");
 
-	assertAspect("LOCKOUT complete, red signal", getSignal(signal), ASPECT_RED);
+	assertAspect("LOCKOUT complete, red signal", signal, ASPECT_RED);
 
 	gettimeofday(&tvEnd, NULL);
 	printf("\nPass: %d\nFail: %d\n\n", pass, fail);
@@ -573,40 +796,40 @@ void testWestboundNorthbound(int dir, int track, int leaveBeforeDebounce)
 	}
 	sendCommand();
 	
-	assertAspect("Train arrives, gets proceed indication (top)", getSignal(signal), track?ASPECT_RED:ASPECT_GREEN);
-	assertAspect("Train arrives, gets proceed indication (bottom)", getSignal(signal+1), track?ASPECT_YELLOW:ASPECT_RED);
+	assertAspect("Train arrives, gets proceed indication (top)", signal, track?ASPECT_RED:ASPECT_GREEN);
+	assertAspect("Train arrives, gets proceed indication (bottom)", signal+1, track?ASPECT_YELLOW:ASPECT_RED);
 
 	occupancy |= OCC_INTERLOCKING;
 	sendCommand();
-	assertAspect("Enters interlocking, red signal (top)", getSignal(signal), ASPECT_RED);
-	assertAspect("Enters interlocking, red signal (bottom)", getSignal(signal+1), ASPECT_RED);
+	assertAspect("Enters interlocking, red signal (top)", signal, ASPECT_RED);
+	assertAspect("Enters interlocking, red signal (bottom)", signal+1, ASPECT_RED);
 
 	occupancy |= (DIR_WEST==dir)?(track?OCC_WEST_SIDING:OCC_WEST_MAIN):(track?OCC_NORTH_SIDING:OCC_NORTH_MAIN);
 	sendCommand();
-	assertAspect("Enters opposite approach, red signal (top)", getSignal(signal), ASPECT_RED);
-	assertAspect("Enters opposite approach, red signal (bottom)", getSignal(signal+1), ASPECT_RED);
+	assertAspect("Enters opposite approach, red signal (top)", signal, ASPECT_RED);
+	assertAspect("Enters opposite approach, red signal (bottom)", signal+1, ASPECT_RED);
 	assertInt("No lockout", getLockout((DIR_WEST==dir)?DIR_WEST:DIR_NORTH), 0);
 	
 	occupancy &= (DIR_WEST==dir) ? ~OCC_EAST_MAIN : ~OCC_SOUTH_MAIN;
 	sendCommand();
-	assertAspect("Approach clear, red signal (top)", getSignal(signal), ASPECT_RED);
-	assertAspect("Approach clear, red signal (bottom)", getSignal(signal+1), ASPECT_RED);
+	assertAspect("Approach clear, red signal (top)", signal, ASPECT_RED);
+	assertAspect("Approach clear, red signal (bottom)", signal+1, ASPECT_RED);
 	assertInt("No lockout", getLockout((DIR_WEST==dir)?DIR_WEST:DIR_NORTH), 0);
 
 	occupancy &= ~OCC_INTERLOCKING;
 	sendCommand();
-	assertAspect("Interlocking cleared, red signal (top)", getSignal(signal), ASPECT_RED);
-	assertAspect("Interlocking cleared, red signal (bottom)", getSignal(signal+1), ASPECT_RED);
-	sleep(1);
-	assertFloat("DEBOUNCE timer running", getDebounce(), debounceTime-1, 1);
+	assertAspect("Interlocking cleared, red signal (top)", signal, ASPECT_RED);
+	assertAspect("Interlocking cleared, red signal (bottom)", signal+1, ASPECT_RED);
+	waitForNewPacket();
+	assertInt("DEBOUNCE timer running", 0!=getDebounce(), 1);
 	
 	if(leaveBeforeDebounce)
 	{
 		occupancy &= (DIR_WEST==dir)?(track?~OCC_WEST_SIDING:~OCC_WEST_MAIN):(track?~OCC_NORTH_SIDING:~OCC_NORTH_MAIN);
 		sendCommand();
-		assertAspect("Opposite approach cleared, red signal (top)", getSignal(signal), ASPECT_RED);
-		assertAspect("Opposite approach cleared, red signal (bottom)", getSignal(signal+1), ASPECT_RED);
-		assertFloat("DEBOUNCE timer still running", getDebounce(), debounceTime-2, 1);
+		assertAspect("Opposite approach cleared, red signal (top)", signal, ASPECT_RED);
+		assertAspect("Opposite approach cleared, red signal (bottom)", signal+1, ASPECT_RED);
+		assertInt("DEBOUNCE timer still running", 0!=getDebounce(), 1);
 	}
 	
 	while(getDebounce())
@@ -617,17 +840,17 @@ void testWestboundNorthbound(int dir, int track, int leaveBeforeDebounce)
 	}
 	printf("\n");
 
-	assertAspect("DEBOUNCE expired, red signal (top)", getSignal(signal), ASPECT_RED);
-	assertAspect("DEBOUNCE expired, red signal (bottom)", getSignal(signal+1), ASPECT_RED);
-	sleep(1);
+	assertAspect("DEBOUNCE expired, red signal (top)", signal, ASPECT_RED);
+	assertAspect("DEBOUNCE expired, red signal (bottom)", signal+1, ASPECT_RED);
+	waitForNewPacket();
 	assertInt("LOCKOUT timer running", getLockout((DIR_WEST==dir)?DIR_WEST:DIR_NORTH), 1);
 
 	if(!leaveBeforeDebounce)
 	{
 		occupancy &= (DIR_WEST==dir)?(track?~OCC_WEST_SIDING:~OCC_WEST_MAIN):(track?~OCC_NORTH_SIDING:~OCC_NORTH_MAIN);
 		sendCommand();
-		assertAspect("Opposite approach cleared, red signal (top)", getSignal(signal), ASPECT_RED);
-		assertAspect("Opposite approach cleared, red signal (bottom)", getSignal(signal+1), ASPECT_RED);
+		assertAspect("Opposite approach cleared, red signal (top)", signal, ASPECT_RED);
+		assertAspect("Opposite approach cleared, red signal (bottom)", signal+1, ASPECT_RED);
 		assertInt("LOCKOUT timer running", getLockout((DIR_WEST==dir)?DIR_WEST:DIR_NORTH), 1);
 	}
 
@@ -639,8 +862,8 @@ void testWestboundNorthbound(int dir, int track, int leaveBeforeDebounce)
 	}
 	printf("\n");
 
-	assertAspect("LOCKOUT complete, red signal (top)", getSignal(signal), ASPECT_RED);
-	assertAspect("LOCKOUT complete, red signal (bottom)", getSignal(signal+1), ASPECT_RED);
+	assertAspect("LOCKOUT complete, red signal (top)", signal, ASPECT_RED);
+	assertAspect("LOCKOUT complete, red signal (bottom)", signal+1, ASPECT_RED);
 
 	gettimeofday(&tvEnd, NULL);
 	printf("\nPass: %d\nFail: %d\n\n", pass, fail);
@@ -683,8 +906,8 @@ void testArriveOpposingTurnout(int dir, int track)
 	}
 	sendCommand();
 	
-	assertAspect("Train arrives to opposing turnout, red signal", getSignal(signal), ASPECT_RED);
-	assertAspect("Red signal on other track", getSignal(track?signal-1:signal+1), ASPECT_RED);
+	assertAspect("Train arrives to opposing turnout, red signal", signal, ASPECT_RED);
+	assertAspect("Red signal on other track", track?signal-1:signal+1, ASPECT_RED);
 
 	if(DIR_EAST==dir)
 	{
@@ -696,8 +919,8 @@ void testArriveOpposingTurnout(int dir, int track)
 	}
 	sendCommand();
 
-	assertAspect("Turnout changed, proceed indication", getSignal(signal), track?ASPECT_YELLOW:ASPECT_GREEN);
-	assertAspect("Red signal on other track", getSignal(track?signal-1:signal+1), ASPECT_RED);
+	assertAspect("Turnout changed, proceed indication", signal, track?ASPECT_YELLOW:ASPECT_GREEN);
+	assertAspect("Red signal on other track", track?signal-1:signal+1, ASPECT_RED);
 
 	if(DIR_EAST==dir)
 	{
@@ -709,8 +932,8 @@ void testArriveOpposingTurnout(int dir, int track)
 	}
 	sendCommand();
 
-	assertAspect("Turnout changed back, red signal", getSignal(signal), ASPECT_RED);
-	assertAspect("Red signal on other track", getSignal(track?signal-1:signal+1), ASPECT_RED);
+	assertAspect("Turnout changed back, red signal", signal, ASPECT_RED);
+	assertAspect("Red signal on other track", track?signal-1:signal+1, ASPECT_RED);
 
 	if(DIR_EAST==dir)
 	{
@@ -728,10 +951,92 @@ void testArriveOpposingTurnout(int dir, int track)
 	printf("Elapsed Time: %ld:%02ld\n\n", tvDiff.tv_sec / 60, tvDiff.tv_sec % 60);
 }
 
+void testTimelockMeet(int firstBlock, int secondBlock)
+{
+	int i;
+	struct timeval tvBegin, tvEnd, tvDiff, tvTimerA, tvTimerB;
+	gettimeofday(&tvBegin, NULL);
+	
+	printf("\n");
+	printf("--------------------------------------------------------------------------------\n");
+	printf("Timelock Timer with Meet\n");
+	printf("--------------------------------------------------------------------------------\n");
+
+	clearAll();
+
+	occupancy |= firstBlock;
+	sendCommand();
+	switch(firstBlock)
+	{
+		case OCC_WEST_MAIN:
+			assertAspect("First train arrives, gets green", SIGNAL_EB_MAIN, ASPECT_GREEN);
+			break;
+		case OCC_WEST_SIDING:
+			assertAspect("First train arrives, gets green", SIGNAL_EB_SIDING, ASPECT_GREEN);
+			break;
+		case OCC_EAST_MAIN:
+			assertAspect("First train arrives, gets green", SIGNAL_WB_TOP, ASPECT_GREEN);
+			assertAspect("...over red", SIGNAL_WB_BOTTOM, ASPECT_RED);
+			break;
+		//FIXME: finish case statement
+	}
+//	assertAspect("First train arrives, gets green", SIGNAL_WB_TOP, ASPECT_GREEN);
+//	assertAspect("...over red", SIGNAL_WB_BOTTOM, ASPECT_RED);
+
+	occupancy |= secondBlock;
+	sendCommand();
+	assertAspect("Second train arrives to a red", SIGNAL_SB_MAIN, ASPECT_RED);
+
+	occupancy &= ~firstBlock;
+	sendCommand();
+	assertAspect("First train backs up and leaves, signal stays green", SIGNAL_WB_TOP, ASPECT_GREEN);
+	assertAspect("...over red", SIGNAL_WB_BOTTOM, ASPECT_RED);
+
+	assertInt("TIMEOUT timer running", getTimeout(1), 1);
+
+	while(getTimeout(1))
+	{
+		printf(".");
+		fflush(stdout);
+		sleep(1);
+	}
+	printf("\n");
+
+	gettimeofday(&tvTimerA, NULL);  // Timelock start
+
+	waitForNewPacket();
+
+	i = 0;
+	printf("Wait for timelock to expire.");
+	while(getTimelock())
+	{
+		usleep(100000);
+		if(++i > 10)
+		{
+			printf(".");
+			fflush(stdout);
+			i = 0;
+		}
+	}
+	printf("\n");
+	gettimeofday(&tvTimerB, NULL);
+	timeval_subtract(&tvDiff, &tvTimerB, &tvTimerA);
+
+	assertFloat("TIMELOCK timer", (float)tvDiff.tv_sec + (float)tvDiff.tv_usec/1000000, timelockTime, 1);
+
+	assertAspect("Second train gets green", SIGNAL_SB_MAIN, ASPECT_GREEN);
+
+	gettimeofday(&tvEnd, NULL);
+	printf("\nPass: %d\nFail: %d\n\n", pass, fail);
+	timeval_subtract(&tvDiff, &tvEnd, &tvBegin);
+	printf("Elapsed Time: %ld:%02ld\n\n", tvDiff.tv_sec / 60, tvDiff.tv_sec % 60);
+}
+
+
 void testDebounceTimer(void)
 {
 	int i;
-	struct timeval tvBegin, tvEnd, tvDiff;
+	struct timeval tvBegin, tvEnd, tvDiff, tvTimerA, tvTimerB;
 	gettimeofday(&tvBegin, NULL);
 	
 	printf("\n");
@@ -743,55 +1048,73 @@ void testDebounceTimer(void)
 
 	occupancy |= OCC_WEST_MAIN;
 	sendCommand();
-	assertAspect("Eastbound train arrives, gets green", getSignal(0), ASPECT_GREEN);
+	assertAspect("Eastbound train arrives, gets green", 0, ASPECT_GREEN);
 
 	occupancy |= OCC_INTERLOCKING;
 	sendCommand();
-	assertAspect("Enters interlocking, red signal", getSignal(0), ASPECT_RED);
+	gettimeofday(&tvTimerA, NULL);  // Timelock start
+	assertAspect("Enters interlocking, red signal", 0, ASPECT_RED);
 
 	occupancy &= ~OCC_WEST_MAIN;
 	sendCommand();
-	assertAspect("Occupies only interlocking, red signal", getSignal(0), ASPECT_RED);
+	assertAspect("Occupies only interlocking, red signal", 0, ASPECT_RED);
 
 	occupancy |= OCC_NORTH_MAIN;
 	sendCommand();
-	assertAspect("Southbound train arrives, gets red", getSignal(4), ASPECT_RED);
+	assertAspect("Southbound train arrives, gets red", 4, ASPECT_RED);
 
 	occupancy |= OCC_EAST_MAIN;
 	sendCommand();
-	assertAspect("Eastbound continues, red signal", getSignal(0), ASPECT_RED);
-	assertAspect("Southbound still red", getSignal(4), ASPECT_RED);
+	assertAspect("Eastbound continues, red signal", 0, ASPECT_RED);
+	assertAspect("Southbound still red", 4, ASPECT_RED);
 
-	printf("Wait for timelock to expire");
+	waitForNewPacket();
+
+	i = 0;
+	printf("Wait for timelock to expire.");
 	while(getTimelock())
 	{
-		printf(".");
-		fflush(stdout);
-		sleep(1);
+		usleep(100000);
+		if(++i > 10)
+		{
+			printf(".");
+			fflush(stdout);
+			i = 0;
+		}
 	}
 	printf("\n");
+	gettimeofday(&tvTimerB, NULL);
+	timeval_subtract(&tvDiff, &tvTimerB, &tvTimerA);
+
+	assertFloat("TIMELOCK timer", (float)tvDiff.tv_sec + (float)tvDiff.tv_usec/1000000, timelockTime, 1);
 
 	occupancy &= ~OCC_INTERLOCKING;
 	sendCommand();
-	assertAspect("Eastbound clears interlocking, red signal", getSignal(0), ASPECT_RED);
-	assertAspect("Southbound still red", getSignal(4), ASPECT_RED);
+	gettimeofday(&tvTimerA, NULL);  // Debounce start
+	assertAspect("Eastbound clears interlocking, red signal", 0, ASPECT_RED);
+	assertAspect("Southbound still red", 4, ASPECT_RED);
 
-	assertFloat("DEBOUNCE timer running", getDebounce(), debounceTime-1, 1);
-	
-	printf("Waiting for DEBOUNCE to expire");
-	for(i=0;i<debounceTime-1;i++)
+	waitForNewPacket();
+
+	i = 0;
+	printf("Wait for debounce to expire.");
+	while(getDebounce())
 	{
-		printf(".");
-		fflush(stdout);
-		sleep(1);
+		usleep(100000);
+		if(++i > 10)
+		{
+			printf(".");
+			fflush(stdout);
+			i = 0;
+		}
 	}
 	printf("\n");
+	gettimeofday(&tvTimerB, NULL);
+	timeval_subtract(&tvDiff, &tvTimerB, &tvTimerA);
 
-	assertInt("DEBOUNCE expired", getDebounce(), 0);
-	sleep(1);
-	assertAspect("Southbound now green", getSignal(4), ASPECT_GREEN);
+	assertFloat("DEBOUNCE timer", (float)tvDiff.tv_sec + (float)tvDiff.tv_usec/1000000, debounceTime, 1);
 
-	sleep(1);
+	assertAspect("Southbound now green", 4, ASPECT_GREEN);
 
 	gettimeofday(&tvEnd, NULL);
 	printf("\nPass: %d\nFail: %d\n\n", pass, fail);
@@ -833,65 +1156,68 @@ int main(void)
 	
 	gettimeofday(&tvBegin, NULL);
     
-	// eastbound_main, eastbound_siding
-/*	testEastboundSouthbound(DIR_EAST, 0, 0);*/
-/*	testEastboundSouthbound(DIR_EAST, 0, 1);*/
-/*	testEastboundSouthbound(DIR_EAST, 1, 0);*/
-/*	testEastboundSouthbound(DIR_EAST, 1, 1);*/
-/*	testEastboundSouthbound(DIR_SOUTH, 0, 0);*/
-/*	testEastboundSouthbound(DIR_SOUTH, 0, 1);*/
-/*	testEastboundSouthbound(DIR_SOUTH, 1, 0);*/
-/*	testEastboundSouthbound(DIR_SOUTH, 1, 1);*/
+    while(1)
+    {
+    	// eastbound_main, eastbound_siding
+		RUN_TEST(testEastboundSouthbound(DIR_EAST, 0, 0));
+		RUN_TEST(testEastboundSouthbound(DIR_EAST, 0, 1));
+		RUN_TEST(testEastboundSouthbound(DIR_EAST, 1, 0));
+		RUN_TEST(testEastboundSouthbound(DIR_EAST, 1, 1));
+		RUN_TEST(testEastboundSouthbound(DIR_SOUTH, 0, 0));
+		RUN_TEST(testEastboundSouthbound(DIR_SOUTH, 0, 1));
+		RUN_TEST(testEastboundSouthbound(DIR_SOUTH, 1, 0));
+		RUN_TEST(testEastboundSouthbound(DIR_SOUTH, 1, 1));
 	
-	// eastbound_turnout
-/*	testArriveOpposingTurnout(DIR_EAST, 0);*/
-/*	testArriveOpposingTurnout(DIR_EAST, 1);*/
-/*	testArriveOpposingTurnout(DIR_SOUTH, 0);*/
-/*	testArriveOpposingTurnout(DIR_SOUTH, 1);*/
+		// eastbound_turnout
+		RUN_TEST(testArriveOpposingTurnout(DIR_EAST, 0));
+		RUN_TEST(testArriveOpposingTurnout(DIR_EAST, 1));
+		RUN_TEST(testArriveOpposingTurnout(DIR_SOUTH, 0));
+		RUN_TEST(testArriveOpposingTurnout(DIR_SOUTH, 1));
 
-	// westbound_main, westbound_siding
-	testWestboundNorthbound(DIR_WEST, 0, 0);
-/*	testWestboundNorthbound(DIR_WEST, 0, 1);*/
-/*	testWestboundNorthbound(DIR_WEST, 1, 0);*/
-/*	testWestboundNorthbound(DIR_WEST, 1, 1);*/
-/*	testWestboundNorthbound(DIR_NORTH, 0, 0);*/
-/*	testWestboundNorthbound(DIR_NORTH, 0, 1);*/
-	testWestboundNorthbound(DIR_NORTH, 1, 0);
-/*	testWestboundNorthbound(DIR_NORTH, 1, 1);*/
+		// westbound_main, westbound_siding
+		RUN_TEST(testWestboundNorthbound(DIR_WEST, 0, 0));
+		RUN_TEST(testWestboundNorthbound(DIR_WEST, 0, 1));
+		RUN_TEST(testWestboundNorthbound(DIR_WEST, 1, 0));
+		RUN_TEST(testWestboundNorthbound(DIR_WEST, 1, 1));
+		RUN_TEST(testWestboundNorthbound(DIR_NORTH, 0, 0));
+		RUN_TEST(testWestboundNorthbound(DIR_NORTH, 0, 1));
+		RUN_TEST(testWestboundNorthbound(DIR_NORTH, 1, 0));
+		RUN_TEST(testWestboundNorthbound(DIR_NORTH, 1, 1));
 	
-	// meet_before_interlocking
+		// meet_before_interlocking
 	
-	// meet_after_interlocking
+		// meet_after_interlocking
 	
-	// real_before_phantom
+		// real_before_phantom
 	
-	// phantom_before_real
+		// phantom_before_real
 	
-	// timelock_meet
+		// timelock_meet
+// FIXME: Try all permutations of meets
+		RUN_TEST(testTimelockMeet(OCC_EAST_MAIN,OCC_NORTH_MAIN));
 	
-	// timelock
+		// timelock
 	
-	// lockout_expire_with_train_present
+		// lockout_expire_with_train_present
 	
-	// timeout_expire
+		// timeout_expire
 	
-	// timeout_expire_momentary_train
+		// timeout_expire_momentary_train
 	
-	// debounce_timer
-/*	testDebounceTimer();*/
-	
-/*
-	while(1)
-	{
-		testDebounceTimer();
-		if(fail)
-		{
-			system("cp /mrbfs/interfaces/ci2/pktLog pktlog.$(date +%Y%m%d-%H%M%S)");
-			break;
-		}
+		// debounce_timer
+		debounceTime = 10;
+		writeEeprom(EE_DEBOUNCE_SECONDS, debounceTime);
+		RUN_TEST(testDebounceTimer());
+
+		debounceTime = 15;
+		writeEeprom(EE_DEBOUNCE_SECONDS, debounceTime);
+		RUN_TEST(testDebounceTimer());
+
+		debounceTime = 5;
+		writeEeprom(EE_DEBOUNCE_SECONDS, debounceTime);
+		RUN_TEST(testDebounceTimer());
 	}
-*/
-
+	
 	clearAll();
 	
 	gettimeofday(&tvEnd, NULL);
