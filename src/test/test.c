@@ -9,8 +9,8 @@
 #define MRBFS_TXPKT "/mrbfs/bus0/txPacket"
 
 #define RUN_TEST(fn)                                                                               \
-	fn;                                                                                            \
-	if(fail)                                                                                       \
+	fn;                                                                                            
+/*	if(fail)                                                                                       \
 	{                                                                                              \
 		if(system("cp /mrbfs/interfaces/ci2/pktLog pktlog.$(date +%Y%m%d-%H%M%S)") == -1)          \
 			printf("system command failed (pktlog)\n");                                            \
@@ -18,6 +18,7 @@
 			printf("system command failed (mrbfs.log)\n");                                         \
 		exit(0);                                                                                   \
 	}                                                                                              \
+*/
 
 #define SRC_ADDR 0xFD
 #define DUT_ADDR 0x03
@@ -963,6 +964,18 @@ void testTimelockMeet(int firstBlock, int secondBlock)
 	printf("--------------------------------------------------------------------------------\n");
 
 	clearAll();
+	
+	turnouts = 0;
+
+	if((firstBlock == OCC_WEST_SIDING) || (secondBlock == OCC_WEST_SIDING))
+	{
+		turnouts |= TURNOUT_WEST;
+	}
+	
+	if((firstBlock == OCC_NORTH_SIDING) || (secondBlock == OCC_NORTH_SIDING))
+	{
+		turnouts |= TURNOUT_NORTH;
+	}
 
 	occupancy |= firstBlock;
 	sendCommand();
@@ -972,29 +985,87 @@ void testTimelockMeet(int firstBlock, int secondBlock)
 			assertAspect("First train arrives, gets green", SIGNAL_EB_MAIN, ASPECT_GREEN);
 			break;
 		case OCC_WEST_SIDING:
-			assertAspect("First train arrives, gets green", SIGNAL_EB_SIDING, ASPECT_GREEN);
+			assertAspect("First train arrives, gets yellow", SIGNAL_EB_SIDING, ASPECT_YELLOW);
 			break;
 		case OCC_EAST_MAIN:
 			assertAspect("First train arrives, gets green", SIGNAL_WB_TOP, ASPECT_GREEN);
 			assertAspect("...over red", SIGNAL_WB_BOTTOM, ASPECT_RED);
 			break;
-		//FIXME: finish case statement
+		case OCC_NORTH_MAIN:
+			assertAspect("First train arrives, gets green", SIGNAL_SB_MAIN, ASPECT_GREEN);
+			break;
+		case OCC_NORTH_SIDING:
+			assertAspect("First train arrives, gets yellow", SIGNAL_SB_SIDING, ASPECT_YELLOW);
+			break;
+		case OCC_SOUTH_MAIN:
+			assertAspect("First train arrives, gets green", SIGNAL_NB_TOP, ASPECT_GREEN);
+			assertAspect("...over red", SIGNAL_NB_BOTTOM, ASPECT_RED);
+			break;
 	}
-//	assertAspect("First train arrives, gets green", SIGNAL_WB_TOP, ASPECT_GREEN);
-//	assertAspect("...over red", SIGNAL_WB_BOTTOM, ASPECT_RED);
 
 	occupancy |= secondBlock;
 	sendCommand();
-	assertAspect("Second train arrives to a red", SIGNAL_SB_MAIN, ASPECT_RED);
+	switch(secondBlock)
+	{
+		case OCC_WEST_MAIN:
+			assertAspect("Second train arrives to a red", SIGNAL_EB_MAIN, ASPECT_RED);
+			break;
+		case OCC_WEST_SIDING:
+			assertAspect("Second train arrives to a red", SIGNAL_EB_SIDING, ASPECT_RED);
+			break;
+		case OCC_EAST_MAIN:
+			assertAspect("Second train arrives to a red", SIGNAL_WB_TOP, ASPECT_RED);
+			assertAspect("...over red", SIGNAL_WB_BOTTOM, ASPECT_RED);
+			break;
+		case OCC_NORTH_MAIN:
+			assertAspect("Second train arrives to a red", SIGNAL_SB_MAIN, ASPECT_RED);
+			break;
+		case OCC_NORTH_SIDING:
+			assertAspect("Second train arrives to a red", SIGNAL_SB_SIDING, ASPECT_RED);
+			break;
+		case OCC_SOUTH_MAIN:
+			assertAspect("Second train arrives to a red", SIGNAL_NB_TOP, ASPECT_RED);
+			assertAspect("...over red", SIGNAL_NB_BOTTOM, ASPECT_RED);
+			break;
+	}
 
 	occupancy &= ~firstBlock;
 	sendCommand();
-	assertAspect("First train backs up and leaves, signal stays green", SIGNAL_WB_TOP, ASPECT_GREEN);
-	assertAspect("...over red", SIGNAL_WB_BOTTOM, ASPECT_RED);
 
-	assertInt("TIMEOUT timer running", getTimeout(1), 1);
+	int timeoutDir = 0;
+	switch(firstBlock)
+	{
+		case OCC_WEST_MAIN:
+			assertAspect("First train backs up and leaves, signal stays green", SIGNAL_EB_MAIN, ASPECT_GREEN);
+			timeoutDir = 0;
+			break;
+		case OCC_WEST_SIDING:
+			assertAspect("First train backs up and leaves, signal stays yellow", SIGNAL_EB_SIDING, ASPECT_YELLOW);
+			timeoutDir = 0;
+			break;
+		case OCC_EAST_MAIN:
+			assertAspect("First train backs up and leaves, signal stays green", SIGNAL_WB_TOP, ASPECT_GREEN);
+			assertAspect("...over red", SIGNAL_WB_BOTTOM, ASPECT_RED);
+			timeoutDir = 1;
+			break;
+		case OCC_NORTH_MAIN:
+			assertAspect("First train backs up and leaves, signal stays green", SIGNAL_SB_MAIN, ASPECT_GREEN);
+			timeoutDir = 2;
+			break;
+		case OCC_NORTH_SIDING:
+			assertAspect("First train backs up and leaves, signal stays yellow", SIGNAL_SB_SIDING, ASPECT_YELLOW);
+			timeoutDir = 2;
+			break;
+		case OCC_SOUTH_MAIN:
+			assertAspect("First train backs up and leaves, signal stays green", SIGNAL_NB_TOP, ASPECT_GREEN);
+			assertAspect("...over red", SIGNAL_NB_BOTTOM, ASPECT_RED);
+			timeoutDir = 3;
+			break;
+	}
 
-	while(getTimeout(1))
+	assertInt("TIMEOUT timer running", getTimeout(timeoutDir), 1);
+
+	while(getTimeout(timeoutDir))
 	{
 		printf(".");
 		fflush(stdout);
@@ -1024,7 +1095,182 @@ void testTimelockMeet(int firstBlock, int secondBlock)
 
 	assertFloat("TIMELOCK timer", (float)tvDiff.tv_sec + (float)tvDiff.tv_usec/1000000, timelockTime, 1);
 
-	assertAspect("Second train gets green", SIGNAL_SB_MAIN, ASPECT_GREEN);
+	switch(secondBlock)
+	{
+		case OCC_WEST_MAIN:
+			assertAspect("Second train gets green", SIGNAL_EB_MAIN, ASPECT_GREEN);
+			break;
+		case OCC_WEST_SIDING:
+			assertAspect("Second train gets green", SIGNAL_EB_SIDING, ASPECT_YELLOW);
+			break;
+		case OCC_NORTH_MAIN:
+			assertAspect("Second train gets green", SIGNAL_SB_MAIN, ASPECT_GREEN);
+			break;
+		case OCC_NORTH_SIDING:
+			assertAspect("Second train gets green", SIGNAL_SB_SIDING, ASPECT_YELLOW);
+			break;
+		case OCC_EAST_MAIN:
+			assertAspect("Second train gets green", SIGNAL_WB_TOP, ASPECT_GREEN);
+			assertAspect("...over red", SIGNAL_WB_BOTTOM, ASPECT_RED);
+			break;
+		case OCC_SOUTH_MAIN:
+			assertAspect("Second train gets green", SIGNAL_NB_TOP, ASPECT_GREEN);
+			assertAspect("...over red", SIGNAL_NB_BOTTOM, ASPECT_RED);
+			break;
+	}
+
+	gettimeofday(&tvEnd, NULL);
+	printf("\nPass: %d\nFail: %d\n\n", pass, fail);
+	timeval_subtract(&tvDiff, &tvEnd, &tvBegin);
+	printf("Elapsed Time: %ld:%02ld\n\n", tvDiff.tv_sec / 60, tvDiff.tv_sec % 60);
+}
+
+void testTimelockTurnout(int firstBlock)
+{
+	int i;
+	struct timeval tvBegin, tvEnd, tvDiff, tvTimerA, tvTimerB;
+	gettimeofday(&tvBegin, NULL);
+	
+	printf("\n");
+	printf("--------------------------------------------------------------------------------\n");
+	printf("Timelock Timer with Turnout Change\n");
+	printf("--------------------------------------------------------------------------------\n");
+
+	clearAll();
+	
+	turnouts = 0;
+
+	occupancy |= firstBlock;
+	sendCommand();
+	switch(firstBlock)
+	{
+		case OCC_WEST_MAIN:
+			assertAspect("Train arrives, gets green", SIGNAL_EB_MAIN, ASPECT_GREEN);
+			break;
+		case OCC_WEST_SIDING:
+			assertAspect("Train arrives, gets yellow", SIGNAL_EB_SIDING, ASPECT_YELLOW);
+			break;
+		case OCC_EAST_MAIN:
+			assertAspect("Train arrives, gets green", SIGNAL_WB_TOP, ASPECT_GREEN);
+			assertAspect("...over red", SIGNAL_WB_BOTTOM, ASPECT_RED);
+			break;
+		case OCC_NORTH_MAIN:
+			assertAspect("Train arrives, gets green", SIGNAL_SB_MAIN, ASPECT_GREEN);
+			break;
+		case OCC_NORTH_SIDING:
+			assertAspect("Train arrives, gets yellow", SIGNAL_SB_SIDING, ASPECT_YELLOW);
+			break;
+		case OCC_SOUTH_MAIN:
+			assertAspect("Train arrives, gets green", SIGNAL_NB_TOP, ASPECT_GREEN);
+			assertAspect("...over red", SIGNAL_NB_BOTTOM, ASPECT_RED);
+			break;
+	}
+
+	if(firstBlock == OCC_EAST_MAIN)
+	{
+		turnouts |= TURNOUT_WEST;
+	}
+	
+	if(firstBlock == OCC_SOUTH_MAIN)
+	{
+		turnouts |= TURNOUT_NORTH;
+	}
+	sendCommand();
+
+	gettimeofday(&tvTimerA, NULL);  // Timelock start
+
+	switch(firstBlock)
+	{
+		case OCC_EAST_MAIN:
+			assertAspect("Turnout changes, signal goes to red", SIGNAL_WB_TOP, ASPECT_RED);
+			assertAspect("...over red", SIGNAL_WB_BOTTOM, ASPECT_RED);
+			break;
+		case OCC_SOUTH_MAIN:
+			assertAspect("Turnout changes, signal goes to red", SIGNAL_NB_TOP, ASPECT_RED);
+			assertAspect("...over red", SIGNAL_NB_BOTTOM, ASPECT_RED);
+			break;
+	}
+
+	waitForNewPacket();
+
+	i = 0;
+	printf("Wait for timelock to expire.");
+	while(getTimelock())
+	{
+		usleep(100000);
+		if(++i > 10)
+		{
+			printf(".");
+			fflush(stdout);
+			i = 0;
+		}
+	}
+	printf("\n");
+	gettimeofday(&tvTimerB, NULL);
+	timeval_subtract(&tvDiff, &tvTimerB, &tvTimerA);
+
+	assertFloat("TIMELOCK timer", (float)tvDiff.tv_sec + (float)tvDiff.tv_usec/1000000, timelockTime, 1);
+
+	switch(firstBlock)
+	{
+		case OCC_EAST_MAIN:
+			assertAspect("Signal goes to red", SIGNAL_WB_TOP, ASPECT_RED);
+			assertAspect("...over yellow", SIGNAL_WB_BOTTOM, ASPECT_YELLOW);
+			break;
+		case OCC_SOUTH_MAIN:
+			assertAspect("Turnout changes, signal goes to red", SIGNAL_NB_TOP, ASPECT_RED);
+			assertAspect("...over yellow", SIGNAL_NB_BOTTOM, ASPECT_YELLOW);
+			break;
+	}
+
+	turnouts = 0;
+	sendCommand();
+
+	gettimeofday(&tvTimerA, NULL);  // Timelock start
+
+	switch(firstBlock)
+	{
+		case OCC_EAST_MAIN:
+			assertAspect("Turnout changes, signal goes to red", SIGNAL_WB_TOP, ASPECT_RED);
+			assertAspect("...over red", SIGNAL_WB_BOTTOM, ASPECT_RED);
+			break;
+		case OCC_SOUTH_MAIN:
+			assertAspect("Turnout changes, signal goes to red", SIGNAL_NB_TOP, ASPECT_RED);
+			assertAspect("...over red", SIGNAL_NB_BOTTOM, ASPECT_RED);
+			break;
+	}
+
+	waitForNewPacket();
+
+	i = 0;
+	printf("Wait for timelock to expire.");
+	while(getTimelock())
+	{
+		usleep(100000);
+		if(++i > 10)
+		{
+			printf(".");
+			fflush(stdout);
+			i = 0;
+		}
+	}
+	printf("\n");
+	gettimeofday(&tvTimerB, NULL);
+	timeval_subtract(&tvDiff, &tvTimerB, &tvTimerA);
+
+	assertFloat("TIMELOCK timer", (float)tvDiff.tv_sec + (float)tvDiff.tv_usec/1000000, timelockTime, 1);
+
+	switch(firstBlock)
+	{
+		case OCC_EAST_MAIN:
+			assertAspect("Signal goes to green", SIGNAL_WB_TOP, ASPECT_GREEN);
+			assertAspect("...over red", SIGNAL_WB_BOTTOM, ASPECT_RED);
+			break;
+		case OCC_SOUTH_MAIN:
+			assertAspect("Turnout changes, signal goes to green", SIGNAL_NB_TOP, ASPECT_GREEN);
+			assertAspect("...over red", SIGNAL_NB_BOTTOM, ASPECT_RED);
+			break;
+	}
 
 	gettimeofday(&tvEnd, NULL);
 	printf("\nPass: %d\nFail: %d\n\n", pass, fail);
@@ -1193,17 +1439,35 @@ int main(void)
 		// phantom_before_real
 	
 		// timelock_meet
-// FIXME: Try all permutations of meets
 		RUN_TEST(testTimelockMeet(OCC_EAST_MAIN,OCC_NORTH_MAIN));
-	
+		RUN_TEST(testTimelockMeet(OCC_EAST_MAIN,OCC_NORTH_SIDING));
+		RUN_TEST(testTimelockMeet(OCC_EAST_MAIN,OCC_SOUTH_MAIN));
+		RUN_TEST(testTimelockMeet(OCC_WEST_MAIN,OCC_NORTH_MAIN));
+		RUN_TEST(testTimelockMeet(OCC_WEST_MAIN,OCC_NORTH_SIDING));
+		RUN_TEST(testTimelockMeet(OCC_WEST_MAIN,OCC_SOUTH_MAIN));
+		RUN_TEST(testTimelockMeet(OCC_WEST_SIDING,OCC_NORTH_MAIN));
+		RUN_TEST(testTimelockMeet(OCC_WEST_SIDING,OCC_NORTH_SIDING));
+		RUN_TEST(testTimelockMeet(OCC_WEST_SIDING,OCC_SOUTH_MAIN));
+
+		RUN_TEST(testTimelockMeet(OCC_SOUTH_MAIN,OCC_WEST_MAIN));
+		RUN_TEST(testTimelockMeet(OCC_SOUTH_MAIN,OCC_WEST_SIDING));
+		RUN_TEST(testTimelockMeet(OCC_SOUTH_MAIN,OCC_EAST_MAIN));
+		RUN_TEST(testTimelockMeet(OCC_NORTH_MAIN,OCC_WEST_MAIN));
+		RUN_TEST(testTimelockMeet(OCC_NORTH_MAIN,OCC_WEST_SIDING));
+		RUN_TEST(testTimelockMeet(OCC_NORTH_MAIN,OCC_EAST_MAIN));
+		RUN_TEST(testTimelockMeet(OCC_NORTH_SIDING,OCC_WEST_MAIN));
+		RUN_TEST(testTimelockMeet(OCC_NORTH_SIDING,OCC_WEST_SIDING));
+		RUN_TEST(testTimelockMeet(OCC_NORTH_SIDING,OCC_EAST_MAIN));
+
 		// timelock
-	
+		RUN_TEST(testTimelockTurnout(OCC_EAST_MAIN));
+		RUN_TEST(testTimelockTurnout(OCC_SOUTH_MAIN));
+
 		// lockout_expire_with_train_present
-	
-		// timeout_expire
-	
+
+		// timeout_expire (covered by below?)
 		// timeout_expire_momentary_train
-	
+
 		// debounce_timer
 		debounceTime = 10;
 		writeEeprom(EE_DEBOUNCE_SECONDS, debounceTime);
@@ -1216,6 +1480,8 @@ int main(void)
 		debounceTime = 5;
 		writeEeprom(EE_DEBOUNCE_SECONDS, debounceTime);
 		RUN_TEST(testDebounceTimer());
+		
+		break;
 	}
 	
 	clearAll();
