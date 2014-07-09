@@ -1,0 +1,812 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="900"
+   height="405"
+   id="svg3306"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="control.svg">
+  <defs
+     id="defs3308" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.7"
+     inkscape:cx="360.00225"
+     inkscape:cy="129.24662"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     units="in"
+     inkscape:window-width="1366"
+     inkscape:window-height="745"
+     inkscape:window-x="0"
+     inkscape:window-y="1"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata3311">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-647.35975)">
+    <path
+       style="fill:none;stroke:#c0c0c0;stroke-width:11.25;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 630.00001,782.35967 45,-45"
+       id="path3914"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/panel2.png"
+       inkscape:export-xdpi="72"
+       inkscape:export-ydpi="72" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:11.25000191;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 50.625053,872.35967 798.750557,0"
+       id="path3122"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/panel2.png"
+       inkscape:export-xdpi="72"
+       inkscape:export-ydpi="72" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path3894"
+       d="m 50.625553,827.35967 263.304307,0"
+       style="fill:none;stroke:#000000;stroke-width:11.25;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/panel2.png"
+       inkscape:export-xdpi="72"
+       inkscape:export-ydpi="72" />
+    <path
+       style="fill:none;stroke:#c0c0c0;stroke-width:11.24999714;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 674.99941,737.35967 174.3756,0"
+       id="path3896"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/panel2.png"
+       inkscape:export-xdpi="72"
+       inkscape:export-ydpi="72" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:11.25000095;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 562.50006,782.35967 286.87575,0"
+       id="path3900"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/panel2.png"
+       inkscape:export-xdpi="72"
+       inkscape:export-ydpi="72" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:11.25;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 562.50226,782.35967 -135,180"
+       id="path3908"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/panel2.png"
+       inkscape:export-xdpi="72"
+       inkscape:export-ydpi="72" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:11.25;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 315.00226,827.35967 45,45"
+       id="path3916"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/panel2.png"
+       inkscape:export-xdpi="72"
+       inkscape:export-ydpi="72" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path3898"
+       d="m 50.635753,962.35967 376.169207,0"
+       style="fill:none;stroke:#000000;stroke-width:11.24999905;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/panel2.png"
+       inkscape:export-xdpi="72"
+       inkscape:export-ydpi="72" />
+    <g
+       id="g3924"
+       transform="translate(-67.499947,-2.8684368e-5)"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/panel2.png"
+       inkscape:export-xdpi="72"
+       inkscape:export-ydpi="72">
+      <path
+         transform="matrix(0.44536083,0,0,0.44536082,247.21237,770.46486)"
+         d="M 277.5,127.75 C 277.5,141.14291 266.64291,152 253.25,152 239.85709,152 229,141.14291 229,127.75 c 0,-13.39291 10.85709,-24.25 24.25,-24.25 13.39291,0 24.25,10.85709 24.25,24.25 z"
+         sodipodi:ry="24.25"
+         sodipodi:rx="24.25"
+         sodipodi:cy="127.75"
+         sodipodi:cx="253.25"
+         id="path3918"
+         style="fill:#00ff00;fill-opacity:1;stroke:#000000;stroke-width:2.02083325;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         sodipodi:type="arc" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3920"
+         d="m 367.63675,819.72295 -15.2735,15.2735"
+         style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3922"
+         d="m 367.63675,834.99645 -15.2735,-15.2735"
+         style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
+    <g
+       id="g3924-2"
+       transform="translate(360.00006,-45.000029)"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/panel2.png"
+       inkscape:export-xdpi="72"
+       inkscape:export-ydpi="72">
+      <path
+         transform="matrix(0.44536083,0,0,0.44536082,247.21237,770.46486)"
+         d="M 277.5,127.75 C 277.5,141.14291 266.64291,152 253.25,152 239.85709,152 229,141.14291 229,127.75 c 0,-13.39291 10.85709,-24.25 24.25,-24.25 13.39291,0 24.25,10.85709 24.25,24.25 z"
+         sodipodi:ry="24.25"
+         sodipodi:rx="24.25"
+         sodipodi:cy="127.75"
+         sodipodi:cx="253.25"
+         id="path3918-6"
+         style="fill:#ff0000;fill-opacity:1;stroke:#000000;stroke-width:2.02083325;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         sodipodi:type="arc" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3920-2"
+         d="m 367.63675,819.72295 -15.2735,15.2735"
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3922-9"
+         d="m 367.63675,834.99645 -15.2735,-15.2735"
+         style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
+    <g
+       id="g3924-18"
+       transform="translate(168.75006,-2.8684368e-5)"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/panel2.png"
+       inkscape:export-xdpi="72"
+       inkscape:export-ydpi="72">
+      <path
+         transform="matrix(0.44536083,0,0,0.44536082,247.21237,770.46486)"
+         d="M 277.5,127.75 C 277.5,141.14291 266.64291,152 253.25,152 239.85709,152 229,141.14291 229,127.75 c 0,-13.39291 10.85709,-24.25 24.25,-24.25 13.39291,0 24.25,10.85709 24.25,24.25 z"
+         sodipodi:ry="24.25"
+         sodipodi:rx="24.25"
+         sodipodi:cy="127.75"
+         sodipodi:cx="253.25"
+         id="path3918-1"
+         style="fill:#0000ff;fill-opacity:1;stroke:#000000;stroke-width:2.02083325;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         sodipodi:type="arc" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3920-41"
+         d="m 367.63675,819.72295 -15.2735,15.2735"
+         style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3922-90"
+         d="m 367.63675,834.99645 -15.2735,-15.2735"
+         style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
+    <g
+       id="g3924-2-4"
+       transform="translate(360.00006,44.999971)"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/panel2.png"
+       inkscape:export-xdpi="72"
+       inkscape:export-ydpi="72">
+      <path
+         transform="matrix(0.44536083,0,0,0.44536082,247.21237,770.46486)"
+         d="M 277.5,127.75 C 277.5,141.14291 266.64291,152 253.25,152 239.85709,152 229,141.14291 229,127.75 c 0,-13.39291 10.85709,-24.25 24.25,-24.25 13.39291,0 24.25,10.85709 24.25,24.25 z"
+         sodipodi:ry="24.25"
+         sodipodi:rx="24.25"
+         sodipodi:cy="127.75"
+         sodipodi:cx="253.25"
+         id="path3918-6-6"
+         style="fill:#ff0000;fill-opacity:1;stroke:#000000;stroke-width:2.02083325;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         sodipodi:type="arc" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3920-2-5"
+         d="m 367.63675,819.72295 -15.2735,15.2735"
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3922-9-5"
+         d="m 367.63675,834.99645 -15.2735,-15.2735"
+         style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
+    <g
+       id="g3924-2-8"
+       transform="translate(-179.99994,-2.8684368e-5)"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/panel2.png"
+       inkscape:export-xdpi="72"
+       inkscape:export-ydpi="72">
+      <path
+         transform="matrix(0.44536083,0,0,0.44536082,247.21237,770.46486)"
+         d="M 277.5,127.75 C 277.5,141.14291 266.64291,152 253.25,152 239.85709,152 229,141.14291 229,127.75 c 0,-13.39291 10.85709,-24.25 24.25,-24.25 13.39291,0 24.25,10.85709 24.25,24.25 z"
+         sodipodi:ry="24.25"
+         sodipodi:rx="24.25"
+         sodipodi:cy="127.75"
+         sodipodi:cx="253.25"
+         id="path3918-6-8"
+         style="fill:#ff0000;fill-opacity:1;stroke:#000000;stroke-width:2.02083325;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         sodipodi:type="arc" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3920-2-1"
+         d="m 367.63675,819.72295 -15.2735,15.2735"
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3922-9-3"
+         d="m 367.63675,834.99645 -15.2735,-15.2735"
+         style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
+    <g
+       id="g3924-2-88"
+       transform="translate(-179.99994,44.999971)"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/panel2.png"
+       inkscape:export-xdpi="72"
+       inkscape:export-ydpi="72">
+      <path
+         transform="matrix(0.44536083,0,0,0.44536082,247.21237,770.46486)"
+         d="M 277.5,127.75 C 277.5,141.14291 266.64291,152 253.25,152 239.85709,152 229,141.14291 229,127.75 c 0,-13.39291 10.85709,-24.25 24.25,-24.25 13.39291,0 24.25,10.85709 24.25,24.25 z"
+         sodipodi:ry="24.25"
+         sodipodi:rx="24.25"
+         sodipodi:cy="127.75"
+         sodipodi:cx="253.25"
+         id="path3918-6-0"
+         style="fill:#ff0000;fill-opacity:1;stroke:#000000;stroke-width:2.02083325;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         sodipodi:type="arc" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3920-2-0"
+         d="m 367.63675,819.72295 -15.2735,15.2735"
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3922-9-2"
+         d="m 367.63675,834.99645 -15.2735,-15.2735"
+         style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
+    <g
+       id="g3924-2-0"
+       transform="translate(-179.99994,134.99997)"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/panel2.png"
+       inkscape:export-xdpi="72"
+       inkscape:export-ydpi="72">
+      <path
+         transform="matrix(0.44536083,0,0,0.44536082,247.21237,770.46486)"
+         d="M 277.5,127.75 C 277.5,141.14291 266.64291,152 253.25,152 239.85709,152 229,141.14291 229,127.75 c 0,-13.39291 10.85709,-24.25 24.25,-24.25 13.39291,0 24.25,10.85709 24.25,24.25 z"
+         sodipodi:ry="24.25"
+         sodipodi:rx="24.25"
+         sodipodi:cy="127.75"
+         sodipodi:cx="253.25"
+         id="path3918-6-1"
+         style="fill:#ff0000;fill-opacity:1;stroke:#000000;stroke-width:2.02083325;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         sodipodi:type="arc" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3920-2-15"
+         d="m 367.63675,819.72295 -15.2735,15.2735"
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3922-9-9"
+         d="m 367.63675,834.99645 -15.2735,-15.2735"
+         style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
+    <g
+       id="g3924-18-1"
+       transform="translate(191.25006,44.999971)"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/panel2.png"
+       inkscape:export-xdpi="72"
+       inkscape:export-ydpi="72">
+      <path
+         transform="matrix(0.44536083,0,0,0.44536082,247.21237,770.46486)"
+         d="M 277.5,127.75 C 277.5,141.14291 266.64291,152 253.25,152 239.85709,152 229,141.14291 229,127.75 c 0,-13.39291 10.85709,-24.25 24.25,-24.25 13.39291,0 24.25,10.85709 24.25,24.25 z"
+         sodipodi:ry="24.25"
+         sodipodi:rx="24.25"
+         sodipodi:cy="127.75"
+         sodipodi:cx="253.25"
+         id="path3918-1-0"
+         style="fill:#0000ff;fill-opacity:1;stroke:#000000;stroke-width:2.02083325;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         sodipodi:type="arc" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3920-41-5"
+         d="m 367.63675,819.72295 -15.2735,15.2735"
+         style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3922-90-4"
+         d="m 367.63675,834.99645 -15.2735,-15.2735"
+         style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
+    <g
+       id="g3924-18-3"
+       transform="translate(101.25006,89.999971)"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/panel2.png"
+       inkscape:export-xdpi="72"
+       inkscape:export-ydpi="72">
+      <path
+         transform="matrix(0.44536083,0,0,0.44536082,247.21237,770.46486)"
+         d="M 277.5,127.75 C 277.5,141.14291 266.64291,152 253.25,152 239.85709,152 229,141.14291 229,127.75 c 0,-13.39291 10.85709,-24.25 24.25,-24.25 13.39291,0 24.25,10.85709 24.25,24.25 z"
+         sodipodi:ry="24.25"
+         sodipodi:rx="24.25"
+         sodipodi:cy="127.75"
+         sodipodi:cx="253.25"
+         id="path3918-1-4"
+         style="fill:#0000ff;fill-opacity:1;stroke:#000000;stroke-width:2.02083325;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         sodipodi:type="arc" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3920-41-2"
+         d="m 367.63675,819.72295 -15.2735,15.2735"
+         style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3922-90-1"
+         d="m 367.63675,834.99645 -15.2735,-15.2735"
+         style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
+    <g
+       id="g3924-18-5"
+       transform="translate(78.750053,44.999971)"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/panel2.png"
+       inkscape:export-xdpi="72"
+       inkscape:export-ydpi="72">
+      <path
+         transform="matrix(0.44536083,0,0,0.44536082,247.21237,770.46486)"
+         d="M 277.5,127.75 C 277.5,141.14291 266.64291,152 253.25,152 239.85709,152 229,141.14291 229,127.75 c 0,-13.39291 10.85709,-24.25 24.25,-24.25 13.39291,0 24.25,10.85709 24.25,24.25 z"
+         sodipodi:ry="24.25"
+         sodipodi:rx="24.25"
+         sodipodi:cy="127.75"
+         sodipodi:cx="253.25"
+         id="path3918-1-2"
+         style="fill:#0000ff;fill-opacity:1;stroke:#000000;stroke-width:2.02083325;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         sodipodi:type="arc" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3920-41-51"
+         d="m 367.63675,819.72295 -15.2735,15.2735"
+         style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3922-90-6"
+         d="m 367.63675,834.99645 -15.2735,-15.2735"
+         style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
+    <g
+       id="g3924-1"
+       transform="translate(-67.499947,44.999971)"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/panel2.png"
+       inkscape:export-xdpi="72"
+       inkscape:export-ydpi="72">
+      <path
+         transform="matrix(0.44536083,0,0,0.44536082,247.21237,770.46486)"
+         d="M 277.5,127.75 C 277.5,141.14291 266.64291,152 253.25,152 239.85709,152 229,141.14291 229,127.75 c 0,-13.39291 10.85709,-24.25 24.25,-24.25 13.39291,0 24.25,10.85709 24.25,24.25 z"
+         sodipodi:ry="24.25"
+         sodipodi:rx="24.25"
+         sodipodi:cy="127.75"
+         sodipodi:cx="253.25"
+         id="path3918-9"
+         style="fill:#00ff00;fill-opacity:1;stroke:#000000;stroke-width:2.02083325;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         sodipodi:type="arc" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3920-3"
+         d="m 367.63675,819.72295 -15.2735,15.2735"
+         style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3922-6"
+         d="m 367.63675,834.99645 -15.2735,-15.2735"
+         style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
+    <g
+       id="g3924-7"
+       transform="translate(5.273222e-5,44.999971)"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/panel2.png"
+       inkscape:export-xdpi="72"
+       inkscape:export-ydpi="72">
+      <path
+         transform="matrix(0.44536083,0,0,0.44536082,247.21237,770.46486)"
+         d="M 277.5,127.75 C 277.5,141.14291 266.64291,152 253.25,152 239.85709,152 229,141.14291 229,127.75 c 0,-13.39291 10.85709,-24.25 24.25,-24.25 13.39291,0 24.25,10.85709 24.25,24.25 z"
+         sodipodi:ry="24.25"
+         sodipodi:rx="24.25"
+         sodipodi:cy="127.75"
+         sodipodi:cx="253.25"
+         id="path3918-10"
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:2.02083325;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         sodipodi:type="arc" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3920-31"
+         d="m 367.63675,819.72295 -15.2735,15.2735"
+         style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3922-8"
+         d="m 367.63675,834.99645 -15.2735,-15.2735"
+         style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="268.19296"
+       y="726.60724"
+       id="text3058"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/panel2.png"
+       inkscape:export-xdpi="72"
+       inkscape:export-ydpi="72"><tspan
+         sodipodi:role="line"
+         id="tspan3060"
+         x="268.19296"
+         y="726.60724"
+         style="font-size:32px">INTERLOCKING-IN-A-BOX</tspan><tspan
+         sodipodi:role="line"
+         x="268.19296"
+         y="758.73462"
+         id="tspan3062"
+         style="font-size:24px">Control Panel</tspan></text>
+    <g
+       style="display:inline"
+       id="g5439"
+       transform="matrix(0.93515032,0,0,0.93515032,331.73626,208.66936)"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/panel2.png"
+       inkscape:export-xdpi="72"
+       inkscape:export-ydpi="72">
+      <g
+         transform="matrix(1.5195877,0,0,1.5195877,115.40812,-285.26448)"
+         id="g3957"
+         style="display:inline">
+        <g
+           id="g4039">
+          <rect
+             y="721.72882"
+             x="23.694349"
+             height="27.851292"
+             width="252.91223"
+             id="rect3165"
+             style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.38000244;stroke-linecap:butt;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+          <path
+             inkscape:connector-curvature="0"
+             id="path4135"
+             d="m 23.69435,728.62132 252.91223,0"
+             style="fill:none;stroke:#000000;stroke-width:0.38000244px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+          <path
+             inkscape:connector-curvature="0"
+             id="path4135-2"
+             d="m 23.69435,742.54697 252.91223,0"
+             style="fill:none;stroke:#000000;stroke-width:0.38000244px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+          <path
+             style="fill:none;stroke:#000000;stroke-width:0.38000244px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+             d="m 262.68094,721.72883 0,27.8513"
+             id="path4034-55"
+             inkscape:connector-curvature="0" />
+          <path
+             style="fill:none;stroke:#000000;stroke-width:0.38000244px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+             d="m 248.61463,721.72883 0,27.8513"
+             id="path4034-7-6"
+             inkscape:connector-curvature="0" />
+          <path
+             style="fill:none;stroke:#000000;stroke-width:0.38000244px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+             d="m 234.54832,721.72883 0,27.8513"
+             id="path4034-5-4"
+             inkscape:connector-curvature="0" />
+          <path
+             style="fill:none;stroke:#000000;stroke-width:0.38000244px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+             d="m 220.48201,721.72883 0,27.8513"
+             id="path4034-4-2"
+             inkscape:connector-curvature="0" />
+          <path
+             style="fill:none;stroke:#000000;stroke-width:0.38000244px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+             d="m 206.4157,721.72883 0,27.8513"
+             id="path4034-1-8"
+             inkscape:connector-curvature="0" />
+          <path
+             style="fill:none;stroke:#000000;stroke-width:0.38000244px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+             d="m 192.34939,721.72883 0,27.8513"
+             id="path4034-13-8"
+             inkscape:connector-curvature="0" />
+          <path
+             style="fill:none;stroke:#000000;stroke-width:0.38000244px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+             d="m 178.28308,721.72883 0,27.8513"
+             id="path4034-8-6"
+             inkscape:connector-curvature="0" />
+          <path
+             style="fill:none;stroke:#000000;stroke-width:0.38000244px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+             d="m 164.21677,721.72883 0,27.8513"
+             id="path4034-84-4"
+             inkscape:connector-curvature="0" />
+          <path
+             style="fill:none;stroke:#000000;stroke-width:0.38000244px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+             d="m 136.08416,721.72883 0,27.8513"
+             id="path4034"
+             inkscape:connector-curvature="0" />
+          <path
+             style="fill:none;stroke:#000000;stroke-width:0.38000244px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+             d="m 122.01785,721.72883 0,27.8513"
+             id="path4034-7"
+             inkscape:connector-curvature="0" />
+          <path
+             style="fill:none;stroke:#000000;stroke-width:0.38000244px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+             d="m 107.95154,721.72883 0,27.8513"
+             id="path4034-5"
+             inkscape:connector-curvature="0" />
+          <path
+             style="fill:none;stroke:#000000;stroke-width:0.38000244px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+             d="m 93.885231,721.72883 0,27.8513"
+             id="path4034-4"
+             inkscape:connector-curvature="0" />
+          <path
+             style="fill:none;stroke:#000000;stroke-width:0.38000244px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+             d="m 79.818918,721.72883 0,27.8513"
+             id="path4034-1"
+             inkscape:connector-curvature="0" />
+          <path
+             style="fill:none;stroke:#000000;stroke-width:0.38000244px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+             d="m 65.752609,721.72883 0,27.8513"
+             id="path4034-13"
+             inkscape:connector-curvature="0" />
+          <path
+             style="fill:none;stroke:#000000;stroke-width:0.38000244px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+             d="m 51.686302,721.72883 0,27.8513"
+             id="path4034-8"
+             inkscape:connector-curvature="0" />
+          <path
+             style="fill:none;stroke:#000000;stroke-width:0.38000244px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+             d="m 37.619993,721.72883 0,27.8513"
+             id="path4034-84"
+             inkscape:connector-curvature="0" />
+          <rect
+             style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.38000238;stroke-linecap:butt;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+             id="rect3946"
+             width="125.19016"
+             height="25.319338"
+             x="24.960312"
+             y="722.99475" />
+          <text
+             transform="matrix(1,0,-0.36396872,1,0,0)"
+             sodipodi:linespacing="125%"
+             id="text3986"
+             y="744.55029"
+             x="297.5563"
+             style="font-size:11.25304699px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+             xml:space="preserve"><tspan
+               style="font-size:22.50609398px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;letter-spacing:-0.28132617px;font-family:Impact;-inkscape-font-specification:Impact Bold"
+               y="744.55029"
+               x="297.5563"
+               id="tspan3988"
+               sodipodi:role="line">IOWA SCALED</tspan></text>
+          <path
+             inkscape:connector-curvature="0"
+             id="path3996"
+             d="m 150.15047,721.72883 0,27.85129"
+             style="fill:none;stroke:#000000;stroke-width:0.38000244px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+          <rect
+             y="722.99481"
+             x="150.15047"
+             height="25.319357"
+             width="125.19015"
+             id="rect4014"
+             style="fill:#ff0000;fill-opacity:1;stroke:#000000;stroke-width:0.38000244;stroke-opacity:1" />
+          <text
+             xml:space="preserve"
+             style="font-size:11.25304699px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Sans"
+             x="423.16751"
+             y="744.55029"
+             id="text4024"
+             sodipodi:linespacing="125%"
+             transform="matrix(1,0,-0.36396872,1,0,0)"><tspan
+               sodipodi:role="line"
+               id="tspan4026"
+               x="423.16751"
+               y="744.55029"
+               style="font-size:22.50609398px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;letter-spacing:0px;fill:#ffffff;fill-opacity:1;font-family:Impact;-inkscape-font-specification:Impact Bold">ENGINEERING</tspan></text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g3924-2-4-2"
+       transform="translate(135.00226,44.999971)"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/panel2.png"
+       inkscape:export-xdpi="72"
+       inkscape:export-ydpi="72">
+      <path
+         transform="matrix(0.44536083,0,0,0.44536082,247.21237,770.46486)"
+         d="M 277.5,127.75 C 277.5,141.14291 266.64291,152 253.25,152 239.85709,152 229,141.14291 229,127.75 c 0,-13.39291 10.85709,-24.25 24.25,-24.25 13.39291,0 24.25,10.85709 24.25,24.25 z"
+         sodipodi:ry="24.25"
+         sodipodi:rx="24.25"
+         sodipodi:cy="127.75"
+         sodipodi:cx="253.25"
+         id="path3918-6-6-2"
+         style="fill:#ff0000;fill-opacity:1;stroke:#000000;stroke-width:2.02083325;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         sodipodi:type="arc" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3920-2-5-5"
+         d="m 367.63675,819.72295 -15.2735,15.2735"
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3922-9-5-2"
+         d="m 367.63675,834.99645 -15.2735,-15.2735"
+         style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:0.9000001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect3096"
+       width="900.00006"
+       height="405.00003"
+       x="4.7881393e-08"
+       y="647.35974"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/panel2.png"
+       inkscape:export-xdpi="72"
+       inkscape:export-ydpi="72" />
+    <g
+       id="g3924-18-1-5"
+       transform="translate(262.83436,101.25003)"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/panel2.png"
+       inkscape:export-xdpi="72"
+       inkscape:export-ydpi="72">
+      <path
+         transform="matrix(0.44536083,0,0,0.44536082,247.21237,770.46486)"
+         d="M 277.5,127.75 C 277.5,141.14291 266.64291,152 253.25,152 239.85709,152 229,141.14291 229,127.75 c 0,-13.39291 10.85709,-24.25 24.25,-24.25 13.39291,0 24.25,10.85709 24.25,24.25 z"
+         sodipodi:ry="24.25"
+         sodipodi:rx="24.25"
+         sodipodi:cy="127.75"
+         sodipodi:cx="253.25"
+         id="path3918-1-0-7"
+         style="fill:#ffff00;fill-opacity:1;stroke:#000000;stroke-width:2.02083325;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         sodipodi:type="arc" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3920-41-5-3"
+         d="m 367.63675,819.72295 -15.2735,15.2735"
+         style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3922-90-4-4"
+         d="m 367.63675,834.99645 -15.2735,-15.2735"
+         style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-size:48px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="647.58429"
+       y="934.33624"
+       id="text5336-4-6"
+       sodipodi:linespacing="125%"
+       inkscape:transform-center-x="14.5"
+       inkscape:transform-center-y="-26.5"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/panel2.png"
+       inkscape:export-xdpi="72"
+       inkscape:export-ydpi="72"><tspan
+         sodipodi:role="line"
+         x="647.58429"
+         y="934.33624"
+         id="tspan5342-5-7"
+         style="font-size:16px">Simulated Train Sound</tspan></text>
+    <g
+       id="g3924-7-1"
+       transform="matrix(0.61035156,0,0,0.61035156,-185.97654,176.1294)"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/panel2.png"
+       inkscape:export-xdpi="72"
+       inkscape:export-ydpi="72">
+      <path
+         transform="matrix(0.44536083,0,0,0.44536082,247.21237,770.46486)"
+         d="M 277.5,127.75 C 277.5,141.14291 266.64291,152 253.25,152 239.85709,152 229,141.14291 229,127.75 c 0,-13.39291 10.85709,-24.25 24.25,-24.25 13.39291,0 24.25,10.85709 24.25,24.25 z"
+         sodipodi:ry="24.25"
+         sodipodi:rx="24.25"
+         sodipodi:cy="127.75"
+         sodipodi:cx="253.25"
+         id="path3918-10-5"
+         style="fill:#c0c0c0;fill-opacity:1;stroke:#000000;stroke-width:3.31093335;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         sodipodi:type="arc" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3920-31-1"
+         d="m 367.63675,819.72295 -15.2735,15.2735"
+         style="fill:none;stroke:#000000;stroke-width:1.63839996px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3922-8-8"
+         d="m 367.63675,834.99645 -15.2735,-15.2735"
+         style="fill:none;stroke:#000000;stroke-width:1.63839996px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
+    <g
+       id="g3924-7-1-5"
+       transform="matrix(0.61035156,0,0,0.61035156,-185.97654,513.62941)"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/panel2.png"
+       inkscape:export-xdpi="72"
+       inkscape:export-ydpi="72">
+      <path
+         transform="matrix(0.44536083,0,0,0.44536082,247.21237,770.46486)"
+         d="M 277.5,127.75 C 277.5,141.14291 266.64291,152 253.25,152 239.85709,152 229,141.14291 229,127.75 c 0,-13.39291 10.85709,-24.25 24.25,-24.25 13.39291,0 24.25,10.85709 24.25,24.25 z"
+         sodipodi:ry="24.25"
+         sodipodi:rx="24.25"
+         sodipodi:cy="127.75"
+         sodipodi:cx="253.25"
+         id="path3918-10-5-6"
+         style="fill:#c0c0c0;fill-opacity:1;stroke:#000000;stroke-width:3.31093335;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         sodipodi:type="arc" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3920-31-1-6"
+         d="m 367.63675,819.72295 -15.2735,15.2735"
+         style="fill:none;stroke:#000000;stroke-width:1.63839996px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3922-8-8-9"
+         d="m 367.63675,834.99645 -15.2735,-15.2735"
+         style="fill:none;stroke:#000000;stroke-width:1.63839996px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
+    <g
+       id="g3924-7-1-6"
+       transform="matrix(0.61035156,0,0,0.61035156,646.52341,513.6294)"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/panel2.png"
+       inkscape:export-xdpi="72"
+       inkscape:export-ydpi="72">
+      <path
+         transform="matrix(0.44536083,0,0,0.44536082,247.21237,770.46486)"
+         d="M 277.5,127.75 C 277.5,141.14291 266.64291,152 253.25,152 239.85709,152 229,141.14291 229,127.75 c 0,-13.39291 10.85709,-24.25 24.25,-24.25 13.39291,0 24.25,10.85709 24.25,24.25 z"
+         sodipodi:ry="24.25"
+         sodipodi:rx="24.25"
+         sodipodi:cy="127.75"
+         sodipodi:cx="253.25"
+         id="path3918-10-5-60"
+         style="fill:#c0c0c0;fill-opacity:1;stroke:#000000;stroke-width:3.31093335;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         sodipodi:type="arc" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3920-31-1-8"
+         d="m 367.63675,819.72295 -15.2735,15.2735"
+         style="fill:none;stroke:#000000;stroke-width:1.63839996px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3922-8-8-2"
+         d="m 367.63675,834.99645 -15.2735,-15.2735"
+         style="fill:none;stroke:#000000;stroke-width:1.63839996px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
+    <g
+       id="g3924-7-1-1"
+       transform="matrix(0.61035156,0,0,0.61035156,646.52341,176.12941)"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/panel2.png"
+       inkscape:export-xdpi="72"
+       inkscape:export-ydpi="72">
+      <path
+         transform="matrix(0.44536083,0,0,0.44536082,247.21237,770.46486)"
+         d="M 277.5,127.75 C 277.5,141.14291 266.64291,152 253.25,152 239.85709,152 229,141.14291 229,127.75 c 0,-13.39291 10.85709,-24.25 24.25,-24.25 13.39291,0 24.25,10.85709 24.25,24.25 z"
+         sodipodi:ry="24.25"
+         sodipodi:rx="24.25"
+         sodipodi:cy="127.75"
+         sodipodi:cx="253.25"
+         id="path3918-10-5-4"
+         style="fill:#c0c0c0;fill-opacity:1;stroke:#000000;stroke-width:3.31093335;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         sodipodi:type="arc" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3920-31-1-1"
+         d="m 367.63675,819.72295 -15.2735,15.2735"
+         style="fill:none;stroke:#000000;stroke-width:1.63839996px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3922-8-8-5"
+         d="m 367.63675,834.99645 -15.2735,-15.2735"
+         style="fill:none;stroke:#000000;stroke-width:1.63839996px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
+  </g>
+</svg>

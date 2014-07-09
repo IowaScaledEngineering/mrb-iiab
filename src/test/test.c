@@ -102,6 +102,15 @@ const char *aspectString[8];
 #define TURNOUT_NORTH 0x04
 #define TURNOUT_SOUTH 0x08
 
+#define   STATE_IDLE        0
+#define   STATE_CLEARANCE   1
+#define   STATE_TIMEOUT     2
+#define   STATE_TIMER       3
+#define   STATE_OCCUPIED    4
+#define   STATE_LOCKOUT     5
+#define   STATE_CLEAR       6
+
+
 uint8_t occupancy;
 uint8_t turnouts;
 
@@ -874,6 +883,192 @@ void testWestboundNorthbound(int dir, int track, int leaveBeforeDebounce)
 	assertAspect("LOCKOUT complete, red signal (top)", signal, ASPECT_RED);
 	assertAspect("LOCKOUT complete, red signal (bottom)", signal+1, ASPECT_RED);
 
+	END_TEST;
+}
+
+void testMeetBeforeInterlocking(int firstOcc)
+{
+	int i;
+	struct timeval tvDiff, tvTimerA, tvTimerB;
+	int signal = 0, track = 0;
+	int secondOcc = 0;
+	
+	START_TEST;
+
+	printf("\n");
+	printf("--------------------------------------------------------------------------------\n");
+	printf("Meet Before Interlocking - ");
+	switch(firstOcc)
+	{
+		case OCC_WEST_MAIN:
+			printf("Arrive West Main");
+			break;
+		case OCC_WEST_SIDING:
+			printf("Arrive West Siding");
+			break;
+		case OCC_NORTH_MAIN:
+			printf("Arrive North Main");
+			break;
+		case OCC_NORTH_SIDING:
+			printf("Arrive North Siding");
+			break;
+	}
+	printf("\n");
+	printf("--------------------------------------------------------------------------------\n");
+
+	clearAll();
+
+	occupancy |= firstOcc;
+	switch(firstOcc)
+	{
+		case OCC_WEST_MAIN:
+			signal = SIGNAL_EB_MAIN;
+			secondOcc = OCC_EAST_MAIN;
+			track = 0;
+			break;
+		case OCC_WEST_SIDING:
+			turnouts |= TURNOUT_WEST;
+			signal = SIGNAL_EB_SIDING;
+			secondOcc = OCC_EAST_MAIN;
+			track = 1;
+			break;
+		case OCC_NORTH_MAIN:
+			signal = SIGNAL_SB_MAIN;
+			secondOcc = OCC_SOUTH_MAIN;
+			track = 0;
+			break;
+		case OCC_NORTH_SIDING:
+			turnouts |= TURNOUT_NORTH;
+			signal = SIGNAL_SB_SIDING;
+			secondOcc = OCC_SOUTH_MAIN;
+			track = 1;
+			break;
+	}
+	sendCommand();
+	
+	assertAspect("First train arrives, gets proceed indication", signal, track?ASPECT_YELLOW:ASPECT_GREEN);
+	
+	occupancy |= secondOcc;
+	sendCommand();
+
+	assertAspect("Second train arrives, gets stop indication (top)", (OCC_EAST_MAIN==secondOcc)?SIGNAL_WB_TOP:SIGNAL_NB_TOP, ASPECT_RED);
+	assertAspect("Second train arrives, gets stop indication (bottom)", (OCC_EAST_MAIN==secondOcc)?SIGNAL_WB_BOTTOM:SIGNAL_NB_BOTTOM, ASPECT_RED);
+	
+	printf("Change turnout to break the deadlock\n");
+	switch(firstOcc)
+	{
+		case OCC_WEST_MAIN:
+		case OCC_WEST_SIDING:
+			turnouts ^= TURNOUT_WEST;
+			break;
+		case OCC_NORTH_MAIN:
+		case OCC_NORTH_SIDING:
+			turnouts ^= TURNOUT_NORTH;
+			break;
+	}
+	sendCommand();
+
+	gettimeofday(&tvTimerA, NULL);  // Timelock start
+
+	assertAspect("First train's signal drops to stop", signal, ASPECT_RED);
+	
+	i = 0;
+	printf("Wait for timelock to expire.");
+	while(getTimelock())
+	{
+		usleep(100000);
+		if(++i > 10)
+		{
+			printf(".");
+			fflush(stdout);
+			i = 0;
+		}
+	}
+	printf("\n");
+	gettimeofday(&tvTimerB, NULL);
+	timeval_subtract(&tvDiff, &tvTimerB, &tvTimerA);
+
+	assertFloat("TIMELOCK timer", (float)tvDiff.tv_sec + (float)tvDiff.tv_usec/1000000, timelockTime, 1);
+	
+	int aspect = ((OCC_WEST_MAIN==firstOcc)||(OCC_NORTH_MAIN==firstOcc))?ASPECT_RED:ASPECT_GREEN;
+	assertAspect("Second train gets proceed indication (top)", (OCC_EAST_MAIN==secondOcc)?SIGNAL_WB_TOP:SIGNAL_NB_TOP, aspect);
+	aspect = ((OCC_WEST_MAIN==firstOcc)||(OCC_NORTH_MAIN==firstOcc))?ASPECT_YELLOW:ASPECT_RED;
+	assertAspect("Second train gets proceed indication (bottom)", (OCC_EAST_MAIN==secondOcc)?SIGNAL_WB_BOTTOM:SIGNAL_NB_BOTTOM, aspect);
+
+	occupancy |= OCC_INTERLOCKING;
+	sendCommand();
+
+	occupancy &= ~secondOcc;
+	sendCommand();
+	
+	switch(firstOcc)
+	{
+		case OCC_WEST_MAIN:
+			occupancy |= OCC_WEST_SIDING;
+			break;
+		case OCC_WEST_SIDING:
+			occupancy |= OCC_WEST_MAIN;
+			break;
+		case OCC_NORTH_MAIN:
+			occupancy |= OCC_NORTH_SIDING;
+			break;
+		case OCC_NORTH_SIDING:
+			occupancy |= OCC_NORTH_MAIN;
+			break;
+	}
+	sendCommand();
+
+	occupancy &= ~OCC_INTERLOCKING;
+	sendCommand();
+
+	waitForNewPacket();
+
+	printf("Wait for debounce and timelock to expire.");
+	while(getTimelock() || getDebounce())
+	{
+		usleep(100000);
+		if(++i > 10)
+		{
+			printf(".");
+			fflush(stdout);
+			i = 0;
+		}
+	}
+	printf("\n");
+
+	waitForNewPacket();
+
+	switch(firstOcc)
+	{
+		case OCC_WEST_MAIN:
+		case OCC_WEST_SIDING:
+			assertInt("West in LOCKOUT", getLockout(DIR_WEST), 1);
+			break;
+		case OCC_NORTH_MAIN:
+		case OCC_NORTH_SIDING:
+			assertInt("North in LOCKOUT", getLockout(DIR_NORTH), 1);
+			break;
+	}
+
+
+	printf("Change turnout back\n");
+	switch(firstOcc)
+	{
+		case OCC_WEST_MAIN:
+		case OCC_WEST_SIDING:
+			turnouts ^= TURNOUT_WEST;
+			break;
+		case OCC_NORTH_MAIN:
+		case OCC_NORTH_SIDING:
+			turnouts ^= TURNOUT_NORTH;
+			break;
+	}
+	sendCommand();
+
+	waitForNewPacket();
+
+	assertAspect("First train gets proceed indication again", signal, track?ASPECT_YELLOW:ASPECT_GREEN);
+	
 	END_TEST;
 }
 
@@ -1869,135 +2064,139 @@ int main(void)
 	aspectString[0] = "OFF";
 	
 	gettimeofday(&tvBegin, NULL);
-    
-    while(1)
-    {
-    	// eastbound_main, eastbound_siding
-		RUN_TEST(testEastboundSouthbound(DIR_EAST, 0, 0));
-		RUN_TEST(testEastboundSouthbound(DIR_EAST, 0, 1));
-		RUN_TEST(testEastboundSouthbound(DIR_EAST, 1, 0));
-		RUN_TEST(testEastboundSouthbound(DIR_EAST, 1, 1));
-		RUN_TEST(testEastboundSouthbound(DIR_SOUTH, 0, 0));
-		RUN_TEST(testEastboundSouthbound(DIR_SOUTH, 0, 1));
-		RUN_TEST(testEastboundSouthbound(DIR_SOUTH, 1, 0));
-		RUN_TEST(testEastboundSouthbound(DIR_SOUTH, 1, 1));
 	
-		// eastbound_turnout
-		RUN_TEST(testArriveOpposingTurnout(DIR_EAST, 0));
-		RUN_TEST(testArriveOpposingTurnout(DIR_EAST, 1));
-		RUN_TEST(testArriveOpposingTurnout(DIR_SOUTH, 0));
-		RUN_TEST(testArriveOpposingTurnout(DIR_SOUTH, 1));
+	while(1)
+	{
+		// eastbound_main, eastbound_siding
+/*		RUN_TEST(testEastboundSouthbound(DIR_EAST, 0, 0));*/
+/*		RUN_TEST(testEastboundSouthbound(DIR_EAST, 0, 1));*/
+/*		RUN_TEST(testEastboundSouthbound(DIR_EAST, 1, 0));*/
+/*		RUN_TEST(testEastboundSouthbound(DIR_EAST, 1, 1));*/
+/*		RUN_TEST(testEastboundSouthbound(DIR_SOUTH, 0, 0));*/
+/*		RUN_TEST(testEastboundSouthbound(DIR_SOUTH, 0, 1));*/
+/*		RUN_TEST(testEastboundSouthbound(DIR_SOUTH, 1, 0));*/
+/*		RUN_TEST(testEastboundSouthbound(DIR_SOUTH, 1, 1));*/
+/*	*/
+/*		// eastbound_turnout*/
+/*		RUN_TEST(testArriveOpposingTurnout(DIR_EAST, 0));*/
+/*		RUN_TEST(testArriveOpposingTurnout(DIR_EAST, 1));*/
+/*		RUN_TEST(testArriveOpposingTurnout(DIR_SOUTH, 0));*/
+/*		RUN_TEST(testArriveOpposingTurnout(DIR_SOUTH, 1));*/
 
-		// westbound_main, westbound_siding
-		RUN_TEST(testWestboundNorthbound(DIR_WEST, 0, 0));
-		RUN_TEST(testWestboundNorthbound(DIR_WEST, 0, 1));
-		RUN_TEST(testWestboundNorthbound(DIR_WEST, 1, 0));
-		RUN_TEST(testWestboundNorthbound(DIR_WEST, 1, 1));
-		RUN_TEST(testWestboundNorthbound(DIR_NORTH, 0, 0));
-		RUN_TEST(testWestboundNorthbound(DIR_NORTH, 0, 1));
-		RUN_TEST(testWestboundNorthbound(DIR_NORTH, 1, 0));
-		RUN_TEST(testWestboundNorthbound(DIR_NORTH, 1, 1));
+/*		// westbound_main, westbound_siding*/
+/*		RUN_TEST(testWestboundNorthbound(DIR_WEST, 0, 0));*/
+/*		RUN_TEST(testWestboundNorthbound(DIR_WEST, 0, 1));*/
+/*		RUN_TEST(testWestboundNorthbound(DIR_WEST, 1, 0));*/
+/*		RUN_TEST(testWestboundNorthbound(DIR_WEST, 1, 1));*/
+/*		RUN_TEST(testWestboundNorthbound(DIR_NORTH, 0, 0));*/
+/*		RUN_TEST(testWestboundNorthbound(DIR_NORTH, 0, 1));*/
+/*		RUN_TEST(testWestboundNorthbound(DIR_NORTH, 1, 0));*/
+/*		RUN_TEST(testWestboundNorthbound(DIR_NORTH, 1, 1));*/
 	
 		// meet_before_interlocking
-	
+		RUN_TEST(testMeetBeforeInterlocking(OCC_WEST_MAIN));
+		RUN_TEST(testMeetBeforeInterlocking(OCC_WEST_SIDING));
+		RUN_TEST(testMeetBeforeInterlocking(OCC_NORTH_MAIN));
+		RUN_TEST(testMeetBeforeInterlocking(OCC_NORTH_SIDING));
+		
 		// meet_after_interlocking
-	
+		
 		// real_before_phantom
 	
 		// phantom_before_real
 	
 		// timelock_meet
-		timelockTime = 15;
-		writeEeprom(EE_TIMELOCK_SECONDS, timelockTime);
-		RUN_TEST(testTimelockMeet(OCC_EAST_MAIN,OCC_NORTH_MAIN));
-		timelockTime = 5;
-		writeEeprom(EE_TIMELOCK_SECONDS, timelockTime);
-		RUN_TEST(testTimelockMeet(OCC_EAST_MAIN,OCC_NORTH_MAIN));
-		RUN_TEST(testTimelockMeet(OCC_EAST_MAIN,OCC_NORTH_SIDING));
-		RUN_TEST(testTimelockMeet(OCC_EAST_MAIN,OCC_SOUTH_MAIN));
-		RUN_TEST(testTimelockMeet(OCC_WEST_MAIN,OCC_NORTH_MAIN));
-		RUN_TEST(testTimelockMeet(OCC_WEST_MAIN,OCC_NORTH_SIDING));
-		RUN_TEST(testTimelockMeet(OCC_WEST_MAIN,OCC_SOUTH_MAIN));
-		RUN_TEST(testTimelockMeet(OCC_WEST_SIDING,OCC_NORTH_MAIN));
-		RUN_TEST(testTimelockMeet(OCC_WEST_SIDING,OCC_NORTH_SIDING));
-		RUN_TEST(testTimelockMeet(OCC_WEST_SIDING,OCC_SOUTH_MAIN));
+/*		timelockTime = 15;*/
+/*		writeEeprom(EE_TIMELOCK_SECONDS, timelockTime);*/
+/*		RUN_TEST(testTimelockMeet(OCC_EAST_MAIN,OCC_NORTH_MAIN));*/
+/*		timelockTime = 5;*/
+/*		writeEeprom(EE_TIMELOCK_SECONDS, timelockTime);*/
+/*		RUN_TEST(testTimelockMeet(OCC_EAST_MAIN,OCC_NORTH_MAIN));*/
+/*		RUN_TEST(testTimelockMeet(OCC_EAST_MAIN,OCC_NORTH_SIDING));*/
+/*		RUN_TEST(testTimelockMeet(OCC_EAST_MAIN,OCC_SOUTH_MAIN));*/
+/*		RUN_TEST(testTimelockMeet(OCC_WEST_MAIN,OCC_NORTH_MAIN));*/
+/*		RUN_TEST(testTimelockMeet(OCC_WEST_MAIN,OCC_NORTH_SIDING));*/
+/*		RUN_TEST(testTimelockMeet(OCC_WEST_MAIN,OCC_SOUTH_MAIN));*/
+/*		RUN_TEST(testTimelockMeet(OCC_WEST_SIDING,OCC_NORTH_MAIN));*/
+/*		RUN_TEST(testTimelockMeet(OCC_WEST_SIDING,OCC_NORTH_SIDING));*/
+/*		RUN_TEST(testTimelockMeet(OCC_WEST_SIDING,OCC_SOUTH_MAIN));*/
 
-		RUN_TEST(testTimelockMeet(OCC_SOUTH_MAIN,OCC_WEST_MAIN));
-		RUN_TEST(testTimelockMeet(OCC_SOUTH_MAIN,OCC_WEST_SIDING));
-		RUN_TEST(testTimelockMeet(OCC_SOUTH_MAIN,OCC_EAST_MAIN));
-		RUN_TEST(testTimelockMeet(OCC_NORTH_MAIN,OCC_WEST_MAIN));
-		RUN_TEST(testTimelockMeet(OCC_NORTH_MAIN,OCC_WEST_SIDING));
-		RUN_TEST(testTimelockMeet(OCC_NORTH_MAIN,OCC_EAST_MAIN));
-		RUN_TEST(testTimelockMeet(OCC_NORTH_SIDING,OCC_WEST_MAIN));
-		RUN_TEST(testTimelockMeet(OCC_NORTH_SIDING,OCC_WEST_SIDING));
-		RUN_TEST(testTimelockMeet(OCC_NORTH_SIDING,OCC_EAST_MAIN));
+/*		RUN_TEST(testTimelockMeet(OCC_SOUTH_MAIN,OCC_WEST_MAIN));*/
+/*		RUN_TEST(testTimelockMeet(OCC_SOUTH_MAIN,OCC_WEST_SIDING));*/
+/*		RUN_TEST(testTimelockMeet(OCC_SOUTH_MAIN,OCC_EAST_MAIN));*/
+/*		RUN_TEST(testTimelockMeet(OCC_NORTH_MAIN,OCC_WEST_MAIN));*/
+/*		RUN_TEST(testTimelockMeet(OCC_NORTH_MAIN,OCC_WEST_SIDING));*/
+/*		RUN_TEST(testTimelockMeet(OCC_NORTH_MAIN,OCC_EAST_MAIN));*/
+/*		RUN_TEST(testTimelockMeet(OCC_NORTH_SIDING,OCC_WEST_MAIN));*/
+/*		RUN_TEST(testTimelockMeet(OCC_NORTH_SIDING,OCC_WEST_SIDING));*/
+/*		RUN_TEST(testTimelockMeet(OCC_NORTH_SIDING,OCC_EAST_MAIN));*/
 
-		// timelock
-		RUN_TEST(testTimelockTurnout(OCC_EAST_MAIN));
-		RUN_TEST(testTimelockTurnout(OCC_SOUTH_MAIN));
+/*		// timelock*/
+/*		RUN_TEST(testTimelockTurnout(OCC_EAST_MAIN));*/
+/*		RUN_TEST(testTimelockTurnout(OCC_SOUTH_MAIN));*/
 
-		// lockout
-		lockoutTime = 15;
-		writeEeprom(EE_LOCKOUT_SECONDS, lockoutTime);
-		RUN_TEST(testLockout(OCC_EAST_MAIN,OCC_WEST_MAIN,0));
-		lockoutTime = 5;
-		writeEeprom(EE_LOCKOUT_SECONDS, lockoutTime);
-		
-		// lockout (no train present)
-		RUN_TEST(testLockout(OCC_EAST_MAIN,OCC_WEST_MAIN,0));
-		RUN_TEST(testLockout(OCC_EAST_MAIN,OCC_WEST_SIDING,0));
-		RUN_TEST(testLockout(OCC_SOUTH_MAIN,OCC_NORTH_MAIN,0));
-		RUN_TEST(testLockout(OCC_SOUTH_MAIN,OCC_NORTH_SIDING,0));
-		RUN_TEST(testLockout(OCC_WEST_MAIN,OCC_EAST_MAIN,0));
-		RUN_TEST(testLockout(OCC_WEST_SIDING,OCC_EAST_MAIN,0));
-		RUN_TEST(testLockout(OCC_NORTH_MAIN,OCC_SOUTH_MAIN,0));
-		RUN_TEST(testLockout(OCC_NORTH_SIDING,OCC_SOUTH_MAIN,0));
+/*		// lockout*/
+/*		lockoutTime = 15;*/
+/*		writeEeprom(EE_LOCKOUT_SECONDS, lockoutTime);*/
+/*		RUN_TEST(testLockout(OCC_EAST_MAIN,OCC_WEST_MAIN,0));*/
+/*		lockoutTime = 5;*/
+/*		writeEeprom(EE_LOCKOUT_SECONDS, lockoutTime);*/
+/*		*/
+/*		// lockout (no train present)*/
+/*		RUN_TEST(testLockout(OCC_EAST_MAIN,OCC_WEST_MAIN,0));*/
+/*		RUN_TEST(testLockout(OCC_EAST_MAIN,OCC_WEST_SIDING,0));*/
+/*		RUN_TEST(testLockout(OCC_SOUTH_MAIN,OCC_NORTH_MAIN,0));*/
+/*		RUN_TEST(testLockout(OCC_SOUTH_MAIN,OCC_NORTH_SIDING,0));*/
+/*		RUN_TEST(testLockout(OCC_WEST_MAIN,OCC_EAST_MAIN,0));*/
+/*		RUN_TEST(testLockout(OCC_WEST_SIDING,OCC_EAST_MAIN,0));*/
+/*		RUN_TEST(testLockout(OCC_NORTH_MAIN,OCC_SOUTH_MAIN,0));*/
+/*		RUN_TEST(testLockout(OCC_NORTH_SIDING,OCC_SOUTH_MAIN,0));*/
 
-		// lockout_expire_with_train_present
-		RUN_TEST(testLockout(OCC_EAST_MAIN,OCC_WEST_MAIN,1));
-		RUN_TEST(testLockout(OCC_EAST_MAIN,OCC_WEST_SIDING,1));
-		RUN_TEST(testLockout(OCC_SOUTH_MAIN,OCC_NORTH_MAIN,1));
-		RUN_TEST(testLockout(OCC_SOUTH_MAIN,OCC_NORTH_SIDING,1));
-		RUN_TEST(testLockout(OCC_WEST_MAIN,OCC_EAST_MAIN,1));
-		RUN_TEST(testLockout(OCC_WEST_SIDING,OCC_EAST_MAIN,1));
-		RUN_TEST(testLockout(OCC_NORTH_MAIN,OCC_SOUTH_MAIN,1));
-		RUN_TEST(testLockout(OCC_NORTH_SIDING,OCC_SOUTH_MAIN,1));
+/*		// lockout_expire_with_train_present*/
+/*		RUN_TEST(testLockout(OCC_EAST_MAIN,OCC_WEST_MAIN,1));*/
+/*		RUN_TEST(testLockout(OCC_EAST_MAIN,OCC_WEST_SIDING,1));*/
+/*		RUN_TEST(testLockout(OCC_SOUTH_MAIN,OCC_NORTH_MAIN,1));*/
+/*		RUN_TEST(testLockout(OCC_SOUTH_MAIN,OCC_NORTH_SIDING,1));*/
+/*		RUN_TEST(testLockout(OCC_WEST_MAIN,OCC_EAST_MAIN,1));*/
+/*		RUN_TEST(testLockout(OCC_WEST_SIDING,OCC_EAST_MAIN,1));*/
+/*		RUN_TEST(testLockout(OCC_NORTH_MAIN,OCC_SOUTH_MAIN,1));*/
+/*		RUN_TEST(testLockout(OCC_NORTH_SIDING,OCC_SOUTH_MAIN,1));*/
 
-		// timeout_expire (covered by below?)
-		// timeout_expire_momentary_train
-		timeoutTime = 15;
-		writeEeprom(EE_TIMEOUT_SECONDS, timeoutTime);
-		RUN_TEST(testTimeout(OCC_WEST_MAIN, 0));
-		RUN_TEST(testTimeout(OCC_WEST_SIDING, TURNOUT_WEST));
-		RUN_TEST(testTimeout(OCC_EAST_MAIN, 0));
-		RUN_TEST(testTimeout(OCC_EAST_MAIN, TURNOUT_WEST));
-		RUN_TEST(testTimeout(OCC_NORTH_MAIN, 0));
-		RUN_TEST(testTimeout(OCC_NORTH_SIDING, TURNOUT_NORTH));
-		RUN_TEST(testTimeout(OCC_SOUTH_MAIN, 0));
-		RUN_TEST(testTimeout(OCC_SOUTH_MAIN, TURNOUT_NORTH));
+/*		// timeout_expire (covered by below?)*/
+/*		// timeout_expire_momentary_train*/
+/*		timeoutTime = 15;*/
+/*		writeEeprom(EE_TIMEOUT_SECONDS, timeoutTime);*/
+/*		RUN_TEST(testTimeout(OCC_WEST_MAIN, 0));*/
+/*		RUN_TEST(testTimeout(OCC_WEST_SIDING, TURNOUT_WEST));*/
+/*		RUN_TEST(testTimeout(OCC_EAST_MAIN, 0));*/
+/*		RUN_TEST(testTimeout(OCC_EAST_MAIN, TURNOUT_WEST));*/
+/*		RUN_TEST(testTimeout(OCC_NORTH_MAIN, 0));*/
+/*		RUN_TEST(testTimeout(OCC_NORTH_SIDING, TURNOUT_NORTH));*/
+/*		RUN_TEST(testTimeout(OCC_SOUTH_MAIN, 0));*/
+/*		RUN_TEST(testTimeout(OCC_SOUTH_MAIN, TURNOUT_NORTH));*/
 
-		timeoutTime = 5;
-		writeEeprom(EE_TIMEOUT_SECONDS, timeoutTime);
-		RUN_TEST(testTimeout(OCC_WEST_MAIN, 0));
-		RUN_TEST(testTimeout(OCC_WEST_SIDING, TURNOUT_WEST));
-		RUN_TEST(testTimeout(OCC_EAST_MAIN, 0));
-		RUN_TEST(testTimeout(OCC_EAST_MAIN, TURNOUT_WEST));
-		RUN_TEST(testTimeout(OCC_NORTH_MAIN, 0));
-		RUN_TEST(testTimeout(OCC_NORTH_SIDING, TURNOUT_NORTH));
-		RUN_TEST(testTimeout(OCC_SOUTH_MAIN, 0));
-		RUN_TEST(testTimeout(OCC_SOUTH_MAIN, TURNOUT_NORTH));
+/*		timeoutTime = 5;*/
+/*		writeEeprom(EE_TIMEOUT_SECONDS, timeoutTime);*/
+/*		RUN_TEST(testTimeout(OCC_WEST_MAIN, 0));*/
+/*		RUN_TEST(testTimeout(OCC_WEST_SIDING, TURNOUT_WEST));*/
+/*		RUN_TEST(testTimeout(OCC_EAST_MAIN, 0));*/
+/*		RUN_TEST(testTimeout(OCC_EAST_MAIN, TURNOUT_WEST));*/
+/*		RUN_TEST(testTimeout(OCC_NORTH_MAIN, 0));*/
+/*		RUN_TEST(testTimeout(OCC_NORTH_SIDING, TURNOUT_NORTH));*/
+/*		RUN_TEST(testTimeout(OCC_SOUTH_MAIN, 0));*/
+/*		RUN_TEST(testTimeout(OCC_SOUTH_MAIN, TURNOUT_NORTH));*/
 
-		// debounce_timer
-		debounceTime = 15;
-		writeEeprom(EE_DEBOUNCE_SECONDS, debounceTime);
-		RUN_TEST(testDebounceTimer());
+/*		// debounce_timer*/
+/*		debounceTime = 15;*/
+/*		writeEeprom(EE_DEBOUNCE_SECONDS, debounceTime);*/
+/*		RUN_TEST(testDebounceTimer());*/
 
-		debounceTime = 5;
-		writeEeprom(EE_DEBOUNCE_SECONDS, debounceTime);
-		RUN_TEST(testDebounceTimer());
+/*		debounceTime = 5;*/
+/*		writeEeprom(EE_DEBOUNCE_SECONDS, debounceTime);*/
+/*		RUN_TEST(testDebounceTimer());*/
 
-		// What happens if interlocking block gets occupancy out of the blue?  Then something real shows up?
-		RUN_TEST(testBogusInterlocking());
+/*		// What happens if interlocking block gets occupancy out of the blue?  Then something real shows up?*/
+/*		RUN_TEST(testBogusInterlocking());*/
 		
 		break;
 	}

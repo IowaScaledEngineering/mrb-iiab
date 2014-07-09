@@ -641,6 +641,11 @@ void startSound(uint8_t sound)
 	// FIXME: Do something real
 }
 
+void stopSound(uint8_t sound)
+{
+	// FIXME: Do something real
+}
+
 void readInputs(void)
 {
 	// Read occupancy into occupancy[] array and interlockingOccupancy.  Force siding occupancy = 0 on directions without a siding.
@@ -1103,7 +1108,11 @@ int main(void)
 					break;
 				case STATE_CLEAR:
 					interlockingStatus = 0;
-					simulator[dir].enable = 0;
+					if(simulator[dir].enable)
+					{
+						simulator[dir].enable = 0;
+						stopSound(simulator[dir].sound);
+					}
 					state[dir] = STATE_IDLE;
 					break;
 			}
@@ -1155,7 +1164,7 @@ int main(void)
 		// 8:  Signal Outputs Bank #1
 		// 9:  Signal Outputs Bank #2
 		// 10: Signal Outputs Bank #3
-		// 11: [<7:4>][simulator<3:0>.enable]
+		// 11: [Sound #2][Sound #1][<5:4>][simulator<3:0>.enable]
 		// 12: [state<0>][state<1>]
 		// 13: [state<2>][state<3>]
 		// 14: timelockTimer
@@ -1184,9 +1193,10 @@ int main(void)
 			txBuffer[9]  = (signalHeadsTemp >> 8) & 0xFF;
 			txBuffer[10] = (signalHeadsTemp >> 0) & 0xFF;
 
-			temp_uint8 = xio1Outputs[4];
+			temp_uint8 = xio1Outputs[4] & 0xC0;  // Grab sound output bits
 			for(i=0; i<NUM_DIRECTIONS; i++)
 			{
+				// Add in simulator enables
 				if(simulator[i].enable)
 					temp_uint8 |= _BV(i);
 			}
