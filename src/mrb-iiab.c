@@ -58,8 +58,8 @@ uint8_t pkt_count = 0;
 #define EE_TIMELOCK_SECONDS 0x12
 #define EE_DEBOUNCE_SECONDS 0x13
 #define EE_BLINKY_DECISECS  0x1F
-#define EE_DETECT_POLARITY  0x20
-#define EE_TURNOUT_POLARITY 0x21
+#define EE_INPUT_POLARITY0  0x20
+#define EE_INPUT_POLARITY1  0x21
 #define EE_SIGNAL_CONFIG    0x30
 
 
@@ -70,7 +70,6 @@ uint8_t pkt_count = 0;
 
 // Assumptions:
 //   "Direction" pairs are connected.  0/1, 2/3, etc
-// FIXME: following may not longer be true
 //   Even numbered directions can have turnouts (frog end).  Wired off for "main" if they don't exist.  Signals are separate signals.
 //   Odd numbered directions have no turnouts (point end).  Signals are 2-headed signals using the turnout position from across the diamond.
 
@@ -136,8 +135,6 @@ uint8_t interlockingStatus;
 #define ASPECT_GREEN     0x01
 #define ASPECT_OFF       0x00
 
-// FIXME: Change to 2 dimension array?  [direction][head(4x)]
-// FIXME: Or 3 dim?  [direction][track][head]
 uint8_t signalHeads[2 * NUM_DIRECTIONS];
 
 
@@ -154,7 +151,9 @@ uint8_t debounced_inputs[2], old_debounced_inputs[2];
 uint8_t clock_a[2] = {0,0}, clock_b[2] = {0,0};
 uint8_t xio1Inputs[2];
 uint8_t xio1Outputs[5];
+uint8_t input_polarity[2];
 uint8_t testModeEnable;
+uint8_t sendPacketOnChange;
 
 uint8_t i2cResetCounter = 0;
 volatile uint8_t blinkyCounter = 0;
@@ -173,7 +172,7 @@ uint8_t blinkyCounter_decisecs = 5;
 
 volatile uint8_t ticks;
 volatile uint16_t decisecs=0;
-volatile uint16_t update_decisecs=10;
+uint16_t update_decisecs=10;
 
 void initialize100HzTimer(void)
 {
@@ -252,6 +251,7 @@ ISR(ADC_vect)
 
 /* 0x00-0x04 - input registers */
 /* 0x08-0x0C - output registers */
+/* 0x10-0x14 - polarity inversion */
 /* 0x18-0x1C - direction registers - 0 is output, 1 is input */
 
 #define I2C_RESET         0
@@ -263,6 +263,7 @@ void xioDirectionSet()
 {
 	uint8_t i2cBuf[8];
 
+	// Set direction
 	i2cBuf[0] = I2C_XIO1_ADDRESS;
 	i2cBuf[1] = 0x80 | 0x18;  // 0x80 is auto-increment
 	i2cBuf[2] = 0;
@@ -272,8 +273,14 @@ void xioDirectionSet()
 	i2cBuf[6] = 0x0F;
 	i2c_transmit(i2cBuf, 7, 1);
 	while(i2c_busy());
-	
-	// FIXME: Set polarity of inputs
+
+	// Set polarity
+	i2cBuf[0] = I2C_XIO1_ADDRESS;
+	i2cBuf[1] = 0x80 | 0x13;  // 0x80 is auto-increment
+	i2cBuf[2] = input_polarity[0];
+	i2cBuf[3] = input_polarity[1];
+	i2c_transmit(i2cBuf, 4, 1);
+	while(i2c_busy());
 }
 
 void xioInitialize()
@@ -376,7 +383,9 @@ void readEEPROM()
 	
 	// FIXME: Load signal configs
 	
-	// FIXME: Load input polarity config
+	// Load input polarity config
+	input_polarity[0] = eeprom_read_byte((uint8_t*)EE_INPUT_POLARITY0);
+	input_polarity[1] = eeprom_read_byte((uint8_t*)EE_INPUT_POLARITY1);
 }
 
 void PktHandler(void)
@@ -500,7 +509,10 @@ void PktHandler(void)
 		debounced_inputs[0] = rxBuffer[7];
 		debounced_inputs[1] = rxBuffer[8];
 		testModeEnable = 1;
-		decisecs = update_decisecs;  // Force a status packet
+		ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
+		{
+			decisecs = update_decisecs;  // Force a status packet
+		}
 
 /*
 		txBuffer[MRBUS_PKT_DEST] = rxBuffer[MRBUS_PKT_SRC];
@@ -604,6 +616,8 @@ void init(void)
 	
 	for(i=0; i<sizeof(debounced_inputs); i++)
 		debounced_inputs[i] = old_debounced_inputs[i] = 0;
+	
+	sendPacketOnChange = 0;
 }
 
 uint8_t approachBlockOccupancy(uint8_t direction)
@@ -638,12 +652,12 @@ uint8_t requestInterlocking(uint8_t direction)
 
 void startSound(uint8_t sound)
 {
-	// FIXME: Do something real
+	xio1Outputs[4] |= (0x40 << sound);
 }
 
 void stopSound(uint8_t sound)
 {
-	// FIXME: Do something real
+	xio1Outputs[4] &= ~(0x40 << sound);
 }
 
 void readInputs(void)
@@ -668,8 +682,8 @@ void readInputs(void)
 	//   E3: Reserved
 	//   E4: unassigned
 	//   E5: unassigned
-	//   E6: Sound trigger #1 (output)
-	//   E7: Sound trigger #2 (output)
+	//   E6: Sound trigger #0 (output)
+	//   E7: Sound trigger #1 (output)
 
 	uint8_t delta;
 	uint8_t i;
@@ -687,7 +701,6 @@ void readInputs(void)
 			clock_a[i] ^= clock_b[i];
 			clock_b[i]  = ~(clock_b[i]);
 			clock_a[i] &= delta;
-
 			clock_b[i] &= delta;
 			debounced_inputs[i] ^= ~(~delta | clock_a[i] | clock_b[i]);
 		}
@@ -755,6 +768,11 @@ void readInputs(void)
 			// Low input and debounce has expired, clear occupancy
 			interlockingOccupancy &= ~OCCUPANCY_MAIN;
 		}
+	}
+
+	if( (old_debounced_inputs[0] != debounced_inputs[0]) || (old_debounced_inputs[1] != debounced_inputs[1]) )
+	{
+		sendPacketOnChange = 1;
 	}
 
 	old_debounced_inputs[0] = debounced_inputs[0];
@@ -1173,8 +1191,18 @@ int main(void)
 		// 17: [<7:4>][timeoutTimer<3:0> Status]
 		// 18: busVoltage
 
-		if ( ((decisecs >= update_decisecs) || (stateChange)) && !(mrbusPktQueueFull(&mrbusTxQueue)) )
+		uint16_t timeTemp;
+		ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
 		{
+			timeTemp = decisecs;
+		}
+		
+		if ( ((timeTemp >= update_decisecs) || (stateChange) || (sendPacketOnChange)) && !(mrbusPktQueueFull(&mrbusTxQueue)) )
+		{
+			ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
+			{
+				decisecs = 0;
+			}
 			txBuffer[MRBUS_PKT_SRC] = mrbus_dev_addr;
 			txBuffer[MRBUS_PKT_DEST] = 0xFF;
 			txBuffer[MRBUS_PKT_LEN] = 19;
@@ -1210,8 +1238,6 @@ int main(void)
 					temp_uint8 |= _BV(i);
 			}
 			txBuffer[11] = temp_uint8;           // Sound bits + simulator enables
-			
-			// FIXME: Include turnout positions and manual controls
 			
 			txBuffer[12] = ((state[0] << 4) & 0xF0) | (state[1] & 0x0F);  // State machine states
 			txBuffer[13] = ((state[2] << 4) & 0xF0) | (state[3] & 0x0F);  // State machine states
@@ -1255,7 +1281,6 @@ int main(void)
 			txBuffer[18] = busVoltage;           // Bus voltage
 			
 			mrbusPktQueuePush(&mrbusTxQueue, txBuffer, txBuffer[MRBUS_PKT_LEN]);
-			decisecs = 0;
 		}
 
 		if (mrbusPktQueueDepth(&mrbusTxQueue))
