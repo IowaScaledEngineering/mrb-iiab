@@ -663,9 +663,9 @@ void readInputs(void)
 
 	// debounced_inputs[1]
 	//   E0: Direction #0 turnout position
-	//   E1: Direction #1 turnout position
+	//   E1: Reserved
 	//   E2: Direction #2 turnout position
-	//   E3: Direction #3 turnout position
+	//   E3: Reserved
 	//   E4: unassigned
 	//   E5: unassigned
 	//   E6: Sound trigger #1 (output)
@@ -1181,7 +1181,16 @@ int main(void)
 			txBuffer[5]  = 'S';
 			// Debounced input status
 			txBuffer[6]  = debounced_inputs[0];
-			txBuffer[7]  = debounced_inputs[1];
+			uint8_t turnoutTemp = debounced_inputs[1];
+			if(turnoutTemp & 0x01)
+				turnoutTemp &= ~(0x02);
+			else
+				turnoutTemp |= 0x02;
+			if(turnoutTemp & 0x04)
+				turnoutTemp &= ~(0x08);
+			else
+				turnoutTemp |= 0x08;
+			txBuffer[7]  = turnoutTemp;
 
 			// Signal outputs
 			uint32_t signalHeadsTemp = 0;
