@@ -1182,7 +1182,7 @@ int main(void)
 		// 8:  Signal Outputs Bank #1
 		// 9:  Signal Outputs Bank #2
 		// 10: Signal Outputs Bank #3
-		// 11: [Sound #2][Sound #1][<5:4>][simulator<3:0>.enable]
+		// 11: [Sound #1][Sound #0][<5:4>][simulator<3:0>.enable]
 		// 12: [state<0>][state<1>]
 		// 13: [state<2>][state<3>]
 		// 14: timelockTimer
@@ -1199,6 +1199,7 @@ int main(void)
 		
 		if ( ((timeTemp >= update_decisecs) || (stateChange) || (sendPacketOnChange)) && !(mrbusPktQueueFull(&mrbusTxQueue)) )
 		{
+			sendPacketOnChange = 0;
 			ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
 			{
 				decisecs = 0;
