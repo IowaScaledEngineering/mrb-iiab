@@ -677,9 +677,9 @@ void readInputs(void)
 
 	// debounced_inputs[1]
 	//   E0: Direction #0 turnout position
-	//   E1: Reserved
+	//   E1: Direction #1 turnout position (not used)
 	//   E2: Direction #2 turnout position
-	//   E3: Reserved
+	//   E3: Direction #3 turnout position (not used)
 	//   E4: unassigned
 	//   E5: unassigned
 	//   E6: Sound trigger #0 (output)
@@ -1178,11 +1178,11 @@ int main(void)
 		uint8_t txBuffer[MRBUS_BUFFER_SIZE];
 
 		// 6:  Inputs (Block Detect)
-		// 7:  Inputs (Turnout)
+		// 7:  Inputs (Turnout): [<7:4>][/TO2][TO2][/TO0][TO0]
 		// 8:  Signal Outputs Bank #1
 		// 9:  Signal Outputs Bank #2
 		// 10: Signal Outputs Bank #3
-		// 11: [Sound #1][Sound #0][<5:4>][simulator<3:0>.enable]
+		// 11: [Sound#1][Sound#0][Sound#1|Sound#0][<4>][simulator<3:0>.enable]
 		// 12: [state<0>][state<1>]
 		// 13: [state<2>][state<3>]
 		// 14: timelockTimer
@@ -1232,6 +1232,8 @@ int main(void)
 			txBuffer[10] = (signalHeadsTemp >> 0) & 0xFF;
 
 			temp_uint8 = xio1Outputs[4] & 0xC0;  // Grab sound output bits
+			if(temp_uint8)
+				temp_unit8 |= 0x20;  // If either sound enabled, set global sound bit
 			for(i=0; i<NUM_DIRECTIONS; i++)
 			{
 				// Add in simulator enables
