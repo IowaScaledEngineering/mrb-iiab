@@ -75,13 +75,13 @@ uint8_t pkt_count = 0;
 
 typedef enum
 {
-	STATE_IDLE,
-	STATE_CLEARANCE,
-	STATE_TIMEOUT,
-	STATE_TIMER,
-	STATE_OCCUPIED,
-	STATE_LOCKOUT,
-	STATE_CLEAR,
+	STATE_IDLE      = 0,
+	STATE_CLEARANCE = 1,
+	STATE_TIMEOUT   = 2,
+	STATE_TIMER     = 3,
+	STATE_OCCUPIED  = 4,
+	STATE_LOCKOUT   = 5,
+	STATE_CLEAR     = 6,
 } InterlockState;
 
 InterlockState state[NUM_DIRECTIONS];
@@ -855,8 +855,9 @@ typedef struct
 	const uint8_t lunarMask;
 } SignalPinDefinition;
 
+// Two yellows are to allow for driving a red and green LED to produce yellow
 const SignalPinDefinition sigPinDefs[8] = 
-{//     green----  yellow1--  yellow2--  red------  lunar----
+{//         green----  yellow1--  yellow2--  red------  lunar----
 	{0, 0, _BV(0), 0, _BV(1), 0, _BV(1), 0, _BV(2), 0, _BV(2)},
 	{1, 0, _BV(3), 0, _BV(4), 0, _BV(4), 0, _BV(5), 0, _BV(5)},
 	{2, 0, _BV(6), 0, _BV(7), 0, _BV(7), 1, _BV(0), 1, _BV(0)},
@@ -1233,7 +1234,7 @@ int main(void)
 
 			temp_uint8 = xio1Outputs[4] & 0xC0;  // Grab sound output bits
 			if(temp_uint8)
-				temp_unit8 |= 0x20;  // If either sound enabled, set global sound bit
+				temp_uint8 |= 0x20;  // If either sound enabled, set global sound bit
 			for(i=0; i<NUM_DIRECTIONS; i++)
 			{
 				// Add in simulator enables
