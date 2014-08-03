@@ -482,10 +482,23 @@ void PktHandler(void)
 					}
 				} else {
 					if (rxBuffer[byteNum] & (1<<bitNum))
+					{
 						localIndication[i/8] |= 1<<(i%8);
-					else
+						blinkIndication[i/8] &= ~(1<<(i%8));
+					} else {
 						localIndication[i/8] &= ~(1<<(i%8));
-					blinkIndication[i/8] &= ~(1<<(i%8));
+
+						if (5 == i && 0 != rxBuffer[15])
+						{
+							localIndication[i/8] |= 1<<(i%8);
+							blinkIndication[i/8] |= 1<<(i%8);
+						}
+						else
+						{
+							localIndication[i/8] &= ~(1<<(i%8));
+							blinkIndication[i/8] &= ~(1<<(i%8));
+						}
+					}
 
 				}
 				ledPktRcvd = 1;
