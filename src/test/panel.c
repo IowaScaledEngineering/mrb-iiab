@@ -3,7 +3,7 @@
 #include <string.h>
 #include <unistd.h>
 
-#define MRBFS_PATH "/mrbfs/bus0/0x03-mrb-iiab"
+#define MRBFS_PATH "/mrbfs/bus0/0xC0-mrb-iiab"
 
 #define RESET           0
 #define BRIGHT          1
@@ -245,7 +245,7 @@ void drawTurnout(int n)
 			}
 			break;
 		case 1:
-			if(state)
+			if(0)
 			{
 				// Diverging
 				textcolor(RESET, YELLOW, BLACK);
@@ -285,7 +285,7 @@ void drawTurnout(int n)
 			}
 			break;
 		case 3:
-			if(state)
+			if(0)
 			{
 				// Diverging
 				textcolor(RESET, YELLOW, BLACK);
