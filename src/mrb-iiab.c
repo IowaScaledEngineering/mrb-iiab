@@ -390,171 +390,74 @@ void readEEPROM()
 
 void PktHandler(void)
 {
-	uint16_t crc = 0;
-	uint8_t i;
+	uint8_t pktHandlerStatus;
 	uint8_t rxBuffer[MRBUS_BUFFER_SIZE];
 	uint8_t txBuffer[MRBUS_BUFFER_SIZE];
 
 	if (0 == mrbusPktQueuePop(&mrbusRxQueue, rxBuffer, sizeof(rxBuffer)))
 		return;
 
-
-	//*************** PACKET FILTER ***************
-	// Loopback Test - did we send it?  If so, we probably want to ignore it
-	if (rxBuffer[MRBUS_PKT_SRC] == mrbus_dev_addr) 
-		goto	PktIgnore;
-
-	// Destination Test - is this for us or broadcast?  If not, ignore
-	if (0xFF != rxBuffer[MRBUS_PKT_DEST] && mrbus_dev_addr != rxBuffer[MRBUS_PKT_DEST]) 
-		goto	PktIgnore;
-	
-	// CRC16 Test - is the packet intact?
-	for(i=0; i<rxBuffer[MRBUS_PKT_LEN]; i++)
+	if((pktHandlerStatus = mrbusPktHandler(rxBuffer, txBuffer, mrbus_dev_addr)))
 	{
-		if ((i != MRBUS_PKT_CRC_H) && (i != MRBUS_PKT_CRC_L)) 
-			crc = mrbusCRC16Update(crc, rxBuffer[i]);
-	}
-	if ((UINT16_HIGH_BYTE(crc) != rxBuffer[MRBUS_PKT_CRC_H]) || (UINT16_LOW_BYTE(crc) != rxBuffer[MRBUS_PKT_CRC_L]))
-		goto	PktIgnore;
-		
-	//*************** END PACKET FILTER ***************
-
-
-	//*************** PACKET HANDLER - PROCESS HERE ***************
-
-	// Just smash the transmit buffer if we happen to see a packet directed to us
-	// that requires an immediate response
-	//
-	// If we're in here, then either we're transmitting, then we can't be 
-	// receiving from someone else, or we failed to transmit whatever we were sending
-	// and we're waiting to try again.  Either way, we're not going to corrupt an
-	// in-progress transmission.
-	//
-	// All other non-immediate transmissions (such as scheduled status updates)
-	// should be sent out of the main loop so that they don't step on things in
-	// the transmit buffer
-	
-	if ('A' == rxBuffer[MRBUS_PKT_TYPE])
-	{
-		// PING packet
-		txBuffer[MRBUS_PKT_DEST] = rxBuffer[MRBUS_PKT_SRC];
-		txBuffer[MRBUS_PKT_SRC] = mrbus_dev_addr;
-		txBuffer[MRBUS_PKT_LEN] = 6;
-		txBuffer[MRBUS_PKT_TYPE] = 'a';
-		mrbusPktQueuePush(&mrbusTxQueue, txBuffer, txBuffer[MRBUS_PKT_LEN]);
-		goto PktIgnore;
-	} 
-	else if ('W' == rxBuffer[MRBUS_PKT_TYPE]) 
-	{
-		// EEPROM WRITE Packet
-		// FIXME: Accept more than 1 byte
-		txBuffer[MRBUS_PKT_DEST] = rxBuffer[MRBUS_PKT_SRC];
-		txBuffer[MRBUS_PKT_LEN] = 8;			
-		txBuffer[MRBUS_PKT_TYPE] = 'w';
-		eeprom_write_byte((uint8_t*)(uint16_t)rxBuffer[6], rxBuffer[7]);
-		txBuffer[6] = rxBuffer[6];
-		txBuffer[7] = rxBuffer[7];
-		readEEPROM();
-		txBuffer[MRBUS_PKT_SRC] = mrbus_dev_addr;
-		mrbusPktQueuePush(&mrbusTxQueue, txBuffer, txBuffer[MRBUS_PKT_LEN]);
-		goto PktIgnore;	
-	}
-	else if ('R' == rxBuffer[MRBUS_PKT_TYPE]) 
-	{
-		// EEPROM READ Packet
-		// FIXME: Accept more than 1 byte
-		txBuffer[MRBUS_PKT_DEST] = rxBuffer[MRBUS_PKT_SRC];
-		txBuffer[MRBUS_PKT_SRC] = mrbus_dev_addr;
-		txBuffer[MRBUS_PKT_LEN] = 8;			
-		txBuffer[MRBUS_PKT_TYPE] = 'r';
-		txBuffer[6] = rxBuffer[6];
-		txBuffer[7] = eeprom_read_byte((uint8_t*)(uint16_t)rxBuffer[6]);			
-		mrbusPktQueuePush(&mrbusTxQueue, txBuffer, txBuffer[MRBUS_PKT_LEN]);
-		goto PktIgnore;
-	}
-	else if ('V' == rxBuffer[MRBUS_PKT_TYPE]) 
-	{
-		// Version
-		txBuffer[MRBUS_PKT_DEST] = rxBuffer[MRBUS_PKT_SRC];
-		txBuffer[MRBUS_PKT_SRC] = mrbus_dev_addr;
-		txBuffer[MRBUS_PKT_LEN] = 16;
-		txBuffer[MRBUS_PKT_TYPE] = 'v';
-		txBuffer[6]  = MRBUS_VERSION_WIRED;
-		txBuffer[7]  = 0; // Software Revision
-		txBuffer[8]  = 0; // Software Revision
-		txBuffer[9]  = 0; // Software Revision
-		txBuffer[10]  = 0; // Hardware Major Revision
-		txBuffer[11]  = 0; // Hardware Minor Revision
-		txBuffer[12] = 'I';
-		txBuffer[13] = 'I';
-		txBuffer[14] = 'A';
-		txBuffer[15] = 'B';
-		mrbusPktQueuePush(&mrbusTxQueue, txBuffer, txBuffer[MRBUS_PKT_LEN]);
-		goto PktIgnore;
-	}
-	else if ('X' == rxBuffer[MRBUS_PKT_TYPE]) 
-	{
-		// Reset
-		cli();
-		wdt_reset();
-		MCUSR &= ~(_BV(WDRF));
-		WDTCSR |= _BV(WDE) | _BV(WDCE);
-		WDTCSR = _BV(WDE);
-		while(1);  // Force a watchdog reset
-		sei();
-	}
-	else if ( ('C' == rxBuffer[MRBUS_PKT_TYPE]) && ('T' == rxBuffer[MRBUS_PKT_TYPE+1]) )
-	{
-		// Enable Test Mode
-		debounced_inputs[0] = rxBuffer[7];
-		debounced_inputs[1] = rxBuffer[8];
-		testModeEnable = 1;
-		ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
+		switch(pktHandlerStatus)
 		{
-			decisecs = update_decisecs;  // Force a status packet
+			case MRBUS_HANDLER_RESET:
+				cli();
+				wdt_reset();
+				MCUSR &= ~(_BV(WDRF));
+				WDTCSR |= _BV(WDE) | _BV(WDCE);
+				WDTCSR = _BV(WDE);
+				while(1);  // Force a watchdog reset
+				sei();
+				break;
+			case MRBUS_HANDLER_EEPROM:
+				readEEPROM();
+				txBuffer[MRBUS_PKT_SRC] = mrbus_dev_addr;  // Update src if it was changed
+				mrbusPktQueuePush(&mrbusTxQueue, txBuffer, txBuffer[MRBUS_PKT_LEN]);
+				break;
+			case MRBUS_HANDLER_VERSION:
+				txBuffer[12] = 'I';
+				txBuffer[13] = 'I';
+				txBuffer[14] = 'A';
+				txBuffer[15] = 'B';
+				mrbusPktQueuePush(&mrbusTxQueue, txBuffer, txBuffer[MRBUS_PKT_LEN]);
+				break;
+			case MRBUS_HANDLER_DONE:
+				mrbusPktQueuePush(&mrbusTxQueue, txBuffer, txBuffer[MRBUS_PKT_LEN]);
+				break;
+			case MRBUS_HANDLER_CUSTOM:
+				// Custom packet
+				if ( ('C' == rxBuffer[MRBUS_PKT_TYPE]) && ('T' == rxBuffer[MRBUS_PKT_TYPE+1]) )
+				{
+					// Enable Test Mode
+					debounced_inputs[0] = rxBuffer[7];
+					debounced_inputs[1] = rxBuffer[8];
+					testModeEnable = 1;
+					ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
+					{
+						decisecs = update_decisecs;  // Force a status packet
+					}
+				}
+				else if ( ('C' == rxBuffer[MRBUS_PKT_TYPE]) && ('N' == rxBuffer[MRBUS_PKT_TYPE+1]) )
+				{
+					// Disable Test Mode
+					testModeEnable = 0;
+				}
+				else if ( ('C' == rxBuffer[MRBUS_PKT_TYPE]) && ('!' == rxBuffer[MRBUS_PKT_TYPE+1]) )
+				{
+					// Train Sim Command Packet
+					// if(STATE_IDLE == state[direction]) { state[direction] = STATE_REQUEST }
+					// Advance to request state only if that direction is currently idle
+					/*	<direction> <simApproachTime> <simTotalTime> <sound> */
+					/*	<direction> = 0-3 representing direction from which the simulated train is approaching*/
+					/*	<simApproachTIme> = time in seconds between getting green and train crossing the diamond (setting the signal red).*/
+					/*	<simTotalTime> = time in seconds from getting green until the diamond is cleared.  Sound plays for this entire interval.*/
+					/*	simTotalTime should be > simApproachTime (enforce this)*/
+					/*	<sound> = 0:no sound, 1-2: sound output to enable */
+				}
+				break;
 		}
-
-/*
-		txBuffer[MRBUS_PKT_DEST] = rxBuffer[MRBUS_PKT_SRC];
-		txBuffer[MRBUS_PKT_SRC] = mrbus_dev_addr;
-		txBuffer[MRBUS_PKT_LEN] = 9;
-		txBuffer[MRBUS_PKT_TYPE] = 'c';
-		txBuffer[6] = 't';
-		txBuffer[7] = rxBuffer[7];
-		txBuffer[8] = rxBuffer[8];
-		mrbusPktQueuePush(&mrbusTxQueue, txBuffer, txBuffer[MRBUS_PKT_LEN]);
-*/
-		goto PktIgnore;
 	}
-	else if ( ('C' == rxBuffer[MRBUS_PKT_TYPE]) && ('N' == rxBuffer[MRBUS_PKT_TYPE+1]) )
-	{
-		// Disable Test Mode
-		testModeEnable = 0;
-		goto PktIgnore;
-	}
-	
-	// FIXME: Train Sim Command Packet
-	// if(STATE_IDLE == state[direction]) { state[direction] = STATE_REQUEST }
-	// Advance to request state only if that direction is currently idle
-	/*	<direction> <simApproachTime> <simTotalTime> <sound> */
-	/*	<direction> = 0-3 representing direction from which the simulated train is approaching*/
-	/*	<simApproachTIme> = time in seconds between getting green and train crossing the diamond (setting the signal red).*/
-	/*	<simTotalTime> = time in seconds from getting green until the diamond is cleared.  Sound plays for this entire interval.*/
-	/*	simTotalTime should be > simApproachTime (enforce this)*/
-	/*	<sound> = 0:no sound, 1-2: sound output to enable */
-
-	//*************** END PACKET HANDLER  ***************
-
-	
-	//*************** RECEIVE CLEANUP ***************
-PktIgnore:
-	// Yes, I hate gotos as well, but sometimes they're a really handy and efficient
-	// way to jump to a common block of cleanup code at the end of a function 
-
-	// This section resets anything that needs to be reset in order to allow us to receive
-	// another packet.  Typically, that's just clearing the MRBUS_RX_PKT_READY flag to 
-	// indicate to the core library that the mrbus_rx_buffer is clear.
-	return;	
 }
 
 void init(void)
@@ -608,7 +511,8 @@ void init(void)
 	interlockingStatus = 0;
 	
 	timelockTimer = 0;
-
+	interlockingDebounceTimer = 0;
+	
 	xio1Inputs[0] = 0;
 	xio1Inputs[1] = 0;
 

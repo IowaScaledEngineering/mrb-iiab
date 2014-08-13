@@ -36,13 +36,13 @@ FUSE_E  = 0x04
 
 
 # MRBus
-DEFINES = -DMRBUS
-SRCS = $(BASE_NAME).c ../../mrbus2/src/mrbus-avr.c ../../mrbus2/src/mrbus-crc.c ../../mrbus2/src/mrbus-queue.c ../../libs/avr-i2c/avr-i2c-master.c
+DEFINES = -DMRBUS -DSWREV=0 -DHWREV_MAJOR=1 -DHWREV_MINOR=0
+SRCS = $(BASE_NAME).c ../../mrbus2/src/mrbus-avr.c ../../mrbus2/src/mrbus-crc.c ../../mrbus2/src/mrbus-pkt.c ../../mrbus2/src/mrbus-queue.c ../../libs/avr-i2c/avr-i2c-master.c
 INCS = ../../mrbus/src/mrbus.h ../../mrbus/src/mrbus-avr.hh ../../libs/avr-i2c/avr-i2c-master.h
 
 # MRBee
 #DEFINES = -DMRBEE -DMRBEE_BAUD=115200
-#SRCS = $(BASE_NAME).c ../../mrbus/src/mrbus-crc.c ../../mrbee/src/mrbee.c ../../mrbee/src/xbee.c
+#SRCS = $(BASE_NAME).c ../../mrbus/src/mrbus-crc.c ../../mrbus/src/mrbus-pkt.c ../../mrbee/src/mrbee.c ../../mrbee/src/xbee.c
 #INCS = ../../mrbus/src/mrbus.h ../../mrbee/src/mrbee.h ../../mrbee/src/xbee.h
 
 AVRDUDE = avrdude -c usbtiny -p $(DEVICE) -B1
