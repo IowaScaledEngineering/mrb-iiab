@@ -53,14 +53,20 @@ uint8_t pkt_count = 0;
 // Lockout = time after interlocking clears during which the train from the opposite direction (or same train leaving) cannot get the interlocking (lets train finish leaving)
 // Timelock = delay between signal going red and any other train getting a proceed signal
 // Debouce = debounce applied to interlocking block detection going low.  Filters momentary non-detects to prevent premature switch from OCCUPIED to CLEAR state.
-#define EE_TIMEOUT_SECONDS  0x10
-#define EE_LOCKOUT_SECONDS  0x11
-#define EE_TIMELOCK_SECONDS 0x12
-#define EE_DEBOUNCE_SECONDS 0x13
-#define EE_BLINKY_DECISECS  0x1F
-#define EE_INPUT_POLARITY0  0x20
-#define EE_INPUT_POLARITY1  0x21
-#define EE_SIGNAL_CONFIG    0x30
+#define EE_TIMEOUT_SECONDS      0x10
+// 0x10 - 0x13 = 4 sets of timeouts, one for each direction
+#define EE_LOCKOUT_SECONDS      0x14
+#define EE_TIMELOCK_SECONDS     0x15
+#define EE_DEBOUNCE_SECONDS     0x16
+#define EE_CLOCK_SOURCE_ADDRESS 0x18
+#define EE_MAX_DEAD_RECKONING   0x19
+#define EE_BLINKY_DECISECS      0x1F
+#define EE_INPUT_POLARITY0      0x20
+#define EE_INPUT_POLARITY1      0x21
+#define EE_OUTPUT_POLARITY0     0x22
+#define EE_OUTPUT_POLARITY1     0x23
+#define EE_OUTPUT_POLARITY2     0x24
+#define EE_SIGNAL_CONFIG        0x30
 
 
 // interlockingStatus currently limits this to a maximum of 7
@@ -98,7 +104,7 @@ typedef struct
 
 Simulator simulator[NUM_DIRECTIONS];
 
-uint8_t timeoutSeconds;
+uint8_t timeoutSeconds[NUM_DIRECTIONS];
 volatile uint16_t timeoutTimer[NUM_DIRECTIONS];  // decisecs
 
 uint8_t lockoutSeconds;
@@ -151,6 +157,7 @@ uint8_t debounced_inputs[2], old_debounced_inputs[2];
 uint8_t clock_a[2] = {0,0}, clock_b[2] = {0,0};
 uint8_t xio1Inputs[2];
 uint8_t xio1Outputs[5];
+uint8_t output_polarity[3];
 uint8_t input_polarity[2];
 uint8_t testModeEnable;
 uint8_t sendPacketOnChange;
@@ -158,6 +165,46 @@ uint8_t sendPacketOnChange;
 uint8_t i2cResetCounter = 0;
 volatile uint8_t blinkyCounter = 0;
 uint8_t blinkyCounter_decisecs = 5;
+
+
+// Time variables
+#define TIME_FLAGS_DISP_FAST       0x01
+#define TIME_FLAGS_DISP_FAST_HOLD  0x02
+#define TIME_FLAGS_DISP_REAL_AMPM  0x04
+#define TIME_FLAGS_DISP_FAST_AMPM  0x08
+
+uint16_t scaleFactor = 10;
+uint8_t flags = 0;
+
+typedef struct
+{
+	uint8_t seconds;
+	uint8_t minutes;
+	uint8_t hours;
+} TimeData;
+
+TimeData fastTime;
+
+void incrementTime(TimeData* t, uint8_t incSeconds)
+{
+	uint16_t i = t->seconds + incSeconds;
+
+	while(i >= 60)
+	{
+		t->minutes++;
+		i -= 60;
+	}
+	t->seconds = (uint8_t)i;
+	
+	while(t->minutes >= 60)
+	{
+		t->hours++;
+		t->minutes -= 60;
+	}
+	
+	if (t->hours >= 24)
+		t->hours %= 24;
+}
 
 
 // ******** Start 100 Hz Timer, 0.16% error version (Timer 0)
@@ -173,6 +220,11 @@ uint8_t blinkyCounter_decisecs = 5;
 volatile uint8_t ticks;
 volatile uint16_t decisecs=0;
 uint16_t update_decisecs=10;
+volatile uint16_t fastDecisecs = 0;
+volatile uint8_t scaleTenthsAccum = 0;
+uint8_t maxDeadReckoningTime = 50;
+uint8_t deadReckoningTime = 0;
+uint8_t timeSourceAddress = 0xFF;
 
 void initialize100HzTimer(void)
 {
@@ -197,6 +249,23 @@ ISR(TIMER0_COMPA_vect)
 		uint8_t i;
 		ticks = 0;
 		decisecs++;
+
+		// Deal with fast time
+		if (deadReckoningTime)
+			deadReckoningTime--;
+		if (TIME_FLAGS_DISP_FAST == (flags & (TIME_FLAGS_DISP_FAST | TIME_FLAGS_DISP_FAST_HOLD)))
+		{
+			fastDecisecs += scaleFactor / 10;
+			scaleTenthsAccum += scaleFactor % 10;
+			if (scaleTenthsAccum > 10)
+			{
+				fastDecisecs++;
+				scaleTenthsAccum -= 10;
+			}		
+		
+		}
+
+		// Other housekeeping
 		for(i=0; i<NUM_DIRECTIONS; i++)
 		{
 			// Manage timers
@@ -318,7 +387,12 @@ void xioOutputWrite()
 	i2cBuf[0] = I2C_XIO1_ADDRESS;
 	i2cBuf[1] = 0x80 | 0x08;  // 0x80 is auto-increment
 	for(i=0; i<sizeof(xio1Outputs); i++)
-		i2cBuf[2+i] = xio1Outputs[i];
+	{
+		if(i < 3)
+			i2cBuf[2+i] = xio1Outputs[i] ^ output_polarity[i];
+		else
+			i2cBuf[2+i] = xio1Outputs[i];
+	}
 
 	i2c_transmit(i2cBuf, 2+sizeof(xio1Outputs), 1);
 }
@@ -358,6 +432,8 @@ void xioInputRead()
 
 void readEEPROM()
 {
+	uint8_t i;
+	
 	// Initialize MRBus address
 	mrbus_dev_addr = eeprom_read_byte((uint8_t*)MRBUS_EE_DEVICE_ADDR);
 	// Bogus addresses, fix to default address
@@ -376,7 +452,10 @@ void readEEPROM()
 	// Load blinky time period
 	blinkyCounter_decisecs = eeprom_read_byte((uint8_t*)EE_BLINKY_DECISECS);
 	
-	timeoutSeconds = eeprom_read_byte((uint8_t*)EE_TIMEOUT_SECONDS);
+	for(i=0; i<4; i++)
+	{
+		timeoutSeconds[i] = eeprom_read_byte((uint8_t*)(EE_TIMEOUT_SECONDS+i));
+	}
 	lockoutSeconds = eeprom_read_byte((uint8_t*)EE_LOCKOUT_SECONDS);
 	timelockSeconds = eeprom_read_byte((uint8_t*)EE_TIMELOCK_SECONDS);
 	interlockingDebounceSeconds = eeprom_read_byte((uint8_t*)EE_DEBOUNCE_SECONDS);
@@ -386,6 +465,13 @@ void readEEPROM()
 	// Load input polarity config
 	input_polarity[0] = eeprom_read_byte((uint8_t*)EE_INPUT_POLARITY0);
 	input_polarity[1] = eeprom_read_byte((uint8_t*)EE_INPUT_POLARITY1);
+	output_polarity[0] = eeprom_read_byte((uint8_t*)EE_OUTPUT_POLARITY0);
+	output_polarity[1] = eeprom_read_byte((uint8_t*)EE_OUTPUT_POLARITY1);
+	output_polarity[2] = eeprom_read_byte((uint8_t*)EE_OUTPUT_POLARITY2);
+
+	// Time configs
+	timeSourceAddress = eeprom_read_byte((uint8_t*)EE_CLOCK_SOURCE_ADDRESS);
+	maxDeadReckoningTime = eeprom_read_byte((uint8_t*)EE_MAX_DEAD_RECKONING);
 }
 
 void PktHandler(void)
@@ -427,7 +513,26 @@ void PktHandler(void)
 				break;
 			case MRBUS_HANDLER_CUSTOM:
 				// Custom packet
-				if ( ('C' == rxBuffer[MRBUS_PKT_TYPE]) && ('T' == rxBuffer[MRBUS_PKT_TYPE+1]) )
+				if ('T' == rxBuffer[MRBUS_PKT_TYPE] &&
+					((0xFF == timeSourceAddress) || (rxBuffer[MRBUS_PKT_SRC] == timeSourceAddress)) )
+				{
+					// It's a time packet from our time reference source
+					flags = rxBuffer[9];
+					// Time source packets aren't required to have a fast section
+					// Doesn't really make sense outside model railroading applications, so...
+					if (rxBuffer[MRBUS_PKT_LEN] >= 14)
+					{
+						fastTime.hours =  rxBuffer[10];
+						fastTime.minutes =  rxBuffer[11];
+						fastTime.seconds = rxBuffer[12];
+						scaleFactor = (((uint16_t)rxBuffer[13])<<8) + (uint16_t)rxBuffer[14];
+					}		
+					// If we got a packet, there's no dead reckoning time anymore
+					fastDecisecs = 0;
+					scaleTenthsAccum = 0;
+					deadReckoningTime = maxDeadReckoningTime;
+				}
+				else if ( ('C' == rxBuffer[MRBUS_PKT_TYPE]) && ('T' == rxBuffer[MRBUS_PKT_TYPE+1]) )
 				{
 					// Enable Test Mode
 					debounced_inputs[0] = rxBuffer[7];
@@ -497,6 +602,8 @@ void init(void)
 	busVoltage = 0;
 	ADCSRA |= _BV(ADEN) | _BV(ADSC) | _BV(ADIE) | _BV(ADIF);
 
+	fastDecisecs = 0;
+
 	// Reset all occupancy to 0, turnouts to main, initialize timers
 	for(i=0; i<NUM_DIRECTIONS; i++)
 	{
@@ -522,6 +629,7 @@ void init(void)
 		debounced_inputs[i] = old_debounced_inputs[i] = 0;
 	
 	sendPacketOnChange = 0;
+	deadReckoningTime = 0;  // Time out until such time that we get a time packet
 }
 
 uint8_t approachBlockOccupancy(uint8_t direction)
@@ -807,7 +915,6 @@ void SignalsToOutputs(void)
 
 		switch(signalHeads[sigPinDefs[sigDefIdx].signalHead])
 		{
-			// FIXME: Add CC/CA configuration
 			case ASPECT_OFF:
 				break;
 		
@@ -900,6 +1007,17 @@ int main(void)
 			events &= ~(EVENT_READ_INPUTS);
 		}			
 
+		// Deal with fast time
+		if ((flags & TIME_FLAGS_DISP_FAST) && !(flags & TIME_FLAGS_DISP_FAST_HOLD) && fastDecisecs >= 10)
+		{
+			uint8_t fastTimeSecs = fastDecisecs / 10;
+			incrementTime(&fastTime, fastTimeSecs);
+			fastDecisecs -= fastTimeSecs * 10;
+		}
+		
+		// FIXME: Trigger any scheduled trains
+		// Set simulator[dir].enable = 1 if triggered
+
 		// Check for turnout changes
 		turnoutChange = 0;
 		for(dir=0; dir<NUM_DIRECTIONS; dir++)
@@ -958,7 +1076,7 @@ int main(void)
 						// No occupany in approach block, start timeout
 						ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
 						{
-							timeoutTimer[dir] = 10 * timeoutSeconds;
+							timeoutTimer[dir] = 10 * timeoutSeconds[dir];
 						}
 						state[dir] = STATE_TIMEOUT;
 					}
