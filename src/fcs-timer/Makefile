@@ -25,7 +25,7 @@
 #    
 #*************************************************************************
 
-BASE_NAME = mrb-fcs-timer
+BASE_NAME = fcs-timer
 
 # Wireless FCS
 #DEVICE = atmega328

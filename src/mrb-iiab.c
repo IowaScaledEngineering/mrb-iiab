@@ -66,7 +66,10 @@ uint8_t pkt_count = 0;
 #define EE_OUTPUT_POLARITY0     0x22
 #define EE_OUTPUT_POLARITY1     0x23
 #define EE_OUTPUT_POLARITY2     0x24
-#define EE_SIGNAL_CONFIG        0x30
+#define EE_OUTPUT_POLARITY3     0x25
+#define EE_OUTPUT_POLARITY4     0x26
+#define EE_MISC_CONFIG          0x40
+#define EE_SIM_TRAINS           0x50
 
 
 // interlockingStatus currently limits this to a maximum of 7
@@ -103,6 +106,21 @@ typedef struct
 } Simulator;
 
 Simulator simulator[NUM_DIRECTIONS];
+
+#define NUM_SIM_TRAINS 32
+
+typedef struct
+{
+	uint8_t hours;
+	uint8_t minutes;
+	uint8_t direction;
+	uint8_t approachTime;
+	uint8_t totalTime;
+	uint8_t sound;
+	uint8_t triggered;
+} SimTrain;
+		
+SimTrain simTrain[NUM_SIM_TRAINS];
 
 uint8_t timeoutSeconds[NUM_DIRECTIONS];
 volatile uint16_t timeoutTimer[NUM_DIRECTIONS];  // decisecs
@@ -157,7 +175,7 @@ uint8_t debounced_inputs[2], old_debounced_inputs[2];
 uint8_t clock_a[2] = {0,0}, clock_b[2] = {0,0};
 uint8_t xio1Inputs[2];
 uint8_t xio1Outputs[5];
-uint8_t output_polarity[3];
+uint8_t output_polarity[5];
 uint8_t input_polarity[2];
 uint8_t testModeEnable;
 uint8_t sendPacketOnChange;
@@ -203,7 +221,14 @@ void incrementTime(TimeData* t, uint8_t incSeconds)
 	}
 	
 	if (t->hours >= 24)
+	{
+	
 		t->hours %= 24;
+		for(i=0; i<NUM_SIM_TRAINS; i++)
+		{
+			simTrain[i].triggered = 0;
+		}
+	}
 }
 
 
@@ -388,10 +413,7 @@ void xioOutputWrite()
 	i2cBuf[1] = 0x80 | 0x08;  // 0x80 is auto-increment
 	for(i=0; i<sizeof(xio1Outputs); i++)
 	{
-		if(i < 3)
 			i2cBuf[2+i] = xio1Outputs[i] ^ output_polarity[i];
-		else
-			i2cBuf[2+i] = xio1Outputs[i];
 	}
 
 	i2c_transmit(i2cBuf, 2+sizeof(xio1Outputs), 1);
@@ -460,14 +482,14 @@ void readEEPROM()
 	timelockSeconds = eeprom_read_byte((uint8_t*)EE_TIMELOCK_SECONDS);
 	interlockingDebounceSeconds = eeprom_read_byte((uint8_t*)EE_DEBOUNCE_SECONDS);
 	
-	// FIXME: Load signal configs
-	
 	// Load input polarity config
 	input_polarity[0] = eeprom_read_byte((uint8_t*)EE_INPUT_POLARITY0);
 	input_polarity[1] = eeprom_read_byte((uint8_t*)EE_INPUT_POLARITY1);
 	output_polarity[0] = eeprom_read_byte((uint8_t*)EE_OUTPUT_POLARITY0);
 	output_polarity[1] = eeprom_read_byte((uint8_t*)EE_OUTPUT_POLARITY1);
 	output_polarity[2] = eeprom_read_byte((uint8_t*)EE_OUTPUT_POLARITY2);
+	output_polarity[3] = eeprom_read_byte((uint8_t*)EE_OUTPUT_POLARITY3);
+	output_polarity[4] = eeprom_read_byte((uint8_t*)EE_OUTPUT_POLARITY4);
 
 	// Time configs
 	timeSourceAddress = eeprom_read_byte((uint8_t*)EE_CLOCK_SOURCE_ADDRESS);
@@ -526,7 +548,20 @@ void PktHandler(void)
 						fastTime.minutes =  rxBuffer[11];
 						fastTime.seconds = rxBuffer[12];
 						scaleFactor = (((uint16_t)rxBuffer[13])<<8) + (uint16_t)rxBuffer[14];
-					}		
+					}
+
+					if(!deadReckoningTime)
+					{
+						// We were timed out, but a new packet just came in - fake trigger any trains before the new time and clean up others
+						// Also takes care of the first time packet after reset since all trains initialize as untriggered.
+						// Prevents a massive backlog of triggers if starting at non-midnight.
+						for(i=0; i<NUM_SIM_TRAINS; i++)
+						{
+							if( !(simTrain[i].triggered) && (fastTime.hours >= simTrain[i].hours) && (fastTime.minutes > simTrain[i].minutes) )
+								simTrain[i].triggered = 1;
+						}
+					}
+					
 					// If we got a packet, there's no dead reckoning time anymore
 					fastDecisecs = 0;
 					scaleTenthsAccum = 0;
@@ -612,6 +647,13 @@ void init(void)
 		timeoutTimer[i] = 0;
 		lockoutTimer[i] = 0;
 		simulator[i].timer = 0;
+		simulator[i].enable = 0;
+	}
+
+	// Clear triggered flags in sim trains
+	for(i=0; i<NUM_SIM_TRAINS; i++)
+	{
+		simTrain[i].triggered = 0;
 	}
 
 	interlockingOccupancy = 0;
@@ -1008,15 +1050,37 @@ int main(void)
 		}			
 
 		// Deal with fast time
-		if ((flags & TIME_FLAGS_DISP_FAST) && !(flags & TIME_FLAGS_DISP_FAST_HOLD) && fastDecisecs >= 10)
+		if((flags & TIME_FLAGS_DISP_FAST) && !(flags & TIME_FLAGS_DISP_FAST_HOLD) && fastDecisecs >= 10)
 		{
-			uint8_t fastTimeSecs = fastDecisecs / 10;
+			uint8_t fastTimeSecs;
+			ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
+			{
+				fastTimeSecs = fastDecisecs / 10;
+				fastDecisecs -= fastTimeSecs * 10;
+			}
 			incrementTime(&fastTime, fastTimeSecs);
-			fastDecisecs -= fastTimeSecs * 10;
 		}
-		
-		// FIXME: Trigger any scheduled trains
-		// Set simulator[dir].enable = 1 if triggered
+
+		// Trigger any scheduled trains
+		if( (flags & TIME_FLAGS_DISP_FAST) && !(flags & TIME_FLAGS_DISP_FAST_HOLD) && deadReckoningTime )
+		{
+			// Only trigger if in fast time mode (and not held), and dead reckoning has not expired
+			for(i=0; i<NUM_SIM_TRAINS; i++)
+			{
+				if( !(simTrain[i].triggered) && (fastTime.hours >= simTrain[i].hours) && (fastTime.minutes >= simTrain[i].minutes) )
+				{
+					// Train not triggered yet and at or past trigger time
+					if(!simulator[simTrain[i].direction].enable)
+					{
+						// Only if not already enabled - don't stomp on any existing simulated trains from that direction since it might mess up the timers
+						simulator[simTrain[i].direction].enable = 1;
+						simulator[simTrain[i].direction].approachTime = simTrain[i].approachTime;
+						simulator[simTrain[i].direction].totalTime = simTrain[i].totalTime;
+						simulator[simTrain[i].direction].sound = simTrain[i].sound;
+					}
+				}
+			}
+		}
 
 		// Check for turnout changes
 		turnoutChange = 0;
