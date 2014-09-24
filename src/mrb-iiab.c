@@ -60,6 +60,7 @@ uint8_t pkt_count = 0;
 #define EE_DEBOUNCE_SECONDS     0x16
 #define EE_CLOCK_SOURCE_ADDRESS 0x18
 #define EE_MAX_DEAD_RECKONING   0x19
+#define EE_SIM_TRAIN_WINDOW     0x1A
 #define EE_BLINKY_DECISECS      0x1F
 #define EE_INPUT_POLARITY0      0x20
 #define EE_INPUT_POLARITY1      0x21
@@ -68,8 +69,8 @@ uint8_t pkt_count = 0;
 #define EE_OUTPUT_POLARITY2     0x24
 #define EE_OUTPUT_POLARITY3     0x25
 #define EE_OUTPUT_POLARITY4     0x26
-#define EE_MISC_CONFIG          0x40
-#define EE_SIM_TRAINS           0x50
+#define EE_MISC_CONFIG          0x30
+#define EE_SIM_TRAINS           0x40
 
 
 // interlockingStatus currently limits this to a maximum of 7
@@ -111,8 +112,7 @@ Simulator simulator[NUM_DIRECTIONS];
 
 typedef struct
 {
-	uint8_t hours;
-	uint8_t minutes;
+	uint16_t time;  // Minutes since midnight
 	uint8_t direction;
 	uint8_t approachTime;
 	uint8_t totalTime;
@@ -121,6 +121,7 @@ typedef struct
 } SimTrain;
 		
 SimTrain simTrain[NUM_SIM_TRAINS];
+uint8_t simTrainWindow = 1;
 
 uint8_t timeoutSeconds[NUM_DIRECTIONS];
 volatile uint16_t timeoutTimer[NUM_DIRECTIONS];  // decisecs
@@ -222,12 +223,7 @@ void incrementTime(TimeData* t, uint8_t incSeconds)
 	
 	if (t->hours >= 24)
 	{
-	
 		t->hours %= 24;
-		for(i=0; i<NUM_SIM_TRAINS; i++)
-		{
-			simTrain[i].triggered = 0;
-		}
 	}
 }
 
@@ -494,6 +490,7 @@ void readEEPROM()
 	// Time configs
 	timeSourceAddress = eeprom_read_byte((uint8_t*)EE_CLOCK_SOURCE_ADDRESS);
 	maxDeadReckoningTime = eeprom_read_byte((uint8_t*)EE_MAX_DEAD_RECKONING);
+	simTrainWindow = eeprom_read_byte((uint8_t*)EE_SIM_TRAIN_WINDOW);
 }
 
 void PktHandler(void)
@@ -550,18 +547,6 @@ void PktHandler(void)
 						scaleFactor = (((uint16_t)rxBuffer[13])<<8) + (uint16_t)rxBuffer[14];
 					}
 
-					if(!deadReckoningTime)
-					{
-						// We were timed out, but a new packet just came in - fake trigger any trains before the new time and clean up others
-						// Also takes care of the first time packet after reset since all trains initialize as untriggered.
-						// Prevents a massive backlog of triggers if starting at non-midnight.
-						for(i=0; i<NUM_SIM_TRAINS; i++)
-						{
-							if( !(simTrain[i].triggered) && (fastTime.hours >= simTrain[i].hours) && (fastTime.minutes > simTrain[i].minutes) )
-								simTrain[i].triggered = 1;
-						}
-					}
-					
 					// If we got a packet, there's no dead reckoning time anymore
 					fastDecisecs = 0;
 					scaleTenthsAccum = 0;
@@ -1067,17 +1052,28 @@ int main(void)
 			// Only trigger if in fast time mode (and not held), and dead reckoning has not expired
 			for(i=0; i<NUM_SIM_TRAINS; i++)
 			{
-				if( !(simTrain[i].triggered) && (fastTime.hours >= simTrain[i].hours) && (fastTime.minutes >= simTrain[i].minutes) )
+				uint16_t currentTime = (fastTime.hours * 60) + fastTime.minutes;
+				if( (simTrain[i].time <= currentTime) && ((simTrain[i].time + simTrainWindow) >= currentTime) )
 				{
-					// Train not triggered yet and at or past trigger time
-					if(!simulator[simTrain[i].direction].enable)
+					// Inside time window for triggering
+					if(!(simTrain[i].triggered))
 					{
-						// Only if not already enabled - don't stomp on any existing simulated trains from that direction since it might mess up the timers
-						simulator[simTrain[i].direction].enable = 1;
-						simulator[simTrain[i].direction].approachTime = simTrain[i].approachTime;
-						simulator[simTrain[i].direction].totalTime = simTrain[i].totalTime;
-						simulator[simTrain[i].direction].sound = simTrain[i].sound;
+						// Not already triggered
+						if(!simulator[simTrain[i].direction].enable)
+						{
+							// Only if not already enabled - don't stomp on any existing simulated trains from that direction since it might mess up the timers
+							simulator[simTrain[i].direction].enable = 1;
+							simulator[simTrain[i].direction].approachTime = simTrain[i].approachTime;
+							simulator[simTrain[i].direction].totalTime = simTrain[i].totalTime;
+							simulator[simTrain[i].direction].sound = simTrain[i].sound;
+							simTrain[i].triggered = 1;
+						}
 					}
+				}
+				else
+				{
+					// Not in time window, untrigger
+					simTrain[i].triggered = 0;
 				}
 			}
 		}
