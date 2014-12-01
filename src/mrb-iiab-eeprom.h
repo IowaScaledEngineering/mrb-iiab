@@ -19,6 +19,9 @@ LICENSE:
 
 *************************************************************************/
 
+#ifndef MRB_IIAB_EEPROM
+#define MRB_IIAB_EEPROM
+
 // Timeout = debounce applied to positive detection when that detection goes away (used to "coast" through point-style optical detectors)
 // Lockout = time after interlocking clears during which the train from the opposite direction (or same train leaving) cannot get the interlocking (lets train finish leaving)
 // Timelock = delay between signal going red and any other train getting a proceed signal
@@ -41,3 +44,5 @@ LICENSE:
 #define EE_OUTPUT_POLARITY4     0x26
 #define EE_MISC_CONFIG          0x30
 #define EE_SIM_TRAINS           0x40
+
+#endif // MRB_IIAB_EEPROM
