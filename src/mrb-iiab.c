@@ -101,8 +101,8 @@ typedef struct
 {
 	uint8_t enable;
 	volatile uint16_t timer;  // decisecs
-	uint8_t approachTime;
-	uint8_t totalTime;
+	uint8_t approachTime;     // seconds
+	uint8_t totalTime;        // seconds
 	uint8_t sound;
 } Simulator;
 
@@ -112,16 +112,23 @@ Simulator simulator[NUM_DIRECTIONS];
 
 typedef struct
 {
+	// From EEPROM
 	uint16_t time;  // Minutes since midnight
 	uint8_t direction;
-	uint8_t approachTime;
-	uint8_t totalTime;
-	uint8_t sound;
+	uint8_t approachTime;  // seconds
+	uint8_t totalTime;     // seconds
+	uint8_t flags;         // 0: sound0, 1: sound1, ..., 7: trigger auto interlock
+	// Local status
 	uint8_t triggered;
 } SimTrain;
-		
+
 SimTrain simTrain[NUM_SIM_TRAINS];
 uint8_t simTrainWindow = 1;
+
+
+uint8_t interchangeEnable;
+uint8_t interchangeOccupancy;
+
 
 uint8_t timeoutSeconds[NUM_DIRECTIONS];
 volatile uint16_t timeoutTimer[NUM_DIRECTIONS];  // decisecs
@@ -360,7 +367,7 @@ void xioDirectionSet()
 	i2cBuf[3] = 0;
 	i2cBuf[4] = 0;
 	i2cBuf[5] = 0xFF;
-	i2cBuf[6] = 0x0F;
+	i2cBuf[6] = 0x1F;
 	i2c_transmit(i2cBuf, 7, 1);
 	while(i2c_busy());
 
@@ -641,6 +648,9 @@ void init(void)
 		simTrain[i].triggered = 0;
 	}
 
+	interchangeEnable = 0;
+	interchangeOccupancy = 0;
+
 	interlockingOccupancy = 0;
 	interlockingStatus = 0;
 	
@@ -691,12 +701,22 @@ uint8_t requestInterlocking(uint8_t direction)
 
 void startSound(uint8_t sound)
 {
-	xio1Outputs[4] |= (0x40 << sound);
+	xio1Outputs[4] |= (sound << 6);
 }
 
 void stopSound(uint8_t sound)
 {
-	xio1Outputs[4] &= ~(0x40 << sound);
+	xio1Outputs[4] &= ~(sound << 6);
+}
+
+void startInterchange(void)
+{
+	xio1Outputs[4] |= 0x20;
+}
+
+void stopInterchange(void)
+{
+	xio1Outputs[4] &= ~(0x20);
 }
 
 void readInputs(void)
@@ -719,8 +739,8 @@ void readInputs(void)
 	//   E1: Direction #1 turnout position (not used)
 	//   E2: Direction #2 turnout position
 	//   E3: Direction #3 turnout position (not used)
-	//   E4: unassigned
-	//   E5: unassigned
+	//   E4: Automatic Interchange Detector
+	//   E5: Automatic Interchange Relay (output)
 	//   E6: Sound trigger #0 (output)
 	//   E7: Sound trigger #1 (output)
 
@@ -753,6 +773,12 @@ void readInputs(void)
 		else
 			turnout[i] = TURNOUT_MAIN;
 	}
+	
+	// Get interlocking status
+	if(debounced_inputs[1] & _BV(4))
+		interchangeOccupancy = 1;
+	else
+		interchangeOccupancy = 0;
 
 	// Get the physical occupancy inputs from debounced
 	if(debounced_inputs[0] & _BV(0))
@@ -1065,7 +1091,9 @@ int main(void)
 							simulator[simTrain[i].direction].enable = 1;
 							simulator[simTrain[i].direction].approachTime = simTrain[i].approachTime;
 							simulator[simTrain[i].direction].totalTime = simTrain[i].totalTime;
-							simulator[simTrain[i].direction].sound = simTrain[i].sound;
+							simulator[simTrain[i].direction].sound = simTrain[i].flags | 0x03;
+							if(simTrain[i].flags & 0x80)
+								interchangeEnable = 1;
 							simTrain[i].triggered = 1;
 						}
 					}
@@ -1075,6 +1103,22 @@ int main(void)
 					// Not in time window, untrigger
 					simTrain[i].triggered = 0;
 				}
+			}
+		}
+		
+		// Logic for the automatic interchange
+		if(interchangeEnable)
+		{
+			if(!interchangeOccupancy)
+			{
+				// Interchange track not occupied, enable relay
+				startInterchange();
+			}
+			else
+			{
+				// Interchange track occupied, disable relay and disable interchange until next scheduled train
+				stopInterchange();
+				interchangeEnable = 0;
 			}
 		}
 
@@ -1259,6 +1303,8 @@ int main(void)
 		mrbeePoll();
 #endif
 		uint8_t txBuffer[MRBUS_BUFFER_SIZE];
+
+		// FIXME: Do the sound outputs also show up in byte 7?  If so, no need to replicate in byte 11, just the OR is needed there
 
 		// 6:  Inputs (Block Detect)
 		// 7:  Inputs (Turnout): [<7:4>][/TO2][TO2][/TO0][TO0]
