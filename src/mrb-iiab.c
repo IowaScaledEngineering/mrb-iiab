@@ -26,7 +26,6 @@ LICENSE:
 #include <avr/wdt.h>
 #include <util/delay.h>
 
-#include "mrb-iiab-eeprom.h"
 #include "mrbus.h"
 #include "avr-i2c-master.h"
 
@@ -49,6 +48,30 @@ LICENSE:
 
 uint8_t mrbus_dev_addr = 0;
 uint8_t pkt_count = 0;
+
+
+// Timeout = debounce applied to positive detection when that detection goes away (used to "coast" through point-style optical detectors)
+// Lockout = time after interlocking clears during which the train from the opposite direction (or same train leaving) cannot get the interlocking (lets train finish leaving)
+// Timelock = delay between signal going red and any other train getting a proceed signal
+// Debouce = debounce applied to interlocking block detection going low.  Filters momentary non-detects to prevent premature switch from OCCUPIED to CLEAR state.
+#define EE_TIMEOUT_SECONDS      0x10
+// 0x10 - 0x13 = 4 sets of timeouts, one for each direction
+#define EE_LOCKOUT_SECONDS      0x14
+#define EE_TIMELOCK_SECONDS     0x15
+#define EE_DEBOUNCE_SECONDS     0x16
+#define EE_CLOCK_SOURCE_ADDRESS 0x18
+#define EE_MAX_DEAD_RECKONING   0x19
+#define EE_SIM_TRAIN_WINDOW     0x1A
+#define EE_BLINKY_DECISECS      0x1F
+#define EE_INPUT_POLARITY0      0x20
+#define EE_INPUT_POLARITY1      0x21
+#define EE_OUTPUT_POLARITY0     0x22
+#define EE_OUTPUT_POLARITY1     0x23
+#define EE_OUTPUT_POLARITY2     0x24
+#define EE_OUTPUT_POLARITY3     0x25
+#define EE_OUTPUT_POLARITY4     0x26
+#define EE_MISC_CONFIG          0x30
+#define EE_SIM_TRAINS           0x40
 
 
 // interlockingStatus currently limits this to a maximum of 7
@@ -345,7 +368,7 @@ void xioDirectionSet()
 	i2cBuf[3] = 0;
 	i2cBuf[4] = 0;
 	i2cBuf[5] = 0xFF;
-	i2cBuf[6] = 0x1F;
+	i2cBuf[6] = 0x0F;
 	i2c_transmit(i2cBuf, 7, 1);
 	while(i2c_busy());
 
@@ -710,14 +733,14 @@ void readInputs(void)
 	//   D4: Block Detect #2 siding
 	//   D5: Block Detect #3
 	//   D6: Block Detect Interlocking
-	//   D7: unassigned
+	//   D7: Block Detect Automatic Interchange
 
 	// debounced_inputs[1]
 	//   E0: Direction #0 turnout position
 	//   E1: Direction #1 turnout position (not used)
 	//   E2: Direction #2 turnout position
 	//   E3: Direction #3 turnout position (not used)
-	//   E4: Automatic Interchange Detector
+	//   E4: unassigned
 	//   E5: Automatic Interchange Relay (output)
 	//   E6: Sound trigger #0 (output)
 	//   E7: Sound trigger #1 (output)
@@ -752,8 +775,8 @@ void readInputs(void)
 			turnout[i] = TURNOUT_MAIN;
 	}
 	
-	// Get interlocking status
-	if(debounced_inputs[1] & _BV(4))
+	// Get interchange status
+	if(debounced_inputs[0] & _BV(7))
 		interchangeOccupancy = 1;
 	else
 		interchangeOccupancy = 0;
@@ -1284,8 +1307,8 @@ int main(void)
 
 		// FIXME: Do the sound outputs also show up in byte 7?  If so, no need to replicate in byte 11, just the OR is needed there
 
-		// 6:  Inputs (Block Detect)
-		// 7:  Inputs (Turnout): [<7:4>][/TO2][TO2][/TO0][TO0]
+		// 6:  Inputs0: Block Detect
+		// 7:  Inputs1: [<7:4>][/Turnout2][Turnout2][/Turnout0][Turnout0]
 		// 8:  Signal Outputs Bank #1
 		// 9:  Signal Outputs Bank #2
 		// 10: Signal Outputs Bank #3
