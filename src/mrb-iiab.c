@@ -73,7 +73,6 @@ uint8_t pkt_count = 0;
 #define EE_MISC_CONFIG          0x30
 #define EE_SIM_TRAINS           0x40
 
-
 // interlockingStatus currently limits this to a maximum of 7
 #define NUM_DIRECTIONS 4
 
@@ -111,14 +110,19 @@ Simulator simulator[NUM_DIRECTIONS];
 
 #define NUM_SIM_TRAINS 32
 
+#define SIM_TRAIN_SOUND_BITMASK         0x03
+#define SIM_TRAIN_INTERCHANGE_BITMASK   0x04
+#define SIM_TRAIN_ENABLE_BITMASK        0x80
+
 typedef struct
 {
 	// From EEPROM
-	uint16_t time;  // Minutes since midnight
+// FIXME: Add enabled flag
+	uint8_t flags;         // See SIM_TRAIN_*_BITMASK defines
+	uint16_t time;         // Minutes since midnight
 	uint8_t direction;
-	uint8_t approachTime;  // seconds
 	uint8_t totalTime;     // seconds
-	uint8_t flags;         // 0: sound0, 1: sound1, ..., 7: trigger auto interlock
+	uint8_t approachTime;  // seconds
 	// Local status
 	uint8_t triggered;
 } SimTrain;
@@ -1083,7 +1087,7 @@ int main(void)
 				if( (simTrain[i].time <= currentTime) && ((simTrain[i].time + simTrainWindow) >= currentTime) )
 				{
 					// Inside time window for triggering
-					if(!(simTrain[i].triggered))
+					if( (simTrain[i].flags & SIM_TRAIN_ENABLE_BITMASK) && !(simTrain[i].triggered) )
 					{
 						// Not already triggered
 						if(!simulator[simTrain[i].direction].enable)
@@ -1092,8 +1096,8 @@ int main(void)
 							simulator[simTrain[i].direction].enable = 1;
 							simulator[simTrain[i].direction].approachTime = simTrain[i].approachTime;
 							simulator[simTrain[i].direction].totalTime = simTrain[i].totalTime;
-							simulator[simTrain[i].direction].sound = simTrain[i].flags | 0x03;
-							if(simTrain[i].flags & 0x80)
+							simulator[simTrain[i].direction].sound = simTrain[i].flags & SIM_TRAIN_SOUND_BITMASK;
+							if(simTrain[i].flags & SIM_TRAIN_INTERCHANGE_BITMASK)
 								interchangeEnable = 1;
 							simTrain[i].triggered = 1;
 						}
