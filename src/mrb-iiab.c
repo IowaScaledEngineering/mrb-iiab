@@ -119,8 +119,8 @@ typedef struct
 	// From EEPROM
 // FIXME: Add enabled flag
 	uint8_t flags;         // See SIM_TRAIN_*_BITMASK defines
-	uint16_t time;         // Minutes since midnight
 	uint8_t direction;
+	uint16_t time;         // Minutes since midnight
 	uint8_t totalTime;     // seconds
 	uint8_t approachTime;  // seconds
 	// Local status
