@@ -80,9 +80,10 @@ uint8_t pkt_count = 0;
 #define SIM_TRAIN_TOTAL       4
 #define SIM_TRAIN_APPROACH    5
 
-#define SIM_TRAIN_SOUND_BITMASK         0x03
-#define SIM_TRAIN_INTERCHANGE_BITMASK   0x04
-#define SIM_TRAIN_ENABLE_BITMASK        0x80
+#define SIM_TRAIN_FLAGS_ENABLE          0x80
+#define SIM_TRAIN_FLAGS_TRIGGER         0x40
+#define SIM_TRAIN_FLAGS_INTERCHANGE     0x04
+#define SIM_TRAIN_FLAGS_SOUND           0x03
 #define SIM_TRAIN_DIRECTION_BITMASK     0x03
 
 
@@ -123,15 +124,11 @@ Simulator simulator[NUM_DIRECTIONS];
 
 typedef struct
 {
-	// From EEPROM
-// FIXME: Add enabled flag
-	uint8_t flags;         // See SIM_TRAIN_*_BITMASK defines
+	uint8_t flags;         // See SIM_TRAIN_FLAGS defines
 	uint8_t direction;
 	uint16_t time;         // Minutes since midnight
 	uint8_t totalTime;     // seconds
 	uint8_t approachTime;  // seconds
-	// Local status
-	uint8_t triggered;
 } SimTrain;
 
 SimTrain simTrain[NUM_SIM_TRAINS];
@@ -510,6 +507,16 @@ void readEEPROM()
 	timeSourceAddress = eeprom_read_byte((uint8_t*)EE_CLOCK_SOURCE_ADDRESS);
 	maxDeadReckoningTime = eeprom_read_byte((uint8_t*)EE_MAX_DEAD_RECKONING);
 	simTrainWindow = eeprom_read_byte((uint8_t*)EE_SIM_TRAIN_WINDOW);
+
+	// Load sim train data
+	for(i=0; i<NUM_SIM_TRAINS; i++)
+	{
+		simTrain[i].flags        = eeprom_read_byte((uint8_t*)(EE_SIM_TRAINS + (6*i) + SIM_TRAIN_FLAGS));
+		simTrain[i].direction    = eeprom_read_byte((uint8_t*)(EE_SIM_TRAINS + (6*i) + SIM_TRAIN_DIRECTION));
+		simTrain[i].time         = (eeprom_read_byte((uint8_t*)(EE_SIM_TRAINS + (6*i) + SIM_TRAIN_TIME)) << 8) + eeprom_read_byte((uint8_t*)(EE_SIM_TRAINS + (6*i) + SIM_TRAIN_TIME + 1));
+		simTrain[i].totalTime    = eeprom_read_byte((uint8_t*)(EE_SIM_TRAINS + (6*i) + SIM_TRAIN_TOTAL));
+		simTrain[i].approachTime = eeprom_read_byte((uint8_t*)(EE_SIM_TRAINS + (6*i) + SIM_TRAIN_APPROACH));
+	}
 }
 
 void PktHandler(void)
@@ -657,7 +664,7 @@ void init(void)
 	// Clear triggered flags in sim trains
 	for(i=0; i<NUM_SIM_TRAINS; i++)
 	{
-		simTrain[i].triggered = 0;
+		simTrain[i].flags &= ~SIM_TRAIN_FLAGS_TRIGGER;
 	}
 
 	interchangeEnable = 0;
@@ -1094,7 +1101,7 @@ int main(void)
 				if( (simTrain[i].time <= currentTime) && ((simTrain[i].time + simTrainWindow) >= currentTime) )
 				{
 					// Inside time window for triggering
-					if( (simTrain[i].flags & SIM_TRAIN_ENABLE_BITMASK) && !(simTrain[i].triggered) )
+					if( (simTrain[i].flags & SIM_TRAIN_FLAGS_ENABLE) && !(simTrain[i].flags & SIM_TRAIN_FLAGS_TRIGGER) )
 					{
 						// Not already triggered
 						if(!simulator[simTrain[i].direction].enable)
@@ -1103,17 +1110,17 @@ int main(void)
 							simulator[simTrain[i].direction].enable = 1;
 							simulator[simTrain[i].direction].approachTime = simTrain[i].approachTime;
 							simulator[simTrain[i].direction].totalTime = simTrain[i].totalTime;
-							simulator[simTrain[i].direction].sound = simTrain[i].flags & SIM_TRAIN_SOUND_BITMASK;
-							if(simTrain[i].flags & SIM_TRAIN_INTERCHANGE_BITMASK)
+							simulator[simTrain[i].direction].sound = simTrain[i].flags & SIM_TRAIN_FLAGS_SOUND;
+							if(simTrain[i].flags & SIM_TRAIN_FLAGS_INTERCHANGE)
 								interchangeEnable = 1;
-							simTrain[i].triggered = 1;
+							simTrain[i].flags |= SIM_TRAIN_FLAGS_TRIGGER;
 						}
 					}
 				}
 				else
 				{
 					// Not in time window, untrigger
-					simTrain[i].triggered = 0;
+					simTrain[i].flags &= ~SIM_TRAIN_FLAGS_TRIGGER;
 				}
 			}
 		}
