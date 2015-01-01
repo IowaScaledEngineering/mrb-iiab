@@ -55,7 +55,6 @@ uint8_t pkt_count = 0;
 // Timelock = delay between signal going red and any other train getting a proceed signal
 // Debouce = debounce applied to interlocking block detection going low.  Filters momentary non-detects to prevent premature switch from OCCUPIED to CLEAR state.
 #define EE_TIMEOUT_SECONDS      0x10
-// 0x10 - 0x13 = 4 sets of timeouts, one for each direction
 #define EE_LOCKOUT_SECONDS      0x14
 #define EE_TIMELOCK_SECONDS     0x15
 #define EE_DEBOUNCE_SECONDS     0x16
@@ -72,6 +71,20 @@ uint8_t pkt_count = 0;
 #define EE_OUTPUT_POLARITY4     0x26
 #define EE_MISC_CONFIG          0x30
 #define EE_SIM_TRAINS           0x40
+
+#define NUM_SIM_TRAINS   32
+
+#define SIM_TRAIN_FLAGS       0
+#define SIM_TRAIN_DIRECTION   1
+#define SIM_TRAIN_TIME        2
+#define SIM_TRAIN_TOTAL       4
+#define SIM_TRAIN_APPROACH    5
+
+#define SIM_TRAIN_SOUND_BITMASK         0x03
+#define SIM_TRAIN_INTERCHANGE_BITMASK   0x04
+#define SIM_TRAIN_ENABLE_BITMASK        0x80
+#define SIM_TRAIN_DIRECTION_BITMASK     0x03
+
 
 // interlockingStatus currently limits this to a maximum of 7
 #define NUM_DIRECTIONS 4
@@ -107,12 +120,6 @@ typedef struct
 } Simulator;
 
 Simulator simulator[NUM_DIRECTIONS];
-
-#define NUM_SIM_TRAINS 32
-
-#define SIM_TRAIN_SOUND_BITMASK         0x03
-#define SIM_TRAIN_INTERCHANGE_BITMASK   0x04
-#define SIM_TRAIN_ENABLE_BITMASK        0x80
 
 typedef struct
 {
