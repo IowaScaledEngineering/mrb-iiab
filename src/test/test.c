@@ -2794,7 +2794,7 @@ void testSimulatedTrainMeet(int firstDirection, int secondDirection)
 	printf("Simulated Train Meet %d -> %d\n", firstDirection, secondDirection);
 	printf("--------------------------------------------------------------------------------\n");
 
-	timelockTime = 10;  // Set longer than totalTime-approachTime (first train)
+	timelockTime = simTrain[0].totalTime - simTrain[0].approachTime + 5;  // Set longer than totalTime-approachTime (first train)
 	writeEeprom(EE_TIMELOCK_SECONDS, timelockTime);
 
 	for(i=0; i<NUM_SIM_TRAINS; i++)
@@ -2882,6 +2882,199 @@ void testSimulatedTrainMeet(int firstDirection, int secondDirection)
 	gettimeofday(&tvTimerB, NULL);
 	timeval_subtract(&tvDiff, &tvTimerB, &tvTimerA);
 	assertFloat("Total Time", (float)tvDiff.tv_sec + (float)tvDiff.tv_usec/1000000, simTrain[1].totalTime, 1);
+
+	clearAll();
+
+	END_TEST;
+}
+
+void testRealMeetSimulated(int realDirection, int simulatedDirection, int realBeforeSim)
+{
+	int i;
+	struct timeval tvDiff, tvTimerA, tvTimerB, tvTimerC;
+
+	SimTrain simTrain;
+	simTrain.flags = SIM_TRAIN_FLAGS_ENABLE;
+	simTrain.direction = simulatedDirection;
+	simTrain.time = 8*60 + 0;
+	simTrain.totalTime = 10;
+	simTrain.approachTime = 5;
+
+	SimTrain nullSim;
+	nullSim.flags = 0;
+	nullSim.direction = 0;
+	nullSim.time = 0;
+	nullSim.totalTime = 0;
+	nullSim.approachTime = 0;
+
+	START_TEST;
+	
+	printf("\n");
+	printf("--------------------------------------------------------------------------------\n");
+	printf("Real Train Meet Simulated Train %d -> %d ", realDirection, simulatedDirection);
+	if(realBeforeSim)
+	{
+		printf("(Real Before Sim)\n");
+	}
+	else
+	{
+		printf("(Sim Before Real)\n");
+	}
+	printf("--------------------------------------------------------------------------------\n");
+
+	clearAll();
+
+	debounceTime = 3;
+	writeEeprom(EE_DEBOUNCE_SECONDS, debounceTime);
+	timelockTime = simTrain.totalTime - simTrain.approachTime + 5;  // Set longer than totalTime-approachTime (first train)
+	writeEeprom(EE_TIMELOCK_SECONDS, timelockTime);
+
+	for(i=0; i<NUM_SIM_TRAINS; i++)
+	{
+		if(0 == i)
+		{
+			writeEepromSim(i, simTrain);
+		}
+		else
+		{
+			writeEepromSim(i, nullSim);
+		}
+	}
+
+	// Pre-Trigger
+	printf("Pre-Trigger\n");
+	sendFastTimePacket(simTrain.time - 5, 10, TIME_FLAGS_DISP_FAST);  // time - 5 minutes, 1x, Fast enabled, not hold
+	sleep(1);
+	
+	if(!realBeforeSim)
+	{
+		// Sim before real
+		printf("Trigger Simulated Train\n");
+		sendFastTimePacket(simTrain.time, 10, TIME_FLAGS_DISP_FAST);
+		// Triggered Time
+		gettimeofday(&tvTimerA, NULL);
+		
+		printf("Real Train Arrives\n");
+		turnouts = 0;
+		switch(realDirection)
+		{
+			case DIR_WEST:
+				occupancy = OCC_WEST_MAIN;
+				break;
+			case DIR_EAST:
+				occupancy = OCC_EAST_MAIN;
+				break;
+			case DIR_NORTH:
+				occupancy = OCC_NORTH_MAIN;
+				break;
+			case DIR_SOUTH:
+				occupancy = OCC_SOUTH_MAIN;
+				break;
+		}
+		sendCommand();
+
+		assertAspect("Simulated train arrives, gets proceed indication (main/top)", 2*simulatedDirection+0, ASPECT_GREEN);
+		assertAspect("Simulated train arrives, gets proceed indication (siding/bottom)", 2*simulatedDirection+1, ASPECT_RED);
+		printf("Waiting for approach time to expire...\n");
+		while(STATE_OCCUPIED != getState(simulatedDirection)) {}
+
+		gettimeofday(&tvTimerB, NULL);
+		gettimeofday(&tvTimerC, NULL);
+		timeval_subtract(&tvDiff, &tvTimerB, &tvTimerA);
+		assertFloat("Approach Time", (float)tvDiff.tv_sec + (float)tvDiff.tv_usec/1000000, simTrain.approachTime, 1);
+
+		assertAspect("Simulated train occupies interlocking (main/top)", 0, ASPECT_RED);
+		assertAspect("Simulated train occupies interlocking (siding/bottom)", 1, ASPECT_RED);
+
+		printf("Waiting for total time to expire...\n");
+		while(STATE_IDLE != getState(simulatedDirection)) {}
+
+		gettimeofday(&tvTimerB, NULL);
+		timeval_subtract(&tvDiff, &tvTimerB, &tvTimerA);
+		assertFloat("Total Time", (float)tvDiff.tv_sec + (float)tvDiff.tv_usec/1000000, simTrain.totalTime, 1);
+
+		i = 0;
+		printf("Wait for timelock to expire.");
+		while(getTimelock())
+		{
+			usleep(100000);
+			if(++i > 10)
+			{
+				printf(".");
+				fflush(stdout);
+				i = 0;
+			}
+		}
+		printf("\n");
+		gettimeofday(&tvTimerB, NULL);
+		timeval_subtract(&tvDiff, &tvTimerB, &tvTimerC);
+		assertFloat("TIMELOCK timer", (float)tvDiff.tv_sec + (float)tvDiff.tv_usec/1000000, timelockTime, 1);
+
+		assertAspect("Real train gets interlocking, gets proceed indication (main/top)", 2*realDirection+0, ASPECT_GREEN);
+		assertAspect("Real train gets interlocking, gets proceed indication (siding/bottom)", 2*realDirection+1, ASPECT_RED);
+	}
+	else
+	{
+		// Real before sim
+		printf("Real Train Arrives\n");
+		turnouts = 0;
+		switch(realDirection)
+		{
+			case DIR_WEST:
+				occupancy = OCC_WEST_MAIN;
+				break;
+			case DIR_EAST:
+				occupancy = OCC_EAST_MAIN;
+				break;
+			case DIR_NORTH:
+				occupancy = OCC_NORTH_MAIN;
+				break;
+			case DIR_SOUTH:
+				occupancy = OCC_SOUTH_MAIN;
+				break;
+		}
+		sendCommand();
+
+		printf("Trigger Simulated Train\n");
+		sendFastTimePacket(simTrain.time, 10, TIME_FLAGS_DISP_FAST);
+
+		assertAspect("Real train gets interlocking, gets proceed indication (main/top)", 2*realDirection+0, ASPECT_GREEN);
+		assertAspect("Real train gets interlocking, gets proceed indication (siding/bottom)", 2*realDirection+1, ASPECT_RED);
+
+		sleep(1);
+
+		occupancy = OCC_INTERLOCKING;
+		sendCommand();
+		gettimeofday(&tvTimerC, NULL);
+
+		assertAspect("Real train takes interlocking (main/top)", 2*realDirection+0, ASPECT_RED);
+		assertAspect("Real train takes interlocking (siding/bottom)", 2*realDirection+1, ASPECT_RED);
+
+		sleep(1);
+
+		occupancy = 0;
+		sendCommand();
+
+		i = 0;
+		printf("Wait for timelock to expire.");
+		while(getTimelock())
+		{
+			usleep(100000);
+			if(++i > 10)
+			{
+				printf(".");
+				fflush(stdout);
+				i = 0;
+			}
+		}
+		printf("\n");
+		gettimeofday(&tvTimerB, NULL);
+		timeval_subtract(&tvDiff, &tvTimerB, &tvTimerC);
+		assertFloat("TIMELOCK timer", (float)tvDiff.tv_sec + (float)tvDiff.tv_usec/1000000, timelockTime, 1);
+
+		assertAspect("Simulated train gets interlocking, gets proceed indication (main/top)", 2*simulatedDirection+0, ASPECT_GREEN);
+		assertAspect("Simulated train gets interlocking, gets proceed indication (siding/bottom)", 2*simulatedDirection+1, ASPECT_RED);
+	}
 
 	clearAll();
 
@@ -3099,16 +3292,24 @@ int main(void)
 /*		RUN_TEST(testSimulatedTrainSequence(0));*/
 /*		RUN_TEST(testSimulatedTrainSequence(1));*/
 /*		RUN_TEST(testSimulatedTrainApproachLarger());*/
-		RUN_TEST(testSimulatedTrainMeet(0, 2));
-		RUN_TEST(testSimulatedTrainMeet(2, 1));
-		RUN_TEST(testSimulatedTrainMeet(1, 3));
-		RUN_TEST(testSimulatedTrainMeet(3, 0));
+/*		RUN_TEST(testSimulatedTrainMeet(0, 2));*/
+/*		RUN_TEST(testSimulatedTrainMeet(2, 1));*/
+/*		RUN_TEST(testSimulatedTrainMeet(1, 3));*/
+/*		RUN_TEST(testSimulatedTrainMeet(3, 0));*/
 
-// Train scheduled on same track as real
-// Train scheduled on opposite track as real
-// Meets between simulated trains
+		RUN_TEST(testRealMeetSimulated(0, 2, 0));
+		RUN_TEST(testRealMeetSimulated(2, 1, 0));
+		RUN_TEST(testRealMeetSimulated(1, 3, 0));
+		RUN_TEST(testRealMeetSimulated(3, 0, 0));
+		RUN_TEST(testRealMeetSimulated(0, 2, 1));
+		RUN_TEST(testRealMeetSimulated(2, 1, 1));
+		RUN_TEST(testRealMeetSimulated(1, 3, 1));
+		RUN_TEST(testRealMeetSimulated(3, 0, 1));
+
 // Real train meet simulated train (before and after)
 // Auto Interchange
+// Train scheduled on same track as real
+// Train scheduled on opposite track as real
 
 		
 		break;
