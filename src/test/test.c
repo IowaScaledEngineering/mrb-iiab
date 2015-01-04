@@ -61,13 +61,49 @@ int pass, fail;
 #define MRBUS_EE_DEVICE_UPDATE_H 2
 #define MRBUS_EE_DEVICE_UPDATE_L 3
 
-#define EE_TIMEOUT_SECONDS_0  0x10
-#define EE_TIMEOUT_SECONDS_1  0x11
-#define EE_TIMEOUT_SECONDS_2  0x12
-#define EE_TIMEOUT_SECONDS_3  0x13
-#define EE_LOCKOUT_SECONDS    0x14
-#define EE_TIMELOCK_SECONDS   0x15
-#define EE_DEBOUNCE_SECONDS   0x16
+#define EE_TIMEOUT_SECONDS      0x10
+#define EE_LOCKOUT_SECONDS      0x14
+#define EE_TIMELOCK_SECONDS     0x15
+#define EE_DEBOUNCE_SECONDS     0x16
+#define EE_CLOCK_SOURCE_ADDRESS 0x18
+#define EE_MAX_DEAD_RECKONING   0x19
+#define EE_SIM_TRAIN_WINDOW     0x1A
+#define EE_BLINKY_DECISECS      0x1F
+#define EE_INPUT_POLARITY0      0x20
+#define EE_INPUT_POLARITY1      0x21
+#define EE_OUTPUT_POLARITY0     0x22
+#define EE_OUTPUT_POLARITY1     0x23
+#define EE_OUTPUT_POLARITY2     0x24
+#define EE_OUTPUT_POLARITY3     0x25
+#define EE_OUTPUT_POLARITY4     0x26
+#define EE_MISC_CONFIG          0x30
+#define EE_SIM_TRAINS           0x40
+
+#define SIM_TRAIN_FLAGS_ENABLE          0x80
+#define SIM_TRAIN_FLAGS_TRIGGER         0x40
+#define SIM_TRAIN_FLAGS_INTERCHANGE     0x04
+#define SIM_TRAIN_FLAGS_SOUND           0x03
+#define SIM_TRAIN_DIRECTION_BITMASK     0x03
+
+
+// Time variables
+#define TIME_FLAGS_DISP_FAST       0x01
+#define TIME_FLAGS_DISP_FAST_HOLD  0x02
+#define TIME_FLAGS_DISP_REAL_AMPM  0x04
+#define TIME_FLAGS_DISP_FAST_AMPM  0x08
+
+
+typedef enum
+{
+	STATE_IDLE      = 0,
+	STATE_CLEARANCE = 1,
+	STATE_TIMEOUT   = 2,
+	STATE_TIMER     = 3,
+	STATE_OCCUPIED  = 4,
+	STATE_LOCKOUT   = 5,
+	STATE_CLEAR     = 6,
+} InterlockState;
+
 
 #define DIR_WEST  0
 #define DIR_EAST  1
@@ -116,6 +152,24 @@ const char *aspectString[8];
 #define   STATE_LOCKOUT     5
 #define   STATE_CLEAR       6
 
+typedef struct
+{
+	uint8_t flags;         // See SIM_TRAIN_FLAGS defines
+	uint8_t direction;
+	uint16_t time;         // Minutes since midnight
+	uint8_t totalTime;     // seconds
+	uint8_t approachTime;  // seconds
+} SimTrain;
+
+#define NUM_SIM_TRAINS 32
+
+typedef enum
+{
+	TRIGGER_DEAD_RECKONING,
+	TRIGGER_PACKET,
+	TRIGGER_WINDOW,
+	TRIGGER_SKIP,
+} TriggerType;
 
 uint8_t occupancy;
 uint8_t turnouts;
@@ -313,7 +367,7 @@ void writeEeprom(int addr, int val)
 	
 	snprintf(pkt, sizeof(pkt), "%02X->%02X %02X %02X %02X", SRC_ADDR, DUT_ADDR, 'W', addr, val);
 	textcolor(RESET, YELLOW, BLACK);
-	printf("Sending packet [%s]\n", pkt);
+	printf("Sending eeprom packet [%s]\n", pkt);
 	textcolor(RESET, WHITE, BLACK);
 
 	if( NULL != (fptr = fopen(MRBFS_TXPKT, "w")) )
@@ -328,10 +382,67 @@ void writeEeprom(int addr, int val)
 		textcolor(RESET, WHITE, BLACK);
 	}
 	
-	sleep(1);	
+	usleep(100000);
 }
 
-int getState(int dir)
+void writeEepromSim(int num, SimTrain sim)
+{
+	char pkt[256];
+	FILE *fptr;
+	
+	snprintf(pkt, sizeof(pkt), "%02X->%02X %02X %02X %02X %02X %02X %02X %02X %02X", SRC_ADDR, DUT_ADDR, 'W', 0x40+(6*num), sim.flags, sim.direction, (sim.time >> 8)&0xFF, sim.time&0xFF, sim.totalTime, sim.approachTime);
+	textcolor(RESET, YELLOW, BLACK);
+	printf("Sending sim eeprom packet [%s]\n", pkt);
+	textcolor(RESET, WHITE, BLACK);
+
+	if( NULL != (fptr = fopen(MRBFS_TXPKT, "w")) )
+	{
+		fprintf(fptr, "%s\n", pkt);
+		fclose(fptr);
+	}
+	else
+	{
+		textcolor(RESET, WHITE, RED);
+		printf("Failed to open %s!\n", MRBFS_TXPKT);
+		textcolor(RESET, WHITE, BLACK);
+	}
+	
+	usleep(100000);
+}
+
+
+
+uint8_t maxDeadReckoning;
+
+void setMaxDeadReckoning(uint8_t value)
+{
+	writeEeprom(EE_MAX_DEAD_RECKONING, value);
+	maxDeadReckoning = value;
+}
+
+uint8_t getMaxDeadReckoning(void)
+{
+	return maxDeadReckoning;
+}
+
+
+
+uint8_t simTrainWindow;
+
+void setSimTrainWindow(uint8_t value)
+{
+	writeEeprom(EE_SIM_TRAIN_WINDOW, value);
+	simTrainWindow = value;
+}
+
+uint8_t getSimTrainWindow(void)
+{
+	return simTrainWindow;
+}
+
+
+
+InterlockState getState(int dir)
 {
 	char path[256];
 	int data;
@@ -603,7 +714,7 @@ void sendCommand(void)
 	{
 		// Try sending packet
 		textcolor(RESET, YELLOW, BLACK);
-		printf("Sending packet [%s]\n", pkt);
+		printf("Sending cmd packet [%s]\n", pkt);
 		textcolor(RESET, WHITE, BLACK);
 
 		if( NULL != (fptr = fopen(MRBFS_TXPKT, "w")) )
@@ -663,6 +774,36 @@ void sendCommand(void)
 
 	usleep(900000);  // Wait additional 900ms to make a complete 1 second delay (to give time for response packet)
 */
+}
+
+int getSound(int sound)
+{
+	char path[256];
+	int data;
+	FILE *fptr;
+	
+	snprintf(path, sizeof(path), "%s/soundOut%d", MRBFS_PATH, sound);
+	
+	if( NULL != (fptr = fopen(path, "r")) )
+	{
+		if(!fscanf(fptr, "%d", &data))
+		{
+			textcolor(RESET, WHITE, RED);
+			printf("Failed to read %s!\n", path);
+			textcolor(RESET, WHITE, BLACK);
+			return -1;
+		}
+		fclose(fptr);
+	}
+	else
+	{
+		textcolor(RESET, WHITE, RED);
+		printf("Failed to open %s!\n", path);
+		textcolor(RESET, WHITE, BLACK);
+		return -1;
+	}
+	
+	return data;
 }
 
 void clearAll(void)
@@ -2036,6 +2177,303 @@ void testBogusInterlocking(void)
 }
 
 
+void sendFastTimePacket(uint16_t time, uint16_t scale, uint8_t flags)
+{
+	char pkt[256];
+	FILE *fptr;
+
+	uint8_t hour = time / 60;
+	uint8_t minute = time % 60;
+	uint8_t second = 0;
+
+	snprintf(pkt, sizeof(pkt), "%02X->%02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X", SRC_ADDR, 0xFF, 'T', 0, 0, 0, flags, hour, minute, second, (scale >> 8)&0xFF, scale&0xFF);
+
+	textcolor(RESET, YELLOW, BLACK);
+	printf("Sending time packet [%s] >> %02d:%02d:%02d %2.1fx\n", pkt, hour, minute, second, scale/10.0);
+	textcolor(RESET, WHITE, BLACK);
+
+	if( NULL != (fptr = fopen(MRBFS_TXPKT, "w")) )
+	{
+		fprintf(fptr, "%s\n", pkt);
+		fclose(fptr);
+	}
+	else
+	{
+		textcolor(RESET, WHITE, RED);
+		printf("Failed to open %s!\n", MRBFS_TXPKT);
+		textcolor(RESET, WHITE, BLACK);
+	}
+}
+
+
+void testSimulatedTrain(int num, SimTrain sim, TriggerType trigger, int writeConfiguration)
+{
+	int i;
+	SimTrain nullSim;
+	uint16_t time;
+	float elapsedTime;
+	struct timeval tvDiff, tvTimerA, tvTimerB;
+	
+	START_TEST;
+	
+	// Not enabled, otherwise null
+	nullSim.flags = 0;
+	nullSim.direction = 0;
+	nullSim.time = 0;
+	nullSim.totalTime = 0;
+	nullSim.approachTime = 0;
+	
+	printf("\n");
+	printf("--------------------------------------------------------------------------------\n");
+	printf("Simulated Train #%d\n", num);
+	printf("--------------------------------------------------------------------------------\n");
+	printf("Direction = %d\n", sim.direction);
+	printf("Sound     = %d\n", sim.flags & SIM_TRAIN_FLAGS_SOUND);
+	printf("Trigger   = ");
+	switch(trigger)
+	{
+		case TRIGGER_DEAD_RECKONING:
+			printf("Dead Reckoning\n");
+			break;
+		case TRIGGER_PACKET:
+			printf("Packet\n");
+			break;
+		case TRIGGER_WINDOW:
+			printf("Window\n");
+			break;
+		case TRIGGER_SKIP:
+			printf("Skip\n");
+			break;
+	}
+	printf("--------------------------------------------------------------------------------\n");
+
+	if(writeConfiguration)
+	{
+		for(i=0; i<NUM_SIM_TRAINS; i++)
+		{
+			if(i == num)
+			{
+				writeEepromSim(i, sim);
+			}
+			else
+			{
+				writeEepromSim(i, nullSim);
+			}
+		}
+	}
+
+	int deadReckoningRatio = 10;
+
+	// Do configuration before sending time packet since EEPROM write will reset device
+	if(writeConfiguration)
+	{
+		switch(trigger)
+		{
+			case TRIGGER_DEAD_RECKONING:
+				setMaxDeadReckoning(((60/deadReckoningRatio) + 1)*10);  // Set dead reckoning to 1 real second longer than delay (1 fast minute) we'll be using
+				break;
+			case TRIGGER_PACKET:
+				break;
+			case TRIGGER_WINDOW:
+				break;
+			case TRIGGER_SKIP:
+				setMaxDeadReckoning(50);  // 5 real seconds
+				setSimTrainWindow(5);  // 5 fast minutes
+				break;
+		}
+	}
+	
+	// Pre-Trigger
+	time = sim.time;
+	if(time > (23*60 + 59))
+		time = 23*60 + 59;  // Clamp to max inside the test
+	
+	if(time < 5)
+	{
+		time = time + (24*60) - 5;
+	}
+	else
+	{
+		time -= 5;
+	}
+
+	sendFastTimePacket(time, 10, TIME_FLAGS_DISP_FAST);  // time - 5 minutes, 1x, Fast enabled, not hold
+	sleep(1);
+
+	switch(trigger)
+	{
+		case TRIGGER_DEAD_RECKONING:
+			time = sim.time;
+			if(time > (23*60 + 59))
+				time = 23*60 + 59;  // Clamp to max inside the test
+			// Set time packet to 1 minute before scheduled time
+			if(time < 1)
+			{
+				time = time + (24*60) - 1;
+			}
+			else
+			{
+				time -= 1;
+			}
+			sendFastTimePacket(time, 10*deadReckoningRatio, TIME_FLAGS_DISP_FAST);  // time - 1 minutes, 10x, Fast enabled, not hold
+			gettimeofday(&tvTimerA, NULL);
+			printf("Waiting for trigger time...\n");
+			while(STATE_IDLE == getState(sim.direction)) {}
+			gettimeofday(&tvTimerB, NULL);
+			timeval_subtract(&tvDiff, &tvTimerB, &tvTimerA);
+			assertFloat("Dead Reckoning Time", (float)tvDiff.tv_sec + (float)tvDiff.tv_usec/1000000, 60/deadReckoningRatio, 1);
+			break;
+		case TRIGGER_PACKET:
+			time = sim.time;
+			if(time > (23*60 + 59))
+				time = 23*60 + 59;  // Clamp to max inside the test
+			sendFastTimePacket(sim.time, 10, TIME_FLAGS_DISP_FAST);
+			break;
+		case TRIGGER_WINDOW:
+			setSimTrainWindow(5);  // Fast minutes
+			time = sim.time;
+			if(time > (23*60 + 59))
+				time = 23*60 + 59;  // Clamp to max inside the test
+			time += 2;
+			if(time >= (24*60))
+			{
+				time -= (24*60);
+			}
+			sendFastTimePacket(time, 10, TIME_FLAGS_DISP_FAST);
+			break;
+		case TRIGGER_SKIP:
+			time = sim.time;
+			if(time > (23*60 + 59))
+				time = 23*60 + 59;  // Clamp to max inside the test
+			time += 6;  // Trigger 6 minutes after sim start time
+			if(time >= (24*60))
+			{
+				time -= (24*60);
+			}
+			sendFastTimePacket(time, 10, TIME_FLAGS_DISP_FAST);
+			break;
+	}
+
+	// Triggered Time
+	gettimeofday(&tvTimerA, NULL);
+
+	int track = (0 != turnouts);
+	if(TRIGGER_SKIP != trigger)
+	{
+		assertAspect("Simulated train arrives, gets proceed indication (main/top)", sim.direction*2, track?ASPECT_RED:ASPECT_GREEN);
+		assertAspect("Simulated train arrives, gets proceed indication (siding/bottom)", sim.direction*2+1, track?ASPECT_YELLOW:ASPECT_RED);
+
+		assertInt("Sound0", getSound(0), (sim.flags&0x01)?1:0);
+		assertInt("Sound1", getSound(1), (sim.flags&0x02)?1:0);
+
+		printf("Waiting for approach time to expire...\n");
+		while(STATE_OCCUPIED != getState(sim.direction)) {}
+
+		gettimeofday(&tvTimerB, NULL);
+		timeval_subtract(&tvDiff, &tvTimerB, &tvTimerA);
+		assertFloat("Approach Time", (float)tvDiff.tv_sec + (float)tvDiff.tv_usec/1000000, sim.approachTime, 1);
+
+		assertAspect("Simulated train occupies interlocking (main/top)", sim.direction*2, ASPECT_RED);
+		assertAspect("Simulated train occupies interlocking (siding/bottom)", sim.direction*2+1, ASPECT_RED);
+
+		printf("Waiting for total time to expire...\n");
+		while(STATE_IDLE != getState(sim.direction)) {}
+
+		gettimeofday(&tvTimerB, NULL);
+		timeval_subtract(&tvDiff, &tvTimerB, &tvTimerA);
+		assertFloat("Total Time", (float)tvDiff.tv_sec + (float)tvDiff.tv_usec/1000000, sim.totalTime, 1);
+
+		assertInt("Sound0", getSound(0), 0);
+		assertInt("Sound1", getSound(1), 0);
+	}
+	else
+	{
+		// Skip trigger
+		do
+		{
+			gettimeofday(&tvTimerB, NULL);
+			timeval_subtract(&tvDiff, &tvTimerB, &tvTimerA);
+			elapsedTime = (float)tvDiff.tv_sec + (float)tvDiff.tv_usec/1000000;
+		} while( (elapsedTime < (getMaxDeadReckoning() / 10.0)) && (STATE_IDLE == getState(sim.direction)) );
+
+		assertFloat("Dead Reckoning Run Out", elapsedTime, getMaxDeadReckoning()/10, 1);
+	}
+
+	clearAll();
+
+	END_TEST;
+}
+
+void runAllBasicSimulatedTrains(void)
+{
+	SimTrain simTrain;
+	simTrain.flags = 0;
+	simTrain.direction = 0;
+	simTrain.time = 5*60 + 0;  // 5:00 AM
+	simTrain.totalTime = 10;
+	simTrain.approachTime = 5;
+
+	for(int i=0; i<NUM_SIM_TRAINS; i++)
+	{
+		TriggerType t;
+		switch(i%3)
+		{
+			case 0:
+				t = TRIGGER_PACKET;
+				break;
+			case 1:
+				t = TRIGGER_WINDOW;
+				break;
+			case 2:
+				t = TRIGGER_DEAD_RECKONING;
+				break;
+		}
+		
+		simTrain.direction = i % 4;
+		
+		uint8_t sound;
+		if( (i / 4) % 2 )
+		{
+			sound = ~(i % 4);
+		}
+		else
+		{
+			sound = i % 4;
+		}
+		simTrain.flags = SIM_TRAIN_FLAGS_ENABLE | (sound & SIM_TRAIN_FLAGS_SOUND);
+
+		occupancy = 0;
+		if( (i / 4) % 2 )
+			turnouts = TURNOUT_WEST | TURNOUT_NORTH;
+		else
+			turnouts = 0;
+		sendCommand();
+		RUN_TEST(testSimulatedTrain(i, simTrain, t, 1));
+	}		
+}
+
+void testSimulatedTrainRetrigger(void)
+{
+	uint8_t hour = 16;
+	uint8_t minute = 25;
+
+	SimTrain simTrain;
+	simTrain.flags = SIM_TRAIN_FLAGS_ENABLE;
+	simTrain.direction = 0;
+	simTrain.time = hour*60 + minute;
+	simTrain.totalTime = 10;
+	simTrain.approachTime = 5;
+	
+	testSimulatedTrain(0, simTrain, TRIGGER_DEAD_RECKONING, 1);
+	
+	sendFastTimePacket((hour+1)*60 + minute, 10, TIME_FLAGS_DISP_FAST); // Advance past scheduled time
+	
+	sleep(1);
+
+	sendFastTimePacket((hour-1)*60 + minute, 10, TIME_FLAGS_DISP_FAST); // Go 1 hour before scheduled time
+	
+	testSimulatedTrain(0, simTrain, TRIGGER_DEAD_RECKONING, 0);  // Don't rewrite EEPROM
+}
 
 int main(void)
 {
@@ -2052,14 +2490,17 @@ int main(void)
 	printf("Configuring EEPROM...\n");
 	writeEeprom(MRBUS_EE_DEVICE_UPDATE_H, 0);
 	writeEeprom(MRBUS_EE_DEVICE_UPDATE_L, 5);
-	writeEeprom(EE_TIMEOUT_SECONDS_0, timeoutTime);
-	writeEeprom(EE_TIMEOUT_SECONDS_1, timeoutTime);
-	writeEeprom(EE_TIMEOUT_SECONDS_2, timeoutTime);
-	writeEeprom(EE_TIMEOUT_SECONDS_3, timeoutTime);
+	writeEeprom(EE_TIMEOUT_SECONDS+0, timeoutTime);
+	writeEeprom(EE_TIMEOUT_SECONDS+1, timeoutTime);
+	writeEeprom(EE_TIMEOUT_SECONDS+2, timeoutTime);
+	writeEeprom(EE_TIMEOUT_SECONDS+3, timeoutTime);
 	writeEeprom(EE_DEBOUNCE_SECONDS, debounceTime);
 	writeEeprom(EE_LOCKOUT_SECONDS, lockoutTime);
 	writeEeprom(EE_TIMELOCK_SECONDS, timelockTime);
 
+	setSimTrainWindow(3);     // 3 fast minutes
+	setMaxDeadReckoning(50);  // 5 real seconds
+	
 	// 0.5sec update rate
 	writeEeprom(MRBUS_EE_DEVICE_UPDATE_H, 0);
 	writeEeprom(MRBUS_EE_DEVICE_UPDATE_L, 5);
@@ -2077,166 +2518,182 @@ int main(void)
 	
 	while(1)
 	{
-		// eastbound_main, eastbound_siding
-		RUN_TEST(testEastboundSouthbound(DIR_EAST, 0, 0));
-		RUN_TEST(testEastboundSouthbound(DIR_EAST, 0, 1));
-		RUN_TEST(testEastboundSouthbound(DIR_EAST, 1, 0));
-		RUN_TEST(testEastboundSouthbound(DIR_EAST, 1, 1));
-		RUN_TEST(testEastboundSouthbound(DIR_SOUTH, 0, 0));
-		RUN_TEST(testEastboundSouthbound(DIR_SOUTH, 0, 1));
-		RUN_TEST(testEastboundSouthbound(DIR_SOUTH, 1, 0));
-		RUN_TEST(testEastboundSouthbound(DIR_SOUTH, 1, 1));
-	
-		// eastbound_turnout
-		RUN_TEST(testArriveOpposingTurnout(DIR_EAST, 0));
-		RUN_TEST(testArriveOpposingTurnout(DIR_EAST, 1));
-		RUN_TEST(testArriveOpposingTurnout(DIR_SOUTH, 0));
-		RUN_TEST(testArriveOpposingTurnout(DIR_SOUTH, 1));
+/*		// eastbound_main, eastbound_siding*/
+/*		RUN_TEST(testEastboundSouthbound(DIR_EAST, 0, 0));*/
+/*		RUN_TEST(testEastboundSouthbound(DIR_EAST, 0, 1));*/
+/*		RUN_TEST(testEastboundSouthbound(DIR_EAST, 1, 0));*/
+/*		RUN_TEST(testEastboundSouthbound(DIR_EAST, 1, 1));*/
+/*		RUN_TEST(testEastboundSouthbound(DIR_SOUTH, 0, 0));*/
+/*		RUN_TEST(testEastboundSouthbound(DIR_SOUTH, 0, 1));*/
+/*		RUN_TEST(testEastboundSouthbound(DIR_SOUTH, 1, 0));*/
+/*		RUN_TEST(testEastboundSouthbound(DIR_SOUTH, 1, 1));*/
+/*	*/
+/*		// eastbound_turnout*/
+/*		RUN_TEST(testArriveOpposingTurnout(DIR_EAST, 0));*/
+/*		RUN_TEST(testArriveOpposingTurnout(DIR_EAST, 1));*/
+/*		RUN_TEST(testArriveOpposingTurnout(DIR_SOUTH, 0));*/
+/*		RUN_TEST(testArriveOpposingTurnout(DIR_SOUTH, 1));*/
 
-		// westbound_main, westbound_siding
-		RUN_TEST(testWestboundNorthbound(DIR_WEST, 0, 0));
-		RUN_TEST(testWestboundNorthbound(DIR_WEST, 0, 1));
-		RUN_TEST(testWestboundNorthbound(DIR_WEST, 1, 0));
-		RUN_TEST(testWestboundNorthbound(DIR_WEST, 1, 1));
-		RUN_TEST(testWestboundNorthbound(DIR_NORTH, 0, 0));
-		RUN_TEST(testWestboundNorthbound(DIR_NORTH, 0, 1));
-		RUN_TEST(testWestboundNorthbound(DIR_NORTH, 1, 0));
-		RUN_TEST(testWestboundNorthbound(DIR_NORTH, 1, 1));
-	
-		// meet_before_interlocking
-		RUN_TEST(testMeetBeforeInterlocking(OCC_WEST_MAIN));
-		RUN_TEST(testMeetBeforeInterlocking(OCC_WEST_SIDING));
-		RUN_TEST(testMeetBeforeInterlocking(OCC_NORTH_MAIN));
-		RUN_TEST(testMeetBeforeInterlocking(OCC_NORTH_SIDING));
-		
-		// meet_after_interlocking
-		
-		// real_before_phantom
-	
-		// phantom_before_real
-	
-		// timelock_meet
-		timelockTime = 15;
-		writeEeprom(EE_TIMELOCK_SECONDS, timelockTime);
-		RUN_TEST(testTimelockMeet(OCC_EAST_MAIN,OCC_NORTH_MAIN));
-		timelockTime = 5;
-		writeEeprom(EE_TIMELOCK_SECONDS, timelockTime);
-		RUN_TEST(testTimelockMeet(OCC_EAST_MAIN,OCC_NORTH_MAIN));
-		RUN_TEST(testTimelockMeet(OCC_EAST_MAIN,OCC_NORTH_SIDING));
-		RUN_TEST(testTimelockMeet(OCC_EAST_MAIN,OCC_SOUTH_MAIN));
-		RUN_TEST(testTimelockMeet(OCC_WEST_MAIN,OCC_NORTH_MAIN));
-		RUN_TEST(testTimelockMeet(OCC_WEST_MAIN,OCC_NORTH_SIDING));
-		RUN_TEST(testTimelockMeet(OCC_WEST_MAIN,OCC_SOUTH_MAIN));
-		RUN_TEST(testTimelockMeet(OCC_WEST_SIDING,OCC_NORTH_MAIN));
-		RUN_TEST(testTimelockMeet(OCC_WEST_SIDING,OCC_NORTH_SIDING));
-		RUN_TEST(testTimelockMeet(OCC_WEST_SIDING,OCC_SOUTH_MAIN));
+/*		// westbound_main, westbound_siding*/
+/*		RUN_TEST(testWestboundNorthbound(DIR_WEST, 0, 0));*/
+/*		RUN_TEST(testWestboundNorthbound(DIR_WEST, 0, 1));*/
+/*		RUN_TEST(testWestboundNorthbound(DIR_WEST, 1, 0));*/
+/*		RUN_TEST(testWestboundNorthbound(DIR_WEST, 1, 1));*/
+/*		RUN_TEST(testWestboundNorthbound(DIR_NORTH, 0, 0));*/
+/*		RUN_TEST(testWestboundNorthbound(DIR_NORTH, 0, 1));*/
+/*		RUN_TEST(testWestboundNorthbound(DIR_NORTH, 1, 0));*/
+/*		RUN_TEST(testWestboundNorthbound(DIR_NORTH, 1, 1));*/
+/*	*/
+/*		// meet_before_interlocking*/
+/*		RUN_TEST(testMeetBeforeInterlocking(OCC_WEST_MAIN));*/
+/*		RUN_TEST(testMeetBeforeInterlocking(OCC_WEST_SIDING));*/
+/*		RUN_TEST(testMeetBeforeInterlocking(OCC_NORTH_MAIN));*/
+/*		RUN_TEST(testMeetBeforeInterlocking(OCC_NORTH_SIDING));*/
+/*		*/
+/*		// meet_after_interlocking*/
+/*		*/
+/*		// real_before_phantom*/
+/*	*/
+/*		// phantom_before_real*/
+/*	*/
+/*		// timelock_meet*/
+/*		timelockTime = 15;*/
+/*		writeEeprom(EE_TIMELOCK_SECONDS, timelockTime);*/
+/*		RUN_TEST(testTimelockMeet(OCC_EAST_MAIN,OCC_NORTH_MAIN));*/
+/*		timelockTime = 5;*/
+/*		writeEeprom(EE_TIMELOCK_SECONDS, timelockTime);*/
+/*		RUN_TEST(testTimelockMeet(OCC_EAST_MAIN,OCC_NORTH_MAIN));*/
+/*		RUN_TEST(testTimelockMeet(OCC_EAST_MAIN,OCC_NORTH_SIDING));*/
+/*		RUN_TEST(testTimelockMeet(OCC_EAST_MAIN,OCC_SOUTH_MAIN));*/
+/*		RUN_TEST(testTimelockMeet(OCC_WEST_MAIN,OCC_NORTH_MAIN));*/
+/*		RUN_TEST(testTimelockMeet(OCC_WEST_MAIN,OCC_NORTH_SIDING));*/
+/*		RUN_TEST(testTimelockMeet(OCC_WEST_MAIN,OCC_SOUTH_MAIN));*/
+/*		RUN_TEST(testTimelockMeet(OCC_WEST_SIDING,OCC_NORTH_MAIN));*/
+/*		RUN_TEST(testTimelockMeet(OCC_WEST_SIDING,OCC_NORTH_SIDING));*/
+/*		RUN_TEST(testTimelockMeet(OCC_WEST_SIDING,OCC_SOUTH_MAIN));*/
 
-		RUN_TEST(testTimelockMeet(OCC_SOUTH_MAIN,OCC_WEST_MAIN));
-		RUN_TEST(testTimelockMeet(OCC_SOUTH_MAIN,OCC_WEST_SIDING));
-		RUN_TEST(testTimelockMeet(OCC_SOUTH_MAIN,OCC_EAST_MAIN));
-		RUN_TEST(testTimelockMeet(OCC_NORTH_MAIN,OCC_WEST_MAIN));
-		RUN_TEST(testTimelockMeet(OCC_NORTH_MAIN,OCC_WEST_SIDING));
-		RUN_TEST(testTimelockMeet(OCC_NORTH_MAIN,OCC_EAST_MAIN));
-		RUN_TEST(testTimelockMeet(OCC_NORTH_SIDING,OCC_WEST_MAIN));
-		RUN_TEST(testTimelockMeet(OCC_NORTH_SIDING,OCC_WEST_SIDING));
-		RUN_TEST(testTimelockMeet(OCC_NORTH_SIDING,OCC_EAST_MAIN));
+/*		RUN_TEST(testTimelockMeet(OCC_SOUTH_MAIN,OCC_WEST_MAIN));*/
+/*		RUN_TEST(testTimelockMeet(OCC_SOUTH_MAIN,OCC_WEST_SIDING));*/
+/*		RUN_TEST(testTimelockMeet(OCC_SOUTH_MAIN,OCC_EAST_MAIN));*/
+/*		RUN_TEST(testTimelockMeet(OCC_NORTH_MAIN,OCC_WEST_MAIN));*/
+/*		RUN_TEST(testTimelockMeet(OCC_NORTH_MAIN,OCC_WEST_SIDING));*/
+/*		RUN_TEST(testTimelockMeet(OCC_NORTH_MAIN,OCC_EAST_MAIN));*/
+/*		RUN_TEST(testTimelockMeet(OCC_NORTH_SIDING,OCC_WEST_MAIN));*/
+/*		RUN_TEST(testTimelockMeet(OCC_NORTH_SIDING,OCC_WEST_SIDING));*/
+/*		RUN_TEST(testTimelockMeet(OCC_NORTH_SIDING,OCC_EAST_MAIN));*/
 
-		// timelock
-		RUN_TEST(testTimelockTurnout(OCC_EAST_MAIN));
-		RUN_TEST(testTimelockTurnout(OCC_SOUTH_MAIN));
+/*		// timelock*/
+/*		RUN_TEST(testTimelockTurnout(OCC_EAST_MAIN));*/
+/*		RUN_TEST(testTimelockTurnout(OCC_SOUTH_MAIN));*/
 
-		// lockout
-		lockoutTime = 15;
-		writeEeprom(EE_LOCKOUT_SECONDS, lockoutTime);
-		RUN_TEST(testLockout(OCC_EAST_MAIN,OCC_WEST_MAIN,0));
-		lockoutTime = 5;
-		writeEeprom(EE_LOCKOUT_SECONDS, lockoutTime);
-		
-		// lockout (no train present)
-		RUN_TEST(testLockout(OCC_EAST_MAIN,OCC_WEST_MAIN,0));
-		RUN_TEST(testLockout(OCC_EAST_MAIN,OCC_WEST_SIDING,0));
-		RUN_TEST(testLockout(OCC_SOUTH_MAIN,OCC_NORTH_MAIN,0));
-		RUN_TEST(testLockout(OCC_SOUTH_MAIN,OCC_NORTH_SIDING,0));
-		RUN_TEST(testLockout(OCC_WEST_MAIN,OCC_EAST_MAIN,0));
-		RUN_TEST(testLockout(OCC_WEST_SIDING,OCC_EAST_MAIN,0));
-		RUN_TEST(testLockout(OCC_NORTH_MAIN,OCC_SOUTH_MAIN,0));
-		RUN_TEST(testLockout(OCC_NORTH_SIDING,OCC_SOUTH_MAIN,0));
+/*		// lockout*/
+/*		lockoutTime = 15;*/
+/*		writeEeprom(EE_LOCKOUT_SECONDS, lockoutTime);*/
+/*		RUN_TEST(testLockout(OCC_EAST_MAIN,OCC_WEST_MAIN,0));*/
+/*		lockoutTime = 5;*/
+/*		writeEeprom(EE_LOCKOUT_SECONDS, lockoutTime);*/
+/*		*/
+/*		// lockout (no train present)*/
+/*		RUN_TEST(testLockout(OCC_EAST_MAIN,OCC_WEST_MAIN,0));*/
+/*		RUN_TEST(testLockout(OCC_EAST_MAIN,OCC_WEST_SIDING,0));*/
+/*		RUN_TEST(testLockout(OCC_SOUTH_MAIN,OCC_NORTH_MAIN,0));*/
+/*		RUN_TEST(testLockout(OCC_SOUTH_MAIN,OCC_NORTH_SIDING,0));*/
+/*		RUN_TEST(testLockout(OCC_WEST_MAIN,OCC_EAST_MAIN,0));*/
+/*		RUN_TEST(testLockout(OCC_WEST_SIDING,OCC_EAST_MAIN,0));*/
+/*		RUN_TEST(testLockout(OCC_NORTH_MAIN,OCC_SOUTH_MAIN,0));*/
+/*		RUN_TEST(testLockout(OCC_NORTH_SIDING,OCC_SOUTH_MAIN,0));*/
 
-		// lockout_expire_with_train_present
-		RUN_TEST(testLockout(OCC_EAST_MAIN,OCC_WEST_MAIN,1));
-		RUN_TEST(testLockout(OCC_EAST_MAIN,OCC_WEST_SIDING,1));
-		RUN_TEST(testLockout(OCC_SOUTH_MAIN,OCC_NORTH_MAIN,1));
-		RUN_TEST(testLockout(OCC_SOUTH_MAIN,OCC_NORTH_SIDING,1));
-		RUN_TEST(testLockout(OCC_WEST_MAIN,OCC_EAST_MAIN,1));
-		RUN_TEST(testLockout(OCC_WEST_SIDING,OCC_EAST_MAIN,1));
-		RUN_TEST(testLockout(OCC_NORTH_MAIN,OCC_SOUTH_MAIN,1));
-		RUN_TEST(testLockout(OCC_NORTH_SIDING,OCC_SOUTH_MAIN,1));
+/*		// lockout_expire_with_train_present*/
+/*		RUN_TEST(testLockout(OCC_EAST_MAIN,OCC_WEST_MAIN,1));*/
+/*		RUN_TEST(testLockout(OCC_EAST_MAIN,OCC_WEST_SIDING,1));*/
+/*		RUN_TEST(testLockout(OCC_SOUTH_MAIN,OCC_NORTH_MAIN,1));*/
+/*		RUN_TEST(testLockout(OCC_SOUTH_MAIN,OCC_NORTH_SIDING,1));*/
+/*		RUN_TEST(testLockout(OCC_WEST_MAIN,OCC_EAST_MAIN,1));*/
+/*		RUN_TEST(testLockout(OCC_WEST_SIDING,OCC_EAST_MAIN,1));*/
+/*		RUN_TEST(testLockout(OCC_NORTH_MAIN,OCC_SOUTH_MAIN,1));*/
+/*		RUN_TEST(testLockout(OCC_NORTH_SIDING,OCC_SOUTH_MAIN,1));*/
 
-		// timeout_expire (covered by below?)
-		// timeout_expire_momentary_train
-		timeoutTime = 15;
-		writeEeprom(EE_TIMEOUT_SECONDS_0, timeoutTime);
-		writeEeprom(EE_TIMEOUT_SECONDS_1, 4*timeoutTime);
-		writeEeprom(EE_TIMEOUT_SECONDS_2, 4*timeoutTime);
-		writeEeprom(EE_TIMEOUT_SECONDS_3, 4*timeoutTime);
-		RUN_TEST(testTimeout(OCC_WEST_MAIN, 0));
-		RUN_TEST(testTimeout(OCC_WEST_SIDING, TURNOUT_WEST));
-		writeEeprom(EE_TIMEOUT_SECONDS_0, 4*timeoutTime);
-		writeEeprom(EE_TIMEOUT_SECONDS_1, timeoutTime);
-		writeEeprom(EE_TIMEOUT_SECONDS_2, 4*timeoutTime);
-		writeEeprom(EE_TIMEOUT_SECONDS_3, 4*timeoutTime);
-		RUN_TEST(testTimeout(OCC_EAST_MAIN, 0));
-		RUN_TEST(testTimeout(OCC_EAST_MAIN, TURNOUT_WEST));
-		writeEeprom(EE_TIMEOUT_SECONDS_0, 4*timeoutTime);
-		writeEeprom(EE_TIMEOUT_SECONDS_1, 4*timeoutTime);
-		writeEeprom(EE_TIMEOUT_SECONDS_2, timeoutTime);
-		writeEeprom(EE_TIMEOUT_SECONDS_3, 4*timeoutTime);
-		RUN_TEST(testTimeout(OCC_NORTH_MAIN, 0));
-		RUN_TEST(testTimeout(OCC_NORTH_SIDING, TURNOUT_NORTH));
-		writeEeprom(EE_TIMEOUT_SECONDS_0, 4*timeoutTime);
-		writeEeprom(EE_TIMEOUT_SECONDS_1, 4*timeoutTime);
-		writeEeprom(EE_TIMEOUT_SECONDS_2, 4*timeoutTime);
-		writeEeprom(EE_TIMEOUT_SECONDS_3, timeoutTime);
-		RUN_TEST(testTimeout(OCC_SOUTH_MAIN, 0));
-		RUN_TEST(testTimeout(OCC_SOUTH_MAIN, TURNOUT_NORTH));
+/*		// timeout_expire (covered by below?)*/
+/*		// timeout_expire_momentary_train*/
+/*		timeoutTime = 15;*/
+/*		writeEeprom(EE_TIMEOUT_SECONDS+0, timeoutTime);*/
+/*		writeEeprom(EE_TIMEOUT_SECONDS+1, 4*timeoutTime);*/
+/*		writeEeprom(EE_TIMEOUT_SECONDS+2, 4*timeoutTime);*/
+/*		writeEeprom(EE_TIMEOUT_SECONDS+3, 4*timeoutTime);*/
+/*		RUN_TEST(testTimeout(OCC_WEST_MAIN, 0));*/
+/*		RUN_TEST(testTimeout(OCC_WEST_SIDING, TURNOUT_WEST));*/
+/*		writeEeprom(EE_TIMEOUT_SECONDS+0, 4*timeoutTime);*/
+/*		writeEeprom(EE_TIMEOUT_SECONDS+1, timeoutTime);*/
+/*		writeEeprom(EE_TIMEOUT_SECONDS+2, 4*timeoutTime);*/
+/*		writeEeprom(EE_TIMEOUT_SECONDS+3, 4*timeoutTime);*/
+/*		RUN_TEST(testTimeout(OCC_EAST_MAIN, 0));*/
+/*		RUN_TEST(testTimeout(OCC_EAST_MAIN, TURNOUT_WEST));*/
+/*		writeEeprom(EE_TIMEOUT_SECONDS+0, 4*timeoutTime);*/
+/*		writeEeprom(EE_TIMEOUT_SECONDS+1, 4*timeoutTime);*/
+/*		writeEeprom(EE_TIMEOUT_SECONDS+2, timeoutTime);*/
+/*		writeEeprom(EE_TIMEOUT_SECONDS+3, 4*timeoutTime);*/
+/*		RUN_TEST(testTimeout(OCC_NORTH_MAIN, 0));*/
+/*		RUN_TEST(testTimeout(OCC_NORTH_SIDING, TURNOUT_NORTH));*/
+/*		writeEeprom(EE_TIMEOUT_SECONDS+0, 4*timeoutTime);*/
+/*		writeEeprom(EE_TIMEOUT_SECONDS+1, 4*timeoutTime);*/
+/*		writeEeprom(EE_TIMEOUT_SECONDS+2, 4*timeoutTime);*/
+/*		writeEeprom(EE_TIMEOUT_SECONDS+3, timeoutTime);*/
+/*		RUN_TEST(testTimeout(OCC_SOUTH_MAIN, 0));*/
+/*		RUN_TEST(testTimeout(OCC_SOUTH_MAIN, TURNOUT_NORTH));*/
 
-		timeoutTime = 5;
-		writeEeprom(EE_TIMEOUT_SECONDS_0, timeoutTime);
-		writeEeprom(EE_TIMEOUT_SECONDS_1, 4*timeoutTime);
-		writeEeprom(EE_TIMEOUT_SECONDS_2, 4*timeoutTime);
-		writeEeprom(EE_TIMEOUT_SECONDS_3, 4*timeoutTime);
-		RUN_TEST(testTimeout(OCC_WEST_MAIN, 0));
-		RUN_TEST(testTimeout(OCC_WEST_SIDING, TURNOUT_WEST));
-		writeEeprom(EE_TIMEOUT_SECONDS_0, 4*timeoutTime);
-		writeEeprom(EE_TIMEOUT_SECONDS_1, timeoutTime);
-		writeEeprom(EE_TIMEOUT_SECONDS_2, 4*timeoutTime);
-		writeEeprom(EE_TIMEOUT_SECONDS_3, 4*timeoutTime);
-		RUN_TEST(testTimeout(OCC_EAST_MAIN, 0));
-		RUN_TEST(testTimeout(OCC_EAST_MAIN, TURNOUT_WEST));
-		writeEeprom(EE_TIMEOUT_SECONDS_0, 4*timeoutTime);
-		writeEeprom(EE_TIMEOUT_SECONDS_1, 4*timeoutTime);
-		writeEeprom(EE_TIMEOUT_SECONDS_2, timeoutTime);
-		writeEeprom(EE_TIMEOUT_SECONDS_3, 4*timeoutTime);
-		RUN_TEST(testTimeout(OCC_NORTH_MAIN, 0));
-		RUN_TEST(testTimeout(OCC_NORTH_SIDING, TURNOUT_NORTH));
-		writeEeprom(EE_TIMEOUT_SECONDS_0, 4*timeoutTime);
-		writeEeprom(EE_TIMEOUT_SECONDS_1, 4*timeoutTime);
-		writeEeprom(EE_TIMEOUT_SECONDS_2, 4*timeoutTime);
-		writeEeprom(EE_TIMEOUT_SECONDS_3, timeoutTime);
-		RUN_TEST(testTimeout(OCC_SOUTH_MAIN, 0));
-		RUN_TEST(testTimeout(OCC_SOUTH_MAIN, TURNOUT_NORTH));
+/*		timeoutTime = 5;*/
+/*		writeEeprom(EE_TIMEOUT_SECONDS+0, timeoutTime);*/
+/*		writeEeprom(EE_TIMEOUT_SECONDS+1, 4*timeoutTime);*/
+/*		writeEeprom(EE_TIMEOUT_SECONDS+2, 4*timeoutTime);*/
+/*		writeEeprom(EE_TIMEOUT_SECONDS+3, 4*timeoutTime);*/
+/*		RUN_TEST(testTimeout(OCC_WEST_MAIN, 0));*/
+/*		RUN_TEST(testTimeout(OCC_WEST_SIDING, TURNOUT_WEST));*/
+/*		writeEeprom(EE_TIMEOUT_SECONDS+0, 4*timeoutTime);*/
+/*		writeEeprom(EE_TIMEOUT_SECONDS+1, timeoutTime);*/
+/*		writeEeprom(EE_TIMEOUT_SECONDS+2, 4*timeoutTime);*/
+/*		writeEeprom(EE_TIMEOUT_SECONDS+3, 4*timeoutTime);*/
+/*		RUN_TEST(testTimeout(OCC_EAST_MAIN, 0));*/
+/*		RUN_TEST(testTimeout(OCC_EAST_MAIN, TURNOUT_WEST));*/
+/*		writeEeprom(EE_TIMEOUT_SECONDS+0, 4*timeoutTime);*/
+/*		writeEeprom(EE_TIMEOUT_SECONDS+1, 4*timeoutTime);*/
+/*		writeEeprom(EE_TIMEOUT_SECONDS+2, timeoutTime);*/
+/*		writeEeprom(EE_TIMEOUT_SECONDS+3, 4*timeoutTime);*/
+/*		RUN_TEST(testTimeout(OCC_NORTH_MAIN, 0));*/
+/*		RUN_TEST(testTimeout(OCC_NORTH_SIDING, TURNOUT_NORTH));*/
+/*		writeEeprom(EE_TIMEOUT_SECONDS+0, 4*timeoutTime);*/
+/*		writeEeprom(EE_TIMEOUT_SECONDS+1, 4*timeoutTime);*/
+/*		writeEeprom(EE_TIMEOUT_SECONDS+2, 4*timeoutTime);*/
+/*		writeEeprom(EE_TIMEOUT_SECONDS+3, timeoutTime);*/
+/*		RUN_TEST(testTimeout(OCC_SOUTH_MAIN, 0));*/
+/*		RUN_TEST(testTimeout(OCC_SOUTH_MAIN, TURNOUT_NORTH));*/
 
-		// debounce_timer
-		debounceTime = 15;
-		writeEeprom(EE_DEBOUNCE_SECONDS, debounceTime);
-		RUN_TEST(testDebounceTimer());
+/*		// debounce_timer*/
+/*		debounceTime = 15;*/
+/*		writeEeprom(EE_DEBOUNCE_SECONDS, debounceTime);*/
+/*		RUN_TEST(testDebounceTimer());*/
 
-		debounceTime = 5;
-		writeEeprom(EE_DEBOUNCE_SECONDS, debounceTime);
-		RUN_TEST(testDebounceTimer());
+/*		debounceTime = 5;*/
+/*		writeEeprom(EE_DEBOUNCE_SECONDS, debounceTime);*/
+/*		RUN_TEST(testDebounceTimer());*/
 
-		// What happens if interlocking block gets occupancy out of the blue?  Then something real shows up?
-		RUN_TEST(testBogusInterlocking());
+/*		// What happens if interlocking block gets occupancy out of the blue?  Then something real shows up?*/
+/*		RUN_TEST(testBogusInterlocking());*/
+
+
+		SimTrain simTrain;
+		simTrain.flags = SIM_TRAIN_FLAGS_ENABLE;
+		simTrain.direction = 0;
+		simTrain.time = 5*60 + 0;
+		simTrain.totalTime = 10;
+		simTrain.approachTime = 5;
+
+/*		runAllBasicSimulatedTrains();*/
+/*		RUN_TEST(testSimulatedTrain(0, simTrain, TRIGGER_SKIP, 1));*/
+/*		RUN_TEST(testSimulatedTrainRetrigger());*/
+/*		simTrain.time = 24*60;  // Just Past 23:59*/
+/*		RUN_TEST(testSimulatedTrain(0, simTrain, TRIGGER_DEAD_RECKONING, 1));*/
+/*		simTrain.time = 65535;  // Way Past 23:59*/
+/*		RUN_TEST(testSimulatedTrain(0, simTrain, TRIGGER_DEAD_RECKONING, 1));*/
 		
 		break;
 	}
