@@ -2327,7 +2327,7 @@ void testSimulatedTrain(int num, SimTrain sim, TriggerType trigger, int writeCon
 			time = sim.time;
 			if(time > (23*60 + 59))
 				time = 23*60 + 59;  // Clamp to max inside the test
-			sendFastTimePacket(sim.time, 10, TIME_FLAGS_DISP_FAST);
+			sendFastTimePacket(time, 10, TIME_FLAGS_DISP_FAST);
 			break;
 		case TRIGGER_WINDOW:
 			setSimTrainWindow(5);  // Fast minutes
@@ -2371,7 +2371,10 @@ void testSimulatedTrain(int num, SimTrain sim, TriggerType trigger, int writeCon
 
 		gettimeofday(&tvTimerB, NULL);
 		timeval_subtract(&tvDiff, &tvTimerB, &tvTimerA);
-		assertFloat("Approach Time", (float)tvDiff.tv_sec + (float)tvDiff.tv_usec/1000000, sim.approachTime, 1);
+		if(sim.approachTime > sim.totalTime)
+			assertFloat("Approach Time", (float)tvDiff.tv_sec + (float)tvDiff.tv_usec/1000000, sim.totalTime, 1);  // Clamp to totalTime
+		else
+			assertFloat("Approach Time", (float)tvDiff.tv_sec + (float)tvDiff.tv_usec/1000000, sim.approachTime, 1);
 
 		assertAspect("Simulated train occupies interlocking (main/top)", sim.direction*2, ASPECT_RED);
 		assertAspect("Simulated train occupies interlocking (siding/bottom)", sim.direction*2+1, ASPECT_RED);
@@ -2381,7 +2384,8 @@ void testSimulatedTrain(int num, SimTrain sim, TriggerType trigger, int writeCon
 
 		gettimeofday(&tvTimerB, NULL);
 		timeval_subtract(&tvDiff, &tvTimerB, &tvTimerA);
-		assertFloat("Total Time", (float)tvDiff.tv_sec + (float)tvDiff.tv_usec/1000000, sim.totalTime, 1);
+		assertFloat("Total Time", (float)tvDiff.tv_sec + (float)tvDiff.tv_usec/1000000, sim.totalTime, (sim.approachTime>=sim.totalTime)?1.5:1.0);
+		// Give a little extra time tolerance if approach == total
 
 		assertInt("Sound0", getSound(0), 0);
 		assertInt("Sound1", getSound(1), 0);
@@ -2452,6 +2456,17 @@ void runAllBasicSimulatedTrains(void)
 	}		
 }
 
+void testSimulatedTrainSkipTime(void)
+{
+	SimTrain simTrain;
+	simTrain.flags = SIM_TRAIN_FLAGS_ENABLE;
+	simTrain.direction = 0;
+	simTrain.time = 5*60 + 0;
+	simTrain.totalTime = 10;
+	simTrain.approachTime = 5;
+	testSimulatedTrain(0, simTrain, TRIGGER_SKIP, 1);
+}
+
 void testSimulatedTrainRetrigger(void)
 {
 	uint8_t hour = 16;
@@ -2474,6 +2489,258 @@ void testSimulatedTrainRetrigger(void)
 	
 	testSimulatedTrain(0, simTrain, TRIGGER_DEAD_RECKONING, 0);  // Don't rewrite EEPROM
 }
+
+void testSimulatedTrainInvalidTime(void)
+{
+	SimTrain simTrain;
+	simTrain.flags = SIM_TRAIN_FLAGS_ENABLE;
+	simTrain.direction = 0;
+	simTrain.totalTime = 10;
+	simTrain.approachTime = 5;
+	simTrain.time = 24*60;  // Just Past 23:59
+	testSimulatedTrain(0, simTrain, TRIGGER_DEAD_RECKONING, 1);
+	simTrain.time = 65535;  // Way Past 23:59
+	testSimulatedTrain(0, simTrain, TRIGGER_DEAD_RECKONING, 1);
+}
+
+void testSimulatedTrainEnable(void)
+{
+	// Note: All Enabled doesn't work since it is indeterminate which direction will get the interlocking first (depends where the state machine is at the time)
+	int allEnabled = 0;
+
+	int i;
+	struct timeval tvDiff, tvTimerA, tvTimerB;
+
+	SimTrain simTrain;
+	simTrain.flags = 0;
+	simTrain.direction = 0;
+	simTrain.time = 13*60 + 0;
+	simTrain.totalTime = 15;
+	simTrain.approachTime = 10;
+
+	SimTrain nullSim;
+	nullSim.flags = 0;
+	nullSim.direction = 0;
+	nullSim.time = 0;
+	nullSim.totalTime = 0;
+	nullSim.approachTime = 0;
+	
+	int enabledDirection = 2;  // Only enable train #2 (north)
+	
+	START_TEST;
+	
+	printf("\n");
+	printf("--------------------------------------------------------------------------------\n");
+	printf("Simulated Train Enable (%s)\n", allEnabled?"All Enabled":"One Enabled");
+	printf("--------------------------------------------------------------------------------\n");
+
+	for(i=0; i<NUM_SIM_TRAINS; i++)
+	{
+		if(i < 4)
+		{
+			simTrain.direction = i;
+			simTrain.flags = i;
+			if( allEnabled || (enabledDirection == i) )
+				simTrain.flags |= SIM_TRAIN_FLAGS_ENABLE;
+			writeEepromSim(i, simTrain);
+		}
+		else
+		{
+			writeEepromSim(i, nullSim);
+		}
+	}
+
+	// Pre-Trigger
+	sendFastTimePacket(simTrain.time - 5, 10, TIME_FLAGS_DISP_FAST);  // time - 5 minutes, 1x, Fast enabled, not hold
+	sleep(1);
+	sendFastTimePacket(simTrain.time, 10, TIME_FLAGS_DISP_FAST);
+
+	// Triggered Time
+	gettimeofday(&tvTimerA, NULL);
+
+	for(i=0; i<4; i++)
+	{
+		if( (allEnabled & (0 == i)) || (!allEnabled & (enabledDirection == i)) )
+		{
+			assertAspect("Simulated train arrives, gets proceed indication (main/top)", 2*i+0, ASPECT_GREEN);
+			assertAspect("Simulated train arrives, gets proceed indication (siding/bottom)", 2*i+1, ASPECT_RED);
+		}
+		else
+		{
+			char buffer[256];
+			snprintf(buffer, sizeof(buffer), "Direction %d not enabled, red (main/top)", i);
+			assertAspect(buffer, 2*i+0, ASPECT_RED);
+			snprintf(buffer, sizeof(buffer), "Direction %d not enabled, red (siding/bottom)", i);
+			assertAspect(buffer, 2*i+1, ASPECT_RED);
+		}
+	}
+
+	assertInt("Sound0", getSound(0), 0);
+	assertInt("Sound1", getSound(1), 1);
+
+	printf("Waiting for approach time to expire...\n");
+	while(STATE_OCCUPIED != getState(enabledDirection)) {}
+
+	gettimeofday(&tvTimerB, NULL);
+	timeval_subtract(&tvDiff, &tvTimerB, &tvTimerA);
+	assertFloat("Approach Time", (float)tvDiff.tv_sec + (float)tvDiff.tv_usec/1000000, simTrain.approachTime, 1);
+
+	assertAspect("Simulated train occupies interlocking (main/top)", enabledDirection+0, ASPECT_RED);
+	assertAspect("Simulated train occupies interlocking (siding/bottom)", enabledDirection+1, ASPECT_RED);
+
+	printf("Waiting for total time to expire...\n");
+	while(STATE_IDLE != getState(enabledDirection)) {}
+
+	gettimeofday(&tvTimerB, NULL);
+	timeval_subtract(&tvDiff, &tvTimerB, &tvTimerA);
+	assertFloat("Total Time", (float)tvDiff.tv_sec + (float)tvDiff.tv_usec/1000000, simTrain.totalTime, 1);
+
+	assertInt("Sound0", getSound(0), 0);
+	assertInt("Sound1", getSound(1), 0);
+
+	clearAll();
+
+	END_TEST;
+}
+
+void testSimulatedTrainSequence(int stompOnFirst)
+{
+	int i;
+	struct timeval tvDiff, tvTimerA, tvTimerB;
+
+	SimTrain simTrain[2];
+	simTrain[0].flags = SIM_TRAIN_FLAGS_ENABLE;
+	simTrain[0].direction = 0;
+	simTrain[0].time = 9*60 + 43;
+	simTrain[0].totalTime = 10;
+	simTrain[0].approachTime = 5;
+
+	simTrain[1] = simTrain[0];
+	simTrain[1].time = simTrain[0].time + 5;
+	simTrain[1].totalTime = 9;
+	simTrain[1].approachTime = 7;
+	
+	SimTrain nullSim;
+	nullSim.flags = 0;
+	nullSim.direction = 0;
+	nullSim.time = 0;
+	nullSim.totalTime = 0;
+	nullSim.approachTime = 0;
+
+	START_TEST;
+	
+	printf("\n");
+	printf("--------------------------------------------------------------------------------\n");
+	printf("Simulated Train Sequence %s\n", stompOnFirst?"(Stomp On First)":"");
+	printf("--------------------------------------------------------------------------------\n");
+
+	for(i=0; i<NUM_SIM_TRAINS; i++)
+	{
+		if(i < 2)
+		{
+			writeEepromSim(i, simTrain[i]);
+		}
+		else
+		{
+			writeEepromSim(i, nullSim);
+		}
+	}
+
+	// Pre-Trigger
+	printf("Pre-Trigger\n");
+	sendFastTimePacket(simTrain[0].time - 5, 10, TIME_FLAGS_DISP_FAST);  // time - 5 minutes, 1x, Fast enabled, not hold
+	sleep(1);
+	printf("Trigger First Train\n");
+	sendFastTimePacket(simTrain[0].time, 10, TIME_FLAGS_DISP_FAST);
+
+	// Triggered Time
+	gettimeofday(&tvTimerA, NULL);
+
+	assertAspect("Simulated train arrives, gets proceed indication (main/top)", 0, ASPECT_GREEN);
+	assertAspect("Simulated train arrives, gets proceed indication (siding/bottom)", 1, ASPECT_RED);
+
+	if(stompOnFirst)
+	{
+		// Trigger second train
+		printf("Trigger Second Train\n");
+		sendFastTimePacket(simTrain[1].time, 10, TIME_FLAGS_DISP_FAST);
+	}
+
+	printf("Waiting for approach time to expire...\n");
+	while(STATE_OCCUPIED != getState(0)) {}
+
+	gettimeofday(&tvTimerB, NULL);
+	timeval_subtract(&tvDiff, &tvTimerB, &tvTimerA);
+	assertFloat("Approach Time", (float)tvDiff.tv_sec + (float)tvDiff.tv_usec/1000000, simTrain[0].approachTime, 1);
+
+	assertAspect("Simulated train occupies interlocking (main/top)", 0, ASPECT_RED);
+	assertAspect("Simulated train occupies interlocking (siding/bottom)", 1, ASPECT_RED);
+
+	printf("Waiting for total time to expire...\n");
+	while(STATE_IDLE != getState(0)) {}
+
+	gettimeofday(&tvTimerB, NULL);
+	timeval_subtract(&tvDiff, &tvTimerB, &tvTimerA);
+	assertFloat("Total Time", (float)tvDiff.tv_sec + (float)tvDiff.tv_usec/1000000, simTrain[0].totalTime, 1);
+
+	if(stompOnFirst)
+	{
+		sleep(2);
+		assertAspect("2nd Triggered but Ignored (main/top)", 0, ASPECT_RED);
+		assertAspect("2nd Triggered but Ignored (siding/bottom)", 1, ASPECT_RED);
+	}
+
+	if(!stompOnFirst)
+	{
+		// Trigger second train
+		printf("Trigger Second Train\n");
+		sendFastTimePacket(simTrain[1].time, 10, TIME_FLAGS_DISP_FAST);
+		gettimeofday(&tvTimerA, NULL);
+
+		assertAspect("Simulated train arrives, gets proceed indication (main/top)", 0, ASPECT_GREEN);
+		assertAspect("Simulated train arrives, gets proceed indication (siding/bottom)", 1, ASPECT_RED);
+
+		if(stompOnFirst)
+		{
+			// Trigger second train
+			sendFastTimePacket(simTrain[1].time, 10, TIME_FLAGS_DISP_FAST);
+		}
+
+		printf("Waiting for approach time to expire...\n");
+		while(STATE_OCCUPIED != getState(0)) {}
+
+		gettimeofday(&tvTimerB, NULL);
+		timeval_subtract(&tvDiff, &tvTimerB, &tvTimerA);
+		assertFloat("Approach Time", (float)tvDiff.tv_sec + (float)tvDiff.tv_usec/1000000, simTrain[1].approachTime, 1);
+
+		assertAspect("Simulated train occupies interlocking (main/top)", 0, ASPECT_RED);
+		assertAspect("Simulated train occupies interlocking (siding/bottom)", 1, ASPECT_RED);
+
+		printf("Waiting for total time to expire...\n");
+		while(STATE_IDLE != getState(0)) {}
+
+		gettimeofday(&tvTimerB, NULL);
+		timeval_subtract(&tvDiff, &tvTimerB, &tvTimerA);
+		assertFloat("Total Time", (float)tvDiff.tv_sec + (float)tvDiff.tv_usec/1000000, simTrain[1].totalTime, 1);
+	}
+
+	clearAll();
+
+	END_TEST;
+}
+
+void testSimulatedTrainApproachLarger(void)
+{
+	SimTrain simTrain;
+	simTrain.flags = SIM_TRAIN_FLAGS_ENABLE;
+	simTrain.direction = 0;
+	simTrain.time = 5*60 + 0;
+	simTrain.totalTime = 5;
+	simTrain.approachTime = 10;  // Larger than totalTime
+	testSimulatedTrain(0, simTrain, TRIGGER_DEAD_RECKONING, 1);
+}
+
+
 
 int main(void)
 {
@@ -2680,20 +2947,14 @@ int main(void)
 /*		RUN_TEST(testBogusInterlocking());*/
 
 
-		SimTrain simTrain;
-		simTrain.flags = SIM_TRAIN_FLAGS_ENABLE;
-		simTrain.direction = 0;
-		simTrain.time = 5*60 + 0;
-		simTrain.totalTime = 10;
-		simTrain.approachTime = 5;
-
-/*		runAllBasicSimulatedTrains();*/
-/*		RUN_TEST(testSimulatedTrain(0, simTrain, TRIGGER_SKIP, 1));*/
-/*		RUN_TEST(testSimulatedTrainRetrigger());*/
-/*		simTrain.time = 24*60;  // Just Past 23:59*/
-/*		RUN_TEST(testSimulatedTrain(0, simTrain, TRIGGER_DEAD_RECKONING, 1));*/
-/*		simTrain.time = 65535;  // Way Past 23:59*/
-/*		RUN_TEST(testSimulatedTrain(0, simTrain, TRIGGER_DEAD_RECKONING, 1));*/
+		runAllBasicSimulatedTrains();
+		RUN_TEST(testSimulatedTrainSkipTime());
+		RUN_TEST(testSimulatedTrainRetrigger());
+		RUN_TEST(testSimulatedTrainInvalidTime());
+		RUN_TEST(testSimulatedTrainEnable());
+		RUN_TEST(testSimulatedTrainSequence(0));
+		RUN_TEST(testSimulatedTrainSequence(1));
+		RUN_TEST(testSimulatedTrainApproachLarger());
 		
 		break;
 	}
