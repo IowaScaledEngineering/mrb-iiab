@@ -514,6 +514,8 @@ void readEEPROM()
 		simTrain[i].flags        = eeprom_read_byte((uint8_t*)(EE_SIM_TRAINS + (6*i) + SIM_TRAIN_FLAGS));
 		simTrain[i].direction    = eeprom_read_byte((uint8_t*)(EE_SIM_TRAINS + (6*i) + SIM_TRAIN_DIRECTION));
 		simTrain[i].time         = (eeprom_read_byte((uint8_t*)(EE_SIM_TRAINS + (6*i) + SIM_TRAIN_TIME)) << 8) + eeprom_read_byte((uint8_t*)(EE_SIM_TRAINS + (6*i) + SIM_TRAIN_TIME + 1));
+		if(simTrain[i].time > (23*60 + 59))
+			simTrain[i].time = 23*60 + 59;
 		simTrain[i].totalTime    = eeprom_read_byte((uint8_t*)(EE_SIM_TRAINS + (6*i) + SIM_TRAIN_TOTAL));
 		simTrain[i].approachTime = eeprom_read_byte((uint8_t*)(EE_SIM_TRAINS + (6*i) + SIM_TRAIN_APPROACH));
 	}
@@ -650,7 +652,7 @@ void init(void)
 
 	fastDecisecs = 0;
 
-	// Reset all occupancy to 0, turnouts to main, initialize timers
+	// Reset all occupancy to 0, turnouts to main, initialize timers, reset simulated trains
 	for(i=0; i<NUM_DIRECTIONS; i++)
 	{
 		approachOccupancy[i] = 0;
