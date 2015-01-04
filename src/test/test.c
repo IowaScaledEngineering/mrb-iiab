@@ -2417,6 +2417,11 @@ void runAllBasicSimulatedTrains(void)
 	simTrain.totalTime = 10;
 	simTrain.approachTime = 5;
 
+	printf("\n");
+	printf("--------------------------------------------------------------------------------\n");
+	printf("All Simulate Trains\n");
+	printf("--------------------------------------------------------------------------------\n");
+
 	for(int i=0; i<NUM_SIM_TRAINS; i++)
 	{
 		TriggerType t;
@@ -2464,6 +2469,12 @@ void testSimulatedTrainSkipTime(void)
 	simTrain.time = 5*60 + 0;
 	simTrain.totalTime = 10;
 	simTrain.approachTime = 5;
+
+	printf("\n");
+	printf("--------------------------------------------------------------------------------\n");
+	printf("Skip Simulated Train\n");
+	printf("--------------------------------------------------------------------------------\n");
+
 	testSimulatedTrain(0, simTrain, TRIGGER_SKIP, 1);
 }
 
@@ -2471,6 +2482,11 @@ void testSimulatedTrainRetrigger(void)
 {
 	uint8_t hour = 16;
 	uint8_t minute = 25;
+
+	printf("\n");
+	printf("--------------------------------------------------------------------------------\n");
+	printf("Retrigger Train\n");
+	printf("--------------------------------------------------------------------------------\n");
 
 	SimTrain simTrain;
 	simTrain.flags = SIM_TRAIN_FLAGS_ENABLE;
@@ -2497,6 +2513,12 @@ void testSimulatedTrainInvalidTime(void)
 	simTrain.direction = 0;
 	simTrain.totalTime = 10;
 	simTrain.approachTime = 5;
+
+	printf("\n");
+	printf("--------------------------------------------------------------------------------\n");
+	printf("Invalid Start Time");
+	printf("--------------------------------------------------------------------------------\n");
+
 	simTrain.time = 24*60;  // Just Past 23:59
 	testSimulatedTrain(0, simTrain, TRIGGER_DEAD_RECKONING, 1);
 	simTrain.time = 65535;  // Way Past 23:59
@@ -2700,12 +2722,6 @@ void testSimulatedTrainSequence(int stompOnFirst)
 		assertAspect("Simulated train arrives, gets proceed indication (main/top)", 0, ASPECT_GREEN);
 		assertAspect("Simulated train arrives, gets proceed indication (siding/bottom)", 1, ASPECT_RED);
 
-		if(stompOnFirst)
-		{
-			// Trigger second train
-			sendFastTimePacket(simTrain[1].time, 10, TIME_FLAGS_DISP_FAST);
-		}
-
 		printf("Waiting for approach time to expire...\n");
 		while(STATE_OCCUPIED != getState(0)) {}
 
@@ -2737,7 +2753,139 @@ void testSimulatedTrainApproachLarger(void)
 	simTrain.time = 5*60 + 0;
 	simTrain.totalTime = 5;
 	simTrain.approachTime = 10;  // Larger than totalTime
+
+	printf("\n");
+	printf("--------------------------------------------------------------------------------\n");
+	printf("Approach Time Larger than Total Time\n");
+	printf("--------------------------------------------------------------------------------\n");
+
 	testSimulatedTrain(0, simTrain, TRIGGER_DEAD_RECKONING, 1);
+}
+
+void testSimulatedTrainMeet(int firstDirection, int secondDirection)
+{
+	int i;
+	struct timeval tvDiff, tvTimerA, tvTimerB, tvTimerC;
+
+	SimTrain simTrain[2];
+	simTrain[0].flags = SIM_TRAIN_FLAGS_ENABLE;
+	simTrain[0].direction = firstDirection;
+	simTrain[0].time = 8*60 + 0;
+	simTrain[0].totalTime = 10;
+	simTrain[0].approachTime = 5;
+
+	simTrain[1] = simTrain[0];
+	simTrain[1].direction = secondDirection;
+	simTrain[1].time = simTrain[0].time + 1;  // 1 fast minute later
+	simTrain[1].totalTime = 9;
+	simTrain[1].approachTime = 7;
+	
+	SimTrain nullSim;
+	nullSim.flags = 0;
+	nullSim.direction = 0;
+	nullSim.time = 0;
+	nullSim.totalTime = 0;
+	nullSim.approachTime = 0;
+
+	START_TEST;
+	
+	printf("\n");
+	printf("--------------------------------------------------------------------------------\n");
+	printf("Simulated Train Meet %d -> %d\n", firstDirection, secondDirection);
+	printf("--------------------------------------------------------------------------------\n");
+
+	timelockTime = 10;  // Set longer than totalTime-approachTime (first train)
+	writeEeprom(EE_TIMELOCK_SECONDS, timelockTime);
+
+	for(i=0; i<NUM_SIM_TRAINS; i++)
+	{
+		if(i < 2)
+		{
+			writeEepromSim(i, simTrain[i]);
+		}
+		else
+		{
+			writeEepromSim(i, nullSim);
+		}
+	}
+
+	// Pre-Trigger
+	printf("Pre-Trigger\n");
+	sendFastTimePacket(simTrain[0].time - 5, 10, TIME_FLAGS_DISP_FAST);  // time - 5 minutes, 1x, Fast enabled, not hold
+	sleep(1);
+	printf("Trigger First Train\n");
+	sendFastTimePacket(simTrain[0].time, 10, TIME_FLAGS_DISP_FAST);
+
+	// Triggered Time
+	gettimeofday(&tvTimerA, NULL);
+
+	assertAspect("Simulated train arrives, gets proceed indication (main/top)", 2*firstDirection+0, ASPECT_GREEN);
+	assertAspect("Simulated train arrives, gets proceed indication (siding/bottom)", 2*firstDirection+1, ASPECT_RED);
+
+	// Trigger second train
+	printf("Trigger Second Train\n");
+	sendFastTimePacket(simTrain[1].time, 10, TIME_FLAGS_DISP_FAST);
+
+	printf("Waiting for approach time to expire...\n");
+	while(STATE_OCCUPIED != getState(firstDirection)) {}
+
+	gettimeofday(&tvTimerB, NULL);
+	gettimeofday(&tvTimerC, NULL);
+	timeval_subtract(&tvDiff, &tvTimerB, &tvTimerA);
+	assertFloat("Approach Time", (float)tvDiff.tv_sec + (float)tvDiff.tv_usec/1000000, simTrain[0].approachTime, 1);
+
+	assertAspect("Simulated train occupies interlocking (main/top)", 0, ASPECT_RED);
+	assertAspect("Simulated train occupies interlocking (siding/bottom)", 1, ASPECT_RED);
+
+	printf("Waiting for total time to expire...\n");
+	while(STATE_IDLE != getState(firstDirection)) {}
+
+	gettimeofday(&tvTimerB, NULL);
+	timeval_subtract(&tvDiff, &tvTimerB, &tvTimerA);
+	assertFloat("Total Time", (float)tvDiff.tv_sec + (float)tvDiff.tv_usec/1000000, simTrain[0].totalTime, 1);
+
+	i = 0;
+	printf("Wait for timelock to expire.");
+	while(getTimelock())
+	{
+		usleep(100000);
+		if(++i > 10)
+		{
+			printf(".");
+			fflush(stdout);
+			i = 0;
+		}
+	}
+	printf("\n");
+	gettimeofday(&tvTimerB, NULL);
+	timeval_subtract(&tvDiff, &tvTimerB, &tvTimerC);
+	assertFloat("TIMELOCK timer", (float)tvDiff.tv_sec + (float)tvDiff.tv_usec/1000000, timelockTime, 1);
+
+	gettimeofday(&tvTimerA, NULL);
+
+	assertAspect("Simulated train arrives, gets proceed indication (main/top)", 2*secondDirection+0, ASPECT_GREEN);
+	assertAspect("Simulated train arrives, gets proceed indication (siding/bottom)", 2*secondDirection+1, ASPECT_RED);
+
+	printf("Waiting for approach time to expire...\n");
+	while(STATE_OCCUPIED != getState(secondDirection)) {}
+
+	gettimeofday(&tvTimerB, NULL);
+	timeval_subtract(&tvDiff, &tvTimerB, &tvTimerA);
+	assertFloat("Approach Time", (float)tvDiff.tv_sec + (float)tvDiff.tv_usec/1000000, simTrain[1].approachTime, 1);
+
+	assertAspect("Simulated train occupies interlocking (main/top)", 0, ASPECT_RED);
+	assertAspect("Simulated train occupies interlocking (siding/bottom)", 1, ASPECT_RED);
+
+	printf("Waiting for total time to expire...\n");
+	while(STATE_IDLE != getState(secondDirection)) {}
+
+	gettimeofday(&tvTimerB, NULL);
+	timeval_subtract(&tvDiff, &tvTimerB, &tvTimerA);
+	assertFloat("Total Time", (float)tvDiff.tv_sec + (float)tvDiff.tv_usec/1000000, simTrain[1].totalTime, 1);
+
+	clearAll();
+
+	END_TEST;
 }
 
 
@@ -2819,10 +2967,6 @@ int main(void)
 /*		*/
 /*		// meet_after_interlocking*/
 /*		*/
-/*		// real_before_phantom*/
-/*	*/
-/*		// phantom_before_real*/
-/*	*/
 /*		// timelock_meet*/
 /*		timelockTime = 15;*/
 /*		writeEeprom(EE_TIMELOCK_SECONDS, timelockTime);*/
@@ -2947,14 +3091,25 @@ int main(void)
 /*		RUN_TEST(testBogusInterlocking());*/
 
 
-		runAllBasicSimulatedTrains();
-		RUN_TEST(testSimulatedTrainSkipTime());
-		RUN_TEST(testSimulatedTrainRetrigger());
-		RUN_TEST(testSimulatedTrainInvalidTime());
-		RUN_TEST(testSimulatedTrainEnable());
-		RUN_TEST(testSimulatedTrainSequence(0));
-		RUN_TEST(testSimulatedTrainSequence(1));
-		RUN_TEST(testSimulatedTrainApproachLarger());
+/*		runAllBasicSimulatedTrains();*/
+/*		RUN_TEST(testSimulatedTrainSkipTime());*/
+/*		RUN_TEST(testSimulatedTrainRetrigger());*/
+/*		RUN_TEST(testSimulatedTrainInvalidTime());*/
+/*		RUN_TEST(testSimulatedTrainEnable());*/
+/*		RUN_TEST(testSimulatedTrainSequence(0));*/
+/*		RUN_TEST(testSimulatedTrainSequence(1));*/
+/*		RUN_TEST(testSimulatedTrainApproachLarger());*/
+		RUN_TEST(testSimulatedTrainMeet(0, 2));
+		RUN_TEST(testSimulatedTrainMeet(2, 1));
+		RUN_TEST(testSimulatedTrainMeet(1, 3));
+		RUN_TEST(testSimulatedTrainMeet(3, 0));
+
+// Train scheduled on same track as real
+// Train scheduled on opposite track as real
+// Meets between simulated trains
+// Real train meet simulated train (before and after)
+// Auto Interchange
+
 		
 		break;
 	}
