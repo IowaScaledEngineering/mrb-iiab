@@ -418,6 +418,30 @@ void drawState(int n)
 		printf("      ");
 }
 
+void drawSounds(void)
+{
+	FILE *fptr;
+	char fname[256], data[16];
+	int i;
+
+	for(i=0; i<2; i++)
+	{
+		movecursor(4,7+(i*9));
+		snprintf(fname, sizeof(fname), "%s/soundOut%d", MRBFS_PATH, i);
+		fptr = fopen(fname, "r");
+		if(fgets(data, sizeof(data), fptr))
+		{
+			if(data[0]-'0')
+				textcolor(RESET, GREEN, BLACK);
+			printf("Sound%d", i);
+			textcolor(RESET, WHITE, BLACK);
+		}
+		else
+			printf("Err");
+		fclose(fptr);
+	}
+}
+
 int main(void)
 {
 	int i;
@@ -455,6 +479,7 @@ int main(void)
 			drawState(i);
 
 		drawTimers();
+		drawSounds();
 
 		movecursor(1,1);
 		
