@@ -515,9 +515,11 @@ void readEEPROM()
 		simTrain[i].direction    = eeprom_read_byte((uint8_t*)(EE_SIM_TRAINS + (6*i) + SIM_TRAIN_DIRECTION));
 		simTrain[i].time         = (eeprom_read_byte((uint8_t*)(EE_SIM_TRAINS + (6*i) + SIM_TRAIN_TIME)) << 8) + eeprom_read_byte((uint8_t*)(EE_SIM_TRAINS + (6*i) + SIM_TRAIN_TIME + 1));
 		if(simTrain[i].time > (23*60 + 59))
-			simTrain[i].time = 23*60 + 59;
+			simTrain[i].time = 23*60 + 59;  // Clamp
 		simTrain[i].totalTime    = eeprom_read_byte((uint8_t*)(EE_SIM_TRAINS + (6*i) + SIM_TRAIN_TOTAL));
 		simTrain[i].approachTime = eeprom_read_byte((uint8_t*)(EE_SIM_TRAINS + (6*i) + SIM_TRAIN_APPROACH));
+		if(simTrain[i].approachTime > simTrain[i].totalTime)
+			simTrain[i].approachTime = simTrain[i].totalTime;  // Clamp
 	}
 }
 
@@ -595,18 +597,6 @@ void PktHandler(void)
 				{
 					// Disable Test Mode
 					testModeEnable = 0;
-				}
-				else if ( ('C' == rxBuffer[MRBUS_PKT_TYPE]) && ('!' == rxBuffer[MRBUS_PKT_TYPE+1]) )
-				{
-					// Train Sim Command Packet
-					// if(STATE_IDLE == state[direction]) { state[direction] = STATE_REQUEST }
-					// Advance to request state only if that direction is currently idle
-					/*	<direction> <simApproachTime> <simTotalTime> <sound> */
-					/*	<direction> = 0-3 representing direction from which the simulated train is approaching*/
-					/*	<simApproachTIme> = time in seconds between getting green and train crossing the diamond (setting the signal red).*/
-					/*	<simTotalTime> = time in seconds from getting green until the diamond is cleared.  Sound plays for this entire interval.*/
-					/*	simTotalTime should be > simApproachTime (enforce this)*/
-					/*	<sound> = 0:no sound, 1-2: sound output to enable */
 				}
 				break;
 		}
