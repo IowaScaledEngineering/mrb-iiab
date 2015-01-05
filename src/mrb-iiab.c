@@ -347,7 +347,8 @@ ISR(ADC_vect)
 	{
 		busVoltageAccum = busVoltageAccum / 64;
         //At this point, we're at ((Vbus/3) / 5) * 1024
-        busVoltage = ((uint32_t)busVoltageAccum * 15) / 1024;
+        //So multiply by 150, divide by 1024, or multiply by 75 and divide by 512
+        busVoltage = ((uint32_t)busVoltageAccum * 75) / 512;
 		busVoltageAccum = 0;
 		busVoltageCount = 0;
 	}
