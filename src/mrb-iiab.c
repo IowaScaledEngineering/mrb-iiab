@@ -1346,7 +1346,7 @@ int main(void)
 			}
 			txBuffer[MRBUS_PKT_SRC] = mrbus_dev_addr;
 			txBuffer[MRBUS_PKT_DEST] = 0xFF;
-			txBuffer[MRBUS_PKT_LEN] = 19;
+			txBuffer[MRBUS_PKT_LEN] = 20;
 			txBuffer[5]  = 'S';
 			// Debounced input status
 			txBuffer[6]  = debounced_inputs[0];
