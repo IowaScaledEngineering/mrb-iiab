@@ -2422,6 +2422,8 @@ void runAllBasicSimulatedTrains(void)
 	printf("All Simulated Trains\n");
 	printf("--------------------------------------------------------------------------------\n");
 
+	clearAll();
+	
 	for(int i=0; i<NUM_SIM_TRAINS; i++)
 	{
 		TriggerType t;
@@ -3180,185 +3182,185 @@ int main(void)
 	
 	while(1)
 	{
-/*		// eastbound_main, eastbound_siding*/
-/*		RUN_TEST(testEastboundSouthbound(DIR_EAST, 0, 0));*/
-/*		RUN_TEST(testEastboundSouthbound(DIR_EAST, 0, 1));*/
-/*		RUN_TEST(testEastboundSouthbound(DIR_EAST, 1, 0));*/
-/*		RUN_TEST(testEastboundSouthbound(DIR_EAST, 1, 1));*/
-/*		RUN_TEST(testEastboundSouthbound(DIR_SOUTH, 0, 0));*/
-/*		RUN_TEST(testEastboundSouthbound(DIR_SOUTH, 0, 1));*/
-/*		RUN_TEST(testEastboundSouthbound(DIR_SOUTH, 1, 0));*/
-/*		RUN_TEST(testEastboundSouthbound(DIR_SOUTH, 1, 1));*/
-/*	*/
-/*		// eastbound_turnout*/
-/*		RUN_TEST(testArriveOpposingTurnout(DIR_EAST, 0));*/
-/*		RUN_TEST(testArriveOpposingTurnout(DIR_EAST, 1));*/
-/*		RUN_TEST(testArriveOpposingTurnout(DIR_SOUTH, 0));*/
-/*		RUN_TEST(testArriveOpposingTurnout(DIR_SOUTH, 1));*/
+		// eastbound_main, eastbound_siding
+		RUN_TEST(testEastboundSouthbound(DIR_EAST, 0, 0));
+		RUN_TEST(testEastboundSouthbound(DIR_EAST, 0, 1));
+		RUN_TEST(testEastboundSouthbound(DIR_EAST, 1, 0));
+		RUN_TEST(testEastboundSouthbound(DIR_EAST, 1, 1));
+		RUN_TEST(testEastboundSouthbound(DIR_SOUTH, 0, 0));
+		RUN_TEST(testEastboundSouthbound(DIR_SOUTH, 0, 1));
+		RUN_TEST(testEastboundSouthbound(DIR_SOUTH, 1, 0));
+		RUN_TEST(testEastboundSouthbound(DIR_SOUTH, 1, 1));
+	
+		// eastbound_turnout
+		RUN_TEST(testArriveOpposingTurnout(DIR_EAST, 0));
+		RUN_TEST(testArriveOpposingTurnout(DIR_EAST, 1));
+		RUN_TEST(testArriveOpposingTurnout(DIR_SOUTH, 0));
+		RUN_TEST(testArriveOpposingTurnout(DIR_SOUTH, 1));
 
-/*		// westbound_main, westbound_siding*/
-/*		RUN_TEST(testWestboundNorthbound(DIR_WEST, 0, 0));*/
-/*		RUN_TEST(testWestboundNorthbound(DIR_WEST, 0, 1));*/
-/*		RUN_TEST(testWestboundNorthbound(DIR_WEST, 1, 0));*/
-/*		RUN_TEST(testWestboundNorthbound(DIR_WEST, 1, 1));*/
-/*		RUN_TEST(testWestboundNorthbound(DIR_NORTH, 0, 0));*/
-/*		RUN_TEST(testWestboundNorthbound(DIR_NORTH, 0, 1));*/
-/*		RUN_TEST(testWestboundNorthbound(DIR_NORTH, 1, 0));*/
-/*		RUN_TEST(testWestboundNorthbound(DIR_NORTH, 1, 1));*/
-/*	*/
-/*		// meet_before_interlocking*/
-/*		RUN_TEST(testMeetBeforeInterlocking(OCC_WEST_MAIN));*/
-/*		RUN_TEST(testMeetBeforeInterlocking(OCC_WEST_SIDING));*/
-/*		RUN_TEST(testMeetBeforeInterlocking(OCC_NORTH_MAIN));*/
-/*		RUN_TEST(testMeetBeforeInterlocking(OCC_NORTH_SIDING));*/
-/*		*/
-/*		// meet_after_interlocking*/
-/*		*/
-/*		// timelock_meet*/
-/*		timelockTime = 15;*/
-/*		writeEeprom(EE_TIMELOCK_SECONDS, timelockTime);*/
-/*		RUN_TEST(testTimelockMeet(OCC_EAST_MAIN,OCC_NORTH_MAIN));*/
-/*		timelockTime = 5;*/
-/*		writeEeprom(EE_TIMELOCK_SECONDS, timelockTime);*/
-/*		RUN_TEST(testTimelockMeet(OCC_EAST_MAIN,OCC_NORTH_MAIN));*/
-/*		RUN_TEST(testTimelockMeet(OCC_EAST_MAIN,OCC_NORTH_SIDING));*/
-/*		RUN_TEST(testTimelockMeet(OCC_EAST_MAIN,OCC_SOUTH_MAIN));*/
-/*		RUN_TEST(testTimelockMeet(OCC_WEST_MAIN,OCC_NORTH_MAIN));*/
-/*		RUN_TEST(testTimelockMeet(OCC_WEST_MAIN,OCC_NORTH_SIDING));*/
-/*		RUN_TEST(testTimelockMeet(OCC_WEST_MAIN,OCC_SOUTH_MAIN));*/
-/*		RUN_TEST(testTimelockMeet(OCC_WEST_SIDING,OCC_NORTH_MAIN));*/
-/*		RUN_TEST(testTimelockMeet(OCC_WEST_SIDING,OCC_NORTH_SIDING));*/
-/*		RUN_TEST(testTimelockMeet(OCC_WEST_SIDING,OCC_SOUTH_MAIN));*/
+		// westbound_main, westbound_siding
+		RUN_TEST(testWestboundNorthbound(DIR_WEST, 0, 0));
+		RUN_TEST(testWestboundNorthbound(DIR_WEST, 0, 1));
+		RUN_TEST(testWestboundNorthbound(DIR_WEST, 1, 0));
+		RUN_TEST(testWestboundNorthbound(DIR_WEST, 1, 1));
+		RUN_TEST(testWestboundNorthbound(DIR_NORTH, 0, 0));
+		RUN_TEST(testWestboundNorthbound(DIR_NORTH, 0, 1));
+		RUN_TEST(testWestboundNorthbound(DIR_NORTH, 1, 0));
+		RUN_TEST(testWestboundNorthbound(DIR_NORTH, 1, 1));
+	
+		// meet_before_interlocking
+		RUN_TEST(testMeetBeforeInterlocking(OCC_WEST_MAIN));
+		RUN_TEST(testMeetBeforeInterlocking(OCC_WEST_SIDING));
+		RUN_TEST(testMeetBeforeInterlocking(OCC_NORTH_MAIN));
+		RUN_TEST(testMeetBeforeInterlocking(OCC_NORTH_SIDING));
+		
+		// meet_after_interlocking
+		
+		// timelock_meet
+		timelockTime = 15;
+		writeEeprom(EE_TIMELOCK_SECONDS, timelockTime);
+		RUN_TEST(testTimelockMeet(OCC_EAST_MAIN,OCC_NORTH_MAIN));
+		timelockTime = 5;
+		writeEeprom(EE_TIMELOCK_SECONDS, timelockTime);
+		RUN_TEST(testTimelockMeet(OCC_EAST_MAIN,OCC_NORTH_MAIN));
+		RUN_TEST(testTimelockMeet(OCC_EAST_MAIN,OCC_NORTH_SIDING));
+		RUN_TEST(testTimelockMeet(OCC_EAST_MAIN,OCC_SOUTH_MAIN));
+		RUN_TEST(testTimelockMeet(OCC_WEST_MAIN,OCC_NORTH_MAIN));
+		RUN_TEST(testTimelockMeet(OCC_WEST_MAIN,OCC_NORTH_SIDING));
+		RUN_TEST(testTimelockMeet(OCC_WEST_MAIN,OCC_SOUTH_MAIN));
+		RUN_TEST(testTimelockMeet(OCC_WEST_SIDING,OCC_NORTH_MAIN));
+		RUN_TEST(testTimelockMeet(OCC_WEST_SIDING,OCC_NORTH_SIDING));
+		RUN_TEST(testTimelockMeet(OCC_WEST_SIDING,OCC_SOUTH_MAIN));
 
-/*		RUN_TEST(testTimelockMeet(OCC_SOUTH_MAIN,OCC_WEST_MAIN));*/
-/*		RUN_TEST(testTimelockMeet(OCC_SOUTH_MAIN,OCC_WEST_SIDING));*/
-/*		RUN_TEST(testTimelockMeet(OCC_SOUTH_MAIN,OCC_EAST_MAIN));*/
-/*		RUN_TEST(testTimelockMeet(OCC_NORTH_MAIN,OCC_WEST_MAIN));*/
-/*		RUN_TEST(testTimelockMeet(OCC_NORTH_MAIN,OCC_WEST_SIDING));*/
-/*		RUN_TEST(testTimelockMeet(OCC_NORTH_MAIN,OCC_EAST_MAIN));*/
-/*		RUN_TEST(testTimelockMeet(OCC_NORTH_SIDING,OCC_WEST_MAIN));*/
-/*		RUN_TEST(testTimelockMeet(OCC_NORTH_SIDING,OCC_WEST_SIDING));*/
-/*		RUN_TEST(testTimelockMeet(OCC_NORTH_SIDING,OCC_EAST_MAIN));*/
+		RUN_TEST(testTimelockMeet(OCC_SOUTH_MAIN,OCC_WEST_MAIN));
+		RUN_TEST(testTimelockMeet(OCC_SOUTH_MAIN,OCC_WEST_SIDING));
+		RUN_TEST(testTimelockMeet(OCC_SOUTH_MAIN,OCC_EAST_MAIN));
+		RUN_TEST(testTimelockMeet(OCC_NORTH_MAIN,OCC_WEST_MAIN));
+		RUN_TEST(testTimelockMeet(OCC_NORTH_MAIN,OCC_WEST_SIDING));
+		RUN_TEST(testTimelockMeet(OCC_NORTH_MAIN,OCC_EAST_MAIN));
+		RUN_TEST(testTimelockMeet(OCC_NORTH_SIDING,OCC_WEST_MAIN));
+		RUN_TEST(testTimelockMeet(OCC_NORTH_SIDING,OCC_WEST_SIDING));
+		RUN_TEST(testTimelockMeet(OCC_NORTH_SIDING,OCC_EAST_MAIN));
 
-/*		// timelock*/
-/*		RUN_TEST(testTimelockTurnout(OCC_EAST_MAIN));*/
-/*		RUN_TEST(testTimelockTurnout(OCC_SOUTH_MAIN));*/
+		// timelock
+		RUN_TEST(testTimelockTurnout(OCC_EAST_MAIN));
+		RUN_TEST(testTimelockTurnout(OCC_SOUTH_MAIN));
 
-/*		// lockout*/
-/*		lockoutTime = 15;*/
-/*		writeEeprom(EE_LOCKOUT_SECONDS, lockoutTime);*/
-/*		RUN_TEST(testLockout(OCC_EAST_MAIN,OCC_WEST_MAIN,0));*/
-/*		lockoutTime = 5;*/
-/*		writeEeprom(EE_LOCKOUT_SECONDS, lockoutTime);*/
-/*		*/
-/*		// lockout (no train present)*/
-/*		RUN_TEST(testLockout(OCC_EAST_MAIN,OCC_WEST_MAIN,0));*/
-/*		RUN_TEST(testLockout(OCC_EAST_MAIN,OCC_WEST_SIDING,0));*/
-/*		RUN_TEST(testLockout(OCC_SOUTH_MAIN,OCC_NORTH_MAIN,0));*/
-/*		RUN_TEST(testLockout(OCC_SOUTH_MAIN,OCC_NORTH_SIDING,0));*/
-/*		RUN_TEST(testLockout(OCC_WEST_MAIN,OCC_EAST_MAIN,0));*/
-/*		RUN_TEST(testLockout(OCC_WEST_SIDING,OCC_EAST_MAIN,0));*/
-/*		RUN_TEST(testLockout(OCC_NORTH_MAIN,OCC_SOUTH_MAIN,0));*/
-/*		RUN_TEST(testLockout(OCC_NORTH_SIDING,OCC_SOUTH_MAIN,0));*/
+		// lockout
+		lockoutTime = 15;
+		writeEeprom(EE_LOCKOUT_SECONDS, lockoutTime);
+		RUN_TEST(testLockout(OCC_EAST_MAIN,OCC_WEST_MAIN,0));
+		lockoutTime = 5;
+		writeEeprom(EE_LOCKOUT_SECONDS, lockoutTime);
+		
+		// lockout (no train present)
+		RUN_TEST(testLockout(OCC_EAST_MAIN,OCC_WEST_MAIN,0));
+		RUN_TEST(testLockout(OCC_EAST_MAIN,OCC_WEST_SIDING,0));
+		RUN_TEST(testLockout(OCC_SOUTH_MAIN,OCC_NORTH_MAIN,0));
+		RUN_TEST(testLockout(OCC_SOUTH_MAIN,OCC_NORTH_SIDING,0));
+		RUN_TEST(testLockout(OCC_WEST_MAIN,OCC_EAST_MAIN,0));
+		RUN_TEST(testLockout(OCC_WEST_SIDING,OCC_EAST_MAIN,0));
+		RUN_TEST(testLockout(OCC_NORTH_MAIN,OCC_SOUTH_MAIN,0));
+		RUN_TEST(testLockout(OCC_NORTH_SIDING,OCC_SOUTH_MAIN,0));
 
-/*		// lockout_expire_with_train_present*/
-/*		RUN_TEST(testLockout(OCC_EAST_MAIN,OCC_WEST_MAIN,1));*/
-/*		RUN_TEST(testLockout(OCC_EAST_MAIN,OCC_WEST_SIDING,1));*/
-/*		RUN_TEST(testLockout(OCC_SOUTH_MAIN,OCC_NORTH_MAIN,1));*/
-/*		RUN_TEST(testLockout(OCC_SOUTH_MAIN,OCC_NORTH_SIDING,1));*/
-/*		RUN_TEST(testLockout(OCC_WEST_MAIN,OCC_EAST_MAIN,1));*/
-/*		RUN_TEST(testLockout(OCC_WEST_SIDING,OCC_EAST_MAIN,1));*/
-/*		RUN_TEST(testLockout(OCC_NORTH_MAIN,OCC_SOUTH_MAIN,1));*/
-/*		RUN_TEST(testLockout(OCC_NORTH_SIDING,OCC_SOUTH_MAIN,1));*/
+		// lockout_expire_with_train_present
+		RUN_TEST(testLockout(OCC_EAST_MAIN,OCC_WEST_MAIN,1));
+		RUN_TEST(testLockout(OCC_EAST_MAIN,OCC_WEST_SIDING,1));
+		RUN_TEST(testLockout(OCC_SOUTH_MAIN,OCC_NORTH_MAIN,1));
+		RUN_TEST(testLockout(OCC_SOUTH_MAIN,OCC_NORTH_SIDING,1));
+		RUN_TEST(testLockout(OCC_WEST_MAIN,OCC_EAST_MAIN,1));
+		RUN_TEST(testLockout(OCC_WEST_SIDING,OCC_EAST_MAIN,1));
+		RUN_TEST(testLockout(OCC_NORTH_MAIN,OCC_SOUTH_MAIN,1));
+		RUN_TEST(testLockout(OCC_NORTH_SIDING,OCC_SOUTH_MAIN,1));
 
-/*		// timeout_expire (covered by below?)*/
-/*		// timeout_expire_momentary_train*/
-/*		timeoutTime = 15;*/
-/*		writeEeprom(EE_TIMEOUT_SECONDS+0, timeoutTime);*/
-/*		writeEeprom(EE_TIMEOUT_SECONDS+1, 4*timeoutTime);*/
-/*		writeEeprom(EE_TIMEOUT_SECONDS+2, 4*timeoutTime);*/
-/*		writeEeprom(EE_TIMEOUT_SECONDS+3, 4*timeoutTime);*/
-/*		RUN_TEST(testTimeout(OCC_WEST_MAIN, 0));*/
-/*		RUN_TEST(testTimeout(OCC_WEST_SIDING, TURNOUT_WEST));*/
-/*		writeEeprom(EE_TIMEOUT_SECONDS+0, 4*timeoutTime);*/
-/*		writeEeprom(EE_TIMEOUT_SECONDS+1, timeoutTime);*/
-/*		writeEeprom(EE_TIMEOUT_SECONDS+2, 4*timeoutTime);*/
-/*		writeEeprom(EE_TIMEOUT_SECONDS+3, 4*timeoutTime);*/
-/*		RUN_TEST(testTimeout(OCC_EAST_MAIN, 0));*/
-/*		RUN_TEST(testTimeout(OCC_EAST_MAIN, TURNOUT_WEST));*/
-/*		writeEeprom(EE_TIMEOUT_SECONDS+0, 4*timeoutTime);*/
-/*		writeEeprom(EE_TIMEOUT_SECONDS+1, 4*timeoutTime);*/
-/*		writeEeprom(EE_TIMEOUT_SECONDS+2, timeoutTime);*/
-/*		writeEeprom(EE_TIMEOUT_SECONDS+3, 4*timeoutTime);*/
-/*		RUN_TEST(testTimeout(OCC_NORTH_MAIN, 0));*/
-/*		RUN_TEST(testTimeout(OCC_NORTH_SIDING, TURNOUT_NORTH));*/
-/*		writeEeprom(EE_TIMEOUT_SECONDS+0, 4*timeoutTime);*/
-/*		writeEeprom(EE_TIMEOUT_SECONDS+1, 4*timeoutTime);*/
-/*		writeEeprom(EE_TIMEOUT_SECONDS+2, 4*timeoutTime);*/
-/*		writeEeprom(EE_TIMEOUT_SECONDS+3, timeoutTime);*/
-/*		RUN_TEST(testTimeout(OCC_SOUTH_MAIN, 0));*/
-/*		RUN_TEST(testTimeout(OCC_SOUTH_MAIN, TURNOUT_NORTH));*/
+		// timeout_expire (covered by below?)
+		// timeout_expire_momentary_train
+		timeoutTime = 15;
+		writeEeprom(EE_TIMEOUT_SECONDS+0, timeoutTime);
+		writeEeprom(EE_TIMEOUT_SECONDS+1, 4*timeoutTime);
+		writeEeprom(EE_TIMEOUT_SECONDS+2, 4*timeoutTime);
+		writeEeprom(EE_TIMEOUT_SECONDS+3, 4*timeoutTime);
+		RUN_TEST(testTimeout(OCC_WEST_MAIN, 0));
+		RUN_TEST(testTimeout(OCC_WEST_SIDING, TURNOUT_WEST));
+		writeEeprom(EE_TIMEOUT_SECONDS+0, 4*timeoutTime);
+		writeEeprom(EE_TIMEOUT_SECONDS+1, timeoutTime);
+		writeEeprom(EE_TIMEOUT_SECONDS+2, 4*timeoutTime);
+		writeEeprom(EE_TIMEOUT_SECONDS+3, 4*timeoutTime);
+		RUN_TEST(testTimeout(OCC_EAST_MAIN, 0));
+		RUN_TEST(testTimeout(OCC_EAST_MAIN, TURNOUT_WEST));
+		writeEeprom(EE_TIMEOUT_SECONDS+0, 4*timeoutTime);
+		writeEeprom(EE_TIMEOUT_SECONDS+1, 4*timeoutTime);
+		writeEeprom(EE_TIMEOUT_SECONDS+2, timeoutTime);
+		writeEeprom(EE_TIMEOUT_SECONDS+3, 4*timeoutTime);
+		RUN_TEST(testTimeout(OCC_NORTH_MAIN, 0));
+		RUN_TEST(testTimeout(OCC_NORTH_SIDING, TURNOUT_NORTH));
+		writeEeprom(EE_TIMEOUT_SECONDS+0, 4*timeoutTime);
+		writeEeprom(EE_TIMEOUT_SECONDS+1, 4*timeoutTime);
+		writeEeprom(EE_TIMEOUT_SECONDS+2, 4*timeoutTime);
+		writeEeprom(EE_TIMEOUT_SECONDS+3, timeoutTime);
+		RUN_TEST(testTimeout(OCC_SOUTH_MAIN, 0));
+		RUN_TEST(testTimeout(OCC_SOUTH_MAIN, TURNOUT_NORTH));
 
-/*		timeoutTime = 5;*/
-/*		writeEeprom(EE_TIMEOUT_SECONDS+0, timeoutTime);*/
-/*		writeEeprom(EE_TIMEOUT_SECONDS+1, 4*timeoutTime);*/
-/*		writeEeprom(EE_TIMEOUT_SECONDS+2, 4*timeoutTime);*/
-/*		writeEeprom(EE_TIMEOUT_SECONDS+3, 4*timeoutTime);*/
-/*		RUN_TEST(testTimeout(OCC_WEST_MAIN, 0));*/
-/*		RUN_TEST(testTimeout(OCC_WEST_SIDING, TURNOUT_WEST));*/
-/*		writeEeprom(EE_TIMEOUT_SECONDS+0, 4*timeoutTime);*/
-/*		writeEeprom(EE_TIMEOUT_SECONDS+1, timeoutTime);*/
-/*		writeEeprom(EE_TIMEOUT_SECONDS+2, 4*timeoutTime);*/
-/*		writeEeprom(EE_TIMEOUT_SECONDS+3, 4*timeoutTime);*/
-/*		RUN_TEST(testTimeout(OCC_EAST_MAIN, 0));*/
-/*		RUN_TEST(testTimeout(OCC_EAST_MAIN, TURNOUT_WEST));*/
-/*		writeEeprom(EE_TIMEOUT_SECONDS+0, 4*timeoutTime);*/
-/*		writeEeprom(EE_TIMEOUT_SECONDS+1, 4*timeoutTime);*/
-/*		writeEeprom(EE_TIMEOUT_SECONDS+2, timeoutTime);*/
-/*		writeEeprom(EE_TIMEOUT_SECONDS+3, 4*timeoutTime);*/
-/*		RUN_TEST(testTimeout(OCC_NORTH_MAIN, 0));*/
-/*		RUN_TEST(testTimeout(OCC_NORTH_SIDING, TURNOUT_NORTH));*/
-/*		writeEeprom(EE_TIMEOUT_SECONDS+0, 4*timeoutTime);*/
-/*		writeEeprom(EE_TIMEOUT_SECONDS+1, 4*timeoutTime);*/
-/*		writeEeprom(EE_TIMEOUT_SECONDS+2, 4*timeoutTime);*/
-/*		writeEeprom(EE_TIMEOUT_SECONDS+3, timeoutTime);*/
-/*		RUN_TEST(testTimeout(OCC_SOUTH_MAIN, 0));*/
-/*		RUN_TEST(testTimeout(OCC_SOUTH_MAIN, TURNOUT_NORTH));*/
+		timeoutTime = 5;
+		writeEeprom(EE_TIMEOUT_SECONDS+0, timeoutTime);
+		writeEeprom(EE_TIMEOUT_SECONDS+1, 4*timeoutTime);
+		writeEeprom(EE_TIMEOUT_SECONDS+2, 4*timeoutTime);
+		writeEeprom(EE_TIMEOUT_SECONDS+3, 4*timeoutTime);
+		RUN_TEST(testTimeout(OCC_WEST_MAIN, 0));
+		RUN_TEST(testTimeout(OCC_WEST_SIDING, TURNOUT_WEST));
+		writeEeprom(EE_TIMEOUT_SECONDS+0, 4*timeoutTime);
+		writeEeprom(EE_TIMEOUT_SECONDS+1, timeoutTime);
+		writeEeprom(EE_TIMEOUT_SECONDS+2, 4*timeoutTime);
+		writeEeprom(EE_TIMEOUT_SECONDS+3, 4*timeoutTime);
+		RUN_TEST(testTimeout(OCC_EAST_MAIN, 0));
+		RUN_TEST(testTimeout(OCC_EAST_MAIN, TURNOUT_WEST));
+		writeEeprom(EE_TIMEOUT_SECONDS+0, 4*timeoutTime);
+		writeEeprom(EE_TIMEOUT_SECONDS+1, 4*timeoutTime);
+		writeEeprom(EE_TIMEOUT_SECONDS+2, timeoutTime);
+		writeEeprom(EE_TIMEOUT_SECONDS+3, 4*timeoutTime);
+		RUN_TEST(testTimeout(OCC_NORTH_MAIN, 0));
+		RUN_TEST(testTimeout(OCC_NORTH_SIDING, TURNOUT_NORTH));
+		writeEeprom(EE_TIMEOUT_SECONDS+0, 4*timeoutTime);
+		writeEeprom(EE_TIMEOUT_SECONDS+1, 4*timeoutTime);
+		writeEeprom(EE_TIMEOUT_SECONDS+2, 4*timeoutTime);
+		writeEeprom(EE_TIMEOUT_SECONDS+3, timeoutTime);
+		RUN_TEST(testTimeout(OCC_SOUTH_MAIN, 0));
+		RUN_TEST(testTimeout(OCC_SOUTH_MAIN, TURNOUT_NORTH));
 
-/*		// debounce_timer*/
-/*		debounceTime = 15;*/
-/*		writeEeprom(EE_DEBOUNCE_SECONDS, debounceTime);*/
-/*		RUN_TEST(testDebounceTimer());*/
+		// debounce_timer
+		debounceTime = 15;
+		writeEeprom(EE_DEBOUNCE_SECONDS, debounceTime);
+		RUN_TEST(testDebounceTimer());
 
-/*		debounceTime = 5;*/
-/*		writeEeprom(EE_DEBOUNCE_SECONDS, debounceTime);*/
-/*		RUN_TEST(testDebounceTimer());*/
+		debounceTime = 5;
+		writeEeprom(EE_DEBOUNCE_SECONDS, debounceTime);
+		RUN_TEST(testDebounceTimer());
 
-/*		// What happens if interlocking block gets occupancy out of the blue?  Then something real shows up?*/
-/*		RUN_TEST(testBogusInterlocking());*/
+		// What happens if interlocking block gets occupancy out of the blue?  Then something real shows up?
+		RUN_TEST(testBogusInterlocking());
 
 
-/*		runAllBasicSimulatedTrains();*/
-/*		RUN_TEST(testSimulatedTrainSkipTime());*/
-/*		RUN_TEST(testSimulatedTrainRetrigger());*/
-/*		RUN_TEST(testSimulatedTrainInvalidTime());*/
-/*		RUN_TEST(testSimulatedTrainEnable());*/
-/*		RUN_TEST(testSimulatedTrainSequence(0));*/
-/*		RUN_TEST(testSimulatedTrainSequence(1));*/
-/*		RUN_TEST(testSimulatedTrainApproachLarger());*/
-/*		RUN_TEST(testSimulatedTrainMeet(0, 2));*/
-/*		RUN_TEST(testSimulatedTrainMeet(2, 1));*/
-/*		RUN_TEST(testSimulatedTrainMeet(1, 3));*/
-/*		RUN_TEST(testSimulatedTrainMeet(3, 0));*/
+		runAllBasicSimulatedTrains();
+		RUN_TEST(testSimulatedTrainSkipTime());
+		RUN_TEST(testSimulatedTrainRetrigger());
+		RUN_TEST(testSimulatedTrainInvalidTime());
+		RUN_TEST(testSimulatedTrainEnable());
+		RUN_TEST(testSimulatedTrainSequence(0));
+		RUN_TEST(testSimulatedTrainSequence(1));
+		RUN_TEST(testSimulatedTrainApproachLarger());
+		RUN_TEST(testSimulatedTrainMeet(0, 2));
+		RUN_TEST(testSimulatedTrainMeet(2, 1));
+		RUN_TEST(testSimulatedTrainMeet(1, 3));
+		RUN_TEST(testSimulatedTrainMeet(3, 0));
 
-/*		RUN_TEST(testRealMeetSimulated(0, 2, 0));*/
-/*		RUN_TEST(testRealMeetSimulated(2, 1, 0));*/
-/*		RUN_TEST(testRealMeetSimulated(1, 3, 0));*/
-/*		RUN_TEST(testRealMeetSimulated(3, 0, 0));*/
-/*		RUN_TEST(testRealMeetSimulated(0, 2, 1));*/
-/*		RUN_TEST(testRealMeetSimulated(2, 1, 1));*/
-/*		RUN_TEST(testRealMeetSimulated(1, 3, 1));*/
-/*		RUN_TEST(testRealMeetSimulated(3, 0, 1));*/
+		RUN_TEST(testRealMeetSimulated(0, 2, 0));
+		RUN_TEST(testRealMeetSimulated(2, 1, 0));
+		RUN_TEST(testRealMeetSimulated(1, 3, 0));
+		RUN_TEST(testRealMeetSimulated(3, 0, 0));
+		RUN_TEST(testRealMeetSimulated(0, 2, 1));
+		RUN_TEST(testRealMeetSimulated(2, 1, 1));
+		RUN_TEST(testRealMeetSimulated(1, 3, 1));
+		RUN_TEST(testRealMeetSimulated(3, 0, 1));
 
 		RUN_TEST(testSimulatedTimeWrap());
 
