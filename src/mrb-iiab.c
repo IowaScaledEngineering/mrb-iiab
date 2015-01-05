@@ -1090,8 +1090,8 @@ int main(void)
 			for(i=0; i<NUM_SIM_TRAINS; i++)
 			{
 				uint16_t currentTime = (fastTime.hours * 60) + fastTime.minutes;
-				//  FIXME: Need to wrap time correctly around midnight
-				if( (simTrain[i].time <= currentTime) && ((simTrain[i].time + simTrainWindow) >= currentTime) )
+				//  Which if in time window.  Need 2 comparsions for the window to handle wrapping around midnight
+				if( (simTrain[i].time <= currentTime) && ( (currentTime <= (simTrain[i].time + simTrainWindow)) || ((currentTime+24*60) <= (simTrain[i].time + simTrainWindow)) ) )
 				{
 					// Inside time window for triggering
 					if( (simTrain[i].flags & SIM_TRAIN_FLAGS_ENABLE) && !(simTrain[i].flags & SIM_TRAIN_FLAGS_TRIGGER) )
