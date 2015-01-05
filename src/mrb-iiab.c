@@ -1316,21 +1316,20 @@ int main(void)
 #endif
 		uint8_t txBuffer[MRBUS_BUFFER_SIZE];
 
-		// FIXME: Do the sound outputs also show up in byte 7?  If so, no need to replicate in byte 11, just the OR is needed there
-
 		// 6:  Inputs0: Block Detect
 		// 7:  Inputs1: [<7:4>][/Turnout2][Turnout2][/Turnout0][Turnout0]
 		// 8:  Signal Outputs Bank #1
 		// 9:  Signal Outputs Bank #2
 		// 10: Signal Outputs Bank #3
-		// 11: [Sound#1][Sound#0][Sound#1|Sound#0][<4>][simulator<3:0>.enable]
+		// 11: [Sound#1][Sound#0][Sound#1|Sound#0][FIXME:Interchange][simulator<3:0>.enable]
 		// 12: [state<0>][state<1>]
 		// 13: [state<2>][state<3>]
 		// 14: timelockTimer
 		// 15: debounceTimer
 		// 16: [<7:4>][lockoutTimer<3:0> Status]
 		// 17: [<7:4>][timeoutTimer<3:0> Status]
-		// 18: busVoltage
+		// 18: unassigned
+		// 19: busVoltage
 
 		uint16_t timeTemp;
 		ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
@@ -1422,7 +1421,9 @@ int main(void)
 			}
 			txBuffer[17] = temp_uint8;           // Timeout timer statuses
 
-			txBuffer[18] = busVoltage;           // Bus voltage
+			txBuffer[18] = 0;
+
+			txBuffer[19] = busVoltage;           // Bus voltage
 			
 			mrbusPktQueuePush(&mrbusTxQueue, txBuffer, txBuffer[MRBUS_PKT_LEN]);
 		}
