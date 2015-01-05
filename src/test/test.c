@@ -3081,6 +3081,60 @@ void testRealMeetSimulated(int realDirection, int simulatedDirection, int realBe
 	END_TEST;
 }
 
+void testSimulatedTimeWrap(void)
+{
+	int i;
+	
+	START_TEST;
+
+	SimTrain simTrain;
+	simTrain.flags = SIM_TRAIN_FLAGS_ENABLE;
+	simTrain.direction = 0;
+	simTrain.time = 23*60 + 59;  // 23:59
+	simTrain.totalTime = 10;
+	simTrain.approachTime = 5;
+		
+	SimTrain nullSim;
+	nullSim.flags = 0;
+	nullSim.direction = 0;
+	nullSim.time = 0;
+	nullSim.totalTime = 0;
+	nullSim.approachTime = 0;
+	
+	printf("\n");
+	printf("--------------------------------------------------------------------------------\n");
+	printf("Simulated Time Wrap Around Midnight\n");
+	printf("--------------------------------------------------------------------------------\n");
+
+	setSimTrainWindow(5);
+
+	for(i=0; i<NUM_SIM_TRAINS; i++)
+	{
+		if(0 == i)
+		{
+			writeEepromSim(i, simTrain);
+		}
+		else
+		{
+			writeEepromSim(i, nullSim);
+		}
+	}
+
+	// Pre-Trigger
+	sendFastTimePacket(23*60 + 55, 10, TIME_FLAGS_DISP_FAST);  // 23:55
+	sleep(1);
+
+	// Trigger
+	sendFastTimePacket(0*60 + 1, 10, TIME_FLAGS_DISP_FAST);  // 00:01
+
+	assertAspect("Simulated train arrives, gets proceed indication (main/top)", simTrain.direction*2+0, ASPECT_GREEN);
+	assertAspect("Simulated train arrives, gets proceed indication (siding/bottom)", simTrain.direction*2+1, ASPECT_RED);
+
+	clearAll();
+
+	END_TEST;
+}
+
 
 
 int main(void)
@@ -3284,30 +3338,32 @@ int main(void)
 /*		RUN_TEST(testBogusInterlocking());*/
 
 
-		runAllBasicSimulatedTrains();
-		RUN_TEST(testSimulatedTrainSkipTime());
-		RUN_TEST(testSimulatedTrainRetrigger());
-		RUN_TEST(testSimulatedTrainInvalidTime());
-		RUN_TEST(testSimulatedTrainEnable());
-		RUN_TEST(testSimulatedTrainSequence(0));
-		RUN_TEST(testSimulatedTrainSequence(1));
-		RUN_TEST(testSimulatedTrainApproachLarger());
-		RUN_TEST(testSimulatedTrainMeet(0, 2));
-		RUN_TEST(testSimulatedTrainMeet(2, 1));
-		RUN_TEST(testSimulatedTrainMeet(1, 3));
-		RUN_TEST(testSimulatedTrainMeet(3, 0));
+/*		runAllBasicSimulatedTrains();*/
+/*		RUN_TEST(testSimulatedTrainSkipTime());*/
+/*		RUN_TEST(testSimulatedTrainRetrigger());*/
+/*		RUN_TEST(testSimulatedTrainInvalidTime());*/
+/*		RUN_TEST(testSimulatedTrainEnable());*/
+/*		RUN_TEST(testSimulatedTrainSequence(0));*/
+/*		RUN_TEST(testSimulatedTrainSequence(1));*/
+/*		RUN_TEST(testSimulatedTrainApproachLarger());*/
+/*		RUN_TEST(testSimulatedTrainMeet(0, 2));*/
+/*		RUN_TEST(testSimulatedTrainMeet(2, 1));*/
+/*		RUN_TEST(testSimulatedTrainMeet(1, 3));*/
+/*		RUN_TEST(testSimulatedTrainMeet(3, 0));*/
 
-		RUN_TEST(testRealMeetSimulated(0, 2, 0));
-		RUN_TEST(testRealMeetSimulated(2, 1, 0));
-		RUN_TEST(testRealMeetSimulated(1, 3, 0));
-		RUN_TEST(testRealMeetSimulated(3, 0, 0));
-		RUN_TEST(testRealMeetSimulated(0, 2, 1));
-		RUN_TEST(testRealMeetSimulated(2, 1, 1));
-		RUN_TEST(testRealMeetSimulated(1, 3, 1));
-		RUN_TEST(testRealMeetSimulated(3, 0, 1));
+/*		RUN_TEST(testRealMeetSimulated(0, 2, 0));*/
+/*		RUN_TEST(testRealMeetSimulated(2, 1, 0));*/
+/*		RUN_TEST(testRealMeetSimulated(1, 3, 0));*/
+/*		RUN_TEST(testRealMeetSimulated(3, 0, 0));*/
+/*		RUN_TEST(testRealMeetSimulated(0, 2, 1));*/
+/*		RUN_TEST(testRealMeetSimulated(2, 1, 1));*/
+/*		RUN_TEST(testRealMeetSimulated(1, 3, 1));*/
+/*		RUN_TEST(testRealMeetSimulated(3, 0, 1));*/
 
-// Real train meet simulated train (before and after)
+		RUN_TEST(testSimulatedTimeWrap());
+
 // Auto Interchange
+// Real train meet simulated train (before and after)
 // Train scheduled on same track as real
 // Train scheduled on opposite track as real
 
