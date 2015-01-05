@@ -2419,7 +2419,7 @@ void runAllBasicSimulatedTrains(void)
 
 	printf("\n");
 	printf("--------------------------------------------------------------------------------\n");
-	printf("All Simulate Trains\n");
+	printf("All Simulated Trains\n");
 	printf("--------------------------------------------------------------------------------\n");
 
 	for(int i=0; i<NUM_SIM_TRAINS; i++)
@@ -3284,18 +3284,18 @@ int main(void)
 /*		RUN_TEST(testBogusInterlocking());*/
 
 
-/*		runAllBasicSimulatedTrains();*/
-/*		RUN_TEST(testSimulatedTrainSkipTime());*/
-/*		RUN_TEST(testSimulatedTrainRetrigger());*/
-/*		RUN_TEST(testSimulatedTrainInvalidTime());*/
-/*		RUN_TEST(testSimulatedTrainEnable());*/
-/*		RUN_TEST(testSimulatedTrainSequence(0));*/
-/*		RUN_TEST(testSimulatedTrainSequence(1));*/
-/*		RUN_TEST(testSimulatedTrainApproachLarger());*/
-/*		RUN_TEST(testSimulatedTrainMeet(0, 2));*/
-/*		RUN_TEST(testSimulatedTrainMeet(2, 1));*/
-/*		RUN_TEST(testSimulatedTrainMeet(1, 3));*/
-/*		RUN_TEST(testSimulatedTrainMeet(3, 0));*/
+		runAllBasicSimulatedTrains();
+		RUN_TEST(testSimulatedTrainSkipTime());
+		RUN_TEST(testSimulatedTrainRetrigger());
+		RUN_TEST(testSimulatedTrainInvalidTime());
+		RUN_TEST(testSimulatedTrainEnable());
+		RUN_TEST(testSimulatedTrainSequence(0));
+		RUN_TEST(testSimulatedTrainSequence(1));
+		RUN_TEST(testSimulatedTrainApproachLarger());
+		RUN_TEST(testSimulatedTrainMeet(0, 2));
+		RUN_TEST(testSimulatedTrainMeet(2, 1));
+		RUN_TEST(testSimulatedTrainMeet(1, 3));
+		RUN_TEST(testSimulatedTrainMeet(3, 0));
 
 		RUN_TEST(testRealMeetSimulated(0, 2, 0));
 		RUN_TEST(testRealMeetSimulated(2, 1, 0));
