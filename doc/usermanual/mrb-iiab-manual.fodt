@@ -1033,7 +1033,7 @@
  <office:master-styles>
   <style:master-page style:name="Standard" style:page-layout-name="pm1">
    <style:footer>
-    <text:p text:style-name="P1"><text:tab/><text:page-number text:select-page="current">9</text:page-number> <text:span text:style-name="T1">of </text:span><text:span text:style-name="T1"><text:page-count>9</text:page-count></text:span><text:span text:style-name="T1"><text:tab/>$Revision: $</text:span></text:p>
+    <text:p text:style-name="P1"><text:tab/><text:page-number text:select-page="current">9</text:page-number> <text:span text:style-name="T1">of </text:span><text:span text:style-name="T1"><text:page-count>9</text:page-count></text:span><text:span text:style-name="T1"><text:tab/>$Revision$</text:span></text:p>
    </style:footer>
   </style:master-page>
   <style:master-page style:name="First_20_Page" style:display-name="First Page" style:page-layout-name="pm2" style:next-style-name="Standard"/>
