@@ -2518,7 +2518,7 @@ void testSimulatedTrainInvalidTime(void)
 
 	printf("\n");
 	printf("--------------------------------------------------------------------------------\n");
-	printf("Invalid Start Time");
+	printf("Invalid Start Time\n");
 	printf("--------------------------------------------------------------------------------\n");
 
 	simTrain.time = 24*60;  // Just Past 23:59
