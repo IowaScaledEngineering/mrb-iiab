@@ -946,7 +946,7 @@ void InterlockingToSignals(void)
 			case STATE_CLEARANCE:
 			case STATE_TIMEOUT:
 			case STATE_TIMER:
-				if(!turnout[i/2])
+				if(!turnout[2*(i/2)])  // state0/1 = turnout[0], state2/3 = turnout[2]
 				{
 					// Main
 					signalHeads[2*i] = aspectsMain[2*i];
