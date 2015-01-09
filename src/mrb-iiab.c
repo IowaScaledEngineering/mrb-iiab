@@ -71,6 +71,13 @@ uint8_t pkt_count = 0;
 #define EE_OUTPUT_POLARITY4     0x26
 #define EE_MISC_CONFIG          0x30
 #define EE_SIM_TRAINS           0x40
+#define EE_ASPECTS_MAIN         0x100
+#define EE_ASPECTS_SIDING       0x108
+#define EE_SIGNAL_PINS_GREEN    0x110
+#define EE_SIGNAL_PINS_YELLOW1  0x118
+#define EE_SIGNAL_PINS_YELLOW2  0x120
+#define EE_SIGNAL_PINS_RED      0x128
+#define EE_SIGNAL_PINS_LUNAR    0x130
 
 #define NUM_SIM_TRAINS   32
 
@@ -177,6 +184,51 @@ uint8_t interlockingStatus;
 #define ASPECT_OFF       0x00
 
 uint8_t signalHeads[2 * NUM_DIRECTIONS];
+
+uint8_t aspectsMain[2*NUM_DIRECTIONS] = {
+//	Main/Top      Siding/Bottom
+	ASPECT_GREEN, ASPECT_RED, // Direction 0
+	ASPECT_GREEN, ASPECT_RED, // Direction 1
+	ASPECT_GREEN, ASPECT_RED, // Direction 2
+	ASPECT_GREEN, ASPECT_RED  // Direction 3
+};
+
+uint8_t aspectsSiding[2*NUM_DIRECTIONS] = {
+//	Main/Top      Siding/Bottom
+	ASPECT_RED, ASPECT_YELLOW, // Direction 0
+	ASPECT_RED, ASPECT_YELLOW, // Direction 1
+	ASPECT_RED, ASPECT_YELLOW, // Direction 2
+	ASPECT_RED, ASPECT_YELLOW, // Direction 3
+};
+
+typedef struct
+{
+	uint8_t signalHead;
+	uint8_t greenByte;
+	uint8_t greenMask;
+	uint8_t yellow1Byte;
+	uint8_t yellow1Mask;
+	uint8_t yellow2Byte;
+	uint8_t yellow2Mask;
+	uint8_t redByte;
+	uint8_t redMask;
+	uint8_t lunarByte;
+	uint8_t lunarMask;
+} SignalPinDefinition;
+
+// Two yellows are to allow for driving a red and green LED to produce yellow
+SignalPinDefinition sigPinDefs[8] = 
+{//     green----  yellow1--  yellow2--  red------  lunar----
+	{0, 0, _BV(0), 0, _BV(1), 0, _BV(1), 0, _BV(2), 0, _BV(2)},
+	{1, 0, _BV(3), 0, _BV(4), 0, _BV(4), 0, _BV(5), 0, _BV(5)},
+	{2, 0, _BV(6), 0, _BV(7), 0, _BV(7), 1, _BV(0), 1, _BV(0)},
+	{3, 1, _BV(1), 1, _BV(2), 1, _BV(2), 1, _BV(3), 1, _BV(3)},
+	{4, 1, _BV(4), 1, _BV(5), 1, _BV(5), 1, _BV(6), 1, _BV(6)},
+	{5, 1, _BV(7), 2, _BV(0), 2, _BV(0), 2, _BV(1), 2, _BV(1)},
+	{6, 2, _BV(2), 2, _BV(3), 2, _BV(3), 2, _BV(4), 2, _BV(4)},
+	{7, 2, _BV(5), 2, _BV(6), 2, _BV(6), 2, _BV(7), 2, _BV(7)},
+};
+
 
 
 volatile uint8_t events = 0;
@@ -520,6 +572,34 @@ void readEEPROM()
 		simTrain[i].approachTime = eeprom_read_byte((uint8_t*)(EE_SIM_TRAINS + (6*i) + SIM_TRAIN_APPROACH));
 		if(simTrain[i].approachTime > simTrain[i].totalTime)
 			simTrain[i].approachTime = simTrain[i].totalTime;  // Clamp
+	}
+	
+	// Load Aspect Definitions
+	for(i=0; i<(2*NUM_DIRECTIONS); i++)
+	{
+		aspectsMain[i] = eeprom_read_byte((uint8_t*)(EE_ASPECTS_MAIN + i));
+		aspectsSiding[i] = eeprom_read_byte((uint8_t*)(EE_ASPECTS_SIDING + i));
+	}
+	
+	for(i=0; i<8; i++)
+	{
+		uint8_t eeval;
+		sigPinDefs[i].signalHead = i;
+		eeval = eeprom_read_byte((uint8_t*)(EE_SIGNAL_PINS_GREEN + i));
+		sigPinDefs[i].greenByte = eeval >> 4;
+		sigPinDefs[i].greenMask = _BV(eeval & 0x0F);
+		eeval = eeprom_read_byte((uint8_t*)(EE_SIGNAL_PINS_YELLOW1 + i));
+		sigPinDefs[i].yellow1Byte = eeval >> 4;
+		sigPinDefs[i].yellow1Mask = _BV(eeval & 0x0F);
+		eeval = eeprom_read_byte((uint8_t*)(EE_SIGNAL_PINS_YELLOW2 + i));
+		sigPinDefs[i].yellow2Byte = eeval >> 4;
+		sigPinDefs[i].yellow2Mask = _BV(eeval & 0x0F);
+		eeval = eeprom_read_byte((uint8_t*)(EE_SIGNAL_PINS_RED + i));
+		sigPinDefs[i].redByte = eeval >> 4;
+		sigPinDefs[i].redMask = _BV(eeval & 0x0F);
+		eeval = eeprom_read_byte((uint8_t*)(EE_SIGNAL_PINS_LUNAR + i));
+		sigPinDefs[i].lunarByte = eeval >> 4;
+		sigPinDefs[i].lunarMask = _BV(eeval & 0x0F);
 	}
 }
 
@@ -866,37 +946,17 @@ void InterlockingToSignals(void)
 			case STATE_CLEARANCE:
 			case STATE_TIMEOUT:
 			case STATE_TIMER:
-				if(i % 2)
+				if(!turnout[i/2])
 				{
-					// Odd direction = point end
-					if(turnout[i-1])
-					{
-						// Opposite turnout set for siding
-						signalHeads[2*i] = ASPECT_RED;
-						signalHeads[(2*i)+1] = ASPECT_YELLOW;
-					}
-					else
-					{
-						// Opposite turnout set for main
-						signalHeads[2*i] = ASPECT_GREEN;
-						signalHeads[(2*i)+1] = ASPECT_RED;
-					}
+					// Main
+					signalHeads[2*i] = aspectsMain[2*i];
+					signalHeads[(2*i)+1] = aspectsMain[(2*i)+1];
 				}
 				else
 				{
-					// Even direction = frog end
-					if(turnout[i])
-					{
-						// Turnout set for siding
-						signalHeads[2*i] = ASPECT_RED;
-						signalHeads[(2*i)+1] = ASPECT_YELLOW;
-					}
-					else
-					{
-						// Turnout set for main
-						signalHeads[2*i] = ASPECT_GREEN;
-						signalHeads[(2*i)+1] = ASPECT_RED;
-					}
+					// Siding
+					signalHeads[2*i] = aspectsSiding[2*i];
+					signalHeads[(2*i)+1] = aspectsSiding[(2*i)+1];
 				}
 				break;
 			case STATE_OCCUPIED:
@@ -915,34 +975,6 @@ void InterlockingToSignals(void)
 // SignalsToOutputs is responsible for converting the signal head aspects in the
 // signalHeads[] array to the physical wires on the XIO.
 // Thus, it's hardware configuration dependent.
-
-typedef struct
-{
-	const uint8_t signalHead;
-	const uint8_t greenByte;
-	const uint8_t greenMask;
-	const uint8_t yellow1Byte;
-	const uint8_t yellow1Mask;
-	const uint8_t yellow2Byte;
-	const uint8_t yellow2Mask;
-	const uint8_t redByte;
-	const uint8_t redMask;
-	const uint8_t lunarByte;
-	const uint8_t lunarMask;
-} SignalPinDefinition;
-
-// Two yellows are to allow for driving a red and green LED to produce yellow
-const SignalPinDefinition sigPinDefs[8] = 
-{//         green----  yellow1--  yellow2--  red------  lunar----
-	{0, 0, _BV(0), 0, _BV(1), 0, _BV(1), 0, _BV(2), 0, _BV(2)},
-	{1, 0, _BV(3), 0, _BV(4), 0, _BV(4), 0, _BV(5), 0, _BV(5)},
-	{2, 0, _BV(6), 0, _BV(7), 0, _BV(7), 1, _BV(0), 1, _BV(0)},
-	{3, 1, _BV(1), 1, _BV(2), 1, _BV(2), 1, _BV(3), 1, _BV(3)},
-	{4, 1, _BV(4), 1, _BV(5), 1, _BV(5), 1, _BV(6), 1, _BV(6)},
-	{5, 1, _BV(7), 2, _BV(0), 2, _BV(0), 2, _BV(1), 2, _BV(1)},
-	{6, 2, _BV(2), 2, _BV(3), 2, _BV(3), 2, _BV(4), 2, _BV(4)},
-	{7, 2, _BV(5), 2, _BV(6), 2, _BV(6), 2, _BV(7), 2, _BV(7)},
-};
 
 // Signal Heads (G, Y, R)
 // 0: A0 - A2: #0 approach main signal  
