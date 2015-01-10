@@ -28,9 +28,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.98994949"
-     inkscape:cx="467.01862"
-     inkscape:cy="6.2900798"
+     inkscape:zoom="2.8"
+     inkscape:cx="220.6178"
+     inkscape:cy="174.68564"
      inkscape:document-units="in"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -2130,7 +2130,7 @@
          x="84.825394"
          y="880.51251"
          id="tspan4871"
-         style="font-size:10px;text-align:end;text-anchor:end">7V - 15V DC</tspan></text>
+         style="font-size:10px;text-align:end;text-anchor:end">8V - 15V DC</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:12px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
@@ -2159,7 +2159,7 @@
          x="680.10138"
          y="878.16235"
          id="tspan4871-0"
-         style="font-size:10px;text-align:start;text-anchor:start">7V - 15V DC</tspan></text>
+         style="font-size:10px;text-align:start;text-anchor:start">8V - 15V DC</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:12px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
