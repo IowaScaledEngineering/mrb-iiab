@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <office:document xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0" xmlns:style="urn:oasis:names:tc:opendocument:xmlns:style:1.0" xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oasis:names:tc:opendocument:xmlns:table:1.0" xmlns:draw="urn:oasis:names:tc:opendocument:xmlns:drawing:1.0" xmlns:fo="urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:meta="urn:oasis:names:tc:opendocument:xmlns:meta:1.0" xmlns:number="urn:oasis:names:tc:opendocument:xmlns:datastyle:1.0" xmlns:svg="urn:oasis:names:tc:opendocument:xmlns:svg-compatible:1.0" xmlns:chart="urn:oasis:names:tc:opendocument:xmlns:chart:1.0" xmlns:dr3d="urn:oasis:names:tc:opendocument:xmlns:dr3d:1.0" xmlns:math="http://www.w3.org/1998/Math/MathML" xmlns:form="urn:oasis:names:tc:opendocument:xmlns:form:1.0" xmlns:script="urn:oasis:names:tc:opendocument:xmlns:script:1.0" xmlns:config="urn:oasis:names:tc:opendocument:xmlns:config:1.0" xmlns:ooo="http://openoffice.org/2004/office" xmlns:ooow="http://openoffice.org/2004/writer" xmlns:oooc="http://openoffice.org/2004/calc" xmlns:dom="http://www.w3.org/2001/xml-events" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:rpt="http://openoffice.org/2005/report" xmlns:of="urn:oasis:names:tc:opendocument:xmlns:of:1.2" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:grddl="http://www.w3.org/2003/g/data-view#" xmlns:officeooo="http://openoffice.org/2009/office" xmlns:tableooo="http://openoffice.org/2009/table" xmlns:drawooo="http://openoffice.org/2010/draw" xmlns:calcext="urn:org:documentfoundation:names:experimental:calc:xmlns:calcext:1.0" xmlns:loext="urn:org:documentfoundation:names:experimental:office:xmlns:loext:1.0" xmlns:field="urn:openoffice:names:experimental:ooo-ms-interop:xmlns:field:1.0" xmlns:formx="urn:openoffice:names:experimental:ooxml-odf-interop:xmlns:form:1.0" xmlns:css3t="http://www.w3.org/TR/css3-text/" office:version="1.2" office:mimetype="application/vnd.oasis.opendocument.text">
- <office:meta><meta:creation-date>2015-01-05T11:46:28.789891740</meta:creation-date><dc:date>2015-01-09T23:14:56.692157162</dc:date><meta:editing-duration>PT5H22M17S</meta:editing-duration><meta:editing-cycles>70</meta:editing-cycles><meta:generator>LibreOffice/4.2.7.2$Linux_X86_64 LibreOffice_project/420m0$Build-2</meta:generator><meta:document-statistic meta:table-count="2" meta:image-count="12" meta:object-count="0" meta:page-count="11" meta:paragraph-count="207" meta:word-count="1778" meta:character-count="11041" meta:non-whitespace-character-count="9419"/></office:meta>
+ <office:meta><meta:creation-date>2015-01-05T11:46:28.789891740</meta:creation-date><dc:date>2015-01-10T09:19:20.326632233</dc:date><meta:editing-duration>PT5H29M19S</meta:editing-duration><meta:editing-cycles>75</meta:editing-cycles><meta:generator>LibreOffice/4.2.7.2$Linux_X86_64 LibreOffice_project/420m0$Build-2</meta:generator><meta:document-statistic meta:table-count="2" meta:image-count="12" meta:object-count="0" meta:page-count="11" meta:paragraph-count="208" meta:word-count="1816" meta:character-count="11258" meta:non-whitespace-character-count="9597"/></office:meta>
  <office:settings>
   <config:config-item-set config:name="ooo:view-settings">
-   <config:config-item config:name="ViewAreaTop" config:type="long">229023</config:config-item>
+   <config:config-item config:name="ViewAreaTop" config:type="long">242233</config:config-item>
    <config:config-item config:name="ViewAreaLeft" config:type="long">0</config:config-item>
    <config:config-item config:name="ViewAreaWidth" config:type="long">32016</config:config-item>
    <config:config-item config:name="ViewAreaHeight" config:type="long">13998</config:config-item>
@@ -14,11 +14,11 @@
     <config:config-item-map-entry>
      <config:config-item config:name="ViewId" config:type="string">view2</config:config-item>
      <config:config-item config:name="ViewLeft" config:type="long">7117</config:config-item>
-     <config:config-item config:name="ViewTop" config:type="long">230800</config:config-item>
+     <config:config-item config:name="ViewTop" config:type="long">250520</config:config-item>
      <config:config-item config:name="VisibleLeft" config:type="long">0</config:config-item>
-     <config:config-item config:name="VisibleTop" config:type="long">229023</config:config-item>
+     <config:config-item config:name="VisibleTop" config:type="long">242233</config:config-item>
      <config:config-item config:name="VisibleRight" config:type="long">32015</config:config-item>
-     <config:config-item config:name="VisibleBottom" config:type="long">243020</config:config-item>
+     <config:config-item config:name="VisibleBottom" config:type="long">256230</config:config-item>
      <config:config-item config:name="ZoomType" config:type="short">0</config:config-item>
      <config:config-item config:name="ViewLayoutColumns" config:type="short">0</config:config-item>
      <config:config-item config:name="ViewLayoutBookMode" config:type="boolean">false</config:config-item>
@@ -81,7 +81,7 @@
    <config:config-item config:name="ConsiderTextWrapOnObjPos" config:type="boolean">false</config:config-item>
    <config:config-item config:name="CurrentDatabaseCommandType" config:type="int">0</config:config-item>
    <config:config-item config:name="RedlineProtectionKey" config:type="base64Binary"/>
-   <config:config-item config:name="Rsid" config:type="int">6418276</config:config-item>
+   <config:config-item config:name="Rsid" config:type="int">6503067</config:config-item>
    <config:config-item config:name="PrintProspectRTL" config:type="boolean">false</config:config-item>
    <config:config-item config:name="PrinterSetup" config:type="base64Binary"/>
    <config:config-item config:name="AlignTabStopPosition" config:type="boolean">true</config:config-item>
@@ -750,54 +750,57 @@
   <style:style style:name="P23" style:family="paragraph" style:parent-style-name="Text_20_body">
    <style:text-properties officeooo:rsid="005f1f9e" officeooo:paragraph-rsid="005f1f9e"/>
   </style:style>
-  <style:style style:name="P24" style:family="paragraph" style:parent-style-name="Title">
+  <style:style style:name="P24" style:family="paragraph" style:parent-style-name="Text_20_body">
+   <style:text-properties officeooo:rsid="006174a8" officeooo:paragraph-rsid="006174a8"/>
+  </style:style>
+  <style:style style:name="P25" style:family="paragraph" style:parent-style-name="Title">
    <style:text-properties officeooo:rsid="001615eb" officeooo:paragraph-rsid="001615eb"/>
   </style:style>
-  <style:style style:name="P25" style:family="paragraph" style:parent-style-name="Table_20_Contents">
-   <style:paragraph-properties fo:text-align="center" style:justify-single-word="false"/>
-   <style:text-properties officeooo:rsid="0038d885" officeooo:paragraph-rsid="0038d885"/>
-  </style:style>
   <style:style style:name="P26" style:family="paragraph" style:parent-style-name="Table_20_Contents">
-   <style:paragraph-properties fo:text-align="center" style:justify-single-word="false">
-    <style:tab-stops>
-     <style:tab-stop style:position="0.7083in"/>
-    </style:tab-stops>
-   </style:paragraph-properties>
+   <style:paragraph-properties fo:text-align="center" style:justify-single-word="false"/>
    <style:text-properties officeooo:rsid="0038d885" officeooo:paragraph-rsid="0038d885"/>
   </style:style>
   <style:style style:name="P27" style:family="paragraph" style:parent-style-name="Table_20_Contents">
-   <style:paragraph-properties fo:text-align="center" style:justify-single-word="false"/>
-   <style:text-properties officeooo:rsid="003ac76f" officeooo:paragraph-rsid="003ac76f"/>
+   <style:paragraph-properties fo:text-align="center" style:justify-single-word="false">
+    <style:tab-stops>
+     <style:tab-stop style:position="0.7083in"/>
+    </style:tab-stops>
+   </style:paragraph-properties>
+   <style:text-properties officeooo:rsid="0038d885" officeooo:paragraph-rsid="0038d885"/>
   </style:style>
   <style:style style:name="P28" style:family="paragraph" style:parent-style-name="Table_20_Contents">
    <style:paragraph-properties fo:text-align="center" style:justify-single-word="false"/>
-   <style:text-properties officeooo:rsid="003f04c8" officeooo:paragraph-rsid="003f04c8"/>
+   <style:text-properties officeooo:rsid="003ac76f" officeooo:paragraph-rsid="003ac76f"/>
   </style:style>
   <style:style style:name="P29" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+   <style:paragraph-properties fo:text-align="center" style:justify-single-word="false"/>
    <style:text-properties officeooo:rsid="003f04c8" officeooo:paragraph-rsid="003f04c8"/>
   </style:style>
   <style:style style:name="P30" style:family="paragraph" style:parent-style-name="Table_20_Contents">
-   <style:text-properties officeooo:rsid="003f75f1" officeooo:paragraph-rsid="003f75f1"/>
+   <style:text-properties officeooo:rsid="003f04c8" officeooo:paragraph-rsid="003f04c8"/>
   </style:style>
   <style:style style:name="P31" style:family="paragraph" style:parent-style-name="Table_20_Contents">
-   <style:paragraph-properties fo:text-align="center" style:justify-single-word="false"/>
-   <style:text-properties officeooo:rsid="00415178" officeooo:paragraph-rsid="00415178"/>
+   <style:text-properties officeooo:rsid="003f75f1" officeooo:paragraph-rsid="003f75f1"/>
   </style:style>
   <style:style style:name="P32" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+   <style:paragraph-properties fo:text-align="center" style:justify-single-word="false"/>
    <style:text-properties officeooo:rsid="00415178" officeooo:paragraph-rsid="00415178"/>
   </style:style>
   <style:style style:name="P33" style:family="paragraph" style:parent-style-name="Table_20_Contents">
-   <style:paragraph-properties fo:text-align="center" style:justify-single-word="false"/>
-   <style:text-properties officeooo:rsid="0042dca1" officeooo:paragraph-rsid="0042dca1"/>
+   <style:text-properties officeooo:rsid="00415178" officeooo:paragraph-rsid="00415178"/>
   </style:style>
   <style:style style:name="P34" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+   <style:paragraph-properties fo:text-align="center" style:justify-single-word="false"/>
    <style:text-properties officeooo:rsid="0042dca1" officeooo:paragraph-rsid="0042dca1"/>
   </style:style>
   <style:style style:name="P35" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+   <style:text-properties officeooo:rsid="0042dca1" officeooo:paragraph-rsid="0042dca1"/>
+  </style:style>
+  <style:style style:name="P36" style:family="paragraph" style:parent-style-name="Table_20_Contents">
    <style:paragraph-properties fo:text-align="center" style:justify-single-word="false"/>
    <style:text-properties fo:font-weight="bold" officeooo:rsid="003ac76f" officeooo:paragraph-rsid="003ac76f" style:font-weight-asian="bold" style:font-weight-complex="bold"/>
   </style:style>
-  <style:style style:name="P36" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+  <style:style style:name="P37" style:family="paragraph" style:parent-style-name="Table_20_Contents">
    <style:paragraph-properties fo:text-align="center" style:justify-single-word="false">
     <style:tab-stops>
      <style:tab-stop style:position="0.7083in"/>
@@ -805,84 +808,90 @@
    </style:paragraph-properties>
    <style:text-properties fo:font-weight="bold" officeooo:rsid="003ac76f" officeooo:paragraph-rsid="003ac76f" style:font-weight-asian="bold" style:font-weight-complex="bold"/>
   </style:style>
-  <style:style style:name="P37" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+  <style:style style:name="P38" style:family="paragraph" style:parent-style-name="Table_20_Contents">
    <style:text-properties officeooo:rsid="00454a67" officeooo:paragraph-rsid="00454a67"/>
   </style:style>
-  <style:style style:name="P38" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+  <style:style style:name="P39" style:family="paragraph" style:parent-style-name="Table_20_Contents">
    <style:text-properties officeooo:rsid="00454a67" officeooo:paragraph-rsid="0046ba8b"/>
   </style:style>
-  <style:style style:name="P39" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+  <style:style style:name="P40" style:family="paragraph" style:parent-style-name="Table_20_Contents">
    <style:text-properties officeooo:rsid="00454a67" officeooo:paragraph-rsid="004ba0e8"/>
   </style:style>
-  <style:style style:name="P40" style:family="paragraph" style:parent-style-name="Table">
-   <style:paragraph-properties fo:break-before="page"/>
-  </style:style>
-  <style:style style:name="P41" style:family="paragraph" style:parent-style-name="Heading_20_1">
+  <style:style style:name="P41" style:family="paragraph" style:parent-style-name="Table">
    <style:paragraph-properties fo:break-before="page"/>
   </style:style>
   <style:style style:name="P42" style:family="paragraph" style:parent-style-name="Heading_20_1">
    <style:paragraph-properties fo:break-before="page"/>
+  </style:style>
+  <style:style style:name="P43" style:family="paragraph" style:parent-style-name="Heading_20_1">
+   <style:paragraph-properties fo:break-before="page"/>
    <style:text-properties officeooo:rsid="001615eb" officeooo:paragraph-rsid="001f35c4"/>
   </style:style>
-  <style:style style:name="P43" style:family="paragraph" style:parent-style-name="Table_20_Heading">
+  <style:style style:name="P44" style:family="paragraph" style:parent-style-name="Table_20_Heading">
    <style:text-properties officeooo:rsid="0038d885" officeooo:paragraph-rsid="0038d885"/>
   </style:style>
-  <style:style style:name="P44" style:family="paragraph" style:parent-style-name="Table_20_Heading">
+  <style:style style:name="P45" style:family="paragraph" style:parent-style-name="Table_20_Heading">
    <style:paragraph-properties fo:text-align="center" style:justify-single-word="false"/>
    <style:text-properties officeooo:rsid="003ac76f" officeooo:paragraph-rsid="003ac76f"/>
   </style:style>
-  <style:style style:name="P45" style:family="paragraph" style:parent-style-name="Table">
+  <style:style style:name="P46" style:family="paragraph" style:parent-style-name="Table">
    <style:paragraph-properties fo:keep-with-next="always"/>
   </style:style>
-  <style:style style:name="P46" style:family="paragraph" style:parent-style-name="Heading_20_1">
-   <style:text-properties officeooo:rsid="001f5051" officeooo:paragraph-rsid="001f5051"/>
-  </style:style>
   <style:style style:name="P47" style:family="paragraph" style:parent-style-name="Heading_20_1">
-   <style:text-properties officeooo:rsid="001f35c4" officeooo:paragraph-rsid="001f35c4"/>
+   <style:text-properties officeooo:rsid="001f5051" officeooo:paragraph-rsid="001f5051"/>
   </style:style>
   <style:style style:name="P48" style:family="paragraph" style:parent-style-name="Heading_20_1">
-   <style:text-properties officeooo:paragraph-rsid="001f35c4"/>
-  </style:style>
-  <style:style style:name="P49" style:family="paragraph" style:parent-style-name="List_20_Contents">
-   <style:text-properties officeooo:rsid="001a7ffb" officeooo:paragraph-rsid="001a7ffb"/>
-  </style:style>
-  <style:style style:name="P50" style:family="paragraph" style:parent-style-name="List_20_Contents">
-   <style:text-properties officeooo:rsid="001bb702" officeooo:paragraph-rsid="001bb702"/>
-  </style:style>
-  <style:style style:name="P51" style:family="paragraph" style:parent-style-name="Text_20_body">
-   <style:text-properties officeooo:rsid="006174a8" officeooo:paragraph-rsid="006174a8"/>
-  </style:style>
-  <style:style style:name="P52" style:family="paragraph" style:parent-style-name="Text_20_body">
-   <style:text-properties officeooo:rsid="0024bbc0" officeooo:paragraph-rsid="0024bbc0"/>
-  </style:style>
-  <style:style style:name="P53" style:family="paragraph" style:parent-style-name="Heading_20_1">
-   <style:text-properties officeooo:rsid="001f5051" officeooo:paragraph-rsid="001f5051"/>
-  </style:style>
-  <style:style style:name="P54" style:family="paragraph" style:parent-style-name="Heading_20_1">
    <style:text-properties officeooo:rsid="001f35c4" officeooo:paragraph-rsid="001f35c4"/>
   </style:style>
-  <style:style style:name="P55" style:family="paragraph" style:parent-style-name="Heading_20_1">
+  <style:style style:name="P49" style:family="paragraph" style:parent-style-name="Heading_20_1">
    <style:text-properties officeooo:paragraph-rsid="001f35c4"/>
   </style:style>
-  <style:style style:name="P56" style:family="paragraph" style:parent-style-name="Heading_20_1">
-   <style:paragraph-properties fo:break-before="page"/>
+  <style:style style:name="P50" style:family="paragraph" style:parent-style-name="List_20_Contents">
+   <style:text-properties officeooo:rsid="001a7ffb" officeooo:paragraph-rsid="001a7ffb"/>
+  </style:style>
+  <style:style style:name="P51" style:family="paragraph" style:parent-style-name="List_20_Contents">
+   <style:text-properties officeooo:rsid="001bb702" officeooo:paragraph-rsid="001bb702"/>
+  </style:style>
+  <style:style style:name="P52" style:family="paragraph" style:parent-style-name="Text_20_body">
+   <style:text-properties officeooo:rsid="0059a364" officeooo:paragraph-rsid="0059a364"/>
+  </style:style>
+  <style:style style:name="P53" style:family="paragraph" style:parent-style-name="Text_20_body">
+   <style:text-properties officeooo:rsid="00633a9b" officeooo:paragraph-rsid="00633a9b"/>
+  </style:style>
+  <style:style style:name="P54" style:family="paragraph" style:parent-style-name="Text_20_body">
+   <style:text-properties officeooo:rsid="006174a8" officeooo:paragraph-rsid="00633a9b"/>
+  </style:style>
+  <style:style style:name="P55" style:family="paragraph" style:parent-style-name="Text_20_body">
+   <style:text-properties officeooo:rsid="0022eb1b" officeooo:paragraph-rsid="0022eb1b"/>
+  </style:style>
+  <style:style style:name="P56" style:family="paragraph" style:parent-style-name="Text_20_body">
+   <style:text-properties officeooo:rsid="001f5051" officeooo:paragraph-rsid="001f5051"/>
   </style:style>
   <style:style style:name="P57" style:family="paragraph" style:parent-style-name="Heading_20_1">
+   <style:text-properties officeooo:rsid="001f5051" officeooo:paragraph-rsid="001f5051"/>
+  </style:style>
+  <style:style style:name="P58" style:family="paragraph" style:parent-style-name="Heading_20_1">
+   <style:text-properties officeooo:rsid="001f35c4" officeooo:paragraph-rsid="001f35c4"/>
+  </style:style>
+  <style:style style:name="P59" style:family="paragraph" style:parent-style-name="Heading_20_1">
+   <style:paragraph-properties fo:break-before="page"/>
+  </style:style>
+  <style:style style:name="P60" style:family="paragraph" style:parent-style-name="Heading_20_1">
    <style:paragraph-properties fo:break-before="page"/>
    <style:text-properties officeooo:rsid="001615eb" officeooo:paragraph-rsid="001f35c4"/>
   </style:style>
-  <style:style style:name="P58" style:family="paragraph" style:parent-style-name="List_20_Contents" style:list-style-name="L1"/>
-  <style:style style:name="P59" style:family="paragraph" style:parent-style-name="List_20_Contents" style:list-style-name="L1">
+  <style:style style:name="P61" style:family="paragraph" style:parent-style-name="List_20_Contents" style:list-style-name="L1"/>
+  <style:style style:name="P62" style:family="paragraph" style:parent-style-name="List_20_Contents" style:list-style-name="L1">
    <style:text-properties officeooo:rsid="001a7ffb" officeooo:paragraph-rsid="001a7ffb"/>
   </style:style>
-  <style:style style:name="P60" style:family="paragraph" style:parent-style-name="List_20_Contents" style:list-style-name="L1">
+  <style:style style:name="P63" style:family="paragraph" style:parent-style-name="List_20_Contents" style:list-style-name="L1">
    <style:text-properties officeooo:rsid="001bb702" officeooo:paragraph-rsid="001bb702"/>
   </style:style>
   <style:style style:name="T1" style:family="text">
    <style:text-properties officeooo:rsid="001615eb"/>
   </style:style>
   <style:style style:name="T2" style:family="text">
-   <style:text-properties fo:color="#b2b2b2" officeooo:rsid="001615eb"/>
+   <style:text-properties fo:color="#808080" officeooo:rsid="001615eb" style:font-size-asian="10.5pt"/>
   </style:style>
   <style:style style:name="T3" style:family="text">
    <style:text-properties officeooo:rsid="001615eb"/>
@@ -961,6 +970,12 @@
   </style:style>
   <style:style style:name="T28" style:family="text">
    <style:text-properties officeooo:rsid="006174a8"/>
+  </style:style>
+  <style:style style:name="T29" style:family="text">
+   <style:text-properties officeooo:rsid="00633a9b"/>
+  </style:style>
+  <style:style style:name="T30" style:family="text">
+   <style:text-properties fo:color="#808080" officeooo:rsid="001615eb" style:font-size-asian="10.5pt"/>
   </style:style>
   <style:style style:name="fr1" style:family="graphic" style:parent-style-name="Frame">
    <style:graphic-properties fo:margin-left="0in" fo:margin-right="0in" fo:margin-top="0in" fo:margin-bottom="0.2in" style:wrap="none" style:vertical-pos="from-top" style:vertical-rel="paragraph" style:horizontal-pos="from-left" style:horizontal-rel="paragraph" fo:padding="0in" fo:border="none"/>
@@ -2863,35 +2878,35 @@
       </office:binary-data>
      </draw:image>
     </draw:frame></text:p>
-   <text:p text:style-name="P24">Interlocking-In-A-Box</text:p>
+   <text:p text:style-name="P25">Interlocking-In-A-Box</text:p>
    <text:h text:style-name="Heading_20_1" text:outline-level="1">Features</text:h>
-   <text:list xml:id="list3035008949091456348" text:style-name="L1">
+   <text:list xml:id="list8173890154741473708" text:style-name="L1">
     <text:list-item>
-     <text:p text:style-name="P58">Fully automatic interlocking <text:span text:style-name="T5">with built-in signal logic</text:span></text:p>
+     <text:p text:style-name="P61">Fully automatic interlocking <text:span text:style-name="T5">with built-in signal logic</text:span></text:p>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P59"><text:span text:style-name="T10">Ability to </text:span>simulate trains on any track based on fast time</text:p>
+     <text:p text:style-name="P62"><text:span text:style-name="T10">Ability to </text:span>simulate trains on any track based on fast time</text:p>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P60">Configurable time lock and timeout delays to suit any application</text:p>
+     <text:p text:style-name="P63">Configurable time lock and timeout delays to suit any application</text:p>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P59">Supports up to one siding on each of the main lines with appropriate signal indications</text:p>
+     <text:p text:style-name="P62">Supports up to one siding on each of the main lines with appropriate signal indications</text:p>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P59">Interfaces with current-based or infrared block detectors (sold separately)</text:p>
+     <text:p text:style-name="P62">Interfaces with current-based or infrared block detectors (sold separately)</text:p>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P59">Simulated trains can trigger 3<text:span text:style-name="T6">rd</text:span> party sound modules for enhanced realism</text:p>
+     <text:p text:style-name="P62">Simulated trains can trigger 3<text:span text:style-name="T6">rd</text:span> party sound modules for enhanced realism</text:p>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P59">Optional automatic interchange can be triggered by simulated trains</text:p>
+     <text:p text:style-name="P62">Optional automatic interchange can be triggered by simulated trains</text:p>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P60">Simple configuration with the MRGUI application</text:p>
+     <text:p text:style-name="P63">Simple configuration with the MRGUI application</text:p>
     </text:list-item>
    </text:list>
-   <text:h text:style-name="P46" text:outline-level="1">Description</text:h>
+   <text:h text:style-name="P47" text:outline-level="1">Description</text:h>
    <text:p text:style-name="P6"><draw:frame draw:style-name="fr1" draw:name="Frame1" text:anchor-type="paragraph" svg:x="0.5in" svg:y="1.4764in" svg:width="6in" draw:z-index="1">
      <draw:text-box fo:min-height="1.9402in">
       <text:p text:style-name="Figure"><draw:frame draw:style-name="fr6" draw:name="Image3" text:anchor-type="paragraph" svg:width="6in" style:rel-width="100%" svg:height="1.8799in" style:rel-height="scale" draw:z-index="11"><draw:image xlink:href="schematic.png" xlink:type="simple" xlink:show="embed" xlink:actuate="onLoad"/>
@@ -2902,8 +2917,11 @@
    <text:p text:style-name="P6"><text:soft-page-break/>The MRB-IIAB can also enhanced the realism of a dummy main line by simulating trains – and optionally triggering a sound module – on the dummy main line, preventing movement through the diamond on the the active main line while the simulated train is present. <text:s/>Schedules for simulated trains are loaded into the module and then triggered based on fast time from an MRB-FCM fast clock module (sold separately). <text:s/>Up to 32 scheduled trains can be programmed into each MRB-IIAB module. <text:s/><text:span text:style-name="T11">Additionally, each simulated train can also trigger an automatic interchange, delivering cars to be picked up by the next main line train.</text:span></text:p>
    <text:p text:style-name="P6">Track occupancy inputs accept logic-level signals from a variety of occupancy detectors. <text:s/>Both current-based (DCC) detectors such as the MRB-BD42 and optical/IR detectors such as the CKT-IRSENSE can be used. <text:s/>Other 3<text:span text:style-name="T6">rd</text:span> party detectors can also be used as long as they provide a logic-level (or open-drain) output.</text:p>
    <text:p text:style-name="P6">Signals are driven with 5V outputs capable of sourcing 10mA or sinking 20mA each. <text:s/>Configuration options allow the MRB-IIAB to control any combination of common-anode (+) and common-cathode (-) LED signals. <text:s/>Additional circuitry may be needed to drive incandescent type signals – contact us for details.</text:p>
+   <text:h text:style-name="Heading_20_1" text:outline-level="1">Operation</text:h>
+   <text:p text:style-name="P53">Signal logic overview (using test case diagrams?)</text:p>
    <text:p text:style-name="P6"/>
-   <text:h text:style-name="P42" text:outline-level="1">Installation</text:h>
+   <text:p text:style-name="P6"/>
+   <text:h text:style-name="P43" text:outline-level="1">Installation</text:h>
    <text:p text:style-name="P10">The MRB-IIAB consists of <text:span text:style-name="T12">an input/output board containing 40 I/O terminals, a microcontroller, voltage regulators, and an MRBus connection. <text:s/>The basic connections are shown below:</text:span></text:p>
    <text:h text:style-name="Heading_20_2" text:outline-level="2"><draw:frame draw:style-name="fr2" draw:name="Frame2" text:anchor-type="paragraph" svg:width="7in" draw:z-index="2">
      <draw:text-box fo:min-height="2.6201in">
@@ -2915,8 +2933,8 @@
    <text:p text:style-name="P12">Typically, when using the MRBus connection to network multiple MRB-IIAB modules and a fast clock, J3 is connected to the MRBus power lines. <text:s/>A local power source can then be used to supply the signals at each interlocking via J1. <text:s/>If only a single MRB-IIAB module is being used, then both J1 and J3 can be connected to the same power source.</text:p>
    <text:h text:style-name="Heading_20_2" text:outline-level="2">Inputs and Outputs</text:h>
    <text:p text:style-name="P13">The 40 I/O <text:span text:style-name="T15">terminals</text:span> are split into five banks, each bank containing 8 pins. <text:s/>The <text:span text:style-name="T15">input / output </text:span>assignments <text:span text:style-name="T15">for</text:span> each terminal are shown in <text:sequence-ref text:reference-format="category-and-value" text:ref-name="refTable0">Table 1</text:sequence-ref><text:span text:style-name="T15">. <text:s/>Between the banks of terminals are GND and 5V terminal blocks. <text:s/>These are provided as convenient locations to terminate the common terminal of signals, to power block detectors, or provide a pull-up voltage for open-drain inputs.</text:span></text:p>
-   <text:p text:style-name="P45"/>
-   <text:p text:style-name="P40">Table <text:sequence text:ref-name="refTable0" text:name="Table" text:formula="ooow:Table+1" style:num-format="1">1</text:sequence>: Input / Output Assignments</text:p>
+   <text:p text:style-name="P46"/>
+   <text:p text:style-name="P41">Table <text:sequence text:ref-name="refTable0" text:name="Table" text:formula="ooow:Table+1" style:num-format="1">1</text:sequence>: Input / Output Assignments</text:p>
    <table:table table:name="Table1" table:style-name="Table1">
     <table:table-column table:style-name="Table1.A"/>
     <table:table-column table:style-name="Table1.B"/>
@@ -2924,299 +2942,299 @@
     <table:table-header-rows>
      <table:table-row>
       <table:table-cell table:style-name="Table1.A1" office:value-type="string">
-       <text:p text:style-name="P43">Terminal</text:p>
+       <text:p text:style-name="P44">Terminal</text:p>
       </table:table-cell>
       <table:table-cell table:style-name="Table1.A1" office:value-type="string">
-       <text:p text:style-name="P44">Direction</text:p>
+       <text:p text:style-name="P45">Direction</text:p>
       </table:table-cell>
       <table:table-cell table:style-name="Table1.C1" office:value-type="string">
-       <text:p text:style-name="P43">Description</text:p>
+       <text:p text:style-name="P44">Description</text:p>
       </table:table-cell>
      </table:table-row>
     </table:table-header-rows>
     <table:table-row>
      <table:table-cell table:style-name="Table1.A2" table:number-columns-spanned="3" office:value-type="string">
-      <text:p text:style-name="P36">PORT A</text:p>
+      <text:p text:style-name="P37">PORT A</text:p>
      </table:table-cell>
      <table:covered-table-cell/>
      <table:covered-table-cell/>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table1.A9" office:value-type="string">
-      <text:p text:style-name="P26">A0</text:p>
+      <text:p text:style-name="P27">A0</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.B3" office:value-type="string">
-      <text:p text:style-name="P27">Output</text:p>
+      <text:p text:style-name="P28">Output</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.C3" office:value-type="string">
-      <text:p text:style-name="P37">Signal West Main (Green)</text:p>
+      <text:p text:style-name="P38">Signal West Main (Green)</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table1.A9" office:value-type="string">
-      <text:p text:style-name="P25">A1</text:p>
+      <text:p text:style-name="P26">A1</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.B4" office:value-type="string">
-      <text:p text:style-name="P27">Output</text:p>
+      <text:p text:style-name="P28">Output</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.C4" office:value-type="string">
-      <text:p text:style-name="P39">Signal West Main (<text:span text:style-name="T19">Yellow</text:span>)</text:p>
+      <text:p text:style-name="P40">Signal West Main (<text:span text:style-name="T19">Yellow</text:span>)</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table1.A9" office:value-type="string">
-      <text:p text:style-name="P25">A2</text:p>
+      <text:p text:style-name="P26">A2</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.B5" office:value-type="string">
-      <text:p text:style-name="P27">Output</text:p>
+      <text:p text:style-name="P28">Output</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.C5" office:value-type="string">
-      <text:p text:style-name="P37">Signal West Main (Red)</text:p>
+      <text:p text:style-name="P38">Signal West Main (Red)</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table1.A9" office:value-type="string">
-      <text:p text:style-name="P25">A3</text:p>
+      <text:p text:style-name="P26">A3</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.B6" office:value-type="string">
-      <text:p text:style-name="P27">Output</text:p>
+      <text:p text:style-name="P28">Output</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.C6" office:value-type="string">
-      <text:p text:style-name="P39">Signal West Siding (<text:span text:style-name="T19">Green</text:span>)</text:p>
+      <text:p text:style-name="P40">Signal West Siding (<text:span text:style-name="T19">Green</text:span>)</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table1.A9" office:value-type="string">
-      <text:p text:style-name="P25">A4</text:p>
+      <text:p text:style-name="P26">A4</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.B7" office:value-type="string">
-      <text:p text:style-name="P27">Output</text:p>
+      <text:p text:style-name="P28">Output</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.C7" office:value-type="string">
-      <text:p text:style-name="P37">Signal West Siding (Yellow)</text:p>
+      <text:p text:style-name="P38">Signal West Siding (Yellow)</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table1.A9" office:value-type="string">
-      <text:p text:style-name="P25">A5</text:p>
+      <text:p text:style-name="P26">A5</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.B8" office:value-type="string">
-      <text:p text:style-name="P27">Output</text:p>
+      <text:p text:style-name="P28">Output</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.C8" office:value-type="string">
-      <text:p text:style-name="P37">Signal West Siding (Red)</text:p>
+      <text:p text:style-name="P38">Signal West Siding (Red)</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table1.A9" office:value-type="string">
-      <text:p text:style-name="P25">A6</text:p>
+      <text:p text:style-name="P26">A6</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.B9" office:value-type="string">
-      <text:p text:style-name="P27">Output</text:p>
+      <text:p text:style-name="P28">Output</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.C9" office:value-type="string">
-      <text:p text:style-name="P37">Signal <text:span text:style-name="T17">East Top </text:span>(Green)</text:p>
+      <text:p text:style-name="P38">Signal <text:span text:style-name="T17">East Top </text:span>(Green)</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table1.A27" office:value-type="string">
-      <text:p text:style-name="P27">A7</text:p>
+      <text:p text:style-name="P28">A7</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.B10" office:value-type="string">
-      <text:p text:style-name="P27">Output</text:p>
+      <text:p text:style-name="P28">Output</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.C10" office:value-type="string">
-      <text:p text:style-name="P39">Signal <text:span text:style-name="T17">East Top </text:span>(<text:span text:style-name="T19">Yellow</text:span>)</text:p>
+      <text:p text:style-name="P40">Signal <text:span text:style-name="T17">East Top </text:span>(<text:span text:style-name="T19">Yellow</text:span>)</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table1.A2" table:number-columns-spanned="3" office:value-type="string">
-      <text:p text:style-name="P35">PORT B</text:p>
+      <text:p text:style-name="P36">PORT B</text:p>
      </table:table-cell>
      <table:covered-table-cell/>
      <table:covered-table-cell/>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table1.A27" office:value-type="string">
-      <text:p text:style-name="P27">B0</text:p>
+      <text:p text:style-name="P28">B0</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.B12" office:value-type="string">
-      <text:p text:style-name="P27">Output</text:p>
+      <text:p text:style-name="P28">Output</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.C12" office:value-type="string">
-      <text:p text:style-name="P38">Signal <text:span text:style-name="T17">East Top</text:span> (<text:span text:style-name="T17">Red</text:span>)</text:p>
+      <text:p text:style-name="P39">Signal <text:span text:style-name="T17">East Top</text:span> (<text:span text:style-name="T17">Red</text:span>)</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table1.A27" office:value-type="string">
-      <text:p text:style-name="P27">B1</text:p>
+      <text:p text:style-name="P28">B1</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.B13" office:value-type="string">
-      <text:p text:style-name="P27">Output</text:p>
+      <text:p text:style-name="P28">Output</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.C13" office:value-type="string">
-      <text:p text:style-name="P39">Signal <text:span text:style-name="T17">East Bottom </text:span>(<text:span text:style-name="T19">Green</text:span>)</text:p>
+      <text:p text:style-name="P40">Signal <text:span text:style-name="T17">East Bottom </text:span>(<text:span text:style-name="T19">Green</text:span>)</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table1.A27" office:value-type="string">
-      <text:p text:style-name="P27">B2</text:p>
+      <text:p text:style-name="P28">B2</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.B14" office:value-type="string">
-      <text:p text:style-name="P27">Output</text:p>
+      <text:p text:style-name="P28">Output</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.C14" office:value-type="string">
-      <text:p text:style-name="P38">Signal <text:span text:style-name="T17">East Bottom </text:span>(<text:span text:style-name="T17">Yellow</text:span>)</text:p>
+      <text:p text:style-name="P39">Signal <text:span text:style-name="T17">East Bottom </text:span>(<text:span text:style-name="T17">Yellow</text:span>)</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table1.A27" office:value-type="string">
-      <text:p text:style-name="P27">B3</text:p>
+      <text:p text:style-name="P28">B3</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.B15" office:value-type="string">
-      <text:p text:style-name="P27">Output</text:p>
+      <text:p text:style-name="P28">Output</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.C15" office:value-type="string">
-      <text:p text:style-name="P38">Signal <text:span text:style-name="T17">East Bottom </text:span>(<text:span text:style-name="T17">Red</text:span>)</text:p>
+      <text:p text:style-name="P39">Signal <text:span text:style-name="T17">East Bottom </text:span>(<text:span text:style-name="T17">Red</text:span>)</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table1.A27" office:value-type="string">
-      <text:p text:style-name="P27">B4</text:p>
+      <text:p text:style-name="P28">B4</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.B16" office:value-type="string">
-      <text:p text:style-name="P27">Output</text:p>
+      <text:p text:style-name="P28">Output</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.C16" office:value-type="string">
-      <text:p text:style-name="P38">Signal <text:span text:style-name="T17">North Main </text:span>(<text:span text:style-name="T17">Green</text:span>)</text:p>
+      <text:p text:style-name="P39">Signal <text:span text:style-name="T17">North Main </text:span>(<text:span text:style-name="T17">Green</text:span>)</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table1.A27" office:value-type="string">
-      <text:p text:style-name="P27">B5</text:p>
+      <text:p text:style-name="P28">B5</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.B17" office:value-type="string">
-      <text:p text:style-name="P27">Output</text:p>
+      <text:p text:style-name="P28">Output</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.C17" office:value-type="string">
-      <text:p text:style-name="P39">Signal <text:span text:style-name="T17">North Main </text:span>(<text:span text:style-name="T19">Yellow</text:span>)</text:p>
+      <text:p text:style-name="P40">Signal <text:span text:style-name="T17">North Main </text:span>(<text:span text:style-name="T19">Yellow</text:span>)</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table1.A27" office:value-type="string">
-      <text:p text:style-name="P27">B6</text:p>
+      <text:p text:style-name="P28">B6</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.B18" office:value-type="string">
-      <text:p text:style-name="P27">Output</text:p>
+      <text:p text:style-name="P28">Output</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.C18" office:value-type="string">
-      <text:p text:style-name="P38">Signal <text:span text:style-name="T17">North Main </text:span>(<text:span text:style-name="T17">Red</text:span>)</text:p>
+      <text:p text:style-name="P39">Signal <text:span text:style-name="T17">North Main </text:span>(<text:span text:style-name="T17">Red</text:span>)</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table1.A27" office:value-type="string">
-      <text:p text:style-name="P27">B7</text:p>
+      <text:p text:style-name="P28">B7</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.B19" office:value-type="string">
-      <text:p text:style-name="P27">Output</text:p>
+      <text:p text:style-name="P28">Output</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.C19" office:value-type="string">
-      <text:p text:style-name="P39">Signal <text:span text:style-name="T17">North Siding </text:span>(<text:span text:style-name="T19">Green</text:span>)</text:p>
+      <text:p text:style-name="P40">Signal <text:span text:style-name="T17">North Siding </text:span>(<text:span text:style-name="T19">Green</text:span>)</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table1.A2" table:number-columns-spanned="3" office:value-type="string">
-      <text:p text:style-name="P35">PORT C</text:p>
+      <text:p text:style-name="P36">PORT C</text:p>
      </table:table-cell>
      <table:covered-table-cell/>
      <table:covered-table-cell/>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table1.A27" office:value-type="string">
-      <text:p text:style-name="P33">C0</text:p>
+      <text:p text:style-name="P34">C0</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.B21" office:value-type="string">
-      <text:p text:style-name="P27">Output</text:p>
+      <text:p text:style-name="P28">Output</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.C21" office:value-type="string">
-      <text:p text:style-name="P38">Signal <text:span text:style-name="T17">North Siding </text:span>(<text:span text:style-name="T17">Yellow</text:span>)</text:p>
+      <text:p text:style-name="P39">Signal <text:span text:style-name="T17">North Siding </text:span>(<text:span text:style-name="T17">Yellow</text:span>)</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table1.A27" office:value-type="string">
-      <text:p text:style-name="P33">C1</text:p>
+      <text:p text:style-name="P34">C1</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.B22" office:value-type="string">
-      <text:p text:style-name="P27">Output</text:p>
+      <text:p text:style-name="P28">Output</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.C22" office:value-type="string">
-      <text:p text:style-name="P38">Signal <text:span text:style-name="T17">North Siding </text:span>(<text:span text:style-name="T17">Red</text:span>)</text:p>
+      <text:p text:style-name="P39">Signal <text:span text:style-name="T17">North Siding </text:span>(<text:span text:style-name="T17">Red</text:span>)</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table1.A27" office:value-type="string">
-      <text:p text:style-name="P33">C2</text:p>
+      <text:p text:style-name="P34">C2</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.B23" office:value-type="string">
-      <text:p text:style-name="P27">Output</text:p>
+      <text:p text:style-name="P28">Output</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.C23" office:value-type="string">
-      <text:p text:style-name="P38">Signal <text:span text:style-name="T17">South Top </text:span>(<text:span text:style-name="T17">Green</text:span>)</text:p>
+      <text:p text:style-name="P39">Signal <text:span text:style-name="T17">South Top </text:span>(<text:span text:style-name="T17">Green</text:span>)</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table1.A27" office:value-type="string">
-      <text:p text:style-name="P33">C3</text:p>
+      <text:p text:style-name="P34">C3</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.B24" office:value-type="string">
-      <text:p text:style-name="P27">Output</text:p>
+      <text:p text:style-name="P28">Output</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.C24" office:value-type="string">
-      <text:p text:style-name="P39">Signal <text:span text:style-name="T17">South Top </text:span>(<text:span text:style-name="T19">Yellow</text:span>)</text:p>
+      <text:p text:style-name="P40">Signal <text:span text:style-name="T17">South Top </text:span>(<text:span text:style-name="T19">Yellow</text:span>)</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table1.A27" office:value-type="string">
-      <text:p text:style-name="P33">C4</text:p>
+      <text:p text:style-name="P34">C4</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.B25" office:value-type="string">
-      <text:p text:style-name="P27">Output</text:p>
+      <text:p text:style-name="P28">Output</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.C25" office:value-type="string">
-      <text:p text:style-name="P38">Signal <text:span text:style-name="T17">South Top </text:span>(<text:span text:style-name="T17">Red</text:span>)</text:p>
+      <text:p text:style-name="P39">Signal <text:span text:style-name="T17">South Top </text:span>(<text:span text:style-name="T17">Red</text:span>)</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table1.A27" office:value-type="string">
-      <text:p text:style-name="P33">C5</text:p>
+      <text:p text:style-name="P34">C5</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.B26" office:value-type="string">
-      <text:p text:style-name="P27">Output</text:p>
+      <text:p text:style-name="P28">Output</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.C26" office:value-type="string">
-      <text:p text:style-name="P39">Signal <text:span text:style-name="T17">South Bottom </text:span>(<text:span text:style-name="T19">Green</text:span>)</text:p>
+      <text:p text:style-name="P40">Signal <text:span text:style-name="T17">South Bottom </text:span>(<text:span text:style-name="T19">Green</text:span>)</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table1.A27" office:value-type="string">
-      <text:p text:style-name="P33">C6</text:p>
+      <text:p text:style-name="P34">C6</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.B27" office:value-type="string">
-      <text:p text:style-name="P27">Output</text:p>
+      <text:p text:style-name="P28">Output</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.C27" office:value-type="string">
-      <text:p text:style-name="P38">Signal <text:span text:style-name="T17">South Bottom </text:span>(<text:span text:style-name="T17">Yellow</text:span>)</text:p>
+      <text:p text:style-name="P39">Signal <text:span text:style-name="T17">South Bottom </text:span>(<text:span text:style-name="T17">Yellow</text:span>)</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table1.A28" office:value-type="string">
-      <text:p text:style-name="P33">C7</text:p>
+      <text:p text:style-name="P34">C7</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.B28" office:value-type="string">
-      <text:p text:style-name="P27">Output</text:p>
+      <text:p text:style-name="P28">Output</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.C28" office:value-type="string">
-      <text:p text:style-name="P38">Signal <text:span text:style-name="T17">South Bottom </text:span>(<text:span text:style-name="T17">Red</text:span>)</text:p>
+      <text:p text:style-name="P39">Signal <text:span text:style-name="T17">South Bottom </text:span>(<text:span text:style-name="T17">Red</text:span>)</text:p>
      </table:table-cell>
     </table:table-row>
    </table:table>
@@ -3228,204 +3246,204 @@
     <table:table-header-rows>
      <table:table-row>
       <table:table-cell table:style-name="Table2.A1" office:value-type="string">
-       <text:p text:style-name="P43">Terminal</text:p>
+       <text:p text:style-name="P44">Terminal</text:p>
       </table:table-cell>
       <table:table-cell table:style-name="Table2.A1" office:value-type="string">
-       <text:p text:style-name="P44">Direction</text:p>
+       <text:p text:style-name="P45">Direction</text:p>
       </table:table-cell>
       <table:table-cell table:style-name="Table2.C1" office:value-type="string">
-       <text:p text:style-name="P43">Description</text:p>
+       <text:p text:style-name="P44">Description</text:p>
       </table:table-cell>
      </table:table-row>
     </table:table-header-rows>
     <table:table-row>
      <table:table-cell table:style-name="Table2.A2" table:number-columns-spanned="3" office:value-type="string">
-      <text:p text:style-name="P35">PORT D</text:p>
+      <text:p text:style-name="P36">PORT D</text:p>
      </table:table-cell>
      <table:covered-table-cell/>
      <table:covered-table-cell/>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table2.A18" office:value-type="string">
-      <text:p text:style-name="P33">D0</text:p>
+      <text:p text:style-name="P34">D0</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table2.B3" office:value-type="string">
-      <text:p text:style-name="P28">Input</text:p>
+      <text:p text:style-name="P29">Input</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table2.C3" office:value-type="string">
-      <text:p text:style-name="P29">Block Detect<text:span text:style-name="T16">or</text:span> (West Main)</text:p>
+      <text:p text:style-name="P30">Block Detect<text:span text:style-name="T16">or</text:span> (West Main)</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table2.A18" office:value-type="string">
-      <text:p text:style-name="P33">D1</text:p>
+      <text:p text:style-name="P34">D1</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table2.B4" office:value-type="string">
-      <text:p text:style-name="P28">Input</text:p>
+      <text:p text:style-name="P29">Input</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table2.C4" office:value-type="string">
-      <text:p text:style-name="P29">Block Detect<text:span text:style-name="T16">or</text:span> (West Siding)</text:p>
+      <text:p text:style-name="P30">Block Detect<text:span text:style-name="T16">or</text:span> (West Siding)</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table2.A18" office:value-type="string">
-      <text:p text:style-name="P33">D2</text:p>
+      <text:p text:style-name="P34">D2</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table2.B5" office:value-type="string">
-      <text:p text:style-name="P28">Input</text:p>
+      <text:p text:style-name="P29">Input</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table2.C5" office:value-type="string">
-      <text:p text:style-name="P29">Block Detect<text:span text:style-name="T16">or</text:span> (East)</text:p>
+      <text:p text:style-name="P30">Block Detect<text:span text:style-name="T16">or</text:span> (East)</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table2.A18" office:value-type="string">
-      <text:p text:style-name="P33">D3</text:p>
+      <text:p text:style-name="P34">D3</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table2.B6" office:value-type="string">
-      <text:p text:style-name="P28">Input</text:p>
+      <text:p text:style-name="P29">Input</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table2.C6" office:value-type="string">
-      <text:p text:style-name="P29">Block Detect<text:span text:style-name="T16">or</text:span> (North Main)</text:p>
+      <text:p text:style-name="P30">Block Detect<text:span text:style-name="T16">or</text:span> (North Main)</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table2.A18" office:value-type="string">
-      <text:p text:style-name="P33">D4</text:p>
+      <text:p text:style-name="P34">D4</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table2.B7" office:value-type="string">
-      <text:p text:style-name="P28">Input</text:p>
+      <text:p text:style-name="P29">Input</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table2.C7" office:value-type="string">
-      <text:p text:style-name="P29">Block Detect<text:span text:style-name="T16">or </text:span>(North Siding)</text:p>
+      <text:p text:style-name="P30">Block Detect<text:span text:style-name="T16">or </text:span>(North Siding)</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table2.A18" office:value-type="string">
-      <text:p text:style-name="P33">D5</text:p>
+      <text:p text:style-name="P34">D5</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table2.B8" office:value-type="string">
-      <text:p text:style-name="P28">Input</text:p>
+      <text:p text:style-name="P29">Input</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table2.C8" office:value-type="string">
-      <text:p text:style-name="P29">Block Detect<text:span text:style-name="T16">or</text:span> (South)</text:p>
+      <text:p text:style-name="P30">Block Detect<text:span text:style-name="T16">or</text:span> (South)</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table2.A18" office:value-type="string">
-      <text:p text:style-name="P33">D6</text:p>
+      <text:p text:style-name="P34">D6</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table2.B9" office:value-type="string">
-      <text:p text:style-name="P28">Input</text:p>
+      <text:p text:style-name="P29">Input</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table2.C9" office:value-type="string">
-      <text:p text:style-name="P29">Block Detect<text:span text:style-name="T16">or</text:span> (Diamond)</text:p>
+      <text:p text:style-name="P30">Block Detect<text:span text:style-name="T16">or</text:span> (Diamond)</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table2.A18" office:value-type="string">
-      <text:p text:style-name="P33">D7</text:p>
+      <text:p text:style-name="P34">D7</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table2.B10" office:value-type="string">
-      <text:p text:style-name="P28">Input</text:p>
+      <text:p text:style-name="P29">Input</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table2.C10" office:value-type="string">
-      <text:p text:style-name="P29">Block Detect<text:span text:style-name="T16">or</text:span> (Automatic Interchange)</text:p>
+      <text:p text:style-name="P30">Block Detect<text:span text:style-name="T16">or</text:span> (Automatic Interchange)</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table2.A2" table:number-columns-spanned="3" office:value-type="string">
-      <text:p text:style-name="P35">PORT E</text:p>
+      <text:p text:style-name="P36">PORT E</text:p>
      </table:table-cell>
      <table:covered-table-cell/>
      <table:covered-table-cell/>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table2.A18" office:value-type="string">
-      <text:p text:style-name="P33">E0</text:p>
+      <text:p text:style-name="P34">E0</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table2.B12" office:value-type="string">
-      <text:p text:style-name="P28">Input</text:p>
+      <text:p text:style-name="P29">Input</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table2.C12" office:value-type="string">
-      <text:p text:style-name="P30">Turnout Position (West)</text:p>
+      <text:p text:style-name="P31">Turnout Position (West)</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table2.A18" office:value-type="string">
-      <text:p text:style-name="P33">E1</text:p>
+      <text:p text:style-name="P34">E1</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table2.B13" office:value-type="string">
-      <text:p text:style-name="P28">Input</text:p>
+      <text:p text:style-name="P29">Input</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table2.C13" office:value-type="string">
-      <text:p text:style-name="P30">Unused. <text:s/>Connect to GND.</text:p>
+      <text:p text:style-name="P31">Unused. <text:s/>Connect to GND.</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table2.A18" office:value-type="string">
-      <text:p text:style-name="P33">E2</text:p>
+      <text:p text:style-name="P34">E2</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table2.B14" office:value-type="string">
-      <text:p text:style-name="P28">Input</text:p>
+      <text:p text:style-name="P29">Input</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table2.C14" office:value-type="string">
-      <text:p text:style-name="P30">Turnout Position (North)</text:p>
+      <text:p text:style-name="P31">Turnout Position (North)</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table2.A18" office:value-type="string">
-      <text:p text:style-name="P33">E3</text:p>
+      <text:p text:style-name="P34">E3</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table2.B15" office:value-type="string">
-      <text:p text:style-name="P28">Input</text:p>
+      <text:p text:style-name="P29">Input</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table2.C15" office:value-type="string">
-      <text:p text:style-name="P30">Unused. <text:s/>Connect to GND.</text:p>
+      <text:p text:style-name="P31">Unused. <text:s/>Connect to GND.</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table2.A18" office:value-type="string">
-      <text:p text:style-name="P33">E4</text:p>
+      <text:p text:style-name="P34">E4</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table2.B16" office:value-type="string">
-      <text:p text:style-name="P31">Output</text:p>
+      <text:p text:style-name="P32">Output</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table2.C16" office:value-type="string">
-      <text:p text:style-name="P32">Unused. <text:s/>Do not connect.</text:p>
+      <text:p text:style-name="P33">Unused. <text:s/>Do not connect.</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table2.A18" office:value-type="string">
-      <text:p text:style-name="P33">E5</text:p>
+      <text:p text:style-name="P34">E5</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table2.B17" office:value-type="string">
-      <text:p text:style-name="P33">Output</text:p>
+      <text:p text:style-name="P34">Output</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table2.C17" office:value-type="string">
-      <text:p text:style-name="P34">Automatic Interchange Relay</text:p>
+      <text:p text:style-name="P35">Automatic Interchange Relay</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table2.A18" office:value-type="string">
-      <text:p text:style-name="P33">E6</text:p>
+      <text:p text:style-name="P34">E6</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table2.B18" office:value-type="string">
-      <text:p text:style-name="P33">Output</text:p>
+      <text:p text:style-name="P34">Output</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table2.C18" office:value-type="string">
-      <text:p text:style-name="P34">Sound 0 Trigger</text:p>
+      <text:p text:style-name="P35">Sound 0 Trigger</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table2.A19" office:value-type="string">
-      <text:p text:style-name="P33">E7</text:p>
+      <text:p text:style-name="P34">E7</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table2.B19" office:value-type="string">
-      <text:p text:style-name="P33">Output</text:p>
+      <text:p text:style-name="P34">Output</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table2.C19" office:value-type="string">
-      <text:p text:style-name="P34">Sound 1 Trigger</text:p>
+      <text:p text:style-name="P35">Sound 1 Trigger</text:p>
      </table:table-cell>
     </table:table-row>
    </table:table>
@@ -3770,11 +3788,11 @@
        rkJggg==
       </office:binary-data>
      </draw:image>
-    </draw:frame>Leave any unused signal outputs disconnected. <text:s/>Connecting any signal output to 5V, GND, or any other power source may damage the MRB-IIAB module.</text:p>
+    </draw:frame>Leave any unused signal outputs disconnected. <text:s/>Connecting any signal output <text:span text:style-name="T29">directly </text:span>to 5V, GND, or any other power source may damage the MRB-IIAB module.</text:p>
    <text:h text:style-name="Heading_20_2" text:outline-level="2"><text:soft-page-break/>Detectors</text:h>
    <text:p text:style-name="P21">The MRB-IIAB can be used with a variety of block detectors. <text:s/>Any block detector that provides a 5V logic-level or open-drain / open-collector output is compatible with the MRB-IIAB. <text:s/>The MRB-IIAB can <text:span text:style-name="T23">also </text:span>be configured to work with any detector output polarity (active high or active low).</text:p>
    <text:p text:style-name="P21">Current-based block detectors provide the most realistic operation since these types of detectors can sense a train anywhere in the block. <text:s/>However, in some cases, infrared (IR) detectors may make more sense since they don&apos;t require outfitting an entire fleet of rolling stock with resistive wheelsets.</text:p>
-   <text:p text:style-name="P21"><draw:frame draw:style-name="fr9" draw:name="Image8" text:anchor-type="char" svg:width="0.4in" svg:height="0.3598in" draw:z-index="8"><draw:image>
+   <text:p text:style-name="P52"><draw:frame draw:style-name="fr9" draw:name="Image8" text:anchor-type="char" svg:width="0.4in" svg:height="0.3598in" draw:z-index="8"><draw:image>
       <office:binary-data>iVBORw0KGgoAAAANSUhEUgAAASwAAAEOCAYAAAAzGSpIAAAABHNCSVQICAgIfAhkiAAAAAlw
        SFlzAAAuIwAALiMBeKU/dgAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoA
        ACAASURBVHic7d15sFX1lejx7wIuMg+KoDKJchkUAcEhkcGxBYLpqAGMMYmiGMuWgN0vDqmI
@@ -3936,28 +3954,29 @@
        rkJggg==
       </office:binary-data>
      </draw:image>
-    </draw:frame><text:span text:style-name="T25">Unused block detector inputs should be tied to GND to prevent unpredictable behavior.</text:span></text:p>
+    </draw:frame>Unused block detector inputs should be tied to GND to prevent unpredictable behavior.</text:p>
    <text:h text:style-name="Heading_20_3" text:outline-level="3">IR Detectors</text:h>
    <text:p text:style-name="P20">Infrared type detectors, such as the <text:a xlink:type="simple" xlink:href="http://www.iascaled.com/store/CKT-IRSENSE">CKT-IRSENSE</text:a>, typically only sense a small area. <text:s/>Therefore, multiple detectors per block are recommended to improve the coverage. <text:s/>The MRB-IIAB has only one block detect input per block, but the output of multiple CKT-IRSENSE detectors can be connected in parallel as shown in <text:sequence-ref text:reference-format="category-and-value" text:ref-name="refFigure4">Figure 5</text:sequence-ref>. <text:s/>Since the output of the CKT-IRSENSE is open-drain (<text:span text:style-name="T24">not actively driven high</text:span>), a <text:span text:style-name="T26">10k </text:span>pull-up resistor to 5V is required at the input to the MRB-IIAB.</text:p>
-   <text:h text:style-name="Heading_20_3" text:outline-level="3"><draw:frame draw:style-name="fr4" draw:name="Frame5" text:anchor-type="paragraph" svg:width="7in" draw:z-index="9">
+   <text:p text:style-name="P53"><draw:frame draw:style-name="fr4" draw:name="Frame5" text:anchor-type="paragraph" svg:width="7in" draw:z-index="9">
      <draw:text-box fo:min-height="4in">
       <text:p text:style-name="Figure"><draw:frame draw:style-name="fr8" draw:name="Image9" text:anchor-type="paragraph" svg:width="7in" svg:height="4in" draw:z-index="10"><draw:image xlink:href="irsense.png" xlink:type="simple" xlink:show="embed" xlink:actuate="onLoad"/>
        </draw:frame>Figure <text:sequence text:ref-name="refFigure4" text:name="Figure" text:formula="ooow:Figure+1" style:num-format="1">5</text:sequence>: Connecting CKT-IRSENSE Infrared Block Detectors</text:p>
      </draw:text-box>
-    </draw:frame>Current Based Detectors</text:h>
-   <text:p text:style-name="P51">For DCC installations, current based block detectors such as the <text:a xlink:type="simple" xlink:href="http://www.iascaled.com/store/MRB-BD4X">MRB-BD4X</text:a> can be used with the MRB-IIAB. <text:s/>While these detectors require your rolling stock to be outfitted with resistive wheelsets, they do provide the most realistic operation since they can detect the presence of a train anywhere in the block. <text:s/>Connecting the MRB-BD4X is easy when the MRB-IIAB is ordered with the BD4X Detector <text:soft-page-break/>option. <text:s/>This option provides two modular connectors on Port D allowing two MRB-BD4X boards to simply be plugged into the module as shown in <text:sequence-ref text:reference-format="category-and-value" text:ref-name="refFigure5">Figure 6</text:sequence-ref>. <text:s/>Power and ground are provided at the modular connectors along with the four detector inputs from each module.</text:p>
-   <text:p text:style-name="P51"><draw:frame draw:style-name="fr4" draw:name="Frame6" text:anchor-type="paragraph" svg:width="7in" draw:z-index="14">
+    </draw:frame>Some IR detectors also include delay times on the release of the detector output. <text:s/>Any delay time in the detector will add to the timeout delay configured in the MRB-IIAB module. <text:s/>See the <text:span text:style-name="T22">TBD</text:span> section on page <text:span text:style-name="T22">X</text:span> for more details.</text:p>
+   <text:h text:style-name="Heading_20_3" text:outline-level="3"><text:soft-page-break/>Current Based Detectors</text:h>
+   <text:p text:style-name="P24">For DCC installations, current based block detectors such as the <text:a xlink:type="simple" xlink:href="http://www.iascaled.com/store/MRB-BD4X">MRB-BD4X</text:a> can be used with the MRB-IIAB. <text:s/>While these detectors require your rolling stock to be outfitted with resistive wheelsets, they do provide the most realistic operation since they can detect the presence of a train anywhere in the block. <text:s/>Connecting the MRB-BD4X is easy when the MRB-IIAB is ordered with the BD4X Detector option. <text:s/>This option provides two modular connectors on Port D allowing two MRB-BD4X boards to simply be plugged into the module as shown in <text:sequence-ref text:reference-format="category-and-value" text:ref-name="refFigure5">Figure 6</text:sequence-ref>. <text:s/>Power and ground are provided at the modular connectors along with the four detector inputs from each module.</text:p>
+   <text:p text:style-name="P24"><draw:frame draw:style-name="fr4" draw:name="Frame6" text:anchor-type="paragraph" svg:width="7in" draw:z-index="14">
      <draw:text-box fo:min-height="3.9374in">
-      <text:p text:style-name="Figure"><draw:frame draw:style-name="fr8" draw:name="Image10" text:anchor-type="paragraph" svg:width="7in" svg:height="3.9374in" draw:z-index="15"><draw:image xlink:href="bd4x.png" xlink:type="simple" xlink:show="embed" xlink:actuate="onLoad" draw:filter-name="&lt;All formats&gt;"/>
+      <text:p text:style-name="Figure"><draw:frame draw:style-name="fr8" draw:name="Image10" text:anchor-type="paragraph" svg:width="7in" svg:height="3.9374in" draw:z-index="15"><draw:image xlink:href="bd4x.png" xlink:type="simple" xlink:show="embed" xlink:actuate="onLoad"/>
        </draw:frame>Figure <text:sequence text:ref-name="refFigure5" text:name="Figure" text:formula="ooow:Figure+1" style:num-format="1">6</text:sequence>: Connecting MRB-BD4X Current Based Block Detectors</text:p>
      </draw:text-box>
-    </draw:frame><text:span text:style-name="T28">Third party detectors can </text:span>also be used with the MRB-IIAB. <text:s/>Be sure the outputs are either 5V logic-level or open-drain / open-collector outputs. <text:s/>Open-drain / open-collector type outputs do require 10k pull-up resistors to 5V at each MRB-IIAB input as shown in <text:sequence-ref text:reference-format="category-and-value" text:ref-name="refFigure4">Figure 5</text:sequence-ref>.</text:p>
+    </draw:frame>Third party detectors can also be used with the MRB-IIAB. <text:s/>Be sure the outputs are either 5V logic-level or open-drain / open-collector outputs. <text:s/>Open-drain / open-collector type outputs do require 10k pull-up resistors to 5V at each MRB-IIAB input as shown in <text:sequence-ref text:reference-format="category-and-value" text:ref-name="refFigure4">Figure 5</text:sequence-ref>.</text:p>
    <text:h text:style-name="Heading_20_2" text:outline-level="2">Other Functions</text:h>
    <text:h text:style-name="Heading_20_3" text:outline-level="3">Sound Triggers</text:h>
-   <text:p text:style-name="P51">Outputs E6 and E7 can be used to trigger sound, animation, or other modules when a simulated train is triggered. <text:s/>These are 5V logic-level outputs with configurable polarity (active high or active low). <text:s/>Each simulated train can be configured to optionally activate one, or both, of the outputs.</text:p>
+   <text:p text:style-name="P24">Outputs E6 and E7 can be used to trigger sound, animation, or other modules when a simulated train is triggered. <text:s/>These are 5V logic-level outputs with configurable polarity (active high or active low). <text:s/>Each simulated train can be configured to optionally activate one, or both, of the outputs.</text:p>
    <text:h text:style-name="Heading_20_3" text:outline-level="3">Auto <text:span text:style-name="T28">I</text:span>nterchange <text:span text:style-name="T28">R</text:span>elay</text:h>
-   <text:p text:style-name="P51">A relay can be connected to output E5 to activate power on an automatic interchange track. <text:s/>Simulated trains can optionally trigger the automatic interchange, causing a cut of cars to be pushed forward for pickup later in the operating session. <text:s/>This output is a 5V logic-level output intended to interface with a relay driver module, such as the <text:a xlink:type="simple" xlink:href="http://www.iascaled.com/store/ACC-RELAY1">ACC-RELAY1</text:a>.</text:p>
-   <text:p text:style-name="P51"><draw:frame draw:style-name="fr10" draw:name="Image11" text:anchor-type="char" svg:x="0in" svg:width="0.4in" svg:height="0.3598in" draw:z-index="16"><draw:image>
+   <text:p text:style-name="P24">A relay can be connected to output E5 to activate power on an automatic interchange track. <text:s/>Simulated <text:soft-page-break/>trains can optionally trigger the automatic interchange, causing a cut of cars to be pushed forward for pickup later in the operating session. <text:s/>This output is a 5V logic-level output intended to interface with a relay driver module, such as the <text:a xlink:type="simple" xlink:href="http://www.iascaled.com/store/ACC-RELAY1">ACC-RELAY1</text:a>.</text:p>
+   <text:p text:style-name="P24"><draw:frame draw:style-name="fr10" draw:name="Image11" text:anchor-type="char" svg:x="0in" svg:width="0.4in" svg:height="0.3598in" draw:z-index="16"><draw:image>
       <office:binary-data>iVBORw0KGgoAAAANSUhEUgAAASwAAAEOCAYAAAAzGSpIAAAABHNCSVQICAgIfAhkiAAAAAlw
        SFlzAAAuIwAALiMBeKU/dgAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoA
        ACAASURBVHic7d15sFX1lejx7wIuMg+KoDKJchkUAcEhkcGxBYLpqAGMMYmiGMuWgN0vDqmI
@@ -4120,31 +4139,29 @@
       </office:binary-data>
      </draw:image>
     </draw:frame>The E5 output is not designed to directly drive a relay coil. <text:s/>Connecting a relay to the pin can damage the MRB-IIAB. <text:s/>Use a relay driver or a relay module with built-in driver.</text:p>
-   <text:h text:style-name="Heading_20_2" text:outline-level="2"><text:soft-page-break/>MRBus</text:h>
+   <text:h text:style-name="Heading_20_2" text:outline-level="2">MRBus</text:h>
    <text:p text:style-name="P10"/>
    <text:p text:style-name="P10"><draw:frame draw:style-name="fr3" draw:name="Frame7" text:anchor-type="paragraph" svg:width="7in" draw:z-index="17">
      <draw:text-box fo:min-height="2.8819in">
-      <text:p text:style-name="Figure"><draw:frame draw:style-name="fr11" draw:name="Image12" text:anchor-type="paragraph" svg:width="7in" style:rel-width="100%" svg:height="2.8819in" style:rel-height="scale" draw:z-index="18"><draw:image xlink:href="mrbus.png" xlink:type="simple" xlink:show="embed" xlink:actuate="onLoad" draw:filter-name="&lt;All formats&gt;"/>
+      <text:p text:style-name="Figure"><draw:frame draw:style-name="fr11" draw:name="Image12" text:anchor-type="paragraph" svg:width="7in" style:rel-width="100%" svg:height="2.8819in" style:rel-height="scale" draw:z-index="18"><draw:image xlink:href="mrbus.png" xlink:type="simple" xlink:show="embed" xlink:actuate="onLoad"/>
        </draw:frame>Figure <text:sequence text:ref-name="refFigure6" text:name="Figure" text:formula="ooow:Figure+1" style:num-format="1">7</text:sequence>: Connection to a MRBus Network</text:p>
      </draw:text-box>
     </draw:frame></text:p>
-   <text:h text:style-name="P47" text:outline-level="1">Configuration</text:h>
+   <text:h text:style-name="P48" text:outline-level="1">Configuration</text:h>
    <text:p text:style-name="P5"/>
-   <text:h text:style-name="P48" text:outline-level="1">Operation</text:h>
-   <text:p text:style-name="P8">Signal logic overview (using test case diagrams?)</text:p>
    <text:h text:style-name="Heading_20_1" text:outline-level="1">Applications</text:h>
    <text:p text:style-name="P7">2 active main lines</text:p>
    <text:p text:style-name="P7">1 active, 1 dummy</text:p>
    <text:p text:style-name="P7">Swapping sidings</text:p>
-   <text:p text:style-name="P7">Changing signal color for proceed (main and siding)</text:p>
    <text:p text:style-name="P7">auto interchange</text:p>
    <text:p text:style-name="P7">using sound outputs to trigger crossing gates</text:p>
-   <text:h text:style-name="Heading_20_1" text:outline-level="1">Related Products</text:h>
+   <text:h text:style-name="Heading_20_1" text:outline-level="1"><text:soft-page-break/>Related Products</text:h>
    <text:p text:style-name="P23"><text:a xlink:type="simple" xlink:href="http://www.iascaled.com/store/MRB-FCM">MRB-FCM</text:a>: Model Railroad Fast Clock Master</text:p>
-   <text:p text:style-name="P23"><text:soft-page-break/><text:a xlink:type="simple" xlink:href="http://www.iascaled.com/store/CKT-IRSENSE">CKT-IRSENSE</text:a>: Reflective Infrared Proximity Sensor</text:p>
+   <text:p text:style-name="P23"><text:a xlink:type="simple" xlink:href="http://www.iascaled.com/store/CKT-IRSENSE">CKT-IRSENSE</text:a>: Reflective Infrared Proximity Sensor</text:p>
    <text:p text:style-name="P23"><text:a xlink:type="simple" xlink:href="http://www.iascaled.com/store/MRB-BD4X">MRB-BD4X</text:a>: 4-Channel Current-Based (DCC) Block Detector</text:p>
-   <text:p text:style-name="P6"/>
-   <text:h text:style-name="P41" text:outline-level="1">Open Design</text:h>
+   <text:p text:style-name="P54"><text:a xlink:type="simple" xlink:href="http://www.iascaled.com/store/ACC-RELAY1">ACC-RELAY1</text:a>: <text:span text:style-name="T29">Single Relay Module</text:span></text:p>
+   <text:p text:style-name="P54"/>
+   <text:h text:style-name="P42" text:outline-level="1">Open Design</text:h>
    <text:p text:style-name="P4">Iowa Scaled Engineering is committed to creating open designs that users are free to build, modify, adapt, improve, and share with others. <text:s/></text:p>
    <text:h text:style-name="Heading_20_2" text:outline-level="2">Hardware</text:h>
    <text:p text:style-name="P4">The design of the <text:span text:style-name="T7">MRB-IIAB</text:span> hardware is open source hardware, and is made available under the terms of the Creative Commons Attribution-Share Alike v3.0 license, a copy of which is available from: <text:a xlink:type="simple" xlink:href="http://creativecommons.org/licenses/by-sa/3.0/">http://creativecommons.org/licenses/by-sa/3.0/</text:a></text:p>

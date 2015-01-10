@@ -37,9 +37,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="1"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.4142136"
-     inkscape:cx="113.39905"
-     inkscape:cy="41.618792"
+     inkscape:zoom="4.0000001"
+     inkscape:cx="206.88983"
+     inkscape:cy="81.849487"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -143,7 +143,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -348,7 +348,7 @@
        inkscape:export-ydpi="180"
        inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/primitives/WB-green-red.png" />
     <path
-       style="fill:none;stroke:#e1e1e1;stroke-width:1.00000095px;stroke-linecap:round;stroke-linejoin:miter;stroke-opacity:1"
+       style="fill:none;stroke:#b3b3b3;stroke-width:1.00000095000000000px;stroke-linecap:round;stroke-linejoin:miter;stroke-opacity:1"
        d="m 129.64631,1002.3625 c -0.125,-0.1042 -6,-6.00001 -6,-6.00001"
        id="path3791-3"
        inkscape:connector-curvature="0"
@@ -376,7 +376,7 @@
        id="path3791-3-4-7"
        inkscape:connector-curvature="0" />
     <path
-       style="fill:none;stroke:#e1e1e1;stroke-width:1.00000095px;stroke-linecap:round;stroke-linejoin:miter;stroke-opacity:1"
+       style="fill:none;stroke:#b3b3b3;stroke-width:1.00000095000000000px;stroke-linecap:round;stroke-linejoin:miter;stroke-opacity:1"
        d="m 224,972.36218 c 0.125,-0.1042 6,-6 6,-6"
        id="path3791-3-6"
        inkscape:connector-curvature="0"
