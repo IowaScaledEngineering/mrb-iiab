@@ -1,0 +1,540 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:osb="http://www.openswatchbook.org/uri/2009/osb"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="340"
+   height="500"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="sidings.svg"
+   inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/usermanual/schematic.png"
+   inkscape:export-xdpi="600"
+   inkscape:export-ydpi="600">
+  <defs
+     id="defs4">
+    <linearGradient
+       id="linearGradient4081"
+       osb:paint="solid">
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="0"
+         id="stop4083" />
+    </linearGradient>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="1"
+     inkscape:pageshadow="2"
+     inkscape:zoom="2.0000001"
+     inkscape:cx="88.81284"
+     inkscape:cy="160.86382"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1366"
+     inkscape:window-height="745"
+     inkscape:window-x="0"
+     inkscape:window-y="1"
+     inkscape:window-maximized="1"
+     inkscape:snap-bbox="true"
+     inkscape:bbox-paths="true"
+     inkscape:bbox-nodes="true"
+     inkscape:snap-bbox-edge-midpoints="true"
+     inkscape:snap-bbox-midpoints="true"
+     inkscape:object-nodes="true"
+     inkscape:snap-smooth-nodes="true"
+     inkscape:snap-midpoints="true"
+     inkscape:snap-object-midpoints="true"
+     inkscape:object-paths="true"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     inkscape:snap-intersection-paths="true"
+     inkscape:snap-center="true">
+    <sodipodi:guide
+       orientation="0,1"
+       position="0,50"
+       id="guide3837" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="0,80"
+       id="guide3839" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="0,40"
+       id="guide3841" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="0,20"
+       id="guide3843" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="90,0"
+       id="guide3845" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="10,0"
+       id="guide3879" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="0,60"
+       id="guide3881" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="0,30"
+       id="guide3883" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="0,10"
+       id="guide3885" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="0,90"
+       id="guide3889" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="230,0"
+       id="guide3971" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="320,0"
+       id="guide3973" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="0,70"
+       id="guide4079" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="121.5,57.99967"
+       id="guide3049" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="123.646,49.99968"
+       id="guide3838" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="0,100"
+       id="guide3865" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="200.00018,79.99984"
+       id="guide3909" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="275,0"
+       id="guide3917" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="0,150"
+       id="guide3095" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="213.94399,159.99999"
+       id="guide3134" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="0,250"
+       id="guide3138" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-552.36218)">
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="M 200.35102,902.36218 10,902.36218"
+       id="path3006-1"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/usermanual/img/sidings-flip.png"
+       inkscape:export-xdpi="720"
+       inkscape:export-ydpi="720" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.99999958px;stroke-linecap:round;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 200.00018,872.36202 c -1.25,1.04167 -60.00001,60.00016 -60.00001,60.00016"
+       id="path3791-8"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/usermanual/img/sidings-flip.png"
+       inkscape:export-xdpi="720"
+       inkscape:export-ydpi="720" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 210.49733,892.36219 109.5,0"
+       id="path3797-2"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/usermanual/img/sidings-flip.png"
+       inkscape:export-xdpi="720"
+       inkscape:export-ydpi="720" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 208.49755,902.36218 111.49978,0"
+       id="path4075-2"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/usermanual/img/sidings-flip.png"
+       inkscape:export-xdpi="720"
+       inkscape:export-ydpi="720" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1.00000095px;stroke-linecap:round;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 208.49734,894.36219 c 0.0416,-0.0348 1.99999,-2 1.99999,-2"
+       id="path3791-3-4-1"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/usermanual/img/sidings-flip.png"
+       inkscape:export-xdpi="720"
+       inkscape:export-ydpi="720" />
+    <path
+       style="fill:none;stroke:#b3b3b3;stroke-width:1.00000095px;stroke-linecap:round;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 200.35102,902.36218 c 0.125,-0.1042 6,-6.00001 6,-6.00001"
+       id="path3791-3-8"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/usermanual/img/sidings-flip.png"
+       inkscape:export-xdpi="720"
+       inkscape:export-ydpi="720" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.99999994px;stroke-linecap:round;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 206.35102,902.36218 -6,0"
+       id="path4077-4"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/usermanual/img/sidings-flip.png"
+       inkscape:export-xdpi="720"
+       inkscape:export-ydpi="720" />
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="9.4140625"
+       y="899.38367"
+       id="text3964-8"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/usermanual/img/sidings-flip.png"
+       inkscape:export-xdpi="720"
+       inkscape:export-ydpi="720"><tspan
+         sodipodi:role="line"
+         id="tspan3966-2"
+         x="9.4140625"
+         y="899.38367"
+         style="font-size:8px">Layout West</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="320.05469"
+       y="899.38367"
+       id="text3964-3-9-2"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/usermanual/img/sidings-flip.png"
+       inkscape:export-xdpi="720"
+       inkscape:export-ydpi="720"><tspan
+         sodipodi:role="line"
+         id="tspan3966-5-5-8"
+         x="320.05469"
+         y="899.38367"
+         style="font-size:8px;text-align:end;text-anchor:end">Layout East</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="9.4140625"
+       y="910.08875"
+       id="text3964-8-0"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/usermanual/img/sidings-flip.png"
+       inkscape:export-xdpi="720"
+       inkscape:export-ydpi="720"><tspan
+         sodipodi:role="line"
+         id="tspan3966-2-4"
+         x="9.4140625"
+         y="910.08875"
+         style="font-size:8px">MRB-IIAB East</tspan></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text3130"
+       y="910.08875"
+       x="320.05469"
+       style="font-size:12px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       xml:space="preserve"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/usermanual/img/sidings-flip.png"
+       inkscape:export-xdpi="720"
+       inkscape:export-ydpi="720"><tspan
+         style="font-size:8px;text-align:end;text-anchor:end"
+         y="910.08875"
+         x="320.05469"
+         id="tspan3132"
+         sodipodi:role="line">MRB-IIAB West</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.99999958px;stroke-linecap:round;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 200.00018,772.36202 c -1.25,1.04167 -60,60.00016 -60,60.00016"
+       id="path3791-7"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/usermanual/img/siding-two.png"
+       inkscape:export-xdpi="720"
+       inkscape:export-ydpi="720" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 119.5,792.36219 -109.5,0"
+       id="path3797-0"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/usermanual/img/siding-two.png"
+       inkscape:export-xdpi="720"
+       inkscape:export-ydpi="720" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="M 121.49978,802.36218 10,802.36218"
+       id="path4075-1"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/usermanual/img/siding-two.png"
+       inkscape:export-xdpi="720"
+       inkscape:export-ydpi="720" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1.00000095px;stroke-linecap:round;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 121.5,794.36219 c -0.0416,-0.0348 -2,-2 -2,-2"
+       id="path3791-3-4-7"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/usermanual/img/siding-two.png"
+       inkscape:export-xdpi="720"
+       inkscape:export-ydpi="720" />
+    <path
+       style="fill:none;stroke:#b3b3b3;stroke-width:1.00000095px;stroke-linecap:round;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 129.64632,802.36218 c -0.125,-0.1042 -6,-6.00001 -6,-6.00001"
+       id="path3791-3-6"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/usermanual/img/siding-two.png"
+       inkscape:export-xdpi="720"
+       inkscape:export-ydpi="720" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.99999994px;stroke-linecap:round;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 123.64632,802.36218 6,0"
+       id="path4077-9"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/usermanual/img/siding-two.png"
+       inkscape:export-xdpi="720"
+       inkscape:export-ydpi="720" />
+    <g
+       id="g3205"
+       transform="matrix(-1,0,0,1,330,0)"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/usermanual/img/siding-two.png"
+       inkscape:export-xdpi="720"
+       inkscape:export-ydpi="720">
+      <path
+         style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 119.5,792.36219 -109.5,0"
+         id="path3195"
+         inkscape:connector-curvature="0" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         d="M 121.49978,802.36218 10,802.36218"
+         id="path3197"
+         inkscape:connector-curvature="0" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:1.00000095px;stroke-linecap:round;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 121.5,794.36219 c -0.0416,-0.0348 -2,-2 -2,-2"
+         id="path3199"
+         inkscape:connector-curvature="0" />
+      <path
+         style="fill:none;stroke:#b3b3b3;stroke-width:1.00000095px;stroke-linecap:round;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 129.64632,802.36218 c -0.125,-0.1042 -6,-6.00001 -6,-6.00001"
+         id="path3201"
+         inkscape:connector-curvature="0"
+         inkscape:export-filename="/home/data/design/NKP/testcases/07.png"
+         inkscape:export-xdpi="180"
+         inkscape:export-ydpi="180" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.99999994px;stroke-linecap:round;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 123.64632,802.36218 6,0"
+         id="path3203"
+         inkscape:connector-curvature="0" />
+    </g>
+    <path
+       style="color:#000000;fill:none;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="m 129.64632,250 70.70736,0"
+       id="path3980"
+       inkscape:connector-curvature="0"
+       transform="translate(0,552.36218)"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/usermanual/img/siding-two.png"
+       inkscape:export-xdpi="720"
+       inkscape:export-ydpi="720" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 129.64631,1002.3622 190.35101,0"
+       id="path3006"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/usermanual/img/sidings.png"
+       inkscape:export-xdpi="720"
+       inkscape:export-ydpi="720" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.99999958px;stroke-linecap:round;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 200.00018,972.36202 c -1.25,1.04167 -60.00001,60.00018 -60.00001,60.00018"
+       id="path3791"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/usermanual/img/sidings.png"
+       inkscape:export-xdpi="720"
+       inkscape:export-ydpi="720" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.99999988px;stroke-linecap:round;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 140.00017,1032.3622 -129.999867,0"
+       id="path3793"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/usermanual/img/sidings.png"
+       inkscape:export-xdpi="720"
+       inkscape:export-ydpi="720" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 119.5,992.36224 -109.5,0"
+       id="path3797"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/usermanual/img/sidings.png"
+       inkscape:export-xdpi="720"
+       inkscape:export-ydpi="720" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="M 121.49978,1002.3622 10,1002.3622"
+       id="path4075"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/usermanual/img/sidings.png"
+       inkscape:export-xdpi="720"
+       inkscape:export-ydpi="720" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1.00000095px;stroke-linecap:round;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 121.49999,994.36224 c -0.0416,-0.035 -1.99999,-2 -1.99999,-2"
+       id="path3791-3-4"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/usermanual/img/sidings.png"
+       inkscape:export-xdpi="720"
+       inkscape:export-ydpi="720" />
+    <path
+       style="fill:none;stroke:#b3b3b3;stroke-width:1.00000095px;stroke-linecap:round;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 129.64631,1002.3622 c -0.125,-0.1042 -6,-6.00006 -6,-6.00006"
+       id="path3791-3"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/usermanual/img/sidings.png"
+       inkscape:export-xdpi="720"
+       inkscape:export-ydpi="720" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.99999994px;stroke-linecap:round;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 123.64631,1002.3622 6,0"
+       id="path4077"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/usermanual/img/sidings.png"
+       inkscape:export-xdpi="720"
+       inkscape:export-ydpi="720" />
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 234.1463,962.36186 85.84375,0"
+       id="path3797-4"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/usermanual/img/sidings.png"
+       inkscape:export-xdpi="720"
+       inkscape:export-ydpi="720" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 232.14647,972.36186 87.84358,0"
+       id="path4075-9"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/usermanual/img/sidings.png"
+       inkscape:export-xdpi="720"
+       inkscape:export-ydpi="720" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1.00000095px;stroke-linecap:round;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 232.14632,964.36186 c 0.0416,-0.035 1.99998,-2 1.99998,-2"
+       id="path3791-3-4-7-6"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/usermanual/img/sidings.png"
+       inkscape:export-xdpi="720"
+       inkscape:export-ydpi="720" />
+    <path
+       style="fill:none;stroke:#b3b3b3;stroke-width:1.00000095px;stroke-linecap:round;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 223.99999,972.36186 c 0.125,-0.1042 6,-6 6,-6"
+       id="path3791-3-6-2"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/usermanual/img/sidings.png"
+       inkscape:export-xdpi="720"
+       inkscape:export-ydpi="720" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.99999994px;stroke-linecap:round;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 230,972.36186 -29.99982,0"
+       id="path4077-2"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/usermanual/img/sidings.png"
+       inkscape:export-xdpi="720"
+       inkscape:export-ydpi="720" />
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="11.402349"
+       y="1000.1786"
+       id="text3964"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/usermanual/img/sidings.png"
+       inkscape:export-xdpi="720"
+       inkscape:export-ydpi="720"><tspan
+         sodipodi:role="line"
+         id="tspan3966"
+         x="11.402349"
+         y="1000.1786"
+         style="font-size:8px">West</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="318.54474"
+       y="970.17828"
+       id="text3964-3"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/usermanual/img/sidings.png"
+       inkscape:export-xdpi="720"
+       inkscape:export-ydpi="720"><tspan
+         sodipodi:role="line"
+         id="tspan3966-5"
+         x="318.54474"
+         y="970.17828"
+         style="font-size:8px;text-align:end;text-anchor:end">North</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="318.55203"
+       y="1000.1785"
+       id="text3964-3-9"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/usermanual/img/sidings.png"
+       inkscape:export-xdpi="720"
+       inkscape:export-ydpi="720"><tspan
+         sodipodi:role="line"
+         id="tspan3966-5-5"
+         x="318.55203"
+         y="1000.1785"
+         style="font-size:8px;text-align:end;text-anchor:end">East</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="11.140927"
+       y="1030.2252"
+       id="text3964-6"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/usermanual/img/sidings.png"
+       inkscape:export-xdpi="720"
+       inkscape:export-ydpi="720"><tspan
+         sodipodi:role="line"
+         id="tspan3966-7"
+         x="11.140927"
+         y="1030.2252"
+         style="font-size:8px">South</tspan></text>
+  </g>
+</svg>
