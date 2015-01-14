@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <office:document xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0" xmlns:style="urn:oasis:names:tc:opendocument:xmlns:style:1.0" xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oasis:names:tc:opendocument:xmlns:table:1.0" xmlns:draw="urn:oasis:names:tc:opendocument:xmlns:drawing:1.0" xmlns:fo="urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:meta="urn:oasis:names:tc:opendocument:xmlns:meta:1.0" xmlns:number="urn:oasis:names:tc:opendocument:xmlns:datastyle:1.0" xmlns:svg="urn:oasis:names:tc:opendocument:xmlns:svg-compatible:1.0" xmlns:chart="urn:oasis:names:tc:opendocument:xmlns:chart:1.0" xmlns:dr3d="urn:oasis:names:tc:opendocument:xmlns:dr3d:1.0" xmlns:math="http://www.w3.org/1998/Math/MathML" xmlns:form="urn:oasis:names:tc:opendocument:xmlns:form:1.0" xmlns:script="urn:oasis:names:tc:opendocument:xmlns:script:1.0" xmlns:config="urn:oasis:names:tc:opendocument:xmlns:config:1.0" xmlns:ooo="http://openoffice.org/2004/office" xmlns:ooow="http://openoffice.org/2004/writer" xmlns:oooc="http://openoffice.org/2004/calc" xmlns:dom="http://www.w3.org/2001/xml-events" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:rpt="http://openoffice.org/2005/report" xmlns:of="urn:oasis:names:tc:opendocument:xmlns:of:1.2" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:grddl="http://www.w3.org/2003/g/data-view#" xmlns:officeooo="http://openoffice.org/2009/office" xmlns:tableooo="http://openoffice.org/2009/table" xmlns:drawooo="http://openoffice.org/2010/draw" xmlns:calcext="urn:org:documentfoundation:names:experimental:calc:xmlns:calcext:1.0" xmlns:loext="urn:org:documentfoundation:names:experimental:office:xmlns:loext:1.0" xmlns:field="urn:openoffice:names:experimental:ooo-ms-interop:xmlns:field:1.0" xmlns:formx="urn:openoffice:names:experimental:ooxml-odf-interop:xmlns:form:1.0" xmlns:css3t="http://www.w3.org/TR/css3-text/" office:version="1.2" office:mimetype="application/vnd.oasis.opendocument.text">
- <office:meta><meta:creation-date>2015-01-05T11:46:28.789891740</meta:creation-date><dc:date>2015-01-13T22:02:29.509616021</dc:date><meta:editing-duration>PT17H6M34S</meta:editing-duration><meta:editing-cycles>185</meta:editing-cycles><meta:generator>LibreOffice/4.2.7.2$Linux_X86_64 LibreOffice_project/420m0$Build-2</meta:generator><meta:document-statistic meta:table-count="4" meta:image-count="51" meta:object-count="0" meta:page-count="32" meta:paragraph-count="401" meta:word-count="5727" meta:character-count="35056" meta:non-whitespace-character-count="29507"/></office:meta>
+ <office:meta><meta:creation-date>2015-01-05T11:46:28.789891740</meta:creation-date><dc:date>2015-01-14T07:52:30.375700935</dc:date><meta:editing-duration>PT17H27M13S</meta:editing-duration><meta:editing-cycles>188</meta:editing-cycles><meta:generator>LibreOffice/4.2.7.2$Linux_X86_64 LibreOffice_project/420m0$Build-2</meta:generator><meta:document-statistic meta:table-count="4" meta:image-count="52" meta:object-count="0" meta:page-count="33" meta:paragraph-count="404" meta:word-count="5860" meta:character-count="35850" meta:non-whitespace-character-count="30167"/></office:meta>
  <office:settings>
   <config:config-item-set config:name="ooo:view-settings">
-   <config:config-item config:name="ViewAreaTop" config:type="long">750992</config:config-item>
+   <config:config-item config:name="ViewAreaTop" config:type="long">824230</config:config-item>
    <config:config-item config:name="ViewAreaLeft" config:type="long">0</config:config-item>
    <config:config-item config:name="ViewAreaWidth" config:type="long">35059</config:config-item>
    <config:config-item config:name="ViewAreaHeight" config:type="long">13681</config:config-item>
@@ -13,12 +13,12 @@
    <config:config-item-map-indexed config:name="Views">
     <config:config-item-map-entry>
      <config:config-item config:name="ViewId" config:type="string">view2</config:config-item>
-     <config:config-item config:name="ViewLeft" config:type="long">20470</config:config-item>
-     <config:config-item config:name="ViewTop" config:type="long">756569</config:config-item>
+     <config:config-item config:name="ViewLeft" config:type="long">8640</config:config-item>
+     <config:config-item config:name="ViewTop" config:type="long">832559</config:config-item>
      <config:config-item config:name="VisibleLeft" config:type="long">0</config:config-item>
-     <config:config-item config:name="VisibleTop" config:type="long">750992</config:config-item>
+     <config:config-item config:name="VisibleTop" config:type="long">824230</config:config-item>
      <config:config-item config:name="VisibleRight" config:type="long">35057</config:config-item>
-     <config:config-item config:name="VisibleBottom" config:type="long">764671</config:config-item>
+     <config:config-item config:name="VisibleBottom" config:type="long">837909</config:config-item>
      <config:config-item config:name="ZoomType" config:type="short">0</config:config-item>
      <config:config-item config:name="ViewLayoutColumns" config:type="short">0</config:config-item>
      <config:config-item config:name="ViewLayoutBookMode" config:type="boolean">false</config:config-item>
@@ -81,7 +81,7 @@
    <config:config-item config:name="ConsiderTextWrapOnObjPos" config:type="boolean">false</config:config-item>
    <config:config-item config:name="CurrentDatabaseCommandType" config:type="int">0</config:config-item>
    <config:config-item config:name="RedlineProtectionKey" config:type="base64Binary"/>
-   <config:config-item config:name="Rsid" config:type="int">7514071</config:config-item>
+   <config:config-item config:name="Rsid" config:type="int">7594424</config:config-item>
    <config:config-item config:name="PrintProspectRTL" config:type="boolean">false</config:config-item>
    <config:config-item config:name="PrinterSetup" config:type="base64Binary"/>
    <config:config-item config:name="AlignTabStopPosition" config:type="boolean">true</config:config-item>
@@ -1072,42 +1072,48 @@
   <style:style style:name="P96" style:family="paragraph" style:parent-style-name="Frame_20_contents">
    <style:text-properties style:font-name="Liberation Sans" fo:font-weight="bold" officeooo:rsid="006a14b6" officeooo:paragraph-rsid="006a14b6" style:font-weight-asian="bold" style:font-weight-complex="bold"/>
   </style:style>
-  <style:style style:name="P97" style:family="paragraph" style:parent-style-name="Heading_20_1">
-   <style:text-properties officeooo:rsid="001f5051" officeooo:paragraph-rsid="001f5051"/>
+  <style:style style:name="P97" style:family="paragraph" style:parent-style-name="Text_20_body">
+   <style:text-properties officeooo:rsid="0073e1b8" officeooo:paragraph-rsid="0073e1b8"/>
   </style:style>
-  <style:style style:name="P98" style:family="paragraph" style:parent-style-name="Heading_20_1">
-   <style:paragraph-properties fo:break-before="page"/>
+  <style:style style:name="P98" style:family="paragraph" style:parent-style-name="Text_20_body">
+   <style:text-properties officeooo:rsid="006d40d8" officeooo:paragraph-rsid="0073e1b8"/>
   </style:style>
   <style:style style:name="P99" style:family="paragraph" style:parent-style-name="Heading_20_1">
-   <style:paragraph-properties fo:break-before="page"/>
-   <style:text-properties officeooo:rsid="001615eb" officeooo:paragraph-rsid="001f35c4"/>
+   <style:text-properties officeooo:rsid="001f5051" officeooo:paragraph-rsid="001f5051"/>
   </style:style>
   <style:style style:name="P100" style:family="paragraph" style:parent-style-name="Heading_20_1">
    <style:paragraph-properties fo:break-before="page"/>
-   <style:text-properties officeooo:rsid="001f35c4" officeooo:paragraph-rsid="001f35c4"/>
   </style:style>
   <style:style style:name="P101" style:family="paragraph" style:parent-style-name="Heading_20_1">
    <style:paragraph-properties fo:break-before="page"/>
+   <style:text-properties officeooo:rsid="001615eb" officeooo:paragraph-rsid="001f35c4"/>
+  </style:style>
+  <style:style style:name="P102" style:family="paragraph" style:parent-style-name="Heading_20_1">
+   <style:paragraph-properties fo:break-before="page"/>
+   <style:text-properties officeooo:rsid="001f35c4" officeooo:paragraph-rsid="001f35c4"/>
+  </style:style>
+  <style:style style:name="P103" style:family="paragraph" style:parent-style-name="Heading_20_1">
+   <style:paragraph-properties fo:break-before="page"/>
    <style:text-properties officeooo:paragraph-rsid="0067e213"/>
   </style:style>
-  <style:style style:name="P102" style:family="paragraph" style:parent-style-name="Heading_20_2">
+  <style:style style:name="P104" style:family="paragraph" style:parent-style-name="Heading_20_2">
    <style:text-properties officeooo:rsid="0067e213" officeooo:paragraph-rsid="0067e213"/>
   </style:style>
-  <style:style style:name="P103" style:family="paragraph" style:parent-style-name="Heading_20_2" style:list-style-name=""/>
-  <style:style style:name="P104" style:family="paragraph" style:parent-style-name="Heading_20_2">
+  <style:style style:name="P105" style:family="paragraph" style:parent-style-name="Heading_20_2" style:list-style-name=""/>
+  <style:style style:name="P106" style:family="paragraph" style:parent-style-name="Heading_20_2">
    <style:paragraph-properties fo:break-before="page"/>
   </style:style>
-  <style:style style:name="P105" style:family="paragraph" style:parent-style-name="List_20_Contents" style:list-style-name="L1"/>
-  <style:style style:name="P106" style:family="paragraph" style:parent-style-name="List_20_Contents" style:list-style-name="L1">
+  <style:style style:name="P107" style:family="paragraph" style:parent-style-name="Heading_20_3">
+   <style:paragraph-properties fo:break-before="page"/>
+  </style:style>
+  <style:style style:name="P108" style:family="paragraph" style:parent-style-name="List_20_Contents" style:list-style-name="L1"/>
+  <style:style style:name="P109" style:family="paragraph" style:parent-style-name="List_20_Contents" style:list-style-name="L1">
    <style:text-properties officeooo:rsid="001a7ffb" officeooo:paragraph-rsid="001a7ffb"/>
   </style:style>
-  <style:style style:name="P107" style:family="paragraph" style:parent-style-name="List_20_Contents" style:list-style-name="L1">
+  <style:style style:name="P110" style:family="paragraph" style:parent-style-name="List_20_Contents" style:list-style-name="L1">
    <style:text-properties officeooo:rsid="001bb702" officeooo:paragraph-rsid="001bb702"/>
   </style:style>
-  <style:style style:name="P108" style:family="paragraph" style:parent-style-name="Heading_20_3">
-   <style:paragraph-properties fo:break-before="page"/>
-  </style:style>
-  <style:style style:name="P109" style:family="paragraph">
+  <style:style style:name="P111" style:family="paragraph">
    <style:paragraph-properties fo:text-align="center"/>
   </style:style>
   <style:style style:name="T1" style:family="text">
@@ -1257,6 +1263,9 @@
   <style:style style:name="T49" style:family="text">
    <style:text-properties officeooo:rsid="00718e97"/>
   </style:style>
+  <style:style style:name="T50" style:family="text">
+   <style:text-properties officeooo:rsid="0073e1b8"/>
+  </style:style>
   <style:style style:name="fr1" style:family="graphic" style:parent-style-name="Frame">
    <style:graphic-properties fo:margin-left="0in" fo:margin-right="0in" fo:margin-top="0in" fo:margin-bottom="0.2in" style:wrap="none" style:vertical-pos="bottom" style:vertical-rel="paragraph-content" style:horizontal-pos="from-left" style:horizontal-rel="paragraph" fo:padding="0in" fo:border="none"/>
   </style:style>
@@ -1335,6 +1344,9 @@
   </style:style>
   <style:style style:name="fr24" style:family="graphic" style:parent-style-name="Graphics">
    <style:graphic-properties fo:margin-top="0.1in" fo:margin-bottom="0.1in" style:vertical-pos="top" style:vertical-rel="paragraph" style:horizontal-pos="center" style:horizontal-rel="paragraph" style:mirror="none" fo:clip="rect(0in, 0in, 0in, 0in)" draw:luminance="0%" draw:contrast="0%" draw:red="0%" draw:green="0%" draw:blue="0%" draw:gamma="100%" draw:color-inversion="false" draw:image-opacity="100%" draw:color-mode="standard"/>
+  </style:style>
+  <style:style style:name="fr25" style:family="graphic" style:parent-style-name="Graphics">
+   <style:graphic-properties fo:margin-left="0in" fo:margin-right="0in" fo:margin-top="0in" fo:margin-bottom="0in" style:run-through="foreground" style:wrap="none" style:vertical-pos="top" style:vertical-rel="paragraph-content" style:horizontal-pos="center" style:horizontal-rel="paragraph-content" fo:padding="0in" fo:border="none" style:shadow="none" draw:shadow-opacity="100%" style:mirror="none" fo:clip="rect(0in, 0in, 0in, 0in)" draw:luminance="0%" draw:contrast="0%" draw:red="0%" draw:green="0%" draw:blue="0%" draw:gamma="100%" draw:color-inversion="false" draw:image-opacity="100%" draw:color-mode="standard"/>
   </style:style>
   <text:list-style style:name="L1">
    <text:list-level-style-bullet text:level="1" text:style-name="Bullet_20_Symbols" text:bullet-char="•">
@@ -1428,7 +1440,7 @@
  <office:master-styles>
   <style:master-page style:name="Standard" style:page-layout-name="pm1">
    <style:footer>
-    <text:p text:style-name="P1"><text:tab/><text:page-number text:select-page="current">27</text:page-number> <text:span text:style-name="T1">of </text:span><text:span text:style-name="T1"><text:page-count>32</text:page-count></text:span><text:span text:style-name="T1"><text:tab/></text:span><text:span text:style-name="T2">$Revision$</text:span></text:p>
+    <text:p text:style-name="P1"><text:tab/><text:page-number text:select-page="current">30</text:page-number> <text:span text:style-name="T1">of </text:span><text:span text:style-name="T1"><text:page-count>33</text:page-count></text:span><text:span text:style-name="T1"><text:tab/></text:span><text:span text:style-name="T2">$Revision$</text:span></text:p>
    </style:footer>
   </style:master-page>
   <style:master-page style:name="First_20_Page" style:display-name="First Page" style:page-layout-name="pm2" style:next-style-name="Standard"/>
@@ -3218,30 +3230,30 @@
     </draw:frame></text:p>
    <text:p text:style-name="P59">Interlocking-In-A-Box</text:p>
    <text:h text:style-name="Heading_20_1" text:outline-level="1">Features</text:h>
-   <text:list xml:id="list8629115725894521736" text:style-name="L1">
+   <text:list xml:id="list1389721060831330463" text:style-name="L1">
     <text:list-item>
-     <text:p text:style-name="P105">Fully automatic interlocking <text:span text:style-name="T6">with built-in signal logic</text:span></text:p>
+     <text:p text:style-name="P108">Fully automatic interlocking <text:span text:style-name="T6">with built-in signal logic</text:span></text:p>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P106"><text:span text:style-name="T11">Ability to </text:span>simulate trains on any track based on fast time</text:p>
+     <text:p text:style-name="P109"><text:span text:style-name="T11">Ability to </text:span>simulate trains on any track based on fast time</text:p>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P107">Configurable time lock and timeout delays to suit any application</text:p>
+     <text:p text:style-name="P110">Configurable time lock and timeout delays to suit any application</text:p>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P106">Supports up to one siding on each of the main lines with appropriate signal indications</text:p>
+     <text:p text:style-name="P109">Supports up to one siding on each of the main lines with appropriate signal indications</text:p>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P106">Interfaces with current-based or infrared block detectors (sold separately)</text:p>
+     <text:p text:style-name="P109">Interfaces with current-based or infrared block detectors (sold separately)</text:p>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P106">Simulated trains can trigger 3<text:span text:style-name="T7">rd</text:span> party sound modules for enhanced realism</text:p>
+     <text:p text:style-name="P109">Simulated trains can trigger 3<text:span text:style-name="T7">rd</text:span> party sound modules for enhanced realism</text:p>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P106">Optional automatic interchange can be triggered by simulated trains</text:p>
+     <text:p text:style-name="P109">Optional automatic interchange can be triggered by simulated trains</text:p>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P107">Simple configuration with the MRGUI application</text:p>
+     <text:p text:style-name="P110">Simple configuration with the MRGUI application</text:p>
     </text:list-item>
    </text:list>
    <text:h text:style-name="P90" text:outline-level="1">Description</text:h>
@@ -3265,7 +3277,7 @@
    <text:p text:style-name="P45">The examples presented below represent some of the most common situations encountered at the interlocking. <text:s/>Yellow distant signals are shown to indicate the start of each approach block. <text:s/>However, the MRB-IIAB does not control these signals – if present, they are assumed to be fixed indications.</text:p>
    <text:h text:style-name="Heading_20_3" text:outline-level="3">Eastboun<text:span text:style-name="T40">d</text:span></text:h>
    <text:p text:style-name="P45">Eastbound train arrives and gets proceed indication:</text:p>
-   <text:p text:style-name="P7"><draw:frame draw:style-name="fr11" draw:name="Image14" text:anchor-type="as-char" svg:width="5.6244in" svg:height="1.1252in" draw:z-index="81"><draw:image xlink:href="img/eastbound_main/01.png" xlink:type="simple" xlink:show="embed" xlink:actuate="onLoad"/>
+   <text:p text:style-name="P7"><draw:frame draw:style-name="fr11" draw:name="Image14" text:anchor-type="as-char" svg:width="5.6244in" svg:height="1.1252in" draw:z-index="80"><draw:image xlink:href="img/eastbound_main/01.png" xlink:type="simple" xlink:show="embed" xlink:actuate="onLoad"/>
     </draw:frame></text:p>
    <text:p text:style-name="P45">After crossing into the interlocking block, the signal drops to red:</text:p>
    <text:p text:style-name="P45"><draw:frame draw:style-name="fr11" draw:name="Image15" text:anchor-type="as-char" svg:width="5.6244in" svg:height="1.1252in" draw:z-index="21"><draw:image xlink:href="img/eastbound_main/02.png" xlink:type="simple" xlink:show="embed" xlink:actuate="onLoad"/>
@@ -3279,7 +3291,7 @@
     </draw:frame></text:p>
    <text:h text:style-name="Heading_20_3" text:outline-level="3">Westbound</text:h>
    <text:p text:style-name="P45">Westbound train arrives and gets proceed indication:</text:p>
-   <text:p text:style-name="P45"><draw:frame draw:style-name="fr12" draw:name="Image19" text:anchor-type="as-char" svg:y="0in" svg:width="5.6244in" svg:height="1.1252in" draw:z-index="78"><draw:image xlink:href="img/westbound_main/01.png" xlink:type="simple" xlink:show="embed" xlink:actuate="onLoad"/>
+   <text:p text:style-name="P45"><draw:frame draw:style-name="fr12" draw:name="Image19" text:anchor-type="as-char" svg:y="0in" svg:width="5.6244in" svg:height="1.1252in" draw:z-index="81"><draw:image xlink:href="img/westbound_main/01.png" xlink:type="simple" xlink:show="embed" xlink:actuate="onLoad"/>
     </draw:frame></text:p>
    <text:p text:style-name="P45">After crossing into the interlocking block, the signal drops to red:</text:p>
    <text:p text:style-name="P45"><draw:frame draw:style-name="fr12" draw:name="Image20" text:anchor-type="as-char" svg:y="0in" svg:width="5.6244in" svg:height="1.1252in" draw:z-index="25"><draw:image xlink:href="img/westbound_main/02.png" xlink:type="simple" xlink:show="embed" xlink:actuate="onLoad"/>
@@ -4896,7 +4908,7 @@
    <text:h text:style-name="Heading_20_3" text:outline-level="3"><draw:frame draw:style-name="fr4" draw:name="Frame15" text:anchor-type="paragraph" svg:width="7in" draw:z-index="45">
      <draw:text-box fo:min-height="4.5819in">
       <text:p text:style-name="Figure"><draw:frame draw:style-name="fr14" draw:name="Image35" text:anchor-type="paragraph" svg:width="7in" svg:height="4.5819in" draw:z-index="60"><draw:image xlink:href="img/mrgui-detectors.png" xlink:type="simple" xlink:show="embed" xlink:actuate="onLoad"/>
-       </draw:frame><draw:line text:anchor-type="paragraph" draw:z-index="61" draw:style-name="gr1" draw:text-style-name="P109" svg:x1="5.9567in" svg:y1="3.3646in" svg:x2="5.6547in" svg:y2="4.0626in">
+       </draw:frame><draw:line text:anchor-type="paragraph" draw:z-index="61" draw:style-name="gr1" draw:text-style-name="P111" svg:x1="5.9567in" svg:y1="3.3646in" svg:x2="5.6547in" svg:y2="4.0626in">
         <text:p/>
        </draw:line>Figure <text:sequence text:ref-name="refFigure11" text:name="Figure" text:formula="ooow:Figure+1" style:num-format="1">12</text:sequence>: MRGui Main Page</text:p>
      </draw:text-box>
@@ -5249,7 +5261,7 @@
        </draw:frame>Figure <text:sequence text:ref-name="refFigure13" text:name="Figure" text:formula="ooow:Figure+1" style:num-format="1">14</text:sequence>: MRBus Configuration</text:p>
      </draw:text-box>
     </draw:frame>Each MRBus node also transmits status information periodically. <text:s/>This time period is set by the “Transmit Interval” setting. <text:s/>A value of 5 seconds is usually adequate but it can be adjusted anywhere from 0.1 seconds to 25.5 seconds.</text:p>
-   <text:h text:style-name="P103" text:outline-level="2"/>
+   <text:h text:style-name="P105" text:outline-level="2"/>
    <text:h text:style-name="P84" text:outline-level="2">Detector Settings</text:h>
    <text:p text:style-name="P51">The detector inputs <text:span text:style-name="T44">can be configured to have a variable timeout and respond to either an active high or active low input polarity. <text:s/>The “Detectors” tab of the MRGui utility contains five boxes, one for each approach direction and one for the interlocking block itself as shown in </text:span><text:span text:style-name="T44"><text:sequence-ref text:reference-format="category-and-value" text:ref-name="refFigure14">Figure 15</text:sequence-ref></text:span><text:span text:style-name="T44">.</text:span></text:p>
    <text:h text:style-name="Heading_20_3" text:outline-level="3"><draw:frame draw:style-name="fr4" draw:name="Frame18" text:anchor-type="paragraph" svg:width="7in" draw:z-index="49">
@@ -5347,7 +5359,7 @@
      </draw:text-box>
     </draw:frame><text:soft-page-break/>Turnout Settings</text:h>
    <text:p text:style-name="P55">To simplify connecting the MRB-IIAB to different types of turnout accessory contacts, the polarity of each turnout input can be configured. <text:s/><text:sequence-ref text:reference-format="category-and-value" text:ref-name="refFigure17">Figure 18</text:sequence-ref> shows the options available on the MRGui “Turnouts” tab. <text:s/>Select the polarity that corresponds to the turnout accessory contacts connected to each turnout input.</text:p>
-   <text:h text:style-name="P103" text:outline-level="2"><draw:frame draw:style-name="fr4" draw:name="Frame21" text:anchor-type="paragraph" svg:width="7in" draw:z-index="52">
+   <text:h text:style-name="P105" text:outline-level="2"><draw:frame draw:style-name="fr4" draw:name="Frame21" text:anchor-type="paragraph" svg:width="7in" draw:z-index="52">
      <draw:text-box fo:min-height="1.6598in">
       <text:p text:style-name="Figure"><draw:frame draw:style-name="fr20" draw:name="Image43" text:anchor-type="paragraph" svg:width="7in" svg:height="1.6598in" draw:z-index="56"><draw:image xlink:href="img/mrgui-turnouts.png" xlink:type="simple" xlink:show="embed" xlink:actuate="onLoad"/>
        </draw:frame>Figure <text:sequence text:ref-name="refFigure17" text:name="Figure" text:formula="ooow:Figure+1" style:num-format="1">18</text:sequence>: Turnout Configuration</text:p>
@@ -5397,7 +5409,7 @@
    <text:p text:style-name="P55">The fast time at which the simulated train appears at the interlocking is set with the Start Time box. <text:s/>Enter a time in 24-hour format. <text:s/>Note that this is the time at which the train will trigger the interlocking, but if the interlocking is occupied or the Time Lock timer is running, it will not immediately receive a proceed indication – all the same interlocking rules apply to simulated trains as they do to real trains arriving at the interlocking.</text:p>
    <text:p text:style-name="P55">Once triggered and a proceed indication is given, the simulated train runs for the amount of time configured by the Duration setting. <text:s/>The proceed indication will continue to be displayed for the time configured by the Approach setting, after which the train has entered the interlocking block and the signal will drop back to the stop indication. <text:s/>For the remainder of the Duration time, the interlocking block will be occupied and no trains on the crossing track will be allowed through. <text:s/>After the Duration <text:soft-page-break/>time has expired, the interlocking will clear. <text:s/>Note that the Time Lock timer may be running, so the interlocking may still not be immediately available.</text:p>
    <text:p text:style-name="P55">The sound output(s) to be activated while the simulated train is running is set by the Sound Trigger drop-down box. <text:s/>Each simulated train can trigger one sound output, both sound outputs, or neither. <text:s/>The availability of two sound outputs allows different sound tracks to be played for different classes of trains (freight vs. passenger, steam vs. diesel, etc.).</text:p>
-   <text:p text:style-name="P55">The sound output is active for the entire time specified by the Duration setting. <text:s/>When used with sound, the Duration should be set to the length of the audio track used. <text:s/>Alternatively, the Beginning-Middle-End mode of the <text:a xlink:type="simple" xlink:href="http://www.iascaled.com/store/CKT-SQUEAL">CKT-SQUEAL</text:a> sound player can be used to play an approach sound (beginning), a repeating “clack, clack” of wheels over the diamond (middle) until the sound output is deasserted, and finally a train fading off into the distance (end).</text:p>
+   <text:p text:style-name="P98">The sound output is active for the entire time specified by the Duration setting. <text:s/>When used with sound, the Duration should be set to the length of the audio track used. <text:s/><text:span text:style-name="T50">Alternatively, </text:span>the <text:a xlink:type="simple" xlink:href="http://www.iascaled.com/store/CKT-SQUEAL">CKT-SQUEAL</text:a> sound player <text:span text:style-name="T50">has a beginning-middle-end mode that is suitable for use with simulated trains and allows you to set any duration desired. <text:s/>See the Applications section on page </text:span><text:span text:style-name="T50"><text:bookmark-ref text:reference-format="page" text:ref-name="__RefHeading__1791_1987613118">30</text:bookmark-ref></text:span><text:span text:style-name="T50"> for more details.</text:span></text:p>
    <text:p text:style-name="P55">Each simulated train can optionally trigger the automatic interchange. <text:s/>This causes a cut of cars to be pushed into view when the simulated train is triggered.</text:p>
    <text:p text:style-name="P55"/>
    <text:h text:style-name="P81" text:outline-level="1">Applications</text:h>
@@ -5418,10 +5430,10 @@
     </draw:frame>At the current time, sidings on both the East and West (or North and South) approaches are not supported <text:span text:style-name="T49">(</text:span><text:span text:style-name="T49"><text:sequence-ref text:reference-format="category-and-value" text:ref-name="refFigure25">Figure 26</text:sequence-ref></text:span><text:span text:style-name="T49">) </text:span>if both sidings are within interlocking limits. <text:s/>Contact us if you need this capability.</text:p>
    <text:h text:style-name="Heading_20_2" text:outline-level="2"><draw:frame draw:style-name="fr4" draw:name="Frame29" text:anchor-type="paragraph" svg:width="6in" draw:z-index="77">
      <draw:text-box fo:min-height="1.1799in">
-      <text:p text:style-name="Figure"><draw:frame draw:style-name="fr24" draw:name="Image51" text:anchor-type="paragraph" svg:width="6in" svg:height="1.1799in" draw:z-index="79"><draw:image xlink:href="img/siding-two.png" xlink:type="simple" xlink:show="embed" xlink:actuate="onLoad"/>
-       </draw:frame>Figure <text:sequence text:ref-name="refFigure25" text:name="Figure" text:formula="ooow:Figure+1" style:num-format="1">26</text:sequence>: Two Sidings on <text:span text:style-name="T49">the </text:span>Same Track - Not Supported</text:p>
+      <text:p text:style-name="Figure"><draw:frame draw:style-name="fr24" draw:name="Image51" text:anchor-type="paragraph" svg:width="6in" svg:height="1.1799in" draw:z-index="78"><draw:image xlink:href="img/siding-two.png" xlink:type="simple" xlink:show="embed" xlink:actuate="onLoad"/>
+       </draw:frame>Figure <text:sequence text:ref-name="refFigure25" text:name="Figure" text:formula="ooow:Figure+1" style:num-format="1">26</text:sequence>: Two Sidings on <text:span text:style-name="T49">the </text:span>Same Track - Not <text:span text:style-name="T50">Currently </text:span>Supported</text:p>
      </draw:text-box>
-    </draw:frame><draw:custom-shape text:anchor-type="paragraph" draw:z-index="80" draw:style-name="gr2" svg:width="1.0606in" svg:height="1.0606in" draw:transform="rotate (0.785398163397448) translate (4.64097222222222in 0.583333333333333in)">
+    </draw:frame><draw:custom-shape text:anchor-type="paragraph" draw:z-index="79" draw:style-name="gr2" svg:width="1.0606in" svg:height="1.0606in" draw:transform="rotate (0.785398163397448) translate (4.64097222222222in 0.583333333333333in)">
      <text:p/>
      <draw:enhanced-geometry svg:viewBox="0 0 21600 21600" draw:mirror-horizontal="false" draw:mirror-vertical="false" draw:glue-points="10800 0 0 10800 10800 21600 21600 10800" draw:path-stretchpoint-x="10800" draw:path-stretchpoint-y="10800" draw:text-areas="?f1 ?f1 ?f2 ?f3" draw:type="cross" draw:modifiers="8904.15664720028" draw:enhanced-path="M ?f1 0 L ?f2 0 ?f2 ?f1 21600 ?f1 21600 ?f3 ?f2 ?f3 ?f2 21600 ?f1 21600 ?f1 ?f3 0 ?f3 0 ?f1 ?f1 ?f1 ?f1 0 Z N">
       <draw:equation draw:name="f0" draw:formula="$0 *10799/10800"/>
@@ -5432,8 +5444,14 @@
      </draw:enhanced-geometry>
     </draw:custom-shape><text:soft-page-break/>Automatic Interchange</text:h>
    <text:p text:style-name="P58"/>
-   <text:h text:style-name="Heading_20_2" text:outline-level="2">Sound Modules</text:h>
-   <text:p text:style-name="Text_20_body"/>
+   <text:h text:style-name="Heading_20_2" text:outline-level="2"><text:bookmark-start text:name="__RefHeading__1791_1987613118"/>Sound Modules<text:bookmark-end text:name="__RefHeading__1791_1987613118"/></text:h>
+   <text:p text:style-name="P97">Sound modules can be used with the MRB-IIAB to play a sound track while a simulated train occupies the interlocking. <text:s/>This can help add to the realism when no physical train is present on the layout, yet the signals are operating as if one were there. <text:s/><text:sequence-ref text:reference-format="category-and-value" text:ref-name="refFigure26">Figure 27</text:sequence-ref> shows how to connect the <text:a xlink:type="simple" xlink:href="http://www.iascaled.com/store/CKT-SQUEAL"><text:span text:style-name="T46">CKT-SQUEAL</text:span></text:a><text:span text:style-name="T46"> </text:span>sound player to the MRB-IIAB.</text:p>
+   <text:p text:style-name="P98"><draw:frame draw:style-name="fr4" draw:name="Frame30" text:anchor-type="paragraph" svg:width="7in" draw:z-index="82">
+     <draw:text-box fo:min-height="4.1173in">
+      <text:p text:style-name="Figure"><draw:frame draw:style-name="fr25" draw:name="Image52" text:anchor-type="paragraph" svg:width="7in" style:rel-width="100%" svg:height="4.1173in" style:rel-height="scale" draw:z-index="83"><draw:image xlink:href="img/squeal.png" xlink:type="simple" xlink:show="embed" xlink:actuate="onLoad" draw:filter-name="&lt;All formats&gt;"/>
+       </draw:frame>Figure <text:sequence text:ref-name="refFigure26" text:name="Figure" text:formula="ooow:Figure+1" style:num-format="1">27</text:sequence>: Connecting the CKT-SQUEAL Sound Player</text:p>
+     </draw:text-box>
+    </draw:frame><text:span text:style-name="T50">Single sound tracks can be triggered by each sound output, allowing multiple train sounds to be played depending on whether the train is a passenger or freight, steam or diesel, etc. <text:s/>Additionally, t</text:span>he Beginning-Middle-End mode of the <text:a xlink:type="simple" xlink:href="http://www.iascaled.com/store/CKT-SQUEAL">CKT-SQUEAL</text:a> sound player can be used to play an approach sound <text:soft-page-break/>(beginning), a repeating “clack, clack” of wheels over the diamond (middle) until the sound output is deasserted, and finally a train fading off into the distance (end).</text:p>
    <text:h text:style-name="Heading_20_2" text:outline-level="2">Crossing Gates</text:h>
    <text:p text:style-name="P8">using sound outputs to trigger crossing gates</text:p>
    <text:p text:style-name="P58"/>
