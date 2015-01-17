@@ -3339,6 +3339,7 @@ int main(void)
 		// What happens if interlocking block gets occupancy out of the blue?  Then something real shows up?
 		RUN_TEST(testBogusInterlocking());
 
+		writeEeprom(EE_CLOCK_SOURCE_ADDRESS, 0xFF);
 
 		runAllBasicSimulatedTrains();
 		RUN_TEST(testSimulatedTrainSkipTime());
