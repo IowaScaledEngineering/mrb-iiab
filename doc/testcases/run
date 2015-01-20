@@ -1,0 +1,14 @@
+#!/bin/bash
+
+for dir in $(ls -d */)
+do
+	echo $dir
+	cd $dir
+	cp v1/* .
+	../../primitives/add-distant
+	../../primitives/north
+	../../primitives/south
+	../../primitives/west-main
+	../../primitives/west-siding
+	cd ..
+done

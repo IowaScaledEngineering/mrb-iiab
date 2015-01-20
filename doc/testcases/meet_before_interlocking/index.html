@@ -1,0 +1,49 @@
+<html>
+<body>
+<div id="slideshow"></div>
+
+<div id="spacer" style="height: 10px"></div>
+
+<div id="slideshowtoggler" style="width: 1000px; text-align: center">
+<a href="#" class="prev">BACK</a> <span class="status" style="margin:0 50px; font-weight:bold"></span> <a href="#" class="next">FWD</a>
+</div>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+
+<script type="text/javascript" src="../fadeslideshow.js">
+
+/***********************************************
+* Ultimate Fade In Slideshow v2.0- (c) Dynamic Drive DHTML code library (www.dynamicdrive.com)
+* This notice MUST stay intact for legal use
+* Visit Dynamic Drive at http://www.dynamicdrive.com/ for this script and 100s more
+***********************************************/
+
+</script>
+
+<script type="text/javascript">
+
+var mygallery=new fadeSlideShow({
+wrapperid: "slideshow", //ID of blank DIV on page to house Slideshow
+dimensions: [1000, 250], //width/height of gallery in pixels. Should reflect dimensions of largest image
+imagearray: [
+["00.png", "", "", "Eastbound train arrives."],
+["01.png", "", "", "Eastbound gets green home signal."],
+["02.png", "", "", "Westbound arrives to a red signal since the eastbound is already lined through. EB stays green and WB stays red indefinitely."],
+["03.png", "", "", "The only way to break the deadlock is to throw the turnout to the siding (which has to be done anyway to make the meet happen). Doing so cancels the eastbound lock on the interlocking."],
+["04.png", "", "", "After the programmable TIMELOCK delay, the westbound now gets the interlocking and a signal to proceed."],
+["05.png", "", "", "Westbound train proceeds, it's signal drops to red over red as the train enters the interlocking block, and the train enters the siding."],
+["06.png", "", "", "Signals remain at red until either the turnout is thrown, or the LOCKOUT time expires."],
+["07.png", "", "", "Once the turnout is thrown, the interlocking detects the presence of the eastbound train again.  However, the signal stays red until the TIMELOCK delay timer expires."],
+["08.png", "", "", "After the programmable TIMELOCK delay, the signal turns to green."],
+["09.png", "", "", "Eastbound train proceeds through the interlocking."] 
+],
+displaymode: {type:'manual', pause:3000, cycles:0, wraparound:false, randomize:false},
+persist: false, //remember last viewed slide and recall within same session?
+fadeduration: 500, //transition duration (milliseconds)
+descreveal: "always",
+togglerid: "slideshowtoggler"
+})
+</script>
+
+</body>
+</html>

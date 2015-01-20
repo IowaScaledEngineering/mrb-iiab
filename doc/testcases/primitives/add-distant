@@ -1,0 +1,11 @@
+#!/bin/bash
+
+for fname in $(ls *.png)
+do
+	echo $fname
+	composite -geometry +179+111 ../../primitives/EB-yellow-fixed.png $fname $fname
+	composite -geometry +179+171 ../../primitives/EB-yellow-fixed.png $fname $fname
+	composite -geometry +758+11 ../../primitives/WB-yellow-fixed.png $fname $fname
+	composite -geometry +758+71 ../../primitives/WB-yellow-fixed.png $fname $fname
+	composite -geometry +179+51 ../../primitives/white-43x18.png $fname $fname
+done

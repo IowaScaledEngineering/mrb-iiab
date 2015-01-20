@@ -1,0 +1,46 @@
+<html>
+<body>
+<div id="slideshow"></div>
+
+<div id="spacer" style="height: 10px"></div>
+
+<div id="slideshowtoggler" style="width: 1000px; text-align: center">
+<a href="#" class="prev">BACK</a> <span class="status" style="margin:0 50px; font-weight:bold"></span> <a href="#" class="next">FWD</a>
+</div>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+
+<script type="text/javascript" src="../fadeslideshow.js">
+
+/***********************************************
+* Ultimate Fade In Slideshow v2.0- (c) Dynamic Drive DHTML code library (www.dynamicdrive.com)
+* This notice MUST stay intact for legal use
+* Visit Dynamic Drive at http://www.dynamicdrive.com/ for this script and 100s more
+***********************************************/
+
+</script>
+
+<script type="text/javascript">
+
+var mygallery=new fadeSlideShow({
+wrapperid: "slideshow", //ID of blank DIV on page to house Slideshow
+dimensions: [1000, 250], //width/height of gallery in pixels. Should reflect dimensions of largest image
+imagearray: [
+["00.png", "", "", "Simulated train arrives."],
+["01.png", "", "", "Simulated train gets green signal at interlocking (sound starts).  Real train arrives."],
+["02.png", "", "", "Simulated train continues through interlocking (sound continues).  Real train still has red."],
+["03.png", "", "", "Simulated train clears interlocking (sound stops).  DELAY timer starts."],
+["04.png", "", "", "Real train gets a green."],
+["05.png", "", "", "Real train moves through the interlocking."],
+["06.png", "", "", "Real train clears the interlocking"]
+],
+displaymode: {type:'manual', pause:3000, cycles:0, wraparound:false, randomize:false},
+persist: false, //remember last viewed slide and recall within same session?
+fadeduration: 500, //transition duration (milliseconds)
+descreveal: "always",
+togglerid: "slideshowtoggler"
+})
+</script>
+
+</body>
+</html>

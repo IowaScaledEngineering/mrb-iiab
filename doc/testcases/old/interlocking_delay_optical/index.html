@@ -1,0 +1,46 @@
+<html>
+<body>
+<div id="slideshow"></div>
+
+<div id="spacer" style="height: 10px"></div>
+
+<div id="slideshowtoggler" style="width: 1000px; text-align: center">
+<a href="#" class="prev">BACK</a> <span class="status" style="margin:0 50px; font-weight:bold"></span> <a href="#" class="next">FWD</a>
+</div>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+
+<script type="text/javascript" src="../fadeslideshow.js">
+
+/***********************************************
+* Ultimate Fade In Slideshow v2.0- (c) Dynamic Drive DHTML code library (www.dynamicdrive.com)
+* This notice MUST stay intact for legal use
+* Visit Dynamic Drive at http://www.dynamicdrive.com/ for this script and 100s more
+***********************************************/
+
+</script>
+
+<script type="text/javascript">
+
+var mygallery=new fadeSlideShow({
+wrapperid: "slideshow", //ID of blank DIV on page to house Slideshow
+dimensions: [1000, 250], //width/height of gallery in pixels. Should reflect dimensions of largest image
+imagearray: [
+["00.png", "", "", "Westbound arrives and gets lined through the interlocking."],
+["01.png", "", "", "Signal goes red when train crosses the interlocking optical detector."],
+["02.png", "", "", "Southbound arrives to a red since the interlocking is occupied."],
+["03.png", "", "", "Westbound stops, still fouling the crossing, but is clear of the optical detector."],
+["03.png", "", "", "After DEBOUNCE timer expires, DELAY timer starts."],
+["04.png", "", "", "If the DELAY timer expires before the westbound moves, the southbound will be given a green even though the westbound may still be fouling the crossing."],
+["04.png", "", "", "This is an unfortunate consequence of using optical detectors but can be minimized by selecting a larger DELAY value (to give the westbound sufficient time to stop fouling the crossing) or adding more detectors in the interlocking."]
+],
+displaymode: {type:'manual', pause:3000, cycles:0, wraparound:false, randomize:false},
+persist: false, //remember last viewed slide and recall within same session?
+fadeduration: 500, //transition duration (milliseconds)
+descreveal: "always",
+togglerid: "slideshowtoggler"
+})
+</script>
+
+</body>
+</html>

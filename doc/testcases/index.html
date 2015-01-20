@@ -1,0 +1,42 @@
+<html>
+<body>
+First up are some basic situations.  Note: the cardinal directions are only used for illustration - the actual interlocking is cardinal direction agnostic.
+<p>
+<a href="eastbound_main/">Eastbound on main</a>
+<p>
+<a href="eastbound_siding/">Eastbound on siding</a>
+<p>
+<a href="eastbound_turnout/">Eastbound arrives to opposing turnout</a>
+<p>
+<a href="westbound_main/">Westbound takes main</a>
+<p>
+<a href="westbound_siding/">Westbound takes siding</a>
+
+<hr>
+
+Next are some meets at the interlocking.
+<p>
+<a href="meet_before_interlocking/">Eastbound train arrives, but waits for a meet before going through the interlocking.</a>
+<p>
+<a href="meet_after_interlocking/">Westbound arrives, goes through the interlocking, then waits for a meet.</a>
+<p>
+<a href="real_before_phantom/">Real train arrives before simulated train.</a>
+<p>
+<a href="phantom_before_real/">Simulated train arrives before real train.</a>
+<p>
+<hr>
+
+Four programmable delays are provided for enhancing realism and making single-point optical detectors operate more realistically.
+<p>
+<a href="timelock_meet/">TIMELOCK</a>: After a signal drops from green to red, a fixed delay is observed before any signal can go back to green.  This also applies when a <a href="timelock/">turnout is changed</a>.
+<p>
+<a href="lockout_expire_with_train_present">LOCKOUT</a>: After passing through the interlocking, a lockout period is observed where the train, now on the opposite side, cannot be detected as "new" train approaching from that direction.
+<p>
+<a href="timeout_expire/">TIMEOUT</a>: When optical detectors are used, trains present in a block may not always be detected.  A timeout is used to "coast" through these period of non-detection.  Once a train is detected, the detector must remain in the no-detect state for the timeout period before the interlocking assumes the train is no longer present.
+<br />This also affects the situation where a <a href="timeout_expire_momentary_train">train momentarily enters the approach block</a> but then leaves (for example, switching a yard).
+<p>
+<a href="debounce_timer/">DEBOUNCE</a>: With behavior similar to the timeout timer, the debounce timer applies to the interlocking block.  It makes sure when the interlocking detector says the block has just cleared, it really is clear.
+<p>
+
+</body>
+</html>

@@ -1,0 +1,16 @@
+#!/bin/bash
+
+for fname in $(ls *.png)
+do
+	echo $fname
+	convert $fname -crop 1x1+373+59 out.txt
+	color=$(tail -n1 out.txt | cut -d "#" -f2 | cut -c 1-6)
+	rm out.txt
+	composite -geometry +339+51 ../../primitives/white-43x18.png $fname $fname
+	if [ "$color" == "FF0000" ]
+	then
+		composite -geometry +339+51 ../../primitives/EB-red-pot.png $fname $fname
+	else
+		composite -geometry +339+51 ../../primitives/EB-yellow-pot.png $fname $fname
+	fi
+done
