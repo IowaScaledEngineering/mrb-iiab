@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <office:document xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0" xmlns:style="urn:oasis:names:tc:opendocument:xmlns:style:1.0" xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oasis:names:tc:opendocument:xmlns:table:1.0" xmlns:draw="urn:oasis:names:tc:opendocument:xmlns:drawing:1.0" xmlns:fo="urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:meta="urn:oasis:names:tc:opendocument:xmlns:meta:1.0" xmlns:number="urn:oasis:names:tc:opendocument:xmlns:datastyle:1.0" xmlns:svg="urn:oasis:names:tc:opendocument:xmlns:svg-compatible:1.0" xmlns:chart="urn:oasis:names:tc:opendocument:xmlns:chart:1.0" xmlns:dr3d="urn:oasis:names:tc:opendocument:xmlns:dr3d:1.0" xmlns:math="http://www.w3.org/1998/Math/MathML" xmlns:form="urn:oasis:names:tc:opendocument:xmlns:form:1.0" xmlns:script="urn:oasis:names:tc:opendocument:xmlns:script:1.0" xmlns:config="urn:oasis:names:tc:opendocument:xmlns:config:1.0" xmlns:ooo="http://openoffice.org/2004/office" xmlns:ooow="http://openoffice.org/2004/writer" xmlns:oooc="http://openoffice.org/2004/calc" xmlns:dom="http://www.w3.org/2001/xml-events" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:rpt="http://openoffice.org/2005/report" xmlns:of="urn:oasis:names:tc:opendocument:xmlns:of:1.2" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:grddl="http://www.w3.org/2003/g/data-view#" xmlns:officeooo="http://openoffice.org/2009/office" xmlns:tableooo="http://openoffice.org/2009/table" xmlns:drawooo="http://openoffice.org/2010/draw" xmlns:calcext="urn:org:documentfoundation:names:experimental:calc:xmlns:calcext:1.0" xmlns:loext="urn:org:documentfoundation:names:experimental:office:xmlns:loext:1.0" xmlns:field="urn:openoffice:names:experimental:ooo-ms-interop:xmlns:field:1.0" xmlns:formx="urn:openoffice:names:experimental:ooxml-odf-interop:xmlns:form:1.0" xmlns:css3t="http://www.w3.org/TR/css3-text/" office:version="1.2" office:mimetype="application/vnd.oasis.opendocument.text">
- <office:meta><meta:creation-date>2015-01-05T11:46:28.789891740</meta:creation-date><dc:date>2015-01-25T16:44:06.889846480</dc:date><meta:editing-duration>PT19H45M14S</meta:editing-duration><meta:editing-cycles>245</meta:editing-cycles><meta:generator>LibreOffice/4.2.7.2$Linux_X86_64 LibreOffice_project/420m0$Build-2</meta:generator><meta:document-statistic meta:table-count="4" meta:image-count="58" meta:object-count="0" meta:page-count="36" meta:paragraph-count="419" meta:word-count="6259" meta:character-count="38214" meta:non-whitespace-character-count="32137"/></office:meta>
+ <office:meta><meta:creation-date>2015-01-05T11:46:28.789891740</meta:creation-date><dc:date>2015-01-25T16:47:07.624803872</dc:date><meta:editing-duration>PT19H45M14S</meta:editing-duration><meta:editing-cycles>246</meta:editing-cycles><meta:generator>LibreOffice/4.2.7.2$Linux_X86_64 LibreOffice_project/420m0$Build-2</meta:generator><meta:document-statistic meta:table-count="4" meta:image-count="58" meta:object-count="0" meta:page-count="36" meta:paragraph-count="419" meta:word-count="6259" meta:character-count="38214" meta:non-whitespace-character-count="32137"/></office:meta>
  <office:settings>
   <config:config-item-set config:name="ooo:view-settings">
-   <config:config-item config:name="ViewAreaTop" config:type="long">997797</config:config-item>
+   <config:config-item config:name="ViewAreaTop" config:type="long">951442</config:config-item>
    <config:config-item config:name="ViewAreaLeft" config:type="long">0</config:config-item>
    <config:config-item config:name="ViewAreaWidth" config:type="long">41250</config:config-item>
    <config:config-item config:name="ViewAreaHeight" config:type="long">26460</config:config-item>
@@ -13,12 +13,12 @@
    <config:config-item-map-indexed config:name="Views">
     <config:config-item-map-entry>
      <config:config-item config:name="ViewId" config:type="string">view2</config:config-item>
-     <config:config-item config:name="ViewLeft" config:type="long">22474</config:config-item>
-     <config:config-item config:name="ViewTop" config:type="long">891679</config:config-item>
+     <config:config-item config:name="ViewLeft" config:type="long">11735</config:config-item>
+     <config:config-item config:name="ViewTop" config:type="long">537044</config:config-item>
      <config:config-item config:name="VisibleLeft" config:type="long">0</config:config-item>
-     <config:config-item config:name="VisibleTop" config:type="long">997797</config:config-item>
+     <config:config-item config:name="VisibleTop" config:type="long">951442</config:config-item>
      <config:config-item config:name="VisibleRight" config:type="long">41249</config:config-item>
-     <config:config-item config:name="VisibleBottom" config:type="long">1024255</config:config-item>
+     <config:config-item config:name="VisibleBottom" config:type="long">977900</config:config-item>
      <config:config-item config:name="ZoomType" config:type="short">0</config:config-item>
      <config:config-item config:name="ViewLayoutColumns" config:type="short">0</config:config-item>
      <config:config-item config:name="ViewLayoutBookMode" config:type="boolean">false</config:config-item>
@@ -81,7 +81,7 @@
    <config:config-item config:name="ConsiderTextWrapOnObjPos" config:type="boolean">false</config:config-item>
    <config:config-item config:name="CurrentDatabaseCommandType" config:type="int">0</config:config-item>
    <config:config-item config:name="RedlineProtectionKey" config:type="base64Binary"/>
-   <config:config-item config:name="Rsid" config:type="int">8075657</config:config-item>
+   <config:config-item config:name="Rsid" config:type="int">8136034</config:config-item>
    <config:config-item config:name="PrintProspectRTL" config:type="boolean">false</config:config-item>
    <config:config-item config:name="PrinterSetup" config:type="base64Binary"/>
    <config:config-item config:name="AlignTabStopPosition" config:type="boolean">true</config:config-item>
@@ -1147,65 +1147,65 @@
    <style:text-properties officeooo:rsid="0076dd86" officeooo:paragraph-rsid="0076dd86"/>
   </style:style>
   <style:style style:name="P119" style:family="paragraph" style:parent-style-name="Text_20_body">
-   <style:text-properties officeooo:rsid="006d40d8" officeooo:paragraph-rsid="006d40d8"/>
+   <style:text-properties officeooo:rsid="006174a8" officeooo:paragraph-rsid="006174a8"/>
   </style:style>
   <style:style style:name="P120" style:family="paragraph" style:parent-style-name="Text_20_body">
-   <style:text-properties officeooo:rsid="00749f9f" officeooo:paragraph-rsid="007a5aa3"/>
+   <style:text-properties officeooo:rsid="006a14b6" officeooo:paragraph-rsid="006a14b6"/>
   </style:style>
-  <style:style style:name="P121" style:family="paragraph" style:parent-style-name="Heading_20_3">
-   <style:text-properties officeooo:paragraph-rsid="0076d92b"/>
-  </style:style>
-  <style:style style:name="P122" style:family="paragraph" style:parent-style-name="Heading_20_3">
-   <style:paragraph-properties fo:break-before="page"/>
-  </style:style>
-  <style:style style:name="P123" style:family="paragraph" style:parent-style-name="Heading_20_2">
-   <style:text-properties officeooo:rsid="0067e213" officeooo:paragraph-rsid="0067e213"/>
-  </style:style>
-  <style:style style:name="P124" style:family="paragraph" style:parent-style-name="Heading_20_2">
-   <style:text-properties officeooo:rsid="0076dd86" officeooo:paragraph-rsid="0076dd86"/>
-  </style:style>
-  <style:style style:name="P125" style:family="paragraph" style:parent-style-name="Heading_20_2">
-   <style:paragraph-properties fo:break-before="page"/>
-  </style:style>
-  <style:style style:name="P126" style:family="paragraph" style:parent-style-name="Heading_20_2">
-   <style:paragraph-properties fo:break-before="page"/>
-   <style:text-properties officeooo:paragraph-rsid="0076d92b"/>
-  </style:style>
-  <style:style style:name="P127" style:family="paragraph" style:parent-style-name="Heading_20_1">
+  <style:style style:name="P121" style:family="paragraph" style:parent-style-name="Heading_20_1">
    <style:text-properties officeooo:rsid="001f5051" officeooo:paragraph-rsid="001f5051"/>
   </style:style>
-  <style:style style:name="P128" style:family="paragraph" style:parent-style-name="Heading_20_1">
+  <style:style style:name="P122" style:family="paragraph" style:parent-style-name="Heading_20_1">
    <style:text-properties officeooo:paragraph-rsid="0076dd86"/>
   </style:style>
-  <style:style style:name="P129" style:family="paragraph" style:parent-style-name="Heading_20_1">
+  <style:style style:name="P123" style:family="paragraph" style:parent-style-name="Heading_20_1">
    <style:paragraph-properties fo:break-before="page"/>
   </style:style>
-  <style:style style:name="P130" style:family="paragraph" style:parent-style-name="Heading_20_1">
+  <style:style style:name="P124" style:family="paragraph" style:parent-style-name="Heading_20_1">
    <style:paragraph-properties fo:break-before="page"/>
    <style:text-properties officeooo:rsid="001615eb" officeooo:paragraph-rsid="001f35c4"/>
   </style:style>
-  <style:style style:name="P131" style:family="paragraph" style:parent-style-name="Heading_20_1">
+  <style:style style:name="P125" style:family="paragraph" style:parent-style-name="Heading_20_1">
    <style:paragraph-properties fo:break-before="page"/>
    <style:text-properties officeooo:rsid="001f35c4" officeooo:paragraph-rsid="001f35c4"/>
   </style:style>
-  <style:style style:name="P132" style:family="paragraph" style:parent-style-name="Heading_20_1">
+  <style:style style:name="P126" style:family="paragraph" style:parent-style-name="Heading_20_1">
    <style:paragraph-properties fo:break-before="page"/>
    <style:text-properties officeooo:paragraph-rsid="0067e213"/>
   </style:style>
-  <style:style style:name="P133" style:family="paragraph" style:parent-style-name="Heading_20_1">
+  <style:style style:name="P127" style:family="paragraph" style:parent-style-name="Heading_20_1">
    <style:paragraph-properties fo:break-before="page"/>
    <style:text-properties officeooo:rsid="0076dd86" officeooo:paragraph-rsid="0076dd86"/>
   </style:style>
-  <style:style style:name="P134" style:family="paragraph" style:parent-style-name="List_20_Contents" style:list-style-name="L1"/>
-  <style:style style:name="P135" style:family="paragraph" style:parent-style-name="List_20_Contents" style:list-style-name="L1">
+  <style:style style:name="P128" style:family="paragraph" style:parent-style-name="Heading_20_2">
+   <style:text-properties officeooo:rsid="0067e213" officeooo:paragraph-rsid="0067e213"/>
+  </style:style>
+  <style:style style:name="P129" style:family="paragraph" style:parent-style-name="Heading_20_2">
+   <style:text-properties officeooo:rsid="0076dd86" officeooo:paragraph-rsid="0076dd86"/>
+  </style:style>
+  <style:style style:name="P130" style:family="paragraph" style:parent-style-name="Heading_20_2">
+   <style:paragraph-properties fo:break-before="page"/>
+  </style:style>
+  <style:style style:name="P131" style:family="paragraph" style:parent-style-name="Heading_20_2">
+   <style:paragraph-properties fo:break-before="page"/>
+   <style:text-properties officeooo:paragraph-rsid="0076d92b"/>
+  </style:style>
+  <style:style style:name="P132" style:family="paragraph" style:parent-style-name="List_20_Contents" style:list-style-name="L1"/>
+  <style:style style:name="P133" style:family="paragraph" style:parent-style-name="List_20_Contents" style:list-style-name="L1">
    <style:text-properties officeooo:rsid="001a7ffb" officeooo:paragraph-rsid="001a7ffb"/>
   </style:style>
-  <style:style style:name="P136" style:family="paragraph" style:parent-style-name="List_20_Contents" style:list-style-name="L1">
+  <style:style style:name="P134" style:family="paragraph" style:parent-style-name="List_20_Contents" style:list-style-name="L1">
    <style:text-properties officeooo:rsid="001bb702" officeooo:paragraph-rsid="001bb702"/>
   </style:style>
-  <style:style style:name="P137" style:family="paragraph" style:parent-style-name="List_20_Contents" style:list-style-name="L1">
+  <style:style style:name="P135" style:family="paragraph" style:parent-style-name="List_20_Contents" style:list-style-name="L1">
    <style:paragraph-properties fo:margin-top="0in" fo:margin-bottom="0.2in" style:contextual-spacing="false"/>
    <style:text-properties officeooo:rsid="0076dd86" officeooo:paragraph-rsid="0076dd86"/>
+  </style:style>
+  <style:style style:name="P136" style:family="paragraph" style:parent-style-name="Heading_20_3">
+   <style:text-properties officeooo:paragraph-rsid="0076d92b"/>
+  </style:style>
+  <style:style style:name="P137" style:family="paragraph" style:parent-style-name="Heading_20_3">
+   <style:paragraph-properties fo:break-before="page"/>
   </style:style>
   <style:style style:name="T1" style:family="text">
    <style:text-properties officeooo:rsid="001615eb"/>
@@ -1549,7 +1549,7 @@
  <office:master-styles>
   <style:master-page style:name="Standard" style:page-layout-name="pm1">
    <style:footer>
-    <text:p text:style-name="P1"><text:tab/><text:page-number text:select-page="current">36</text:page-number> <text:span text:style-name="T1">of </text:span><text:span text:style-name="T1"><text:page-count>36</text:page-count></text:span><text:span text:style-name="T1"><text:tab/></text:span><text:span text:style-name="T2">$Revision$</text:span></text:p>
+    <text:p text:style-name="P1"><text:tab/><text:page-number text:select-page="current">35</text:page-number> <text:span text:style-name="T1">of </text:span><text:span text:style-name="T1"><text:page-count>36</text:page-count></text:span><text:span text:style-name="T1"><text:tab/></text:span><text:span text:style-name="T2">$Revision$</text:span></text:p>
    </style:footer>
   </style:master-page>
   <style:master-page style:name="First_20_Page" style:display-name="First Page" style:page-layout-name="pm2" style:next-style-name="Standard"/>
@@ -3339,30 +3339,30 @@
     </draw:frame></text:p>
    <text:p text:style-name="P75">Interlocking-In-A-Box</text:p>
    <text:h text:style-name="Heading_20_1" text:outline-level="1">Features</text:h>
-   <text:list xml:id="list1863273675601893611" text:style-name="L1">
+   <text:list xml:id="list4432252244673612679" text:style-name="L1">
     <text:list-item>
-     <text:p text:style-name="P134">Fully automatic interlocking <text:span text:style-name="T6">with built-in signal logic</text:span></text:p>
+     <text:p text:style-name="P132">Fully automatic interlocking <text:span text:style-name="T6">with built-in signal logic</text:span></text:p>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P135"><text:span text:style-name="T12">Ability to </text:span>simulate trains on any track based on fast time</text:p>
+     <text:p text:style-name="P133"><text:span text:style-name="T12">Ability to </text:span>simulate trains on any track based on fast time</text:p>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P136">Configurable time lock and timeout delays to suit any application</text:p>
+     <text:p text:style-name="P134">Configurable time lock and timeout delays to suit any application</text:p>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P135">Supports up to one siding on each of the main lines with <text:span text:style-name="T59">corresponding </text:span>signal indications</text:p>
+     <text:p text:style-name="P133">Supports up to one siding on each of the main lines with <text:span text:style-name="T59">corresponding </text:span>signal indications</text:p>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P135">Interfaces with current-based or infrared block detectors (sold separately)</text:p>
+     <text:p text:style-name="P133">Interfaces with current-based or infrared block detectors (sold separately)</text:p>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P135">Simulated trains can trigger <text:span text:style-name="T58">third-</text:span>party sound modules for enhanced realism</text:p>
+     <text:p text:style-name="P133">Simulated trains can trigger <text:span text:style-name="T58">third-</text:span>party sound modules for enhanced realism</text:p>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P135">Optional automatic interchange can be triggered by simulated trains</text:p>
+     <text:p text:style-name="P133">Optional automatic interchange can be triggered by simulated trains</text:p>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P136">Simple configuration with the MRG<text:span text:style-name="T59">ui</text:span> application</text:p>
+     <text:p text:style-name="P134">Simple configuration with the MRG<text:span text:style-name="T59">ui</text:span> application</text:p>
     </text:list-item>
    </text:list>
    <text:h text:style-name="P108" text:outline-level="1">Description</text:h>
@@ -5184,7 +5184,8 @@
       </office:binary-data>
      </draw:image>
     </draw:frame>The E5 output is not designed to directly drive a relay coil. <text:s/>Connecting a relay <text:span text:style-name="T42">directly </text:span>to the pin can damage the MRB-IIAB. <text:s/>Use a relay driver or a relay module with built-in driver.</text:p>
-   <text:h text:style-name="Heading_20_2" text:outline-level="2">MRBus</text:h>
+   <text:p text:style-name="P29"/>
+   <text:h text:style-name="P101" text:outline-level="2">MRBus</text:h>
    <text:p text:style-name="P37">MRBus is an open specification for a serial control and telemetry bus, <text:span text:style-name="T59">originally</text:span> intended for model railroad applications. <text:s/>The MRB-IIAB has an MRBus interface allowing it to interact with other MRBus devices, such as a fast clock used for triggering simulated trains. <text:s/>For more technical information on MRBus, see <text:a xlink:type="simple" xlink:href="http://mrbus.org/">http://mrbus.org/</text:a>.</text:p>
    <text:p text:style-name="P37"><draw:frame draw:style-name="fr4" draw:name="Frame7" text:anchor-type="paragraph" svg:width="7in" draw:z-index="17">
      <draw:text-box fo:min-height="2.8819in">
@@ -5192,8 +5193,8 @@
        </draw:frame>Figure <text:sequence text:ref-name="refFigure11" text:name="Figure" text:formula="ooow:Figure+1" style:num-format="1">12</text:sequence>: Connection to a MRBus Network</text:p>
      </draw:text-box>
     </draw:frame>As shown in <text:sequence-ref text:reference-format="category-and-value" text:ref-name="refFigure11">Figure 12</text:sequence-ref>, the MRB-IIAB can be connected to a MRB-FCM fast clock. <text:s/>The fast clock provides time information over the MRBus network that the MRB-IIAB uses to trigger simulated trains at specific times.</text:p>
-   <text:p text:style-name="P37"><text:soft-page-break/>All devices on the MRBus network must share a common GND connection. <text:s/>Typically, a dedicated 8V – 15V power supply will also be used to power all devices on the network, though each node can have its own local power supply as long as the GND connections are common. <text:s/>The data bus consists of the MRBus:A and MRBus:B terminals that must be connected using a twisted pair <text:span text:style-name="T43">of </text:span>wire<text:span text:style-name="T43">s</text:span>. <text:s/>Category 5 ethernet cables work well for both power and data as the pairs are already twisted together. <text:s/>In that case, the wiring convention shown in <text:sequence-ref text:reference-format="category-and-value" text:ref-name="refTable1">Table 2</text:sequence-ref> is used. <text:s/>To make wiring easier, RJ45 adapters are also available allowing the use of off-the-shelf, <text:span text:style-name="T43">pre-terminated</text:span> ethernet cables.</text:p>
-   <text:p text:style-name="P107">Table <text:sequence text:ref-name="refTable1" text:name="Table" text:formula="ooow:Table+1" style:num-format="1">2</text:sequence>: MRBus Wiring Standard <text:span text:style-name="T39">for Category 5 / RJ45 Cables</text:span></text:p>
+   <text:p text:style-name="P37">All devices on the MRBus network must share a common GND connection. <text:s/>Typically, a dedicated 8V – 15V power supply will also be used to power all devices on the network, though each node can have its own local power supply as long as the GND connections are common. <text:s/>The data bus consists of the MRBus:A and MRBus:B terminals that must be connected using a twisted pair <text:span text:style-name="T43">of </text:span>wire<text:span text:style-name="T43">s</text:span>. <text:s/>Category 5 ethernet cables work well for both power and data as the pairs are already twisted together. <text:s/>In that case, the wiring convention shown in <text:sequence-ref text:reference-format="category-and-value" text:ref-name="refTable1">Table 2</text:sequence-ref> is used. <text:s/>To make wiring easier, RJ45 adapters are also available allowing the use of off-the-shelf, <text:span text:style-name="T43">pre-terminated</text:span> ethernet cables.</text:p>
+   <text:p text:style-name="P107"><text:soft-page-break/>Table <text:sequence text:ref-name="refTable1" text:name="Table" text:formula="ooow:Table+1" style:num-format="1">2</text:sequence>: MRBus Wiring Standard <text:span text:style-name="T39">for Category 5 / RJ45 Cables</text:span></text:p>
    <table:table table:name="Table3" table:style-name="Table3">
     <table:table-column table:style-name="Table3.A"/>
     <table:table-column table:style-name="Table3.B" table:number-columns-repeated="2"/>
@@ -5332,7 +5333,7 @@
       <text:p text:style-name="Figure"><draw:frame draw:style-name="fr14" draw:name="Image13" text:anchor-type="paragraph" svg:width="7in" style:rel-width="100%" svg:height="3.75in" style:rel-height="scale" draw:z-index="20"><draw:image xlink:href="img/network.png" xlink:type="simple" xlink:show="embed" xlink:actuate="onLoad"/>
        </draw:frame>Figure <text:sequence text:ref-name="refFigure12" text:name="Figure" text:formula="ooow:Figure+1" style:num-format="1">13</text:sequence>: MRBus Network <text:span text:style-name="T42">with Multiple Devices</text:span></text:p>
      </draw:text-box>
-    </draw:frame><text:soft-page-break/></text:p>
+    </draw:frame></text:p>
    <text:h text:style-name="P96" text:outline-level="1">Configuration</text:h>
    <text:p text:style-name="P53">Most of the inputs and outputs of the MRB-IIAB are configurable to accommodate as many interlocking and layout configurations as possible. <text:s/>To simplify setting these options, a utility <text:span text:style-name="T44">(MRGui) </text:span>is available. <text:s/>To download, see the MRB-IIAB product page:</text:p>
    <text:p text:style-name="P50"><text:a xlink:type="simple" xlink:href="http://www.iascaled.com/store/MRB-IIAB">http://www.iascaled.com/store/MRB-IIAB</text:a></text:p>
@@ -5917,18 +5918,18 @@
    <text:p text:style-name="P70">In addition to driving sound modules, the sound outputs could be used to trigger gates, lights, and/or sounds at a grade crossing on the simulated track, further adding to the illusion that a train is present when a simulated train is triggered. <text:s/>While the MRB-IIAB cannot drive the crossing gates or lights directly, third-party <text:span text:style-name="T59">crossing </text:span>modules can be triggered by the MRB-IIAB sound outputs.</text:p>
    <text:p text:style-name="P64"/>
    <text:h text:style-name="P98" text:outline-level="1">Kit Contents</text:h>
-   <text:list xml:id="list164407419241900" text:continue-numbering="true" text:style-name="L1">
+   <text:list xml:id="list164708494331002" text:continue-numbering="true" text:style-name="L1">
     <text:list-item>
-     <text:p text:style-name="P137">MRB-IIAB Module</text:p>
+     <text:p text:style-name="P135">MRB-IIAB Module</text:p>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P137">12V, 1A Power Supply</text:p>
+     <text:p text:style-name="P135">12V, 1A Power Supply</text:p>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P137">10k<text:span text:style-name="T33">Ω</text:span> Input Pull-Up Resistors (Color Code = <text:span text:style-name="T59">brown black orange</text:span>)</text:p>
+     <text:p text:style-name="P135">10k<text:span text:style-name="T33">Ω</text:span> Input Pull-Up Resistors (Color Code = <text:span text:style-name="T59">brown black orange</text:span>)</text:p>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P137">330<text:span text:style-name="T33">Ω</text:span> LED Current-Limiting Resistors (Color Code = <text:span text:style-name="T59">orange orange black</text:span>)</text:p>
+     <text:p text:style-name="P135">330<text:span text:style-name="T33">Ω</text:span> LED Current-Limiting Resistors (Color Code = <text:span text:style-name="T59">orange orange black</text:span>)</text:p>
     </text:list-item>
    </text:list>
    <text:h text:style-name="P111" text:outline-level="1">Related Products</text:h>
