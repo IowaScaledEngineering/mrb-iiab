@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <office:document xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0" xmlns:style="urn:oasis:names:tc:opendocument:xmlns:style:1.0" xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oasis:names:tc:opendocument:xmlns:table:1.0" xmlns:draw="urn:oasis:names:tc:opendocument:xmlns:drawing:1.0" xmlns:fo="urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:meta="urn:oasis:names:tc:opendocument:xmlns:meta:1.0" xmlns:number="urn:oasis:names:tc:opendocument:xmlns:datastyle:1.0" xmlns:svg="urn:oasis:names:tc:opendocument:xmlns:svg-compatible:1.0" xmlns:chart="urn:oasis:names:tc:opendocument:xmlns:chart:1.0" xmlns:dr3d="urn:oasis:names:tc:opendocument:xmlns:dr3d:1.0" xmlns:math="http://www.w3.org/1998/Math/MathML" xmlns:form="urn:oasis:names:tc:opendocument:xmlns:form:1.0" xmlns:script="urn:oasis:names:tc:opendocument:xmlns:script:1.0" xmlns:config="urn:oasis:names:tc:opendocument:xmlns:config:1.0" xmlns:ooo="http://openoffice.org/2004/office" xmlns:ooow="http://openoffice.org/2004/writer" xmlns:oooc="http://openoffice.org/2004/calc" xmlns:dom="http://www.w3.org/2001/xml-events" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:rpt="http://openoffice.org/2005/report" xmlns:of="urn:oasis:names:tc:opendocument:xmlns:of:1.2" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:grddl="http://www.w3.org/2003/g/data-view#" xmlns:officeooo="http://openoffice.org/2009/office" xmlns:tableooo="http://openoffice.org/2009/table" xmlns:drawooo="http://openoffice.org/2010/draw" xmlns:calcext="urn:org:documentfoundation:names:experimental:calc:xmlns:calcext:1.0" xmlns:loext="urn:org:documentfoundation:names:experimental:office:xmlns:loext:1.0" xmlns:field="urn:openoffice:names:experimental:ooo-ms-interop:xmlns:field:1.0" xmlns:formx="urn:openoffice:names:experimental:ooxml-odf-interop:xmlns:form:1.0" xmlns:css3t="http://www.w3.org/TR/css3-text/" office:version="1.2" office:mimetype="application/vnd.oasis.opendocument.text">
- <office:meta><meta:creation-date>2015-01-05T11:46:28.789891740</meta:creation-date><dc:date>2015-01-25T21:10:34.947721403</dc:date><meta:editing-duration>PT19H45M14S</meta:editing-duration><meta:editing-cycles>247</meta:editing-cycles><meta:generator>LibreOffice/4.2.7.2$Linux_X86_64 LibreOffice_project/420m0$Build-2</meta:generator><meta:document-statistic meta:table-count="4" meta:image-count="58" meta:object-count="0" meta:page-count="36" meta:paragraph-count="420" meta:word-count="6322" meta:character-count="38591" meta:non-whitespace-character-count="32448"/></office:meta>
+ <office:meta><meta:creation-date>2015-01-05T11:46:28.789891740</meta:creation-date><dc:date>2015-02-13T08:17:28.100481694</dc:date><meta:editing-duration>PT20H29M24S</meta:editing-duration><meta:editing-cycles>268</meta:editing-cycles><meta:generator>LibreOffice/4.2.7.2$Linux_X86_64 LibreOffice_project/420m0$Build-2</meta:generator><meta:document-statistic meta:table-count="4" meta:image-count="58" meta:object-count="0" meta:page-count="36" meta:paragraph-count="420" meta:word-count="6339" meta:character-count="38710" meta:non-whitespace-character-count="32550"/></office:meta>
  <office:settings>
   <config:config-item-set config:name="ooo:view-settings">
-   <config:config-item config:name="ViewAreaTop" config:type="long">464820</config:config-item>
+   <config:config-item config:name="ViewAreaTop" config:type="long">117475</config:config-item>
    <config:config-item config:name="ViewAreaLeft" config:type="long">0</config:config-item>
    <config:config-item config:name="ViewAreaWidth" config:type="long">35059</config:config-item>
-   <config:config-item config:name="ViewAreaHeight" config:type="long">13681</config:config-item>
+   <config:config-item config:name="ViewAreaHeight" config:type="long">14713</config:config-item>
    <config:config-item config:name="ShowRedlineChanges" config:type="boolean">true</config:config-item>
    <config:config-item config:name="InBrowseMode" config:type="boolean">false</config:config-item>
    <config:config-item-map-indexed config:name="Views">
     <config:config-item-map-entry>
      <config:config-item config:name="ViewId" config:type="string">view2</config:config-item>
-     <config:config-item config:name="ViewLeft" config:type="long">20630</config:config-item>
-     <config:config-item config:name="ViewTop" config:type="long">477873</config:config-item>
+     <config:config-item config:name="ViewLeft" config:type="long">19726</config:config-item>
+     <config:config-item config:name="ViewTop" config:type="long">69481</config:config-item>
      <config:config-item config:name="VisibleLeft" config:type="long">0</config:config-item>
-     <config:config-item config:name="VisibleTop" config:type="long">464820</config:config-item>
+     <config:config-item config:name="VisibleTop" config:type="long">117475</config:config-item>
      <config:config-item config:name="VisibleRight" config:type="long">35057</config:config-item>
-     <config:config-item config:name="VisibleBottom" config:type="long">478499</config:config-item>
+     <config:config-item config:name="VisibleBottom" config:type="long">132186</config:config-item>
      <config:config-item config:name="ZoomType" config:type="short">0</config:config-item>
      <config:config-item config:name="ViewLayoutColumns" config:type="short">0</config:config-item>
      <config:config-item config:name="ViewLayoutBookMode" config:type="boolean">false</config:config-item>
@@ -81,7 +81,7 @@
    <config:config-item config:name="ConsiderTextWrapOnObjPos" config:type="boolean">false</config:config-item>
    <config:config-item config:name="CurrentDatabaseCommandType" config:type="int">0</config:config-item>
    <config:config-item config:name="RedlineProtectionKey" config:type="base64Binary"/>
-   <config:config-item config:name="Rsid" config:type="int">8170918</config:config-item>
+   <config:config-item config:name="Rsid" config:type="int">8207272</config:config-item>
    <config:config-item config:name="PrintProspectRTL" config:type="boolean">false</config:config-item>
    <config:config-item config:name="PrinterSetup" config:type="base64Binary"/>
    <config:config-item config:name="AlignTabStopPosition" config:type="boolean">true</config:config-item>
@@ -988,54 +988,57 @@
   <style:style style:name="P74" style:family="paragraph" style:parent-style-name="Text_20_body">
    <style:text-properties officeooo:paragraph-rsid="0079428f"/>
   </style:style>
-  <style:style style:name="P75" style:family="paragraph" style:parent-style-name="Title">
+  <style:style style:name="P75" style:family="paragraph" style:parent-style-name="Text_20_body">
+   <style:text-properties officeooo:rsid="007cada6" officeooo:paragraph-rsid="007cada6"/>
+  </style:style>
+  <style:style style:name="P76" style:family="paragraph" style:parent-style-name="Title">
    <style:text-properties officeooo:rsid="001615eb" officeooo:paragraph-rsid="001615eb"/>
   </style:style>
-  <style:style style:name="P76" style:family="paragraph" style:parent-style-name="Table_20_Contents">
-   <style:paragraph-properties fo:text-align="center" style:justify-single-word="false"/>
-   <style:text-properties officeooo:rsid="0038d885" officeooo:paragraph-rsid="0038d885"/>
-  </style:style>
   <style:style style:name="P77" style:family="paragraph" style:parent-style-name="Table_20_Contents">
-   <style:paragraph-properties fo:text-align="center" style:justify-single-word="false">
-    <style:tab-stops>
-     <style:tab-stop style:position="0.7083in"/>
-    </style:tab-stops>
-   </style:paragraph-properties>
+   <style:paragraph-properties fo:text-align="center" style:justify-single-word="false"/>
    <style:text-properties officeooo:rsid="0038d885" officeooo:paragraph-rsid="0038d885"/>
   </style:style>
   <style:style style:name="P78" style:family="paragraph" style:parent-style-name="Table_20_Contents">
-   <style:paragraph-properties fo:text-align="center" style:justify-single-word="false"/>
-   <style:text-properties officeooo:rsid="003ac76f" officeooo:paragraph-rsid="003ac76f"/>
+   <style:paragraph-properties fo:text-align="center" style:justify-single-word="false">
+    <style:tab-stops>
+     <style:tab-stop style:position="0.7083in"/>
+    </style:tab-stops>
+   </style:paragraph-properties>
+   <style:text-properties officeooo:rsid="0038d885" officeooo:paragraph-rsid="0038d885"/>
   </style:style>
   <style:style style:name="P79" style:family="paragraph" style:parent-style-name="Table_20_Contents">
    <style:paragraph-properties fo:text-align="center" style:justify-single-word="false"/>
-   <style:text-properties officeooo:rsid="003f04c8" officeooo:paragraph-rsid="003f04c8"/>
+   <style:text-properties officeooo:rsid="003ac76f" officeooo:paragraph-rsid="003ac76f"/>
   </style:style>
   <style:style style:name="P80" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+   <style:paragraph-properties fo:text-align="center" style:justify-single-word="false"/>
    <style:text-properties officeooo:rsid="003f04c8" officeooo:paragraph-rsid="003f04c8"/>
   </style:style>
   <style:style style:name="P81" style:family="paragraph" style:parent-style-name="Table_20_Contents">
-   <style:text-properties officeooo:rsid="003f75f1" officeooo:paragraph-rsid="003f75f1"/>
+   <style:text-properties officeooo:rsid="003f04c8" officeooo:paragraph-rsid="003f04c8"/>
   </style:style>
   <style:style style:name="P82" style:family="paragraph" style:parent-style-name="Table_20_Contents">
-   <style:paragraph-properties fo:text-align="center" style:justify-single-word="false"/>
-   <style:text-properties officeooo:rsid="00415178" officeooo:paragraph-rsid="00415178"/>
+   <style:text-properties officeooo:rsid="003f75f1" officeooo:paragraph-rsid="003f75f1"/>
   </style:style>
   <style:style style:name="P83" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+   <style:paragraph-properties fo:text-align="center" style:justify-single-word="false"/>
    <style:text-properties officeooo:rsid="00415178" officeooo:paragraph-rsid="00415178"/>
   </style:style>
   <style:style style:name="P84" style:family="paragraph" style:parent-style-name="Table_20_Contents">
-   <style:paragraph-properties fo:text-align="center" style:justify-single-word="false"/>
-   <style:text-properties officeooo:rsid="0042dca1" officeooo:paragraph-rsid="0042dca1"/>
+   <style:text-properties officeooo:rsid="00415178" officeooo:paragraph-rsid="00415178"/>
   </style:style>
   <style:style style:name="P85" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+   <style:paragraph-properties fo:text-align="center" style:justify-single-word="false"/>
    <style:text-properties officeooo:rsid="0042dca1" officeooo:paragraph-rsid="0042dca1"/>
   </style:style>
   <style:style style:name="P86" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+   <style:text-properties officeooo:rsid="0042dca1" officeooo:paragraph-rsid="0042dca1"/>
+  </style:style>
+  <style:style style:name="P87" style:family="paragraph" style:parent-style-name="Table_20_Contents">
    <style:paragraph-properties fo:text-align="center" style:justify-single-word="false"/>
    <style:text-properties fo:font-weight="bold" officeooo:rsid="003ac76f" officeooo:paragraph-rsid="003ac76f" style:font-weight-asian="bold" style:font-weight-complex="bold"/>
   </style:style>
-  <style:style style:name="P87" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+  <style:style style:name="P88" style:family="paragraph" style:parent-style-name="Table_20_Contents">
    <style:paragraph-properties fo:text-align="center" style:justify-single-word="false">
     <style:tab-stops>
      <style:tab-stop style:position="0.7083in"/>
@@ -1043,169 +1046,163 @@
    </style:paragraph-properties>
    <style:text-properties fo:font-weight="bold" officeooo:rsid="003ac76f" officeooo:paragraph-rsid="003ac76f" style:font-weight-asian="bold" style:font-weight-complex="bold"/>
   </style:style>
-  <style:style style:name="P88" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+  <style:style style:name="P89" style:family="paragraph" style:parent-style-name="Table_20_Contents">
    <style:text-properties officeooo:rsid="00454a67" officeooo:paragraph-rsid="00454a67"/>
   </style:style>
-  <style:style style:name="P89" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+  <style:style style:name="P90" style:family="paragraph" style:parent-style-name="Table_20_Contents">
    <style:text-properties officeooo:rsid="00454a67" officeooo:paragraph-rsid="0046ba8b"/>
   </style:style>
-  <style:style style:name="P90" style:family="paragraph" style:parent-style-name="Table_20_Contents">
-   <style:text-properties officeooo:rsid="00454a67" officeooo:paragraph-rsid="004ba0e8"/>
-  </style:style>
   <style:style style:name="P91" style:family="paragraph" style:parent-style-name="Table_20_Contents">
-   <style:paragraph-properties fo:text-align="center" style:justify-single-word="false"/>
-   <style:text-properties officeooo:rsid="0063f61e" officeooo:paragraph-rsid="0063f61e"/>
+   <style:text-properties officeooo:rsid="00454a67" officeooo:paragraph-rsid="004ba0e8"/>
   </style:style>
   <style:style style:name="P92" style:family="paragraph" style:parent-style-name="Table_20_Contents">
    <style:paragraph-properties fo:text-align="center" style:justify-single-word="false"/>
+   <style:text-properties officeooo:rsid="0063f61e" officeooo:paragraph-rsid="0063f61e"/>
+  </style:style>
+  <style:style style:name="P93" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+   <style:paragraph-properties fo:text-align="center" style:justify-single-word="false"/>
    <style:text-properties officeooo:rsid="006d40d8" officeooo:paragraph-rsid="006d40d8"/>
   </style:style>
-  <style:style style:name="P93" style:family="paragraph" style:parent-style-name="Table">
-   <style:paragraph-properties fo:break-before="page"/>
-  </style:style>
-  <style:style style:name="P94" style:family="paragraph" style:parent-style-name="Heading_20_1">
+  <style:style style:name="P94" style:family="paragraph" style:parent-style-name="Table">
    <style:paragraph-properties fo:break-before="page"/>
   </style:style>
   <style:style style:name="P95" style:family="paragraph" style:parent-style-name="Heading_20_1">
    <style:paragraph-properties fo:break-before="page"/>
-   <style:text-properties officeooo:rsid="001615eb" officeooo:paragraph-rsid="001f35c4"/>
   </style:style>
   <style:style style:name="P96" style:family="paragraph" style:parent-style-name="Heading_20_1">
    <style:paragraph-properties fo:break-before="page"/>
-   <style:text-properties officeooo:rsid="001f35c4" officeooo:paragraph-rsid="001f35c4"/>
+   <style:text-properties officeooo:rsid="001615eb" officeooo:paragraph-rsid="001f35c4"/>
   </style:style>
   <style:style style:name="P97" style:family="paragraph" style:parent-style-name="Heading_20_1">
    <style:paragraph-properties fo:break-before="page"/>
-   <style:text-properties officeooo:paragraph-rsid="0067e213"/>
+   <style:text-properties officeooo:rsid="001f35c4" officeooo:paragraph-rsid="001f35c4"/>
   </style:style>
   <style:style style:name="P98" style:family="paragraph" style:parent-style-name="Heading_20_1">
    <style:paragraph-properties fo:break-before="page"/>
+   <style:text-properties officeooo:paragraph-rsid="0067e213"/>
+  </style:style>
+  <style:style style:name="P99" style:family="paragraph" style:parent-style-name="Heading_20_1">
+   <style:paragraph-properties fo:break-before="page"/>
    <style:text-properties officeooo:rsid="0076dd86" officeooo:paragraph-rsid="0076dd86"/>
   </style:style>
-  <style:style style:name="P99" style:family="paragraph" style:parent-style-name="Text_20_body">
+  <style:style style:name="P100" style:family="paragraph" style:parent-style-name="Text_20_body">
    <style:paragraph-properties fo:break-before="page"/>
    <style:text-properties officeooo:rsid="0067e213" officeooo:paragraph-rsid="0067e213"/>
   </style:style>
-  <style:style style:name="P100" style:family="paragraph" style:parent-style-name="Heading_20_3">
-   <style:paragraph-properties fo:break-before="page"/>
-  </style:style>
-  <style:style style:name="P101" style:family="paragraph" style:parent-style-name="Heading_20_2">
+  <style:style style:name="P101" style:family="paragraph" style:parent-style-name="Heading_20_3">
    <style:paragraph-properties fo:break-before="page"/>
   </style:style>
   <style:style style:name="P102" style:family="paragraph" style:parent-style-name="Heading_20_2">
    <style:paragraph-properties fo:break-before="page"/>
+  </style:style>
+  <style:style style:name="P103" style:family="paragraph" style:parent-style-name="Heading_20_2">
+   <style:paragraph-properties fo:break-before="page"/>
    <style:text-properties officeooo:paragraph-rsid="0076d92b"/>
   </style:style>
-  <style:style style:name="P103" style:family="paragraph" style:parent-style-name="Table_20_Heading">
+  <style:style style:name="P104" style:family="paragraph" style:parent-style-name="Table_20_Heading">
    <style:text-properties officeooo:rsid="0038d885" officeooo:paragraph-rsid="0038d885"/>
   </style:style>
-  <style:style style:name="P104" style:family="paragraph" style:parent-style-name="Table_20_Heading">
+  <style:style style:name="P105" style:family="paragraph" style:parent-style-name="Table_20_Heading">
    <style:paragraph-properties fo:text-align="center" style:justify-single-word="false"/>
    <style:text-properties officeooo:rsid="003ac76f" officeooo:paragraph-rsid="003ac76f"/>
   </style:style>
-  <style:style style:name="P105" style:family="paragraph" style:parent-style-name="Table_20_Heading">
+  <style:style style:name="P106" style:family="paragraph" style:parent-style-name="Table_20_Heading">
    <style:text-properties officeooo:rsid="0063f61e" officeooo:paragraph-rsid="0063f61e"/>
   </style:style>
-  <style:style style:name="P106" style:family="paragraph" style:parent-style-name="Table_20_Heading">
+  <style:style style:name="P107" style:family="paragraph" style:parent-style-name="Table_20_Heading">
    <style:text-properties officeooo:rsid="006d40d8" officeooo:paragraph-rsid="006d40d8"/>
   </style:style>
-  <style:style style:name="P107" style:family="paragraph" style:parent-style-name="Table">
+  <style:style style:name="P108" style:family="paragraph" style:parent-style-name="Table">
    <style:paragraph-properties fo:keep-with-next="always"/>
   </style:style>
-  <style:style style:name="P108" style:family="paragraph" style:parent-style-name="Heading_20_1">
+  <style:style style:name="P109" style:family="paragraph" style:parent-style-name="Heading_20_1">
    <style:text-properties officeooo:rsid="001f5051" officeooo:paragraph-rsid="001f5051"/>
   </style:style>
-  <style:style style:name="P109" style:family="paragraph" style:parent-style-name="Heading_20_1">
+  <style:style style:name="P110" style:family="paragraph" style:parent-style-name="Heading_20_1">
    <style:text-properties officeooo:rsid="001f35c4" officeooo:paragraph-rsid="001f35c4"/>
   </style:style>
-  <style:style style:name="P110" style:family="paragraph" style:parent-style-name="Heading_20_1">
+  <style:style style:name="P111" style:family="paragraph" style:parent-style-name="Heading_20_1">
    <style:text-properties officeooo:paragraph-rsid="001f35c4"/>
   </style:style>
-  <style:style style:name="P111" style:family="paragraph" style:parent-style-name="Heading_20_1">
+  <style:style style:name="P112" style:family="paragraph" style:parent-style-name="Heading_20_1">
    <style:text-properties officeooo:paragraph-rsid="0076dd86"/>
   </style:style>
-  <style:style style:name="P112" style:family="paragraph" style:parent-style-name="List_20_Contents">
+  <style:style style:name="P113" style:family="paragraph" style:parent-style-name="List_20_Contents">
    <style:text-properties officeooo:rsid="001a7ffb" officeooo:paragraph-rsid="001a7ffb"/>
   </style:style>
-  <style:style style:name="P113" style:family="paragraph" style:parent-style-name="List_20_Contents">
+  <style:style style:name="P114" style:family="paragraph" style:parent-style-name="List_20_Contents">
    <style:text-properties officeooo:rsid="001bb702" officeooo:paragraph-rsid="001bb702"/>
   </style:style>
-  <style:style style:name="P114" style:family="paragraph" style:parent-style-name="Heading_20_2">
+  <style:style style:name="P115" style:family="paragraph" style:parent-style-name="Heading_20_2">
    <style:text-properties officeooo:rsid="0067e213" officeooo:paragraph-rsid="0067e213"/>
   </style:style>
-  <style:style style:name="P115" style:family="paragraph" style:parent-style-name="Heading_20_2">
+  <style:style style:name="P116" style:family="paragraph" style:parent-style-name="Heading_20_2">
    <style:text-properties officeooo:rsid="0076dd86" officeooo:paragraph-rsid="0076dd86"/>
   </style:style>
-  <style:style style:name="P116" style:family="paragraph" style:parent-style-name="Frame_20_contents">
+  <style:style style:name="P117" style:family="paragraph" style:parent-style-name="Frame_20_contents">
    <style:text-properties style:font-name="Liberation Sans" fo:font-weight="bold" officeooo:rsid="006a14b6" officeooo:paragraph-rsid="006a14b6" style:font-weight-asian="bold" style:font-weight-complex="bold"/>
   </style:style>
-  <style:style style:name="P117" style:family="paragraph" style:parent-style-name="Heading_20_3">
+  <style:style style:name="P118" style:family="paragraph" style:parent-style-name="Heading_20_3">
    <style:text-properties officeooo:paragraph-rsid="0076d92b"/>
   </style:style>
-  <style:style style:name="P118" style:family="paragraph" style:parent-style-name="List_20_Contents">
+  <style:style style:name="P119" style:family="paragraph" style:parent-style-name="List_20_Contents">
    <style:paragraph-properties fo:margin-top="0in" fo:margin-bottom="0.2in" style:contextual-spacing="false"/>
    <style:text-properties officeooo:rsid="0076dd86" officeooo:paragraph-rsid="0076dd86"/>
   </style:style>
-  <style:style style:name="P119" style:family="paragraph" style:parent-style-name="Text_20_body">
-   <style:text-properties officeooo:rsid="0063f61e" officeooo:paragraph-rsid="0063f61e"/>
-  </style:style>
-  <style:style style:name="P120" style:family="paragraph" style:parent-style-name="Text_20_body">
-   <style:text-properties officeooo:rsid="007cada6" officeooo:paragraph-rsid="007cada6"/>
-  </style:style>
-  <style:style style:name="P121" style:family="paragraph" style:parent-style-name="Heading_20_2">
-   <style:text-properties officeooo:rsid="0067e213" officeooo:paragraph-rsid="0067e213"/>
-  </style:style>
-  <style:style style:name="P122" style:family="paragraph" style:parent-style-name="Heading_20_2">
-   <style:text-properties officeooo:rsid="0076dd86" officeooo:paragraph-rsid="0076dd86"/>
-  </style:style>
-  <style:style style:name="P123" style:family="paragraph" style:parent-style-name="Heading_20_2">
-   <style:paragraph-properties fo:break-before="page"/>
-  </style:style>
-  <style:style style:name="P124" style:family="paragraph" style:parent-style-name="Heading_20_2">
-   <style:paragraph-properties fo:break-before="page"/>
-   <style:text-properties officeooo:paragraph-rsid="0076d92b"/>
-  </style:style>
-  <style:style style:name="P125" style:family="paragraph" style:parent-style-name="Heading_20_1">
+  <style:style style:name="P120" style:family="paragraph" style:parent-style-name="Heading_20_1">
    <style:text-properties officeooo:rsid="001f5051" officeooo:paragraph-rsid="001f5051"/>
   </style:style>
-  <style:style style:name="P126" style:family="paragraph" style:parent-style-name="Heading_20_1">
+  <style:style style:name="P121" style:family="paragraph" style:parent-style-name="Heading_20_1">
    <style:text-properties officeooo:paragraph-rsid="0076dd86"/>
   </style:style>
-  <style:style style:name="P127" style:family="paragraph" style:parent-style-name="Heading_20_1">
+  <style:style style:name="P122" style:family="paragraph" style:parent-style-name="Heading_20_1">
    <style:paragraph-properties fo:break-before="page"/>
   </style:style>
-  <style:style style:name="P128" style:family="paragraph" style:parent-style-name="Heading_20_1">
+  <style:style style:name="P123" style:family="paragraph" style:parent-style-name="Heading_20_1">
    <style:paragraph-properties fo:break-before="page"/>
    <style:text-properties officeooo:rsid="001615eb" officeooo:paragraph-rsid="001f35c4"/>
   </style:style>
-  <style:style style:name="P129" style:family="paragraph" style:parent-style-name="Heading_20_1">
+  <style:style style:name="P124" style:family="paragraph" style:parent-style-name="Heading_20_1">
    <style:paragraph-properties fo:break-before="page"/>
    <style:text-properties officeooo:rsid="001f35c4" officeooo:paragraph-rsid="001f35c4"/>
   </style:style>
-  <style:style style:name="P130" style:family="paragraph" style:parent-style-name="Heading_20_1">
+  <style:style style:name="P125" style:family="paragraph" style:parent-style-name="Heading_20_1">
    <style:paragraph-properties fo:break-before="page"/>
    <style:text-properties officeooo:paragraph-rsid="0067e213"/>
   </style:style>
-  <style:style style:name="P131" style:family="paragraph" style:parent-style-name="Heading_20_1">
+  <style:style style:name="P126" style:family="paragraph" style:parent-style-name="Heading_20_1">
    <style:paragraph-properties fo:break-before="page"/>
    <style:text-properties officeooo:rsid="0076dd86" officeooo:paragraph-rsid="0076dd86"/>
   </style:style>
-  <style:style style:name="P132" style:family="paragraph" style:parent-style-name="Heading_20_3">
+  <style:style style:name="P127" style:family="paragraph" style:parent-style-name="Heading_20_2">
+   <style:text-properties officeooo:rsid="0067e213" officeooo:paragraph-rsid="0067e213"/>
+  </style:style>
+  <style:style style:name="P128" style:family="paragraph" style:parent-style-name="Heading_20_2">
+   <style:text-properties officeooo:rsid="0076dd86" officeooo:paragraph-rsid="0076dd86"/>
+  </style:style>
+  <style:style style:name="P129" style:family="paragraph" style:parent-style-name="Heading_20_2">
+   <style:paragraph-properties fo:break-before="page"/>
+  </style:style>
+  <style:style style:name="P130" style:family="paragraph" style:parent-style-name="Heading_20_2">
+   <style:paragraph-properties fo:break-before="page"/>
    <style:text-properties officeooo:paragraph-rsid="0076d92b"/>
   </style:style>
-  <style:style style:name="P133" style:family="paragraph" style:parent-style-name="Heading_20_3">
-   <style:paragraph-properties fo:break-before="page"/>
-  </style:style>
-  <style:style style:name="P134" style:family="paragraph" style:parent-style-name="List_20_Contents" style:list-style-name="L1"/>
-  <style:style style:name="P135" style:family="paragraph" style:parent-style-name="List_20_Contents" style:list-style-name="L1">
+  <style:style style:name="P131" style:family="paragraph" style:parent-style-name="List_20_Contents" style:list-style-name="L1"/>
+  <style:style style:name="P132" style:family="paragraph" style:parent-style-name="List_20_Contents" style:list-style-name="L1">
    <style:text-properties officeooo:rsid="001a7ffb" officeooo:paragraph-rsid="001a7ffb"/>
   </style:style>
-  <style:style style:name="P136" style:family="paragraph" style:parent-style-name="List_20_Contents" style:list-style-name="L1">
+  <style:style style:name="P133" style:family="paragraph" style:parent-style-name="List_20_Contents" style:list-style-name="L1">
    <style:text-properties officeooo:rsid="001bb702" officeooo:paragraph-rsid="001bb702"/>
   </style:style>
-  <style:style style:name="P137" style:family="paragraph" style:parent-style-name="List_20_Contents" style:list-style-name="L1">
+  <style:style style:name="P134" style:family="paragraph" style:parent-style-name="List_20_Contents" style:list-style-name="L1">
    <style:paragraph-properties fo:margin-top="0in" fo:margin-bottom="0.2in" style:contextual-spacing="false"/>
    <style:text-properties officeooo:rsid="0076dd86" officeooo:paragraph-rsid="0076dd86"/>
+  </style:style>
+  <style:style style:name="P135" style:family="paragraph" style:parent-style-name="Heading_20_3">
+   <style:text-properties officeooo:paragraph-rsid="0076d92b"/>
+  </style:style>
+  <style:style style:name="P136" style:family="paragraph" style:parent-style-name="Heading_20_3">
+   <style:paragraph-properties fo:break-before="page"/>
   </style:style>
   <style:style style:name="T1" style:family="text">
    <style:text-properties officeooo:rsid="001615eb"/>
@@ -1384,6 +1381,9 @@
   <style:style style:name="T59" style:family="text">
    <style:text-properties officeooo:rsid="0079428f"/>
   </style:style>
+  <style:style style:name="T60" style:family="text">
+   <style:text-properties officeooo:rsid="007d3ba8"/>
+  </style:style>
   <style:style style:name="fr1" style:family="graphic" style:parent-style-name="Frame">
    <style:graphic-properties fo:margin-left="0in" fo:margin-right="0in" fo:margin-top="0in" fo:margin-bottom="0.2in" style:wrap="none" style:vertical-pos="bottom" style:vertical-rel="paragraph-content" style:horizontal-pos="from-left" style:horizontal-rel="paragraph" fo:padding="0in" fo:border="none"/>
   </style:style>
@@ -1549,7 +1549,7 @@
  <office:master-styles>
   <style:master-page style:name="Standard" style:page-layout-name="pm1">
    <style:footer>
-    <text:p text:style-name="P1"><text:tab/><text:page-number text:select-page="current">17</text:page-number> <text:span text:style-name="T1">of </text:span><text:span text:style-name="T1"><text:page-count>36</text:page-count></text:span><text:span text:style-name="T1"><text:tab/></text:span><text:span text:style-name="T2">$Revision$</text:span></text:p>
+    <text:p text:style-name="P1"><text:tab/><text:page-number text:select-page="current">5</text:page-number> <text:span text:style-name="T1">of </text:span><text:span text:style-name="T1"><text:page-count>36</text:page-count></text:span><text:span text:style-name="T1"><text:tab/></text:span><text:span text:style-name="T2">$Revision$</text:span></text:p>
    </style:footer>
   </style:master-page>
   <style:master-page style:name="First_20_Page" style:display-name="First Page" style:page-layout-name="pm2" style:next-style-name="Standard"/>
@@ -3337,52 +3337,52 @@
       </office:binary-data>
      </draw:image>
     </draw:frame></text:p>
-   <text:p text:style-name="P75">Interlocking-In-A-Box</text:p>
+   <text:p text:style-name="P76">Interlocking-In-A-Box</text:p>
    <text:h text:style-name="Heading_20_1" text:outline-level="1">Features</text:h>
-   <text:list xml:id="list3654201749073822158" text:style-name="L1">
+   <text:list xml:id="list4897959220787709157" text:style-name="L1">
     <text:list-item>
-     <text:p text:style-name="P134">Fully automatic interlocking <text:span text:style-name="T6">with built-in signal logic</text:span></text:p>
+     <text:p text:style-name="P131">Fully automatic interlocking <text:span text:style-name="T6">with built-in signal logic</text:span></text:p>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P135"><text:span text:style-name="T12">Ability to </text:span>simulate trains on any track based on fast time</text:p>
+     <text:p text:style-name="P132"><text:span text:style-name="T12">Ability to </text:span>simulate trains on any track based on fast time</text:p>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P136">Configurable time lock and timeout delays to suit any application</text:p>
+     <text:p text:style-name="P133">Configurable time lock and timeout delays to suit any application</text:p>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P135">Supports up to one siding on each of the main lines with <text:span text:style-name="T59">corresponding </text:span>signal indications</text:p>
+     <text:p text:style-name="P132">Supports up to one siding on each of the main lines with <text:span text:style-name="T59">corresponding </text:span>signal indications</text:p>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P135">Interfaces with current-based or infrared block detectors (sold separately)</text:p>
+     <text:p text:style-name="P132">Interfaces with current-based or infrared block detectors (sold separately)</text:p>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P135">Simulated trains can trigger <text:span text:style-name="T58">third-</text:span>party sound modules for enhanced realism</text:p>
+     <text:p text:style-name="P132">Simulated trains can trigger <text:span text:style-name="T58">third-</text:span>party sound modules for enhanced realism</text:p>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P135">Optional automatic interchange can be triggered by simulated trains</text:p>
+     <text:p text:style-name="P132">Optional automatic interchange can be triggered by simulated trains</text:p>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P136">Simple configuration with the MRG<text:span text:style-name="T59">ui</text:span> application</text:p>
+     <text:p text:style-name="P133">Simple configuration with the MRG<text:span text:style-name="T59">ui</text:span> application</text:p>
     </text:list-item>
    </text:list>
-   <text:h text:style-name="P108" text:outline-level="1">Description</text:h>
+   <text:h text:style-name="P109" text:outline-level="1">Description</text:h>
    <text:p text:style-name="P6"><draw:frame draw:style-name="fr1" draw:name="Frame1" text:anchor-type="paragraph" svg:x="0.5in" svg:width="6in" draw:z-index="1">
      <draw:text-box fo:min-height="1.9402in">
       <text:p text:style-name="Figure"><draw:frame draw:style-name="fr10" draw:name="Image3" text:anchor-type="paragraph" svg:width="6in" style:rel-width="100%" svg:height="1.8799in" style:rel-height="scale" draw:z-index="11"><draw:image xlink:href="img/schematic.png" xlink:type="simple" xlink:show="embed" xlink:actuate="onLoad"/>
        </draw:frame>Figure <text:sequence text:ref-name="refFigure0" text:name="Figure" text:formula="ooow:Figure+1" style:num-format="1">1</text:sequence>: <text:span text:style-name="T23">Complete</text:span> Track Schematic</text:p>
      </draw:text-box>
-    </draw:frame>The Iowa Scaled Engineering Interlocking-In-A-Box (MRB-IIAB) provides the signal logic to control a fully automatic interlocking on a model railroad. <text:s/>It can be used to manage a crossing of two active main lines with complete signal systems on both, or more typically, it can be used to manage the crossing of an active (modeled) main line and an inactive (dummy) main line. <text:s/>Each main line can have one siding, on either side of the diamond, and the signals respond appropriately based on the position of the switch points.</text:p>
-   <text:p text:style-name="P17"><text:span text:style-name="T20">As shown in </text:span><text:span text:style-name="T20"><text:sequence-ref text:reference-format="category-and-value" text:ref-name="refFigure0">Figure 1</text:sequence-ref></text:span><text:span text:style-name="T20">, t</text:span>he “west” and “north” <text:span text:style-name="T20">tracks have</text:span> one <text:span text:style-name="T59">active </text:span>signal head per track. <text:s/>On the “east” and “south” <text:span text:style-name="T20">tracks</text:span>, two signal heads can be driven to control access into the siding on the opposite side. <text:s/>Although defined as shown above, the MRB-IIAB is flexible enough to handle other configurations such as no sidings or sidings on opposite sides (e.g. “east” and/or “south) of the diamond. <text:s/></text:p>
-   <text:p text:style-name="P8">The MRB-IIAB can also enhance the realism of a dummy main line by simulating trains – and optionally triggering a sound module – on the dummy main line, preventing movement through the diamond on the the active main line while the simulated train is present. <text:s/>Schedules for simulated trains <text:soft-page-break/>are loaded into the module and then triggered based on fast time from a <text:a xlink:type="simple" xlink:href="http://www.iascaled.com/store/MRB-FCM"><text:span text:style-name="T30">MRB-FCM</text:span></text:a> fast clock module (sold separately). <text:s/>Up to 32 scheduled trains can be programmed into each MRB-IIAB module. <text:s/><text:span text:style-name="T13">Additionally, each simulated train can also trigger an automatic interchange, delivering cars to be picked up by the next main line train.</text:span></text:p>
+    </draw:frame>The Iowa Scaled Engineering Interlocking-In-A-Box (MRB-IIAB) provides the signal logic to control a fully automatic interlocking on a model railroad. <text:s/>It can be used to manage a crossing of two active main lines with complete signal systems on both, or more typically, it can be used to manage the crossing of an active (modeled) main line and an inactive (dummy) main line. <text:s/>Each main line can have one siding, on either side of the diamond, and the signals respond <text:span text:style-name="T60">prototypically</text:span> based on the position of the switch points.</text:p>
+   <text:p text:style-name="P17"><text:span text:style-name="T20">As shown in </text:span><text:span text:style-name="T20"><text:sequence-ref text:reference-format="category-and-value" text:ref-name="refFigure0">Figure 1</text:sequence-ref></text:span><text:span text:style-name="T20">, t</text:span>he “west” and “north” <text:span text:style-name="T20">tracks have</text:span> one <text:span text:style-name="T59">active </text:span>signal head per track. <text:s/>On the “east” and “south” <text:span text:style-name="T20">tracks</text:span>, two signal heads can be driven to control access into the siding on the opposite side. <text:s/>Although defined as shown above, the MRB-IIAB is flexible enough to handle other configurations such as no sidings or <text:span text:style-name="T60">having </text:span>sidings on <text:span text:style-name="T60">the other</text:span> sides (e.g. “east” and/or “south”) of the diamond. <text:s/></text:p>
+   <text:p text:style-name="P8">The MRB-IIAB can also enhance the realism of a dummy main line by simulating trains – and optionally triggering a sound module – on the dummy main line, preventing movement through the <text:soft-page-break/>diamond on the the active main line while the simulated train is present. <text:s/>Schedules for simulated trains are loaded into the module and then triggered based on fast time from a <text:a xlink:type="simple" xlink:href="http://www.iascaled.com/store/MRB-FCM"><text:span text:style-name="T30">MRB-FCM</text:span></text:a> fast clock module (sold separately). <text:s/>Up to 32 scheduled trains can be programmed into each MRB-IIAB module. <text:s/><text:span text:style-name="T13">Additionally, each simulated train can also trigger an automatic interchange, delivering cars to be picked up by the next main line train.</text:span></text:p>
    <text:p text:style-name="P8">Track occupancy inputs accept logic-level signals from a variety of occupancy detectors. <text:s/>Both current-based (DCC) detectors such as the <text:a xlink:type="simple" xlink:href="http://www.iascaled.com/store/MRB-BD4X"><text:span text:style-name="T30">MRB-BD4X</text:span></text:a> and optical/IR detectors such as the <text:a xlink:type="simple" xlink:href="http://www.iascaled.com/store/CKT-IRSENSE"><text:span text:style-name="T30">CKT-IRSENSE</text:span></text:a> can be used. <text:s/>Other <text:span text:style-name="T59">third-party </text:span>detectors can also be used as long as they provide a logic-level (or open-drain) output.</text:p>
    <text:p text:style-name="P6">Signals are driven with 5V outputs capable of sourcing 10mA or sinking 20mA each. <text:s/>Configuration options allow the MRB-IIAB to control any combination of common-anode (+) and common-cathode (-) LED signals. <text:s/>Additional circuitry may be needed to drive incandescent type signals – contact us for details.</text:p>
    <text:h text:style-name="Heading_20_1" text:outline-level="1">Operation</text:h>
    <text:p text:style-name="P49">Although highly configurable, the basic operation of the MRB-IIAB is qu<text:span text:style-name="T59">i</text:span>te simple. <text:s/>It is design<text:span text:style-name="T59">ed</text:span> to mimic the operation of a fully automatic interlocking. <text:s/>The first train to arrive at the diamond gets permission to proceed, thus holding off any other trains that may arrive until the diamond has cleared and adequate time has run out on the time lock timer. <text:s/>Several basic cases are presented on the following pages. <text:s/>More complex situations can also be handled, but fundamentally the same logic applies. <text:s/>In addition, any simulated trains are also run according to the same rules, meaning that a real train can delay a simulated one and vice versa.</text:p>
    <text:p text:style-name="P49">The stop indication is always Red but the proceed indication for each signal is independently configurable. <text:s/>The following pages show the default configuration, but any of eight possible <text:span text:style-name="T59">proceed </text:span>aspects are available: Green, Yellow, Red, Flashing Green, Flashing Yellow, Flashing Red, Lunar, and Off.</text:p>
    <text:p text:style-name="P49">In addition to simulating the signal logic, The MRB-IIAB contains several timing parameters used to enhance <text:span text:style-name="T59">the operational </text:span>realism. <text:s/>Each of the four approach blocks and the interlocking block have a timeout value. <text:s/>If a train triggers a detector but then subsequently moves off that detector or out of the block, the MRB-IIAB will assume the train is still present for the amount of time programmed for the timeout. <text:s/>This is useful when using point-type detectors such as Infrared (IR) detectors since short trains may not always completely cover all the detectors in a block. <text:s/>This allows a train to “coast” between detectors without losing detection.</text:p>
-   <text:p text:style-name="P49">After a train has gone through the interlocking, it will trigger the detectors on the opposite side of the diamond. <text:s/>Therefore, a lockout timer is used to prevent re-triggering of the interlocking on the opposite block until the timer has expired. <text:s/>This allows a train adequate time to move out of the opposite block without tying up the interlocking again.</text:p>
+   <text:p text:style-name="P49">After a train has gone through the interlocking, it will trigger the detectors on the opposite side of the diamond. <text:s/>Therefore, a lockout timer is used to prevent re-triggering of the interlocking on the opposite block until the <text:span text:style-name="T60">lockout </text:span>timer has expired. <text:s/>This allows a train adequate time to move out of the opposite block without tying up the interlocking again.</text:p>
    <text:p text:style-name="P49"><text:soft-page-break/>Finally, a time lock timer runs whenever a signal drops from a proceed indication to a stop indication. <text:s/>No other proceed indication can be given until the time lock timer expires. <text:s/>This prevents possible collisions should a red signal drop in front of a train who does not have adequate time to stop.</text:p>
-   <text:h text:style-name="P114" text:outline-level="2">Examples</text:h>
+   <text:h text:style-name="P115" text:outline-level="2">Examples</text:h>
    <text:p text:style-name="P49">The examples presented below represent some of the most common situations encountered at the interlocking. <text:s/>Yellow distant signals are shown to indicate the start of each approach block. <text:s/>However, the MRB-IIAB does not control these signals – if present, they are assumed to be fixed indications.</text:p>
    <text:h text:style-name="Heading_20_3" text:outline-level="3">Eastboun<text:span text:style-name="T42">d</text:span></text:h>
    <text:p text:style-name="P49">Eastbound train arrives and gets proceed indication:</text:p>
@@ -3395,7 +3395,7 @@
    <text:p text:style-name="P49"><draw:frame draw:style-name="fr11" draw:name="Image16" text:anchor-type="as-char" svg:width="5.6244in" svg:height="1.1252in" draw:z-index="22"><draw:image xlink:href="img/eastbound_main/03.png" xlink:type="simple" xlink:show="embed" xlink:actuate="onLoad"/>
     </draw:frame></text:p>
    <text:p text:style-name="P49"/>
-   <text:p text:style-name="P99">The interlocking behaves similarly for a train arriving on the siding. <text:s/>However, the proceed indication will only appear once the switch is thrown for the siding: </text:p>
+   <text:p text:style-name="P100">The interlocking behaves similarly for a train arriving on the siding. <text:s/>However, the proceed indication will only appear once the switch is thrown for the siding: </text:p>
    <text:p text:style-name="P51"><draw:frame draw:style-name="fr11" draw:name="Image17" text:anchor-type="as-char" svg:width="5.6244in" svg:height="1.1252in" draw:z-index="23"><draw:image xlink:href="img/eastbound_siding/01.png" xlink:type="simple" xlink:show="embed" xlink:actuate="onLoad"/>
     </draw:frame></text:p>
    <text:h text:style-name="Heading_20_3" text:outline-level="3">Westbound</text:h>
@@ -3409,7 +3409,7 @@
    <text:p text:style-name="P49"><draw:frame draw:style-name="fr11" draw:name="Image18" text:anchor-type="as-char" svg:width="5.6244in" svg:height="1.1252in" draw:z-index="27"><draw:image xlink:href="img/westbound_siding/01.png" xlink:type="simple" xlink:show="embed" xlink:actuate="onLoad"/>
     </draw:frame></text:p>
    <text:p text:style-name="P49"/>
-   <text:h text:style-name="P100" text:outline-level="3">Eastbound Meets Westbound</text:h>
+   <text:h text:style-name="P101" text:outline-level="3">Eastbound Meets Westbound</text:h>
    <text:p text:style-name="P49">Eastbound train arrives and gets proceed indication:</text:p>
    <text:p text:style-name="P49"><draw:frame draw:style-name="fr11" draw:name="Image21" text:anchor-type="as-char" svg:width="5.6244in" svg:height="1.1252in" draw:z-index="28"><draw:image xlink:href="img/meet_before_interlocking/01.png" xlink:type="simple" xlink:show="embed" xlink:actuate="onLoad"/>
     </draw:frame></text:p>
@@ -3426,7 +3426,7 @@
    <text:p text:style-name="P49"><draw:frame draw:style-name="fr11" draw:name="Image26" text:anchor-type="as-char" svg:width="5.6244in" svg:height="1.1252in" draw:z-index="32"><draw:image xlink:href="img/meet_before_interlocking/06.png" xlink:type="simple" xlink:show="embed" xlink:actuate="onLoad"/>
     </draw:frame></text:p>
    <text:p text:style-name="P49"/>
-   <text:p text:style-name="P99">The eastbound get a proceed indication after the switch is thrown and the time lock timer expires:</text:p>
+   <text:p text:style-name="P100">The eastbound get a proceed indication after the switch is thrown and the time lock timer expires:</text:p>
    <text:p text:style-name="P49"><draw:frame draw:style-name="fr11" draw:name="Image28" text:anchor-type="as-char" svg:width="5.6244in" svg:height="1.1252in" draw:z-index="33"><draw:image xlink:href="img/meet_before_interlocking/08.png" xlink:type="simple" xlink:show="embed" xlink:actuate="onLoad"/>
     </draw:frame></text:p>
    <text:h text:style-name="Heading_20_3" text:outline-level="3">Eastbound Meets Southbound</text:h>
@@ -3443,7 +3443,7 @@
    <text:p text:style-name="P49"><draw:frame draw:style-name="fr11" draw:name="Image31" text:anchor-type="as-char" svg:width="5.6244in" svg:height="1.1252in" draw:z-index="37"><draw:image xlink:href="img/phantom_before_real/04.png" xlink:type="simple" xlink:show="embed" xlink:actuate="onLoad"/>
     </draw:frame></text:p>
    <text:p text:style-name="P49"/>
-   <text:h text:style-name="P95" text:outline-level="1">Installation</text:h>
+   <text:h text:style-name="P96" text:outline-level="1">Installation</text:h>
    <text:p text:style-name="P12">The MRB-IIAB consists of <text:span text:style-name="T14">an input/output board containing 40 I/O terminals, a microcontroller, voltage regulators, and an MRBus connection. <text:s/>The basic connections are shown in </text:span><text:span text:style-name="T14"><text:sequence-ref text:reference-format="category-and-value" text:ref-name="refFigure1">Figure 2</text:sequence-ref></text:span><text:span text:style-name="T14">.</text:span></text:p>
    <text:h text:style-name="Heading_20_2" text:outline-level="2"><draw:frame draw:style-name="fr2" draw:name="Frame2" text:anchor-type="paragraph" svg:width="7in" draw:z-index="2">
      <draw:text-box fo:min-height="2.6201in">
@@ -3475,299 +3475,299 @@
     <table:table-header-rows>
      <table:table-row>
       <table:table-cell table:style-name="Table1.A1" office:value-type="string">
-       <text:p text:style-name="P103">Terminal</text:p>
+       <text:p text:style-name="P104">Terminal</text:p>
       </table:table-cell>
       <table:table-cell table:style-name="Table1.A1" office:value-type="string">
-       <text:p text:style-name="P104">Direction</text:p>
+       <text:p text:style-name="P105">Direction</text:p>
       </table:table-cell>
       <table:table-cell table:style-name="Table1.C1" office:value-type="string">
-       <text:p text:style-name="P103">Description</text:p>
+       <text:p text:style-name="P104">Description</text:p>
       </table:table-cell>
      </table:table-row>
     </table:table-header-rows>
     <table:table-row>
      <table:table-cell table:style-name="Table1.A2" table:number-columns-spanned="3" office:value-type="string">
-      <text:p text:style-name="P87">PORT A</text:p>
+      <text:p text:style-name="P88">PORT A</text:p>
      </table:table-cell>
      <table:covered-table-cell/>
      <table:covered-table-cell/>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table1.A9" office:value-type="string">
-      <text:p text:style-name="P77">A0</text:p>
+      <text:p text:style-name="P78">A0</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.B3" office:value-type="string">
-      <text:p text:style-name="P78">Output</text:p>
+      <text:p text:style-name="P79">Output</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.C3" office:value-type="string">
-      <text:p text:style-name="P88">Signal West Main (Green)</text:p>
+      <text:p text:style-name="P89">Signal West Main (Green)</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table1.A9" office:value-type="string">
-      <text:p text:style-name="P76">A1</text:p>
+      <text:p text:style-name="P77">A1</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.B4" office:value-type="string">
-      <text:p text:style-name="P78">Output</text:p>
+      <text:p text:style-name="P79">Output</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.C4" office:value-type="string">
-      <text:p text:style-name="P90">Signal West Main (<text:span text:style-name="T21">Yellow</text:span>)</text:p>
+      <text:p text:style-name="P91">Signal West Main (<text:span text:style-name="T21">Yellow</text:span>)</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table1.A9" office:value-type="string">
-      <text:p text:style-name="P76">A2</text:p>
+      <text:p text:style-name="P77">A2</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.B5" office:value-type="string">
-      <text:p text:style-name="P78">Output</text:p>
+      <text:p text:style-name="P79">Output</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.C5" office:value-type="string">
-      <text:p text:style-name="P88">Signal West Main (Red)</text:p>
+      <text:p text:style-name="P89">Signal West Main (Red)</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table1.A9" office:value-type="string">
-      <text:p text:style-name="P76">A3</text:p>
+      <text:p text:style-name="P77">A3</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.B6" office:value-type="string">
-      <text:p text:style-name="P78">Output</text:p>
+      <text:p text:style-name="P79">Output</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.C6" office:value-type="string">
-      <text:p text:style-name="P90">Signal West Siding (<text:span text:style-name="T21">Green</text:span>)</text:p>
+      <text:p text:style-name="P91">Signal West Siding (<text:span text:style-name="T21">Green</text:span>)</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table1.A9" office:value-type="string">
-      <text:p text:style-name="P76">A4</text:p>
+      <text:p text:style-name="P77">A4</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.B7" office:value-type="string">
-      <text:p text:style-name="P78">Output</text:p>
+      <text:p text:style-name="P79">Output</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.C7" office:value-type="string">
-      <text:p text:style-name="P88">Signal West Siding (Yellow)</text:p>
+      <text:p text:style-name="P89">Signal West Siding (Yellow)</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table1.A9" office:value-type="string">
-      <text:p text:style-name="P76">A5</text:p>
+      <text:p text:style-name="P77">A5</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.B8" office:value-type="string">
-      <text:p text:style-name="P78">Output</text:p>
+      <text:p text:style-name="P79">Output</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.C8" office:value-type="string">
-      <text:p text:style-name="P88">Signal West Siding (Red)</text:p>
+      <text:p text:style-name="P89">Signal West Siding (Red)</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table1.A9" office:value-type="string">
-      <text:p text:style-name="P76">A6</text:p>
+      <text:p text:style-name="P77">A6</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.B9" office:value-type="string">
-      <text:p text:style-name="P78">Output</text:p>
+      <text:p text:style-name="P79">Output</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.C9" office:value-type="string">
-      <text:p text:style-name="P88">Signal <text:span text:style-name="T19">East Top </text:span>(Green)</text:p>
+      <text:p text:style-name="P89">Signal <text:span text:style-name="T19">East Top </text:span>(Green)</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table1.A27" office:value-type="string">
-      <text:p text:style-name="P78">A7</text:p>
+      <text:p text:style-name="P79">A7</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.B10" office:value-type="string">
-      <text:p text:style-name="P78">Output</text:p>
+      <text:p text:style-name="P79">Output</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.C10" office:value-type="string">
-      <text:p text:style-name="P90">Signal <text:span text:style-name="T19">East Top </text:span>(<text:span text:style-name="T21">Yellow</text:span>)</text:p>
+      <text:p text:style-name="P91">Signal <text:span text:style-name="T19">East Top </text:span>(<text:span text:style-name="T21">Yellow</text:span>)</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table1.A2" table:number-columns-spanned="3" office:value-type="string">
-      <text:p text:style-name="P86">PORT B</text:p>
+      <text:p text:style-name="P87">PORT B</text:p>
      </table:table-cell>
      <table:covered-table-cell/>
      <table:covered-table-cell/>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table1.A27" office:value-type="string">
-      <text:p text:style-name="P78">B0</text:p>
+      <text:p text:style-name="P79">B0</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.B12" office:value-type="string">
-      <text:p text:style-name="P78">Output</text:p>
+      <text:p text:style-name="P79">Output</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.C12" office:value-type="string">
-      <text:p text:style-name="P89">Signal <text:span text:style-name="T19">East Top</text:span> (<text:span text:style-name="T19">Red</text:span>)</text:p>
+      <text:p text:style-name="P90">Signal <text:span text:style-name="T19">East Top</text:span> (<text:span text:style-name="T19">Red</text:span>)</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table1.A27" office:value-type="string">
-      <text:p text:style-name="P78">B1</text:p>
+      <text:p text:style-name="P79">B1</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.B13" office:value-type="string">
-      <text:p text:style-name="P78">Output</text:p>
+      <text:p text:style-name="P79">Output</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.C13" office:value-type="string">
-      <text:p text:style-name="P90">Signal <text:span text:style-name="T19">East Bottom </text:span>(<text:span text:style-name="T21">Green</text:span>)</text:p>
+      <text:p text:style-name="P91">Signal <text:span text:style-name="T19">East Bottom </text:span>(<text:span text:style-name="T21">Green</text:span>)</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table1.A27" office:value-type="string">
-      <text:p text:style-name="P78">B2</text:p>
+      <text:p text:style-name="P79">B2</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.B14" office:value-type="string">
-      <text:p text:style-name="P78">Output</text:p>
+      <text:p text:style-name="P79">Output</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.C14" office:value-type="string">
-      <text:p text:style-name="P89">Signal <text:span text:style-name="T19">East Bottom </text:span>(<text:span text:style-name="T19">Yellow</text:span>)</text:p>
+      <text:p text:style-name="P90">Signal <text:span text:style-name="T19">East Bottom </text:span>(<text:span text:style-name="T19">Yellow</text:span>)</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table1.A27" office:value-type="string">
-      <text:p text:style-name="P78">B3</text:p>
+      <text:p text:style-name="P79">B3</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.B15" office:value-type="string">
-      <text:p text:style-name="P78">Output</text:p>
+      <text:p text:style-name="P79">Output</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.C15" office:value-type="string">
-      <text:p text:style-name="P89">Signal <text:span text:style-name="T19">East Bottom </text:span>(<text:span text:style-name="T19">Red</text:span>)</text:p>
+      <text:p text:style-name="P90">Signal <text:span text:style-name="T19">East Bottom </text:span>(<text:span text:style-name="T19">Red</text:span>)</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table1.A27" office:value-type="string">
-      <text:p text:style-name="P78">B4</text:p>
+      <text:p text:style-name="P79">B4</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.B16" office:value-type="string">
-      <text:p text:style-name="P78">Output</text:p>
+      <text:p text:style-name="P79">Output</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.C16" office:value-type="string">
-      <text:p text:style-name="P89">Signal <text:span text:style-name="T19">North Main </text:span>(<text:span text:style-name="T19">Green</text:span>)</text:p>
+      <text:p text:style-name="P90">Signal <text:span text:style-name="T19">North Main </text:span>(<text:span text:style-name="T19">Green</text:span>)</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table1.A27" office:value-type="string">
-      <text:p text:style-name="P78">B5</text:p>
+      <text:p text:style-name="P79">B5</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.B17" office:value-type="string">
-      <text:p text:style-name="P78">Output</text:p>
+      <text:p text:style-name="P79">Output</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.C17" office:value-type="string">
-      <text:p text:style-name="P90">Signal <text:span text:style-name="T19">North Main </text:span>(<text:span text:style-name="T21">Yellow</text:span>)</text:p>
+      <text:p text:style-name="P91">Signal <text:span text:style-name="T19">North Main </text:span>(<text:span text:style-name="T21">Yellow</text:span>)</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table1.A27" office:value-type="string">
-      <text:p text:style-name="P78">B6</text:p>
+      <text:p text:style-name="P79">B6</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.B18" office:value-type="string">
-      <text:p text:style-name="P78">Output</text:p>
+      <text:p text:style-name="P79">Output</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.C18" office:value-type="string">
-      <text:p text:style-name="P89">Signal <text:span text:style-name="T19">North Main </text:span>(<text:span text:style-name="T19">Red</text:span>)</text:p>
+      <text:p text:style-name="P90">Signal <text:span text:style-name="T19">North Main </text:span>(<text:span text:style-name="T19">Red</text:span>)</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table1.A27" office:value-type="string">
-      <text:p text:style-name="P78">B7</text:p>
+      <text:p text:style-name="P79">B7</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.B19" office:value-type="string">
-      <text:p text:style-name="P78">Output</text:p>
+      <text:p text:style-name="P79">Output</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.C19" office:value-type="string">
-      <text:p text:style-name="P90">Signal <text:span text:style-name="T19">North Siding </text:span>(<text:span text:style-name="T21">Green</text:span>)</text:p>
+      <text:p text:style-name="P91">Signal <text:span text:style-name="T19">North Siding </text:span>(<text:span text:style-name="T21">Green</text:span>)</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table1.A2" table:number-columns-spanned="3" office:value-type="string">
-      <text:p text:style-name="P86">PORT C</text:p>
+      <text:p text:style-name="P87">PORT C</text:p>
      </table:table-cell>
      <table:covered-table-cell/>
      <table:covered-table-cell/>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table1.A27" office:value-type="string">
-      <text:p text:style-name="P84">C0</text:p>
+      <text:p text:style-name="P85">C0</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.B21" office:value-type="string">
-      <text:p text:style-name="P78">Output</text:p>
+      <text:p text:style-name="P79">Output</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.C21" office:value-type="string">
-      <text:p text:style-name="P89">Signal <text:span text:style-name="T19">North Siding </text:span>(<text:span text:style-name="T19">Yellow</text:span>)</text:p>
+      <text:p text:style-name="P90">Signal <text:span text:style-name="T19">North Siding </text:span>(<text:span text:style-name="T19">Yellow</text:span>)</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table1.A27" office:value-type="string">
-      <text:p text:style-name="P84">C1</text:p>
+      <text:p text:style-name="P85">C1</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.B22" office:value-type="string">
-      <text:p text:style-name="P78">Output</text:p>
+      <text:p text:style-name="P79">Output</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.C22" office:value-type="string">
-      <text:p text:style-name="P89">Signal <text:span text:style-name="T19">North Siding </text:span>(<text:span text:style-name="T19">Red</text:span>)</text:p>
+      <text:p text:style-name="P90">Signal <text:span text:style-name="T19">North Siding </text:span>(<text:span text:style-name="T19">Red</text:span>)</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table1.A27" office:value-type="string">
-      <text:p text:style-name="P84">C2</text:p>
+      <text:p text:style-name="P85">C2</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.B23" office:value-type="string">
-      <text:p text:style-name="P78">Output</text:p>
+      <text:p text:style-name="P79">Output</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.C23" office:value-type="string">
-      <text:p text:style-name="P89">Signal <text:span text:style-name="T19">South Top </text:span>(<text:span text:style-name="T19">Green</text:span>)</text:p>
+      <text:p text:style-name="P90">Signal <text:span text:style-name="T19">South Top </text:span>(<text:span text:style-name="T19">Green</text:span>)</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table1.A27" office:value-type="string">
-      <text:p text:style-name="P84">C3</text:p>
+      <text:p text:style-name="P85">C3</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.B24" office:value-type="string">
-      <text:p text:style-name="P78">Output</text:p>
+      <text:p text:style-name="P79">Output</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.C24" office:value-type="string">
-      <text:p text:style-name="P90">Signal <text:span text:style-name="T19">South Top </text:span>(<text:span text:style-name="T21">Yellow</text:span>)</text:p>
+      <text:p text:style-name="P91">Signal <text:span text:style-name="T19">South Top </text:span>(<text:span text:style-name="T21">Yellow</text:span>)</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table1.A27" office:value-type="string">
-      <text:p text:style-name="P84">C4</text:p>
+      <text:p text:style-name="P85">C4</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.B25" office:value-type="string">
-      <text:p text:style-name="P78">Output</text:p>
+      <text:p text:style-name="P79">Output</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.C25" office:value-type="string">
-      <text:p text:style-name="P89">Signal <text:span text:style-name="T19">South Top </text:span>(<text:span text:style-name="T19">Red</text:span>)</text:p>
+      <text:p text:style-name="P90">Signal <text:span text:style-name="T19">South Top </text:span>(<text:span text:style-name="T19">Red</text:span>)</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table1.A27" office:value-type="string">
-      <text:p text:style-name="P84">C5</text:p>
+      <text:p text:style-name="P85">C5</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.B26" office:value-type="string">
-      <text:p text:style-name="P78">Output</text:p>
+      <text:p text:style-name="P79">Output</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.C26" office:value-type="string">
-      <text:p text:style-name="P90">Signal <text:span text:style-name="T19">South Bottom </text:span>(<text:span text:style-name="T21">Green</text:span>)</text:p>
+      <text:p text:style-name="P91">Signal <text:span text:style-name="T19">South Bottom </text:span>(<text:span text:style-name="T21">Green</text:span>)</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table1.A27" office:value-type="string">
-      <text:p text:style-name="P84">C6</text:p>
+      <text:p text:style-name="P85">C6</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.B27" office:value-type="string">
-      <text:p text:style-name="P78">Output</text:p>
+      <text:p text:style-name="P79">Output</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.C27" office:value-type="string">
-      <text:p text:style-name="P89">Signal <text:span text:style-name="T19">South Bottom </text:span>(<text:span text:style-name="T19">Yellow</text:span>)</text:p>
+      <text:p text:style-name="P90">Signal <text:span text:style-name="T19">South Bottom </text:span>(<text:span text:style-name="T19">Yellow</text:span>)</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table1.A28" office:value-type="string">
-      <text:p text:style-name="P84">C7</text:p>
+      <text:p text:style-name="P85">C7</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.B28" office:value-type="string">
-      <text:p text:style-name="P78">Output</text:p>
+      <text:p text:style-name="P79">Output</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.C28" office:value-type="string">
-      <text:p text:style-name="P89">Signal <text:span text:style-name="T19">South Bottom </text:span>(<text:span text:style-name="T19">Red</text:span>)</text:p>
+      <text:p text:style-name="P90">Signal <text:span text:style-name="T19">South Bottom </text:span>(<text:span text:style-name="T19">Red</text:span>)</text:p>
      </table:table-cell>
     </table:table-row>
    </table:table>
@@ -3779,204 +3779,204 @@
     <table:table-header-rows>
      <table:table-row>
       <table:table-cell table:style-name="Table2.A1" office:value-type="string">
-       <text:p text:style-name="P103">Terminal</text:p>
+       <text:p text:style-name="P104">Terminal</text:p>
       </table:table-cell>
       <table:table-cell table:style-name="Table2.A1" office:value-type="string">
-       <text:p text:style-name="P104">Direction</text:p>
+       <text:p text:style-name="P105">Direction</text:p>
       </table:table-cell>
       <table:table-cell table:style-name="Table2.C1" office:value-type="string">
-       <text:p text:style-name="P103">Description</text:p>
+       <text:p text:style-name="P104">Description</text:p>
       </table:table-cell>
      </table:table-row>
     </table:table-header-rows>
     <table:table-row>
      <table:table-cell table:style-name="Table2.A2" table:number-columns-spanned="3" office:value-type="string">
-      <text:p text:style-name="P86">PORT D</text:p>
+      <text:p text:style-name="P87">PORT D</text:p>
      </table:table-cell>
      <table:covered-table-cell/>
      <table:covered-table-cell/>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table2.A18" office:value-type="string">
-      <text:p text:style-name="P84">D0</text:p>
+      <text:p text:style-name="P85">D0</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table2.B3" office:value-type="string">
-      <text:p text:style-name="P79">Input</text:p>
+      <text:p text:style-name="P80">Input</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table2.C3" office:value-type="string">
-      <text:p text:style-name="P80">Block Detect<text:span text:style-name="T18">or</text:span> (West Main)</text:p>
+      <text:p text:style-name="P81">Block Detect<text:span text:style-name="T18">or</text:span> (West Main)</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table2.A18" office:value-type="string">
-      <text:p text:style-name="P84">D1</text:p>
+      <text:p text:style-name="P85">D1</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table2.B4" office:value-type="string">
-      <text:p text:style-name="P79">Input</text:p>
+      <text:p text:style-name="P80">Input</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table2.C4" office:value-type="string">
-      <text:p text:style-name="P80">Block Detect<text:span text:style-name="T18">or</text:span> (West Siding)</text:p>
+      <text:p text:style-name="P81">Block Detect<text:span text:style-name="T18">or</text:span> (West Siding)</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table2.A18" office:value-type="string">
-      <text:p text:style-name="P84">D2</text:p>
+      <text:p text:style-name="P85">D2</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table2.B5" office:value-type="string">
-      <text:p text:style-name="P79">Input</text:p>
+      <text:p text:style-name="P80">Input</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table2.C5" office:value-type="string">
-      <text:p text:style-name="P80">Block Detect<text:span text:style-name="T18">or</text:span> (East)</text:p>
+      <text:p text:style-name="P81">Block Detect<text:span text:style-name="T18">or</text:span> (East)</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table2.A18" office:value-type="string">
-      <text:p text:style-name="P84">D3</text:p>
+      <text:p text:style-name="P85">D3</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table2.B6" office:value-type="string">
-      <text:p text:style-name="P79">Input</text:p>
+      <text:p text:style-name="P80">Input</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table2.C6" office:value-type="string">
-      <text:p text:style-name="P80">Block Detect<text:span text:style-name="T18">or</text:span> (North Main)</text:p>
+      <text:p text:style-name="P81">Block Detect<text:span text:style-name="T18">or</text:span> (North Main)</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table2.A18" office:value-type="string">
-      <text:p text:style-name="P84">D4</text:p>
+      <text:p text:style-name="P85">D4</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table2.B7" office:value-type="string">
-      <text:p text:style-name="P79">Input</text:p>
+      <text:p text:style-name="P80">Input</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table2.C7" office:value-type="string">
-      <text:p text:style-name="P80">Block Detect<text:span text:style-name="T18">or </text:span>(North Siding)</text:p>
+      <text:p text:style-name="P81">Block Detect<text:span text:style-name="T18">or </text:span>(North Siding)</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table2.A18" office:value-type="string">
-      <text:p text:style-name="P84">D5</text:p>
+      <text:p text:style-name="P85">D5</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table2.B8" office:value-type="string">
-      <text:p text:style-name="P79">Input</text:p>
+      <text:p text:style-name="P80">Input</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table2.C8" office:value-type="string">
-      <text:p text:style-name="P80">Block Detect<text:span text:style-name="T18">or</text:span> (South)</text:p>
+      <text:p text:style-name="P81">Block Detect<text:span text:style-name="T18">or</text:span> (South)</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table2.A18" office:value-type="string">
-      <text:p text:style-name="P84">D6</text:p>
+      <text:p text:style-name="P85">D6</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table2.B9" office:value-type="string">
-      <text:p text:style-name="P79">Input</text:p>
+      <text:p text:style-name="P80">Input</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table2.C9" office:value-type="string">
-      <text:p text:style-name="P80">Block Detect<text:span text:style-name="T18">or</text:span> (Diamond)</text:p>
+      <text:p text:style-name="P81">Block Detect<text:span text:style-name="T18">or</text:span> (Diamond)</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table2.A18" office:value-type="string">
-      <text:p text:style-name="P84">D7</text:p>
+      <text:p text:style-name="P85">D7</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table2.B10" office:value-type="string">
-      <text:p text:style-name="P79">Input</text:p>
+      <text:p text:style-name="P80">Input</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table2.C10" office:value-type="string">
-      <text:p text:style-name="P80">Block Detect<text:span text:style-name="T18">or</text:span> (Automatic Interchange)</text:p>
+      <text:p text:style-name="P81">Block Detect<text:span text:style-name="T18">or</text:span> (Automatic Interchange)</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table2.A2" table:number-columns-spanned="3" office:value-type="string">
-      <text:p text:style-name="P86">PORT E</text:p>
+      <text:p text:style-name="P87">PORT E</text:p>
      </table:table-cell>
      <table:covered-table-cell/>
      <table:covered-table-cell/>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table2.A18" office:value-type="string">
-      <text:p text:style-name="P84">E0</text:p>
+      <text:p text:style-name="P85">E0</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table2.B12" office:value-type="string">
-      <text:p text:style-name="P79">Input</text:p>
+      <text:p text:style-name="P80">Input</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table2.C12" office:value-type="string">
-      <text:p text:style-name="P81">Turnout Position (West)</text:p>
+      <text:p text:style-name="P82">Turnout Position (West)</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table2.A18" office:value-type="string">
-      <text:p text:style-name="P84">E1</text:p>
+      <text:p text:style-name="P85">E1</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table2.B13" office:value-type="string">
-      <text:p text:style-name="P79">Input</text:p>
+      <text:p text:style-name="P80">Input</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table2.C13" office:value-type="string">
-      <text:p text:style-name="P81">Unused. <text:s/>Connect to GND.</text:p>
+      <text:p text:style-name="P82">Unused. <text:s/>Connect to GND.</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table2.A18" office:value-type="string">
-      <text:p text:style-name="P84">E2</text:p>
+      <text:p text:style-name="P85">E2</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table2.B14" office:value-type="string">
-      <text:p text:style-name="P79">Input</text:p>
+      <text:p text:style-name="P80">Input</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table2.C14" office:value-type="string">
-      <text:p text:style-name="P81">Turnout Position (North)</text:p>
+      <text:p text:style-name="P82">Turnout Position (North)</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table2.A18" office:value-type="string">
-      <text:p text:style-name="P84">E3</text:p>
+      <text:p text:style-name="P85">E3</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table2.B15" office:value-type="string">
-      <text:p text:style-name="P79">Input</text:p>
+      <text:p text:style-name="P80">Input</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table2.C15" office:value-type="string">
-      <text:p text:style-name="P81">Unused. <text:s/>Connect to GND.</text:p>
+      <text:p text:style-name="P82">Unused. <text:s/>Connect to GND.</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table2.A18" office:value-type="string">
-      <text:p text:style-name="P84">E4</text:p>
+      <text:p text:style-name="P85">E4</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table2.B16" office:value-type="string">
-      <text:p text:style-name="P82">Output</text:p>
+      <text:p text:style-name="P83">Output</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table2.C16" office:value-type="string">
-      <text:p text:style-name="P83">Unused. <text:s/>Do not connect.</text:p>
+      <text:p text:style-name="P84">Unused. <text:s/>Do not connect.</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table2.A18" office:value-type="string">
-      <text:p text:style-name="P84">E5</text:p>
+      <text:p text:style-name="P85">E5</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table2.B17" office:value-type="string">
-      <text:p text:style-name="P84">Output</text:p>
+      <text:p text:style-name="P85">Output</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table2.C17" office:value-type="string">
-      <text:p text:style-name="P85">Automatic Interchange Relay</text:p>
+      <text:p text:style-name="P86">Automatic Interchange Relay</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table2.A18" office:value-type="string">
-      <text:p text:style-name="P84">E6</text:p>
+      <text:p text:style-name="P85">E6</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table2.B18" office:value-type="string">
-      <text:p text:style-name="P84">Output</text:p>
+      <text:p text:style-name="P85">Output</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table2.C18" office:value-type="string">
-      <text:p text:style-name="P85">Sound 0 Trigger</text:p>
+      <text:p text:style-name="P86">Sound 0 Trigger</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table2.A19" office:value-type="string">
-      <text:p text:style-name="P84">E7</text:p>
+      <text:p text:style-name="P85">E7</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table2.B19" office:value-type="string">
-      <text:p text:style-name="P84">Output</text:p>
+      <text:p text:style-name="P85">Output</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table2.C19" office:value-type="string">
-      <text:p text:style-name="P85">Sound 1 Trigger</text:p>
+      <text:p text:style-name="P86">Sound 1 Trigger</text:p>
      </table:table-cell>
     </table:table-row>
    </table:table>
@@ -4310,7 +4310,7 @@
     </draw:frame>Do not exceed 5V on any input.</text:p>
    <text:p text:style-name="P71"/>
    <text:h text:style-name="Heading_20_2" text:outline-level="2">Signals</text:h>
-   <text:p text:style-name="P21">The MRB-IIAB can be configured to drive common-anode (<text:sequence-ref text:reference-format="category-and-value" text:ref-name="refFigure4">Figure 5</text:sequence-ref>) or common-cathode (<text:sequence-ref text:reference-format="category-and-value" text:ref-name="refFigure5">Figure 6</text:sequence-ref>) signals. <text:s/>This polarity can be configured on an output-by-output basis, providing maximum flexibility for any signal installation. <text:s/><text:span text:style-name="T22">Although designed to drive LEDs, incandescent lamps can also be driven with additional circuitry – contact us for details.</text:span></text:p>
+   <text:p text:style-name="P21">The MRB-IIAB can be configured to drive common-anode (<text:sequence-ref text:reference-format="category-and-value" text:ref-name="refFigure4">Figure 5</text:sequence-ref>) or common-cathode (<text:sequence-ref text:reference-format="category-and-value" text:ref-name="refFigure5">Figure 6</text:sequence-ref>) signals. <text:s/>This polarity can be configured on an output-by-output basis <text:span text:style-name="T60">(See page </text:span><text:span text:style-name="T60"><text:bookmark-ref text:reference-format="page" text:ref-name="__RefHeading__2795_1183461033">24</text:bookmark-ref></text:span><text:span text:style-name="T60">)</text:span>, providing maximum flexibility for any signal installation. <text:s/><text:span text:style-name="T22">Although designed to drive LEDs, incandescent lamps can also be driven with additional circuitry – contact us for details.</text:span></text:p>
    <text:p text:style-name="P21"/>
    <text:p text:style-name="P21"/>
    <text:p text:style-name="P19"><draw:frame draw:style-name="fr3" draw:name="Frame3" text:anchor-type="paragraph" svg:width="7in" draw:z-index="6">
@@ -4652,7 +4652,7 @@
      </draw:image>
     </draw:frame>Leave any unused signal outputs disconnected. <text:s/>Connecting any signal output <text:span text:style-name="T32">directly </text:span>to 5V, GND, or any other power source may damage the MRB-IIAB module.</text:p>
    <text:h text:style-name="Heading_20_2" text:outline-level="2"><text:soft-page-break/>Detectors</text:h>
-   <text:p text:style-name="P23">The MRB-IIAB can be used with a variety of block detectors. <text:s/>Any block detector that provides a 5V logic-level or open-drain / open-collector output is compatible with the MRB-IIAB. <text:s/>The MRB-IIAB can <text:span text:style-name="T26">also </text:span>be configured to work with any detector output polarity (active high or active low).</text:p>
+   <text:p text:style-name="P23">The MRB-IIAB can be used with a variety of block detectors. <text:s/>Any block detector that provides a 5V logic-level or open-drain / open-collector output is compatible with the MRB-IIAB. <text:s/>The MRB-IIAB can <text:span text:style-name="T26">also </text:span>be configured to work with <text:span text:style-name="T60">both active high and active low</text:span> detector output<text:span text:style-name="T60">s</text:span>.</text:p>
    <text:p text:style-name="P23">Current-based block detectors provide the most realistic operation since these types of detectors can sense a train anywhere in the block, <text:span text:style-name="T59">as on the prototype</text:span>. <text:s/>However, in some cases, infrared (IR) detectors may <text:span text:style-name="T59">be more practical </text:span>since they don&apos;t require outfitting an entire fleet of rolling stock with resistive wheel sets.</text:p>
    <text:p text:style-name="P33"><draw:frame draw:style-name="fr15" draw:name="Image8" text:anchor-type="char" svg:width="0.4in" svg:height="0.3598in" draw:z-index="8"><draw:image>
       <office:binary-data>iVBORw0KGgoAAAANSUhEUgAAASwAAAEOCAYAAAAzGSpIAAAABHNCSVQICAgIfAhkiAAAAAlw
@@ -4818,7 +4818,7 @@
      </draw:image>
     </draw:frame>Unused block detector inputs should be tied to GND to prevent unpredictable behavior.</text:p>
    <text:h text:style-name="Heading_20_3" text:outline-level="3">IR Detectors</text:h>
-   <text:p text:style-name="P24">Infrared detectors, such as the <text:a xlink:type="simple" xlink:href="http://www.iascaled.com/store/CKT-IRSENSE">CKT-IRSENSE</text:a>, typically only sense a small area. <text:s/>Therefore, multiple detectors per block are recommended to improve the coverage. <text:s/><text:sequence-ref text:reference-format="category-and-value" text:ref-name="refFigure6">Figure 7</text:sequence-ref><text:span text:style-name="T53"> shows the recommended placement of the detectors in a typical block. <text:s/>The detector at the beginning of the approach block allows early detection of a train entering the block. <text:s/>The detector near the signal provides positive detection of short trains that may be stopped at the red signal. <text:s/>Additional detectors can be placed at locations between these to improve coverage. <text:s/>The interlocking block should have at least one detector, placed directly under the diamond, to sense trains moving in any direction. <text:s/>Additional detectors can be placed at the point end of any turnouts to provide early detection of any trains entering the interlocking block. </text:span></text:p>
+   <text:p text:style-name="P24">Infrared detectors, such as the <text:a xlink:type="simple" xlink:href="http://www.iascaled.com/store/CKT-IRSENSE">CKT-IRSENSE</text:a>, typically only sense a small area. <text:s/>Therefore, multiple detectors per block are recommended to improve the coverage. <text:s/><text:sequence-ref text:reference-format="category-and-value" text:ref-name="refFigure6">Figure 7</text:sequence-ref><text:span text:style-name="T53"> shows the recommended placement of the detectors in a typical block. <text:s/>The detector at the beginning of the approach block allows early detection of a train entering the block. <text:s/>The detector near the signal provides detection of short trains that may be stopped at the red signal. <text:s/>Additional detectors can be placed at locations between these to improve coverage. <text:s/>The interlocking block should have at least one detector, placed directly under the diamond, to sense trains moving in any direction. <text:s/>Additional detectors can be placed at the point end of any turnouts to provide early detection of any trains entering the interlocking block. </text:span></text:p>
    <text:p text:style-name="P25"><draw:frame draw:style-name="fr4" draw:name="Frame31" text:anchor-type="paragraph" svg:width="6in" draw:z-index="81">
      <draw:text-box fo:min-height="1.9402in">
       <text:p text:style-name="Figure"><draw:frame draw:style-name="fr14" draw:name="Image53" text:anchor-type="paragraph" svg:width="6in" style:rel-width="100%" svg:height="1.9402in" style:rel-height="scale" draw:z-index="82"><draw:image xlink:href="img/detectors.png" xlink:type="simple" xlink:show="embed" xlink:actuate="onLoad"/>
@@ -4832,7 +4832,7 @@
      </draw:text-box>
     </draw:frame><text:soft-page-break/>Some IR detectors also include delay times on the release of the detector output. <text:s/>Any delay time in the detector will add to the timeout delay configured in the MRB-IIAB module. <text:s/>See the <text:bookmark-ref text:reference-format="text" text:ref-name="__RefHeading__1649_1227581125">Detector Settings</text:bookmark-ref> section on page <text:bookmark-ref text:reference-format="page" text:ref-name="__RefHeading__1649_1227581125">23</text:bookmark-ref> for more details.</text:p>
    <text:h text:style-name="Heading_20_3" text:outline-level="3">Current Based Detectors</text:h>
-   <text:p text:style-name="P29">For DCC installations, current based block detectors such as the <text:a xlink:type="simple" xlink:href="http://www.iascaled.com/store/MRB-BD4X">MRB-BD4X</text:a> can be used with the MRB-IIAB. <text:s/>While these detectors require your rolling stock to be outfitted with resistive wheel sets, they do provide the most realistic operation since they can detect the presence of a train anywhere in the block. <text:s/>Connecting the MRB-BD4X is easy when the MRB-IIAB is ordered with the BD4X Detector option. <text:s/>This option provides two modular connectors on Port D allowing two MRB-BD4X boards to simply be plugged into the module as shown in <text:sequence-ref text:reference-format="category-and-value" text:ref-name="refFigure8">Figure 9</text:sequence-ref>. <text:s/>Power and ground are provided at the modular connectors along with the four detector inputs from each module.</text:p>
+   <text:p text:style-name="P29">For DCC installations, current based block detectors such as the <text:a xlink:type="simple" xlink:href="http://www.iascaled.com/store/MRB-BD4X">MRB-BD4X</text:a> can be used with the MRB-IIAB. <text:s/>While these detectors require your rolling stock to be outfitted with resistive wheel sets, they provide the most <text:span text:style-name="T60">prototypical</text:span> operation since they can detect the presence of a train anywhere in the block. <text:s/>Connecting the MRB-BD4X is easy when the MRB-IIAB is ordered with the BD4X Detector option. <text:s/>This option provides two modular connectors on Port D allowing two MRB-BD4X boards to simply be plugged into the module as shown in <text:sequence-ref text:reference-format="category-and-value" text:ref-name="refFigure8">Figure 9</text:sequence-ref>. <text:s/>Power and ground are provided at the modular connectors along with the four detector inputs from each module.</text:p>
    <text:p text:style-name="P29"><draw:frame draw:style-name="fr4" draw:name="Frame6" text:anchor-type="paragraph" svg:width="7in" draw:z-index="14">
      <draw:text-box fo:min-height="3.9374in">
       <text:p text:style-name="Figure"><draw:frame draw:style-name="fr10" draw:name="Image10" text:anchor-type="paragraph" svg:width="7in" svg:height="3.9374in" draw:z-index="15"><draw:image xlink:href="img/bd4x.png" xlink:type="simple" xlink:show="embed" xlink:actuate="onLoad"/>
@@ -5018,7 +5018,7 @@
     </draw:frame></text:p>
    <text:h text:style-name="Heading_20_2" text:outline-level="2"><text:soft-page-break/>Other Functions</text:h>
    <text:h text:style-name="Heading_20_3" text:outline-level="3">Sound Triggers</text:h>
-   <text:p text:style-name="P29">Outputs E6 and E7 can be used to trigger sound, animation, or other <text:span text:style-name="T59">effects</text:span> modules when a simulated train is triggered. <text:s/>These are 5V logic-level outputs with configurable polarity (active high or active low). <text:s/>Each simulated train can be configured to optionally activate one, or both, of the outputs.</text:p>
+   <text:p text:style-name="P29">Outputs E6 and E7 can be used to trigger sound, animation, or other <text:span text:style-name="T59">effects</text:span> modules when a simulated train is triggered. <text:s/>These are 5V logic-level outputs with configurable polarity (active high or active low). <text:s/>Each simulated train can be configured to optionally activate one, or both, of the outputs. <text:s/><text:span text:style-name="T60">See the </text:span><text:span text:style-name="T60"><text:bookmark-ref text:reference-format="text" text:ref-name="__RefHeading__3293_1183461033">Simulated Trains</text:bookmark-ref></text:span><text:span text:style-name="T60"> section on page </text:span><text:span text:style-name="T60"><text:bookmark-ref text:reference-format="page" text:ref-name="__RefHeading__3293_1183461033">28</text:bookmark-ref></text:span><text:span text:style-name="T60"> for more details.</text:span></text:p>
    <text:h text:style-name="Heading_20_3" text:outline-level="3">Auto <text:span text:style-name="T31">I</text:span>nterchange <text:span text:style-name="T31">R</text:span>elay</text:h>
    <text:p text:style-name="P29">A relay can be connected to output E5 to activate power on an automatic interchange track. <text:s/>Simulated trains can optionally trigger the automatic interchange, causing a cut of cars to be pushed forward for pickup later in the operating session. <text:s/>This output is a 5V logic-level output intended to interface with a relay driver module, such as the <text:a xlink:type="simple" xlink:href="http://www.iascaled.com/store/ACC-RELAY1">ACC-RELAY1</text:a>.</text:p>
    <text:p text:style-name="P29"><draw:frame draw:style-name="fr17" draw:name="Image11" text:anchor-type="char" svg:x="0in" svg:width="0.4in" svg:height="0.3598in" draw:z-index="16"><draw:image>
@@ -5185,17 +5185,17 @@
      </draw:image>
     </draw:frame>The E5 output is not designed to directly drive a relay coil. <text:s/>Connecting a relay <text:span text:style-name="T42">directly </text:span>to the pin can damage the MRB-IIAB. <text:s/>Use a relay driver or a relay module with built-in driver.</text:p>
    <text:p text:style-name="P29"/>
-   <text:h text:style-name="P101" text:outline-level="2">MRBus</text:h>
-   <text:p text:style-name="P37">MRBus is an open specification for a serial control and telemetry bus, <text:span text:style-name="T59">originally</text:span> intended for model railroad applications. <text:s/>The MRB-IIAB has an MRBus interface allowing it to interact with other MRBus devices, such as a fast clock used for triggering simulated trains. <text:s/>For more technical information on MRBus, see <text:a xlink:type="simple" xlink:href="http://mrbus.org/">http://mrbus.org/</text:a>.</text:p>
+   <text:h text:style-name="P102" text:outline-level="2">MRBus</text:h>
+   <text:p text:style-name="P37">MRBus is an open specification serial bus, <text:span text:style-name="T59">originally</text:span> intended for model railroad <text:span text:style-name="T60">control </text:span>applications. <text:s/>The MRB-IIAB has an MRBus interface allowing it to interact with other MRBus devices, such as a fast clock used for triggering simulated trains. <text:s/>For more technical information on MRBus, see <text:a xlink:type="simple" xlink:href="http://mrbus.org/">http://mrbus.org/</text:a>.</text:p>
    <text:p text:style-name="P37"><draw:frame draw:style-name="fr4" draw:name="Frame7" text:anchor-type="paragraph" svg:width="7in" draw:z-index="17">
      <draw:text-box fo:min-height="2.8819in">
       <text:p text:style-name="Figure"><draw:frame draw:style-name="fr14" draw:name="Image12" text:anchor-type="paragraph" svg:width="7in" style:rel-width="100%" svg:height="2.8819in" style:rel-height="scale" draw:z-index="18"><draw:image xlink:href="img/mrbus.png" xlink:type="simple" xlink:show="embed" xlink:actuate="onLoad"/>
        </draw:frame>Figure <text:sequence text:ref-name="refFigure11" text:name="Figure" text:formula="ooow:Figure+1" style:num-format="1">12</text:sequence>: Connection to a MRBus Network</text:p>
      </draw:text-box>
     </draw:frame>As shown in <text:sequence-ref text:reference-format="category-and-value" text:ref-name="refFigure11">Figure 12</text:sequence-ref>, the MRB-IIAB can be connected to a MRB-FCM fast clock. <text:s/>The fast clock provides time information over the MRBus network that the MRB-IIAB uses to trigger simulated trains at specific times.</text:p>
-   <text:p text:style-name="P37">All devices on the MRBus network must share a common GND connection. <text:s/>Typically, a dedicated 8V – 15V power supply will also be used to power all devices on the network, though each node can have its own local power supply as long as the GND connections are common. <text:s/>The data bus consists of the MRBus:A and MRBus:B terminals that must be connected using a twisted pair <text:span text:style-name="T43">of </text:span>wire<text:span text:style-name="T43">s</text:span>. <text:s/>Category 5 ethernet cables work well for both power and data as the pairs are already twisted together. <text:s/>In that case, the wiring convention shown in <text:sequence-ref text:reference-format="category-and-value" text:ref-name="refTable1">Table 2</text:sequence-ref> is used. <text:s/>To make wiring easier, RJ45 adapters are also available allowing the use of off-the-shelf, <text:span text:style-name="T43">pre-terminated</text:span> ethernet cables.</text:p>
-   <text:p text:style-name="P120">Each MRBus node has a packet activity LED, usually amber in color. <text:s/>Each time a packet is broadcast across the network, the LED will blink. <text:s/>This can be used as a first-level diagnostic aid. <text:s/>No blinks, very fast repetitive blinking, or continuous lighting of the LED may indicate a problem with the MRBus network. <text:s/>Check the connections as this likely indicates hookup issues.</text:p>
-   <text:p text:style-name="P107"><text:soft-page-break/>Table <text:sequence text:ref-name="refTable1" text:name="Table" text:formula="ooow:Table+1" style:num-format="1">2</text:sequence>: MRBus Wiring Standard <text:span text:style-name="T39">for Category 5 / RJ45 Cables</text:span></text:p>
+   <text:p text:style-name="P37">All devices on the MRBus network must share a common GND connection. <text:s/>Typically, a dedicated 8V – 15V power supply will also be used to power all devices on the network, though each node can have its own local power supply as long as the GND connections are <text:span text:style-name="T60">all connected together</text:span>. <text:s/>The data bus consists of the MRBus:A and MRBus:B terminals that must be connected using a twisted pair <text:span text:style-name="T43">of </text:span>wire<text:span text:style-name="T43">s</text:span>. <text:s/>Category 5 ethernet cables work well for both power and data as the pairs are already twisted together. <text:s/>In that case, the wiring convention shown in <text:sequence-ref text:reference-format="category-and-value" text:ref-name="refTable1">Table 2</text:sequence-ref> <text:span text:style-name="T60">should be</text:span> used. <text:s/>To make wiring easier, RJ45 adapters are also available allowing the use of off-the-shelf, <text:span text:style-name="T43">pre-terminated</text:span> ethernet cables.</text:p>
+   <text:p text:style-name="P75">Each MRBus node has a packet activity LED, usually amber in color. <text:s/>Each time a packet is broadcast across the network, the LED will blink. <text:s/>This can be used as a first-level diagnostic aid. <text:s/>No blinks, very fast repetitive blinking, or continuous lighting of the LED may indicate a problem with the MRBus network. <text:s/>Check the connections as this likely indicates hookup issues.</text:p>
+   <text:p text:style-name="P108"><text:soft-page-break/>Table <text:sequence text:ref-name="refTable1" text:name="Table" text:formula="ooow:Table+1" style:num-format="1">2</text:sequence>: MRBus Wiring Standard <text:span text:style-name="T39">for Category 5 / RJ45 Cables</text:span></text:p>
    <table:table table:name="Table3" table:style-name="Table3">
     <table:table-column table:style-name="Table3.A"/>
     <table:table-column table:style-name="Table3.B" table:number-columns-repeated="2"/>
@@ -5203,26 +5203,26 @@
     <table:table-header-rows>
      <table:table-row>
       <table:table-cell table:style-name="Table3.A1" office:value-type="string">
-       <text:p text:style-name="P105">Position</text:p>
+       <text:p text:style-name="P106">Position</text:p>
       </table:table-cell>
       <table:table-cell table:style-name="Table3.A1" office:value-type="string">
-       <text:p text:style-name="P105">Signal</text:p>
+       <text:p text:style-name="P106">Signal</text:p>
       </table:table-cell>
       <table:table-cell table:style-name="Table3.C1" table:number-columns-spanned="2" office:value-type="string">
-       <text:p text:style-name="P105">Color</text:p>
+       <text:p text:style-name="P106">Color</text:p>
       </table:table-cell>
       <table:covered-table-cell/>
      </table:table-row>
     </table:table-header-rows>
     <table:table-row>
      <table:table-cell table:style-name="Table3.A2" office:value-type="string">
-      <text:p text:style-name="P91">1</text:p>
+      <text:p text:style-name="P92">1</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table3.A2" office:value-type="string">
-      <text:p text:style-name="P91">8V – 15V DC</text:p>
+      <text:p text:style-name="P92">8V – 15V DC</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table3.A2" office:value-type="string">
-      <text:p text:style-name="P91">White/Orange</text:p>
+      <text:p text:style-name="P92">White/Orange</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table3.D2" office:value-type="string">
       <text:p text:style-name="P40"><text:span text:style-name="T36">▬</text:span><text:span text:style-name="T35">▬</text:span><text:span text:style-name="T36">▬</text:span><text:span text:style-name="T35">▬</text:span><text:span text:style-name="T36">▬</text:span></text:p>
@@ -5230,13 +5230,13 @@
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table3.A2" office:value-type="string">
-      <text:p text:style-name="P91">2</text:p>
+      <text:p text:style-name="P92">2</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table3.A2" office:value-type="string">
-      <text:p text:style-name="P91">GND</text:p>
+      <text:p text:style-name="P92">GND</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table3.A2" office:value-type="string">
-      <text:p text:style-name="P91">Orange</text:p>
+      <text:p text:style-name="P92">Orange</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table3.D2" office:value-type="string">
       <text:p text:style-name="P47">▬▬▬▬▬</text:p>
@@ -5244,13 +5244,13 @@
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table3.A2" office:value-type="string">
-      <text:p text:style-name="P91">3</text:p>
+      <text:p text:style-name="P92">3</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table3.A2" office:value-type="string">
-      <text:p text:style-name="P91">8V – 15V DC</text:p>
+      <text:p text:style-name="P92">8V – 15V DC</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table3.A2" office:value-type="string">
-      <text:p text:style-name="P91">White/Green</text:p>
+      <text:p text:style-name="P92">White/Green</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table3.D2" office:value-type="string">
       <text:p text:style-name="P40"><text:span text:style-name="T34">▬</text:span><text:span text:style-name="T35">▬</text:span><text:span text:style-name="T34">▬</text:span><text:span text:style-name="T35">▬</text:span><text:span text:style-name="T34">▬</text:span></text:p>
@@ -5258,13 +5258,13 @@
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table3.A2" office:value-type="string">
-      <text:p text:style-name="P91">4</text:p>
+      <text:p text:style-name="P92">4</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table3.A2" office:value-type="string">
-      <text:p text:style-name="P91">MRBus:A</text:p>
+      <text:p text:style-name="P92">MRBus:A</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table3.A2" office:value-type="string">
-      <text:p text:style-name="P91">Blue</text:p>
+      <text:p text:style-name="P92">Blue</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table3.D2" office:value-type="string">
       <text:p text:style-name="P45">▬▬▬▬▬</text:p>
@@ -5272,13 +5272,13 @@
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table3.A2" office:value-type="string">
-      <text:p text:style-name="P91">5</text:p>
+      <text:p text:style-name="P92">5</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table3.A2" office:value-type="string">
-      <text:p text:style-name="P91">MRBus:B</text:p>
+      <text:p text:style-name="P92">MRBus:B</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table3.A2" office:value-type="string">
-      <text:p text:style-name="P91">White/Blue</text:p>
+      <text:p text:style-name="P92">White/Blue</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table3.D2" office:value-type="string">
       <text:p text:style-name="P40"><text:span text:style-name="T37">▬</text:span><text:span text:style-name="T35">▬</text:span><text:span text:style-name="T37">▬</text:span><text:span text:style-name="T35">▬</text:span><text:span text:style-name="T37">▬</text:span></text:p>
@@ -5286,13 +5286,13 @@
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table3.A2" office:value-type="string">
-      <text:p text:style-name="P91">6</text:p>
+      <text:p text:style-name="P92">6</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table3.A2" office:value-type="string">
-      <text:p text:style-name="P91">GND</text:p>
+      <text:p text:style-name="P92">GND</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table3.A2" office:value-type="string">
-      <text:p text:style-name="P91">Green</text:p>
+      <text:p text:style-name="P92">Green</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table3.D2" office:value-type="string">
       <text:p text:style-name="P42">▬▬▬▬▬</text:p>
@@ -5300,13 +5300,13 @@
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table3.A2" office:value-type="string">
-      <text:p text:style-name="P91">7</text:p>
+      <text:p text:style-name="P92">7</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table3.A2" office:value-type="string">
-      <text:p text:style-name="P91">Reserved</text:p>
+      <text:p text:style-name="P92">Reserved</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table3.A2" office:value-type="string">
-      <text:p text:style-name="P91">White/Brown</text:p>
+      <text:p text:style-name="P92">White/Brown</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table3.D2" office:value-type="string">
       <text:p text:style-name="P41"><text:span text:style-name="T41">▬</text:span><text:span text:style-name="T35">▬</text:span><text:span text:style-name="T41">▬</text:span><text:span text:style-name="T35">▬</text:span><text:span text:style-name="T41">▬</text:span></text:p>
@@ -5314,13 +5314,13 @@
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table3.A2" office:value-type="string">
-      <text:p text:style-name="P91">8</text:p>
+      <text:p text:style-name="P92">8</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table3.A2" office:value-type="string">
-      <text:p text:style-name="P91">Reserved</text:p>
+      <text:p text:style-name="P92">Reserved</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table3.A2" office:value-type="string">
-      <text:p text:style-name="P91">Brown</text:p>
+      <text:p text:style-name="P92">Brown</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table3.D2" office:value-type="string">
       <text:p text:style-name="P48">▬▬▬▬▬</text:p>
@@ -5335,11 +5335,11 @@
        </draw:frame>Figure <text:sequence text:ref-name="refFigure12" text:name="Figure" text:formula="ooow:Figure+1" style:num-format="1">13</text:sequence>: MRBus Network <text:span text:style-name="T42">with Multiple Devices</text:span></text:p>
      </draw:text-box>
     </draw:frame></text:p>
-   <text:h text:style-name="P96" text:outline-level="1">Configuration</text:h>
+   <text:h text:style-name="P97" text:outline-level="1">Configuration</text:h>
    <text:p text:style-name="P53">Most of the inputs and outputs of the MRB-IIAB are configurable to accommodate as many interlocking and layout configurations as possible. <text:s/>To simplify setting these options, a utility <text:span text:style-name="T44">(MRGui) </text:span>is available. <text:s/>To download, see the MRB-IIAB product page:</text:p>
    <text:p text:style-name="P50"><text:a xlink:type="simple" xlink:href="http://www.iascaled.com/store/MRB-IIAB">http://www.iascaled.com/store/MRB-IIAB</text:a></text:p>
    <text:p text:style-name="P54">Setup instructions for various operating systems are also available on the website.</text:p>
-   <text:p text:style-name="P53"><text:span text:style-name="T44">A</text:span>n AVR programmer is required <text:span text:style-name="T44">to program the MRB-IIAB</text:span>. <text:s/>We currently recommend the Pocket AVR Programmer from SparkFun or the USBTinyISP from Adafruit. <text:s/>Iowa Scaled Engineering also sells a suitable programmer – see the MRB-IIAB product page for details.</text:p>
+   <text:p text:style-name="P53"><text:span text:style-name="T44">A</text:span>n AVR programmer is required <text:span text:style-name="T44">to program the MRB-IIAB</text:span>. <text:s/>We currently recommend the Pocket AVR Programmer from SparkFun or the USBTinyISP from Adafruit. <text:s/>Iowa Scaled Engineering also sells a suitable programmer.</text:p>
    <text:h text:style-name="Heading_20_2" text:outline-level="2">Connecting the Programmer</text:h>
    <text:p text:style-name="P54">The programmer <text:span text:style-name="T59">is </text:span>connected to the 6-pin header (J6) in the middle of the board. <text:s/>It should be connected so that the wires going to the header are opposite the tall RJ11 connector next to it, as shown in <text:sequence-ref text:reference-format="category-and-value" text:ref-name="refFigure13">Figure 14</text:sequence-ref>. <text:s/>For reliable operation, it is recommended to power the MRB-IIAB externally. <text:s/>In <text:sequence-ref text:reference-format="category-and-value" text:ref-name="refFigure13">Figure 14</text:sequence-ref>, a 12V power source is connected to both the J1 and J3 inputs. <text:s/>If already installed on a layout, just apply power to the MRB-IIAB as in normal operation and connect the programmer to header J6 as shown. <text:s/>The AVR programmer should then be connected to a USB port on the computer running MRGui.</text:p>
    <text:p text:style-name="P54"><draw:frame draw:style-name="fr3" draw:name="Frame11" text:anchor-type="paragraph" svg:width="7in" draw:z-index="41">
@@ -5349,20 +5349,20 @@
      </draw:text-box>
     </draw:frame><draw:frame draw:style-name="fr5" draw:name="Frame12" text:anchor-type="paragraph" svg:x="2.2799in" svg:y="0.6047in" svg:width="0.7902in" draw:z-index="42">
      <draw:text-box fo:min-height="0.2in">
-      <text:p text:style-name="P116">MRB-IIAB</text:p>
+      <text:p text:style-name="P117">MRB-IIAB</text:p>
      </draw:text-box>
     </draw:frame><draw:frame draw:style-name="fr5" draw:name="Frame13" text:anchor-type="paragraph" svg:x="5.5925in" svg:y="1.4902in" svg:width="0.7902in" draw:z-index="43">
      <draw:text-box fo:min-height="0.2in">
-      <text:p text:style-name="P116">+12V DC</text:p>
+      <text:p text:style-name="P117">+12V DC</text:p>
      </draw:text-box>
     </draw:frame><draw:frame draw:style-name="fr5" draw:name="Frame14" text:anchor-type="paragraph" svg:x="1.0161in" svg:y="3.1701in" svg:width="1.4299in" draw:z-index="44">
      <draw:text-box fo:min-height="0.2in">
-      <text:p text:style-name="P116">AVR Programmer</text:p>
+      <text:p text:style-name="P117">AVR Programmer</text:p>
      </draw:text-box>
     </draw:frame></text:p>
    <text:h text:style-name="Heading_20_2" text:outline-level="2"><text:soft-page-break/>Basic <text:span text:style-name="T44">Programming </text:span>Operations</text:h>
    <text:p text:style-name="P54">The MRGui utility starts up with default values for all the configuration settings. <text:s/>These values may not match your configuration. <text:s/>Therefore, before changing any settings, you should first read the current settings from the MRB-IIAB module to be programmed. <text:s/>Do this by clicking the “Read EEPROM” button in the lower right (see <text:sequence-ref text:reference-format="category-and-value" text:ref-name="refFigure14">Figure 15</text:sequence-ref>).</text:p>
-   <text:h text:style-name="P117" text:outline-level="3"><draw:frame draw:style-name="fr4" draw:name="Frame15" text:anchor-type="paragraph" svg:width="7in" draw:z-index="45">
+   <text:h text:style-name="P118" text:outline-level="3"><draw:frame draw:style-name="fr4" draw:name="Frame15" text:anchor-type="paragraph" svg:width="7in" draw:z-index="45">
      <draw:text-box fo:min-height="4.5819in">
       <text:p text:style-name="Figure"><draw:frame draw:style-name="fr16" draw:name="Image35" text:anchor-type="paragraph" svg:width="7in" svg:height="4.5819in" draw:z-index="60"><draw:image xlink:href="img/mrgui-detectors.png" xlink:type="simple" xlink:show="embed" xlink:actuate="onLoad"/>
        </draw:frame>Figure <text:sequence text:ref-name="refFigure14" text:name="Figure" text:formula="ooow:Figure+1" style:num-format="1">15</text:sequence>: MRGui Main Page</text:p>
@@ -5717,22 +5717,22 @@
      </draw:text-box>
     </draw:frame>Each MRBus node also transmits status information periodically. <text:s/>This time period is set by the Transmit Interval setting. <text:s/>A value of 5 seconds is usually adequate but it can be adjusted anywhere from 0.1 seconds to 25.5 seconds.</text:p>
    <text:p text:style-name="P54"/>
-   <text:h text:style-name="P101" text:outline-level="2"><text:bookmark-start text:name="__RefHeading__1649_1227581125"/>Detector Settings<text:bookmark-end text:name="__RefHeading__1649_1227581125"/></text:h>
-   <text:p text:style-name="P55">The detector inputs <text:span text:style-name="T46">can be configured to have a variable timeout and respond to either an active high or active low input polarity. <text:s/>The Detectors tab of the MRGui utility contains five boxes, one for each approach direction and one for the interlocking block itself as shown in </text:span><text:span text:style-name="T46"><text:sequence-ref text:reference-format="category-and-value" text:ref-name="refFigure17">Figure 18</text:sequence-ref></text:span><text:span text:style-name="T46">.</text:span></text:p>
+   <text:h text:style-name="P102" text:outline-level="2"><text:bookmark-start text:name="__RefHeading__1649_1227581125"/>Detector Settings<text:bookmark-end text:name="__RefHeading__1649_1227581125"/></text:h>
+   <text:p text:style-name="P55">The detector inputs <text:span text:style-name="T46">can be configured to have a variable timeout and respond to either an active high or active low input polarity. <text:s/>The Detectors tab of the MRGui utility contains five boxes, one for each approach direction and one for the interlocking block as shown in </text:span><text:span text:style-name="T46"><text:sequence-ref text:reference-format="category-and-value" text:ref-name="refFigure17">Figure 18</text:sequence-ref></text:span><text:span text:style-name="T46">.</text:span></text:p>
    <text:h text:style-name="Heading_20_3" text:outline-level="3"><draw:frame draw:style-name="fr4" draw:name="Frame18" text:anchor-type="paragraph" svg:width="7in" draw:z-index="49">
      <draw:text-box fo:min-height="4.5819in">
       <text:p text:style-name="Figure"><draw:frame draw:style-name="fr10" draw:name="Image40" text:anchor-type="paragraph" svg:width="7in" svg:height="4.5819in" draw:z-index="58"><draw:image xlink:href="img/mrgui-detectors.png" xlink:type="simple" xlink:show="embed" xlink:actuate="onLoad"/>
        </draw:frame>Figure <text:sequence text:ref-name="refFigure17" text:name="Figure" text:formula="ooow:Figure+1" style:num-format="1">18</text:sequence>: Detector <text:span text:style-name="T47">Configuration</text:span></text:p>
      </draw:text-box>
     </draw:frame>Timeout</text:h>
-   <text:p text:style-name="P56">The timeout for each detector input <text:span text:style-name="T59">is used</text:span> when the detector input is deasserted after the train leaves the block or no longer covers the detector. <text:s/>At this point in time, a timer start running. <text:s/>The MRB-IIAB assumes the block is still occupied while the timer is running. <text:s/>When the timer reaches the timeout value configured for that block, that block is then seen as unoccupied by the MRB-IIAB.</text:p>
+   <text:p text:style-name="P56">The timeout for each detector input <text:span text:style-name="T59">is used</text:span> when the detector input is deasserted after the train leaves the block or no longer covers the detector. <text:s/>At this point in time, a timer start running. <text:s/>The MRB-IIAB assumes the block is still occupied while the timer is running. <text:s/>When the timer reaches the timeout value configured for that block, <text:span text:style-name="T60">the</text:span> block is then <text:span text:style-name="T60">considered </text:span>unoccupied by the MRB-IIAB.</text:p>
    <text:p text:style-name="P56">For current-based detectors, small (or zero) timeout values can be used. <text:s/>Larger timeout values should be used for infrared (IR) detectors since those detectors can only sense the presence of a train at a small point along the track. <text:s/>This can be a problem with short trains since they may not always cover a detector. <text:s/>Set the timeout value to a time that allows your shortest train to travel between the longest distance between IR detectors on that approach block. <text:s/>Using additional IR detectors in the block can also help make sure at least one detector is covered at any time.</text:p>
    <text:p text:style-name="Text_20_body">The timeout in the interlocking block serves a similar purpose. <text:s/>However, even with current-based detectors, it is recommended to set its timeout to a value of 3s or greater to prevent intermittent detection <text:soft-page-break/>from prematurely clearing the interlocking. <text:s/>This could be caused by the distance between resistive wheel sets being longer than the interlocking block when using current-based detectors. <text:s/>With IR detectors, the gaps between cars might also cause intermittent detection. <text:s/>Both of these issues can be solved with a sufficient interlock<text:span text:style-name="T47">ing</text:span> block timeout.</text:p>
    <text:p text:style-name="P56">The <text:span text:style-name="T59">T</text:span>imeout value<text:span text:style-name="T47">s</text:span> can be set from 0s to 255s in <text:span text:style-name="T47">1</text:span>s increments. <text:s/>For the West and North approaches, the same timeout value applies to both the main and siding detectors.</text:p>
-   <text:h text:style-name="Heading_20_3" text:outline-level="3">Polarity</text:h>
+   <text:h text:style-name="Heading_20_3" text:outline-level="3"><text:bookmark-start text:name="__RefHeading__2797_1183461033"/>Polarity<text:bookmark-end text:name="__RefHeading__2797_1183461033"/></text:h>
    <text:p text:style-name="P57">Not all detectors indicate the presence of a train with the same output polarity. <text:s/>The MRB-IIAB can accommodate any detector polarity and this setting is individually configurable for each detector input. <text:s/>Select the polarity in the drop-down box that corresponds to the detector output connected to that block.</text:p>
-   <text:p text:style-name="P73">When using the CKT-IRSENSE detector, the setting depends on the output used. <text:s/>If using the white wire, set the Detector Polarity to “Low = Train Present”. <text:s/>If using the blue wire, set the Detector Polarity to “High = Train Present”. <text:s/>When using the MRB-BD4X detector, set the Detector Polarity to “High = Train Present”.</text:p>
-   <text:h text:style-name="Heading_20_2" text:outline-level="2">Signal Settings</text:h>
+   <text:p text:style-name="P73">When using the CKT-IRSENSE detector, the <text:span text:style-name="T60">polarity</text:span> depends on the output <text:span text:style-name="T60">wire </text:span>used. <text:s/>If using the white wire, set the Detector Polarity to “Low = Train Present”. <text:s/>If using the blue wire, set the Detector Polarity to “High = Train Present”. <text:s/>When using the MRB-BD4X detector, set the Detector Polarity to “High = Train Present”.</text:p>
+   <text:h text:style-name="Heading_20_2" text:outline-level="2"><text:bookmark-start text:name="__RefHeading__2795_1183461033"/>Signal Settings<text:bookmark-end text:name="__RefHeading__2795_1183461033"/></text:h>
    <text:p text:style-name="P57">Signals can be wired in one of two ways, common anode or common cathode. <text:s/>With common anode signals, the positive terminal is common between all the LEDs and the individual negative terminals are connected to the MRB-IIAB signal outputs. <text:s/>For common cathode signals, the negative terminal is common between all the LEDs and the individual positive terminals are connected to the MRB-IIAB signal outputs.</text:p>
    <text:p text:style-name="P57">The MRB-IIAB can be configured to drive either type of signal on the Signals tab of the MRGui utility (<text:sequence-ref text:reference-format="category-and-value" text:ref-name="refFigure18">Figure 19</text:sequence-ref>). <text:s/>Each signal head can be individually configured, allowing you to mix and match signal vendors to best replicate the prototype, without concern for the wiring standard used. <text:s text:c="2"/>Select the polarity in the drop-down box that corresponds to the signal type for that signal head.</text:p>
    <text:p text:style-name="P57">In addition to setting the signal polarity, the period of any flashing aspects can also be set. <text:s/>The flash period can be set from 0.1s to 25.5s in 0.1s intervals.</text:p>
@@ -5741,9 +5741,9 @@
       <text:p text:style-name="Figure"><draw:frame draw:style-name="fr10" draw:name="Image41" text:anchor-type="paragraph" svg:width="7in" svg:height="4.5819in" draw:z-index="57"><draw:image xlink:href="img/mrgui-signals.png" xlink:type="simple" xlink:show="embed" xlink:actuate="onLoad"/>
        </draw:frame>Figure <text:sequence text:ref-name="refFigure18" text:name="Figure" text:formula="ooow:Figure+1" style:num-format="1">19</text:sequence>: Signal Configuration</text:p>
      </draw:text-box>
-    </draw:frame><text:soft-page-break/>Signal Aspects</text:h>
+    </draw:frame><text:bookmark-start text:name="__RefHeading__2546_1183461033"/><text:soft-page-break/>Signal Aspects<text:bookmark-end text:name="__RefHeading__2546_1183461033"/></text:h>
    <text:p text:style-name="P57"><text:span text:style-name="T59">The</text:span> default signal aspects <text:span text:style-name="T59">used </text:span>for a proceed indication are shown in <text:sequence-ref text:reference-format="category-and-value" text:ref-name="refTable2">Table 3</text:sequence-ref>. <text:s/>The stop indications are always red.</text:p>
-   <text:p text:style-name="P107">Table <text:sequence text:ref-name="refTable2" text:name="Table" text:formula="ooow:Table+1" style:num-format="1">3</text:sequence>: Default Signal Aspects</text:p>
+   <text:p text:style-name="P108">Table <text:sequence text:ref-name="refTable2" text:name="Table" text:formula="ooow:Table+1" style:num-format="1">3</text:sequence>: Default Signal Aspects</text:p>
    <table:table table:name="Table4" table:style-name="Table4">
     <table:table-column table:style-name="Table4.A"/>
     <table:table-column table:style-name="Table4.B"/>
@@ -5751,58 +5751,58 @@
     <table:table-header-rows>
      <table:table-row>
       <table:table-cell table:style-name="Table4.A1" office:value-type="string">
-       <text:p text:style-name="P106">Approach</text:p>
+       <text:p text:style-name="P107">Approach</text:p>
       </table:table-cell>
       <table:table-cell table:style-name="Table4.A1" office:value-type="string">
-       <text:p text:style-name="P106">Turnout</text:p>
+       <text:p text:style-name="P107">Turnout</text:p>
       </table:table-cell>
       <table:table-cell table:style-name="Table4.C1" office:value-type="string">
-       <text:p text:style-name="P106">Aspect</text:p>
+       <text:p text:style-name="P107">Aspect</text:p>
       </table:table-cell>
      </table:table-row>
     </table:table-header-rows>
     <table:table-row>
      <table:table-cell table:style-name="Table4.A2" office:value-type="string">
-      <text:p text:style-name="P92">West / North (Frog End)</text:p>
+      <text:p text:style-name="P93">West / North (Frog End)</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table4.A2" office:value-type="string">
-      <text:p text:style-name="P92">Main</text:p>
+      <text:p text:style-name="P93">Main</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table4.C2" office:value-type="string">
-      <text:p text:style-name="P92">Green</text:p>
+      <text:p text:style-name="P93">Green</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table4.A2" office:value-type="string">
-      <text:p text:style-name="P92">West / North (Frog End)</text:p>
+      <text:p text:style-name="P93">West / North (Frog End)</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table4.A2" office:value-type="string">
-      <text:p text:style-name="P92">Siding</text:p>
+      <text:p text:style-name="P93">Siding</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table4.C2" office:value-type="string">
-      <text:p text:style-name="P92">Yellow</text:p>
+      <text:p text:style-name="P93">Yellow</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table4.A2" office:value-type="string">
-      <text:p text:style-name="P92">East / South (Point End)</text:p>
+      <text:p text:style-name="P93">East / South (Point End)</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table4.A2" office:value-type="string">
-      <text:p text:style-name="P92">Main</text:p>
+      <text:p text:style-name="P93">Main</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table4.C2" office:value-type="string">
-      <text:p text:style-name="P92">Green over Red</text:p>
+      <text:p text:style-name="P93">Green over Red</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table4.A2" office:value-type="string">
-      <text:p text:style-name="P92">East / South (Point End)</text:p>
+      <text:p text:style-name="P93">East / South (Point End)</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table4.A2" office:value-type="string">
-      <text:p text:style-name="P92">Siding</text:p>
+      <text:p text:style-name="P93">Siding</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table4.C2" office:value-type="string">
-      <text:p text:style-name="P92">Red over Yellow</text:p>
+      <text:p text:style-name="P93">Red over Yellow</text:p>
      </table:table-cell>
     </table:table-row>
    </table:table>
@@ -5844,16 +5844,16 @@
       <text:p text:style-name="Figure"><draw:frame draw:style-name="fr21" draw:name="Image46" text:anchor-type="paragraph" svg:width="7in" style:rel-width="100%" svg:height="1.6598in" style:rel-height="scale" draw:z-index="67"><draw:image xlink:href="img/mrgui-interchange.png" xlink:type="simple" xlink:show="embed" xlink:actuate="onLoad"/>
        </draw:frame>Figure <text:sequence text:ref-name="refFigure23" text:name="Figure" text:formula="ooow:Figure+1" style:num-format="1">24</text:sequence>: Interchange Configuration</text:p>
      </draw:text-box>
-    </draw:frame><text:soft-page-break/><text:span text:style-name="T44">Simulated</text:span> Trains</text:h>
-   <text:p text:style-name="P59">Setting schedules for simulated trains is done on the MRGui Schedules tab (<text:sequence-ref text:reference-format="category-and-value" text:ref-name="refFigure24">Figure 25</text:sequence-ref>). <text:s/>To trigger simulated trains, a source for fast time is required. <text:s/>In most installations, since there is usually only one master clock on the MRBus network, the Fast Clock Address can be set to 0xFF which <text:span text:style-name="T59">causes the MRB-IIAB to accept</text:span> time information from any fast clock, regardless of <text:span text:style-name="T59">the clock&apos;s</text:span> address. <text:s/>However, if there is more than one master clock, the address should be set to the specific MRBus address of the fast clock master to be used.</text:p>
+    </draw:frame><text:bookmark-start text:name="__RefHeading__3293_1183461033"/><text:soft-page-break/><text:span text:style-name="T44">Simulated</text:span> Trains<text:bookmark-end text:name="__RefHeading__3293_1183461033"/></text:h>
+   <text:p text:style-name="P59">Setting schedules for simulated trains is done on the MRGui Schedules tab (<text:sequence-ref text:reference-format="category-and-value" text:ref-name="refFigure24">Figure 25</text:sequence-ref>). <text:s/>To trigger simulated trains, a source for fast time is required. <text:s/>In most installations, since there is usually only one master clock on the MRBus network, the Fast Clock Address can be set to 0xFF which <text:span text:style-name="T60">tells the MRB-IIAB to accept</text:span> time information from any fast clock, regardless of <text:span text:style-name="T59">the clock&apos;s</text:span> address. <text:s/>However, if there is more than one master clock, the address should be set to the specific MRBus address of the fast clock master to be used.</text:p>
    <text:p text:style-name="P59"><draw:frame draw:style-name="fr4" draw:name="Frame25" text:anchor-type="paragraph" svg:width="7in" draw:z-index="68">
      <draw:text-box fo:min-height="4.5819in">
       <text:p text:style-name="Figure"><draw:frame draw:style-name="fr14" draw:name="Image47" text:anchor-type="paragraph" svg:width="7in" style:rel-width="100%" svg:height="4.5819in" style:rel-height="scale" draw:z-index="69"><draw:image xlink:href="img/mrgui-schedules.png" xlink:type="simple" xlink:show="embed" xlink:actuate="onLoad"/>
        </draw:frame>Figure <text:sequence text:ref-name="refFigure24" text:name="Figure" text:formula="ooow:Figure+1" style:num-format="1">25</text:sequence>: Simulated Train Configuration</text:p>
      </draw:text-box>
-    </draw:frame><text:soft-page-break/>The fast clock master sends time information packets over the MRBus network at a periodic rate. <text:s/>Between packets, the MRB-IIAB keeps time internally. <text:s/>The Fast Clock Timeout sets how long the MRB-IIAB will run its internal <text:span text:style-name="T59">fast </text:span>clock before assuming the fast clock master has stopped. <text:s/>If no time packet is received within the Fast Clock Timeout period, the MRB-IIAB will stop keeping track of time and no simulated trains will be triggered until a valid packet is received from an external fast clock master. <text:s/>This timeout should be set to at least 3x the fast clock master&apos;s <text:span text:style-name="T59">T</text:span>ransmit Interval and can be set from 0s to 25.5s in 0.1s increments.</text:p>
-   <text:p text:style-name="P73">If the MRB-FCM is put into Hold mode, the MRB-IIAB will not trigger any simulated trains. <text:s/>The internal fast clock will also be put on hold until the master resumes fast time.</text:p>
-   <text:p text:style-name="P62">Time packets are not guaranteed to be continuous, especially with high fast clock ratios and long fast clock transmit intervals. <text:s/>In those cases, the Trigger Window can be used to guarantee that a scheduled train is triggered even if no time packet arrives with a time equal to the scheduled start time. <text:s/>A train will be triggered when the current fast time is between the scheduled start time and that start time plus the programmed trigger window. <text:s/>In most cases, a setting of 1 (fast) minute is sufficient. <text:s/>The Trigger Window can be set from 0min to 255min in 1 minute increments (measured at the fast time ratio).</text:p>
+    </draw:frame><text:soft-page-break/>The fast clock master sends time information over the MRBus network at a periodic rate. <text:s/>Between packets, the MRB-IIAB keeps time internally. <text:s/>The Fast Clock Timeout sets how long the MRB-IIAB will run its internal <text:span text:style-name="T59">fast </text:span>clock before assuming the fast clock master has stopped. <text:s/>If no time <text:span text:style-name="T60">information </text:span>is received within the Fast Clock Timeout period, the MRB-IIAB will stop keeping track of time and no simulated trains will be triggered until <text:span text:style-name="T60">new, </text:span>valid <text:span text:style-name="T60">time information </text:span>is <text:span text:style-name="T60">again </text:span>received. <text:s/>This timeout should be set to at least 3x the fast clock master&apos;s <text:span text:style-name="T59">T</text:span>ransmit Interval and can be set from 0s to 25.5s in 0.1s increments.</text:p>
+   <text:p text:style-name="P73">If <text:span text:style-name="T60">fast time is </text:span>put into Hold mode <text:span text:style-name="T60">on the MRB-FCM</text:span>, the MRB-IIAB will not trigger any simulated trains. <text:s/>The internal fast clock will also be put on hold until the master resumes fast time.</text:p>
+   <text:p text:style-name="P62">Time <text:span text:style-name="T60">information is transmitted in discrete </text:span>packets <text:span text:style-name="T60">and is </text:span>not guaranteed to be continuous, especially with high fast clock ratios and long fast clock transmit intervals. <text:s/>In those cases, the Trigger Window can be used to guarantee that a scheduled train is triggered even if no time <text:span text:style-name="T60">information </text:span>arrives with a time equal to the scheduled start time. <text:s/>A train will be triggered when the current fast time is between the scheduled start time and that start time plus the programmed trigger window. <text:s/>In most cases, a setting of 1 (fast) minute is sufficient. <text:s/>The Trigger Window can be set from 0min to 255min in 1 minute increments (measured at the fast time ratio).</text:p>
    <text:h text:style-name="Heading_20_3" text:outline-level="3">Train Schedules</text:h>
    <text:p text:style-name="P59">Up to 32 scheduled trains can be configured in the MRB-IIAB to be simulated crossing the interlocking at specific times from any direction. <text:s/>Each train schedule consists of seven settings, shown in <text:sequence-ref text:reference-format="category-and-value" text:ref-name="refFigure25">Figure 26</text:sequence-ref> and detailed below.</text:p>
    <text:p text:style-name="P59"><draw:frame draw:style-name="fr8" draw:name="Frame26" text:anchor-type="paragraph" svg:width="7in" style:rel-width="100%" svg:height="0.7598in" style:rel-height="scale-min" draw:z-index="70">
@@ -5862,14 +5862,14 @@
        </draw:frame>Figure <text:sequence text:ref-name="refFigure25" text:name="Figure" text:formula="ooow:Figure+1" style:num-format="1">26</text:sequence>: Scheduled Train Settings</text:p>
      </draw:text-box>
     </draw:frame>To be triggered by the MRB-IIAB, the scheduled train must be enabled by clicking the Enable checkbox. <text:s/>This allows programming in a series of scheduled trains, but only activating a subset of them during certain operating sessions.</text:p>
-   <text:p text:style-name="P59">The direction of the simulated train is configured with the Direction drop-down box. <text:s/>This is the direction the simulated train is headed.</text:p>
+   <text:p text:style-name="P59">The direction of the simulated train is configured with the Direction drop-down box. <text:s/>This is the direction the simulated train is head<text:span text:style-name="T60">ing</text:span>.</text:p>
    <text:p text:style-name="P59">The fast time at which the simulated train appears at the interlocking is set with the Start Time box. <text:s/>Enter a time in 24-hour format. <text:s/>Note that this is the time at which the train will trigger the interlocking, but if the interlocking is occupied or the Time Lock timer is running, it will not immediately receive a proceed indication – all the same interlocking rules apply to simulated trains as they do to real trains arriving at the interlocking.</text:p>
-   <text:p text:style-name="P59">Once triggered and a proceed indication is given, the simulated train runs for the amount of time configured by the Duration setting. <text:s/>The proceed indication will continue to be displayed for the time configured by the Approach setting, after which the train has entered the interlocking block and the <text:soft-page-break/>signal will drop back to the stop indication. <text:s/>For the remainder of the Duration time, the interlocking block will be occupied and no trains on the crossing track will be allowed through. <text:s/>After the Duration time <text:span text:style-name="T59">expires</text:span>, the interlocking will clear. <text:s/>Note that the Time Lock timer may be running, so the interlocking may still not be immediately available.</text:p>
+   <text:p text:style-name="P59">Once triggered and a proceed indication is given, the simulated train runs for the amount of time configured by the Duration setting. <text:s/>The proceed indication will continue to be displayed for the time <text:soft-page-break/>configured by the Approach setting, after which the train has entered the interlocking block and the signal will drop back to the stop indication. <text:s/>For the remainder of the Duration time, the interlocking block will be occupied and no trains on the crossing track will be allowed through. <text:s/>After the Duration time <text:span text:style-name="T59">expires</text:span>, the interlocking will clear. <text:s/>Note that the Time Lock timer may be running, so the interlocking may not be immediately available.</text:p>
    <text:p text:style-name="P59">The sound output(s) to be activated while the simulated train is running is set by the Sound Trigger drop-down box. <text:s/>Each simulated train can trigger one sound output, both sound outputs, or <text:span text:style-name="T59">none</text:span>. <text:s/>The availability of two sound outputs allows different sound tracks to be played for different classes of trains (freight vs. passenger, steam vs. diesel, etc.).</text:p>
    <text:p text:style-name="P61">The sound output is active for the entire time specified by the Duration setting. <text:s/>When used with sound, the Duration should be set to the length of the audio track used. <text:s/><text:span text:style-name="T52">Alternatively, </text:span>the <text:a xlink:type="simple" xlink:href="http://www.iascaled.com/store/CKT-SQUEAL">CKT-SQUEAL</text:a> sound player <text:span text:style-name="T52">has a beginning-middle-end mode that is suitable for use with simulated trains and allows you to set any duration desired. <text:s/>See the Applications section on page </text:span><text:span text:style-name="T52"><text:bookmark-ref text:reference-format="page" text:ref-name="__RefHeading__1791_1987613118">34</text:bookmark-ref></text:span><text:span text:style-name="T52"> for more details.</text:span></text:p>
-   <text:p text:style-name="P59">Each simulated train can optionally trigger the automatic interchange. <text:s/>This causes a cut of cars to be pushed into view when the simulated train is triggered.</text:p>
+   <text:p text:style-name="P59">Each simulated train can optionally trigger the automatic interchange <text:span text:style-name="T60">by clicking the Interchange checkbox</text:span>. <text:s/>This causes a cut of cars to be pushed into view when the simulated train is triggered.</text:p>
    <text:p text:style-name="P59"/>
-   <text:h text:style-name="P97" text:outline-level="1">Applications</text:h>
+   <text:h text:style-name="P98" text:outline-level="1">Applications</text:h>
    <text:p text:style-name="P63">Some common applications for the MRB-IIAB are shown below. <text:s/>This list is meant to inspire <text:span text:style-name="T59">and</text:span> not be an exhaustive list of all possible ways the MRB-IIAB can be used to simulate automatic interlockings and improve the realism of your model railroad.</text:p>
    <text:h text:style-name="Heading_20_2" text:outline-level="2">Sidings</text:h>
    <text:p text:style-name="P63">By default, the MRB-IIAB assumes there are sidings on the West and North approaches within the interlocking limits, <text:span text:style-name="T50">as shown in </text:span><text:span text:style-name="T50"><text:sequence-ref text:reference-format="category-and-value" text:ref-name="refFigure26">Figure 27</text:sequence-ref></text:span>. <text:s/>If your layout has no sidings on either or both of those approaches, simply tie the corresponding turnout inputs to GND and leave the signals disconnected.</text:p>
@@ -5907,7 +5907,7 @@
        </draw:frame>Figure <text:sequence text:ref-name="refFigure29" text:name="Figure" text:formula="ooow:Figure+1" style:num-format="1">30</text:sequence>: Automatic Interchange</text:p>
      </draw:text-box>
     </draw:frame><text:soft-page-break/></text:p>
-   <text:h text:style-name="P102" text:outline-level="2"><text:bookmark-start text:name="__RefHeading__1791_1987613118"/>Sound Modules<text:bookmark-end text:name="__RefHeading__1791_1987613118"/></text:h>
+   <text:h text:style-name="P103" text:outline-level="2"><text:bookmark-start text:name="__RefHeading__1791_1987613118"/>Sound Modules<text:bookmark-end text:name="__RefHeading__1791_1987613118"/></text:h>
    <text:p text:style-name="P65">Sound modules can be used with the MRB-IIAB to play a sound track while a simulated train occupies the interlocking. <text:s/>This add<text:span text:style-name="T59">s</text:span> to the realism when no physical train is present on the layout, yet the signals are operating as if one were there. <text:s/><text:sequence-ref text:reference-format="category-and-value" text:ref-name="refFigure30">Figure 31</text:sequence-ref> shows how to connect the <text:a xlink:type="simple" xlink:href="http://www.iascaled.com/store/CKT-SQUEAL"><text:span text:style-name="T48">CKT-SQUEAL</text:span></text:a><text:span text:style-name="T48"> </text:span>sound player to the MRB-IIAB.</text:p>
    <text:p text:style-name="P66"><draw:frame draw:style-name="fr4" draw:name="Frame30" text:anchor-type="paragraph" svg:width="7in" draw:z-index="79">
      <draw:text-box fo:min-height="4.1173in">
@@ -5915,25 +5915,25 @@
        </draw:frame>Figure <text:sequence text:ref-name="refFigure30" text:name="Figure" text:formula="ooow:Figure+1" style:num-format="1">31</text:sequence>: Connecting the CKT-SQUEAL Sound Player</text:p>
      </draw:text-box>
     </draw:frame>Single sound tracks can be triggered by each sound output, allowing multiple train sounds to be played depending on whether the train is a passenger or freight, steam or diesel, etc. <text:s/>Additionally, the Beginning-Middle-End mode of the CKT-SQUEAL sound player can be used to play an approach sound (beginning), a repeating “clack, clack” of wheels over the diamond until the sound output is deasserted (middle), and finally, a train fading off into the distance (end).</text:p>
-   <text:h text:style-name="P115" text:outline-level="2">Grade Crossing</text:h>
+   <text:h text:style-name="P116" text:outline-level="2">Grade Crossing</text:h>
    <text:p text:style-name="P70">In addition to driving sound modules, the sound outputs could be used to trigger gates, lights, and/or sounds at a grade crossing on the simulated track, further adding to the illusion that a train is present when a simulated train is triggered. <text:s/>While the MRB-IIAB cannot drive the crossing gates or lights directly, third-party <text:span text:style-name="T59">crossing </text:span>modules can be triggered by the MRB-IIAB sound outputs.</text:p>
    <text:p text:style-name="P64"/>
-   <text:h text:style-name="P98" text:outline-level="1">Kit Contents</text:h>
-   <text:list xml:id="list211036345605485" text:continue-numbering="true" text:style-name="L1">
+   <text:h text:style-name="P99" text:outline-level="1">Kit Contents</text:h>
+   <text:list xml:id="list81730274225166" text:continue-numbering="true" text:style-name="L1">
     <text:list-item>
-     <text:p text:style-name="P137">MRB-IIAB Module</text:p>
+     <text:p text:style-name="P134">MRB-IIAB Module</text:p>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P137">12V, 1A Power Supply</text:p>
+     <text:p text:style-name="P134">12V, 1A Power Supply</text:p>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P137">10k<text:span text:style-name="T33">Ω</text:span> Input Pull-Up Resistors (Color Code = <text:span text:style-name="T59">brown black orange</text:span>)</text:p>
+     <text:p text:style-name="P134"><text:span text:style-name="T60">8 x </text:span>10k<text:span text:style-name="T33">Ω</text:span> Input Pull-Up Resistors (Color Code = <text:span text:style-name="T59">brown black orange</text:span>)</text:p>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P137">330<text:span text:style-name="T33">Ω</text:span> LED Current-Limiting Resistors (Color Code = <text:span text:style-name="T59">orange orange black</text:span>)</text:p>
+     <text:p text:style-name="P134"><text:span text:style-name="T60">16 x </text:span>330<text:span text:style-name="T33">Ω</text:span> LED Current-Limiting Resistors (Color Code = <text:span text:style-name="T59">orange orange black</text:span>)</text:p>
     </text:list-item>
    </text:list>
-   <text:h text:style-name="P111" text:outline-level="1">Related Products</text:h>
+   <text:h text:style-name="P112" text:outline-level="1">Related Products</text:h>
    <text:p text:style-name="P72"><text:a xlink:type="simple" xlink:href="http://www.iascaled.com/store/MRB-FCM"><text:span text:style-name="T30">MRB-FCM</text:span></text:a><text:span text:style-name="T30"><text:tab/>Model Railroad Fast Clock Master</text:span></text:p>
    <text:p text:style-name="P28"><text:a xlink:type="simple" xlink:href="http://www.iascaled.com/store/CKT-IRSENSE">CKT-IRSENSE</text:a><text:tab/>Reflective Infrared Proximity Sensor</text:p>
    <text:p text:style-name="P28"><text:a xlink:type="simple" xlink:href="http://www.iascaled.com/store/MRB-BD4X">MRB-BD4X</text:a><text:tab/>4-Channel Current-Based (DCC) Block Detector</text:p>
@@ -5942,7 +5942,7 @@
    <text:p text:style-name="P38">MRB-RJ45-PWR<text:tab/>MRBus RJ45 Adapter with Power Input</text:p>
    <text:p text:style-name="P60"><text:a xlink:type="simple" xlink:href="http://www.iascaled.com/store/CKT-SQUEAL">CKT-SQUEAL</text:a><text:tab/>Programmable Sound Player</text:p>
    <text:p text:style-name="P31"/>
-   <text:h text:style-name="P94" text:outline-level="1">Open Design</text:h>
+   <text:h text:style-name="P95" text:outline-level="1">Open Design</text:h>
    <text:p text:style-name="P4">Iowa Scaled Engineering is committed to creating open designs that users are free to build, modify, adapt, improve, and share with others. <text:s/></text:p>
    <text:h text:style-name="Heading_20_2" text:outline-level="2">Hardware</text:h>
    <text:p text:style-name="P4">The design of the <text:span text:style-name="T9">MRB-IIAB</text:span> hardware is open source hardware, and is made available under the terms of the Creative Commons Attribution-Share Alike v3.0 license, a copy of which is available from: <text:a xlink:type="simple" xlink:href="http://creativecommons.org/licenses/by-sa/3.0/">http://creativecommons.org/licenses/by-sa/3.0/</text:a></text:p>
