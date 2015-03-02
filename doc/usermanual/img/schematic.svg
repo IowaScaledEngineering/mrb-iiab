@@ -16,7 +16,7 @@
    version="1.1"
    inkscape:version="0.48.4 r9939"
    sodipodi:docname="schematic.svg"
-   inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/usermanual/schematic.png"
+   inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/usermanual/img/schematic.png"
    inkscape:export-xdpi="600"
    inkscape:export-ydpi="600">
   <defs
@@ -37,9 +37,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="1"
      inkscape:pageshadow="2"
-     inkscape:zoom="4.0000001"
-     inkscape:cx="206.88983"
-     inkscape:cy="81.849487"
+     inkscape:zoom="2.0000001"
+     inkscape:cx="176.4298"
+     inkscape:cy="72.635691"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -143,7 +143,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -211,48 +211,6 @@
        d="m 121.49999,994.36251 c -0.0416,-0.0348 -1.99999,-2 -1.99999,-2"
        id="path3791-3-4"
        inkscape:connector-curvature="0" />
-    <path
-       inkscape:connector-curvature="0"
-       id="path3097"
-       d="m 90.000383,1007.9285 0,8.8673"
-       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/primitives/EB-green-red.png"
-       inkscape:export-xdpi="180"
-       inkscape:export-ydpi="180" />
-    <path
-       inkscape:connector-curvature="0"
-       id="path3099"
-       d="m 90.195726,1012.3622 16.294684,0"
-       style="fill:none;stroke:#000000;stroke-width:0.99999994px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/primitives/EB-green-red.png"
-       inkscape:export-xdpi="180"
-       inkscape:export-ydpi="180" />
-    <path
-       transform="matrix(0.62288954,0,0,0.62288954,-4.082457,989.635)"
-       d="m 183.78462,36.48666 c 0,3.103274 -2.5157,5.618974 -5.61897,5.618974 -3.10327,0 -5.61897,-2.5157 -5.61897,-5.618974 0,-3.103273 2.5157,-5.618974 5.61897,-5.618974 3.10327,0 5.61897,2.515701 5.61897,5.618974 z"
-       sodipodi:ry="5.6189737"
-       sodipodi:rx="5.6189737"
-       sodipodi:cy="36.48666"
-       sodipodi:cx="178.16565"
-       id="path3894"
-       style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:1.60542119;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       sodipodi:type="arc"
-       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/primitives/EB-green-red.png"
-       inkscape:export-xdpi="180"
-       inkscape:export-ydpi="180" />
-    <path
-       transform="matrix(0.62288954,0,0,0.62288954,-4.082457,989.635)"
-       d="m 183.78462,36.48666 c 0,3.103274 -2.5157,5.618974 -5.61897,5.618974 -3.10327,0 -5.61897,-2.5157 -5.61897,-5.618974 0,-3.103273 2.5157,-5.618974 5.61897,-5.618974 3.10327,0 5.61897,2.515701 5.61897,5.618974 z"
-       sodipodi:ry="5.6189737"
-       sodipodi:rx="5.6189737"
-       sodipodi:cy="36.48666"
-       sodipodi:cx="178.16565"
-       id="path3101"
-       style="fill:#ff0000;fill-opacity:1;stroke:#000000;stroke-width:1.60542119;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       sodipodi:type="arc"
-       inkscape:export-xdpi="180"
-       inkscape:export-ydpi="180"
-       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/primitives/EB-green-red.png" />
     <path
        inkscape:connector-curvature="0"
        id="path3097-4"
@@ -388,81 +346,35 @@
        d="m 230.00001,972.36218 -29.99983,0"
        id="path4077-2"
        inkscape:connector-curvature="0" />
-    <g
-       id="g3955"
-       transform="matrix(-1,0,0,1,440.30266,-134.99987)">
-      <path
-         style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         d="m 165.30266,1082.9287 0,8.8673"
-         id="path3864-8"
-         inkscape:connector-curvature="0"
-         inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/primitives/EB-yellow-pot.png"
-         inkscape:export-xdpi="180"
-         inkscape:export-ydpi="180" />
-      <path
-         style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         d="m 165.30266,1087.3624 7.39468,0"
-         id="path3866-7"
-         inkscape:connector-curvature="0"
-         inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/primitives/EB-yellow-pot.png"
-         inkscape:export-xdpi="180"
-         inkscape:export-ydpi="180" />
-      <path
-         sodipodi:type="arc"
-         style="fill:#ff0000;fill-opacity:1;stroke:#000000;stroke-width:1.60542119;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-         id="path3868-8"
-         sodipodi:cx="178.16565"
-         sodipodi:cy="36.48666"
-         sodipodi:rx="5.6189737"
-         sodipodi:ry="5.6189737"
-         d="m 183.78462,36.48666 c 0,3.103274 -2.5157,5.618974 -5.61897,5.618974 -3.10327,0 -5.61897,-2.5157 -5.61897,-5.618974 0,-3.103273 2.5157,-5.618974 5.61897,-5.618974 3.10327,0 5.61897,2.515701 5.61897,5.618974 z"
-         transform="matrix(0.62288954,0,0,0.62288954,61.52248,1064.6352)"
-         inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/primitives/EB-yellow-pot.png"
-         inkscape:export-xdpi="180"
-         inkscape:export-ydpi="180" />
-      <path
-         inkscape:export-ydpi="180"
-         inkscape:export-xdpi="180"
-         inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/primitives/EB-green-red.png"
-         style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         d="m 165.30266,1112.9284 0,8.8673"
-         id="path3097-7"
-         inkscape:connector-curvature="0" />
-      <path
-         inkscape:export-ydpi="180"
-         inkscape:export-xdpi="180"
-         inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/primitives/EB-green-red.png"
-         style="fill:none;stroke:#000000;stroke-width:0.99999994px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         d="m 165.498,1117.3621 16.29469,0"
-         id="path3099-8"
-         inkscape:connector-curvature="0" />
-      <path
-         inkscape:export-ydpi="180"
-         inkscape:export-xdpi="180"
-         inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/primitives/EB-green-red.png"
-         sodipodi:type="arc"
-         style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:1.60542119;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-         id="path3894-5"
-         sodipodi:cx="178.16565"
-         sodipodi:cy="36.48666"
-         sodipodi:rx="5.6189737"
-         sodipodi:ry="5.6189737"
-         d="m 183.78462,36.48666 c 0,3.103274 -2.5157,5.618974 -5.61897,5.618974 -3.10327,0 -5.61897,-2.5157 -5.61897,-5.618974 0,-3.103273 2.5157,-5.618974 5.61897,-5.618974 3.10327,0 5.61897,2.515701 5.61897,5.618974 z"
-         transform="matrix(0.62288954,0,0,0.62288954,71.21982,1094.6349)" />
-      <path
-         inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/primitives/EB-green-red.png"
-         inkscape:export-ydpi="180"
-         inkscape:export-xdpi="180"
-         sodipodi:type="arc"
-         style="fill:#ff0000;fill-opacity:1;stroke:#000000;stroke-width:1.60542119;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-         id="path3101-6"
-         sodipodi:cx="178.16565"
-         sodipodi:cy="36.48666"
-         sodipodi:rx="5.6189737"
-         sodipodi:ry="5.6189737"
-         d="m 183.78462,36.48666 c 0,3.103274 -2.5157,5.618974 -5.61897,5.618974 -3.10327,0 -5.61897,-2.5157 -5.61897,-5.618974 0,-3.103273 2.5157,-5.618974 5.61897,-5.618974 3.10327,0 5.61897,2.515701 5.61897,5.618974 z"
-         transform="matrix(0.62288954,0,0,0.62288954,71.21982,1094.6349)" />
-    </g>
+    <path
+       inkscape:export-ydpi="180"
+       inkscape:export-xdpi="180"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/primitives/EB-yellow-pot.png"
+       inkscape:connector-curvature="0"
+       id="path3864-8"
+       d="m 275,947.92883 0,8.8673"
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <path
+       inkscape:export-ydpi="180"
+       inkscape:export-xdpi="180"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/primitives/EB-yellow-pot.png"
+       inkscape:connector-curvature="0"
+       id="path3866-7"
+       d="m 275,952.36253 -7.39468,0"
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <path
+       inkscape:export-ydpi="180"
+       inkscape:export-xdpi="180"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/primitives/EB-yellow-pot.png"
+       transform="matrix(-0.62288954,0,0,0.62288954,378.78018,929.63533)"
+       d="m 183.78462,36.48666 a 5.6189737,5.6189737 0 1 1 -11.23794,0 5.6189737,5.6189737 0 1 1 11.23794,0 z"
+       sodipodi:ry="5.6189737"
+       sodipodi:rx="5.6189737"
+       sodipodi:cy="36.48666"
+       sodipodi:cx="178.16565"
+       id="path3868-8"
+       style="fill:#ff0000;fill-opacity:1;stroke:#000000;stroke-width:1.60542119;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       sodipodi:type="arc" />
     <text
        xml:space="preserve"
        style="font-size:12px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
@@ -511,5 +423,148 @@
          x="11.140928"
          y="1030.2256"
          style="font-size:8px">South</tspan></text>
+    <path
+       inkscape:connector-curvature="0"
+       id="path3097-4-6"
+       d="m 90,1007.9285 0,8.8673"
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path3099-4-7"
+       d="m 90.37009,1012.3622 25.04919,0"
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/testcase.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       transform="matrix(0.62288954,0,0,0.62288954,-4.082844,989.63503)"
+       d="m 183.78462,36.48666 a 5.6189737,5.6189737 0 1 1 -11.23794,0 5.6189737,5.6189737 0 1 1 11.23794,0 z"
+       sodipodi:ry="5.6189737"
+       sodipodi:rx="5.6189737"
+       sodipodi:cy="36.48666"
+       sodipodi:cx="178.16565"
+       id="path3894-8-9"
+       style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:1.60542119;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       sodipodi:type="arc"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/testcase.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <path
+       transform="matrix(0.62288954,0,0,0.62288954,-4.082844,989.63503)"
+       d="m 183.78462,36.48666 a 5.6189737,5.6189737 0 1 1 -11.23794,0 5.6189737,5.6189737 0 1 1 11.23794,0 z"
+       sodipodi:ry="5.6189737"
+       sodipodi:rx="5.6189737"
+       sodipodi:cy="36.48666"
+       sodipodi:cx="178.16565"
+       id="path3101-0-2"
+       style="fill:#ff8080;fill-opacity:1;stroke:#808080;stroke-width:1.60542118999999994;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       sodipodi:type="arc"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/testcase.png" />
+    <path
+       transform="matrix(0.62288954,0,0,0.62288954,7.063646,989.63513)"
+       d="m 183.78462,36.48666 a 5.6189737,5.6189737 0 1 1 -11.23794,0 5.6189737,5.6189737 0 1 1 11.23794,0 z"
+       sodipodi:ry="5.6189737"
+       sodipodi:rx="5.6189737"
+       sodipodi:cy="36.48666"
+       sodipodi:cx="178.16565"
+       id="path3103-3-6"
+       style="fill:#ff0000;fill-opacity:1;stroke:#000000;stroke-width:1.60542119;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       sodipodi:type="arc"
+       inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/testcase.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180" />
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="106.64663"
+       y="1026.1606"
+       id="text3845"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3847"
+         x="106.64663"
+         y="1026.1606">*</tspan></text>
+    <g
+       id="g3885"
+       transform="matrix(-1,0,0,1,432.22941,-111.60767)">
+      <path
+         style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 157.22941,1089.5362 0,8.8673"
+         id="path3097-4-6-0"
+         inkscape:connector-curvature="0" />
+      <path
+         inkscape:export-ydpi="180"
+         inkscape:export-xdpi="180"
+         inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/testcase.png"
+         style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 157.5995,1093.9699 25.04919,0"
+         id="path3099-4-7-4"
+         inkscape:connector-curvature="0" />
+      <path
+         inkscape:export-ydpi="180"
+         inkscape:export-xdpi="180"
+         inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/testcase.png"
+         sodipodi:type="arc"
+         style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:1.60542119;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         id="path3894-8-9-3"
+         sodipodi:cx="178.16565"
+         sodipodi:cy="36.48666"
+         sodipodi:rx="5.6189737"
+         sodipodi:ry="5.6189737"
+         d="m 183.78462,36.48666 c 0,3.103274 -2.5157,5.618974 -5.61897,5.618974 -3.10327,0 -5.61897,-2.5157 -5.61897,-5.618974 0,-3.103273 2.5157,-5.618974 5.61897,-5.618974 3.10327,0 5.61897,2.515701 5.61897,5.618974 z"
+         transform="matrix(0.62288954,0,0,0.62288954,63.146569,1071.2427)" />
+      <path
+         inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/testcase.png"
+         inkscape:export-ydpi="180"
+         inkscape:export-xdpi="180"
+         sodipodi:type="arc"
+         style="fill:#ff8080;fill-opacity:1;stroke:#808080;stroke-width:1.60542119;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         id="path3101-0-2-9"
+         sodipodi:cx="178.16565"
+         sodipodi:cy="36.48666"
+         sodipodi:rx="5.6189737"
+         sodipodi:ry="5.6189737"
+         d="m 183.78462,36.48666 c 0,3.103274 -2.5157,5.618974 -5.61897,5.618974 -3.10327,0 -5.61897,-2.5157 -5.61897,-5.618974 0,-3.103273 2.5157,-5.618974 5.61897,-5.618974 3.10327,0 5.61897,2.515701 5.61897,5.618974 z"
+         transform="matrix(0.62288954,0,0,0.62288954,63.146569,1071.2427)" />
+      <path
+         inkscape:export-ydpi="180"
+         inkscape:export-xdpi="180"
+         inkscape:export-filename="/home/data/design/mrbus/mrb-iiab/doc/testcase.png"
+         sodipodi:type="arc"
+         style="fill:#ff0000;fill-opacity:1;stroke:#000000;stroke-width:1.60542119;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         id="path3103-3-6-8"
+         sodipodi:cx="178.16565"
+         sodipodi:cy="36.48666"
+         sodipodi:rx="5.6189737"
+         sodipodi:ry="5.6189737"
+         d="m 183.78462,36.48666 c 0,3.103274 -2.5157,5.618974 -5.61897,5.618974 -3.10327,0 -5.61897,-2.5157 -5.61897,-5.618974 0,-3.103273 2.5157,-5.618974 5.61897,-5.618974 3.10327,0 5.61897,2.515701 5.61897,5.618974 z"
+         transform="matrix(0.62288954,0,0,0.62288954,74.293059,1071.2428)" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text3845-5"
+         y="1107.7683"
+         x="173.87604"
+         style="font-size:12px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           y="1107.7683"
+           x="173.87604"
+           id="tspan3847-1"
+           sodipodi:role="line">*</tspan></text>
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="185.26196"
+       y="83.837051"
+       id="text3901"
+       sodipodi:linespacing="125%"
+       transform="translate(0,942.36218)"><tspan
+         sodipodi:role="line"
+         x="185.26196"
+         y="83.837051"
+         style="font-size:8px"
+         id="tspan3907" /></text>
   </g>
 </svg>
