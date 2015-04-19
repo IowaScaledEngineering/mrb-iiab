@@ -38,7 +38,7 @@ FUSE_E  = 0x04
 # MRBus
 DEFINES = -DMRBUS -DSWREV=0 -DHWREV_MAJOR=1 -DHWREV_MINOR=0
 SRCS = $(BASE_NAME).c ../../mrbus2/src/mrbus-avr.c ../../mrbus2/src/mrbus-crc.c ../../mrbus2/src/mrbus-pkt.c ../../mrbus2/src/mrbus-queue.c ../../libs/avr-i2c/avr-i2c-master.c
-INCS = ./mrb-iiab-eeprom.h ../../mrbus/src/mrbus.h ../../mrbus/src/mrbus-avr.hh ../../libs/avr-i2c/avr-i2c-master.h
+INCS = ./mrb-iiab-eeprom.h ../../mrbus/src/mrbus.h ../../mrbus/src/mrbus-avr.h ../../libs/avr-i2c/avr-i2c-master.h
 
 # MRBee
 #DEFINES = -DMRBEE -DMRBEE_BAUD=115200
