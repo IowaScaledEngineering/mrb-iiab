@@ -3,7 +3,7 @@
 #include <string.h>
 #include <unistd.h>
 
-#define MRBFS_PATH "/mrbfs/bus0/0xC0-mrb-iiab"
+#define MRBFS_PATH "/mrbfs/bus0/0x20-mrb-iiab"
 
 #define RESET           0
 #define BRIGHT          1
