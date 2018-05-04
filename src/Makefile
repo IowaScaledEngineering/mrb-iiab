@@ -32,7 +32,7 @@ DEVICE  = atmega328
 F_CPU   = 20000000  # Hz
 FUSE_L  = 0xD7
 FUSE_H  = 0xD1
-FUSE_E  = 0x04
+FUSE_E  = 0xFC
 
 
 # MRBus
@@ -45,8 +45,8 @@ INCS = ./mrb-iiab-eeprom.h ./mrbus/src/mrbus.h ./mrbus/src/mrbus-avr.h ./avr-i2c
 #SRCS = $(BASE_NAME).c ../../mrbus/src/mrbus-crc.c ../../mrbus/src/mrbus-pkt.c ../../mrbee/src/mrbee.c ../../mrbee/src/xbee.c
 #INCS = ../../mrbus/src/mrbus.h ../../mrbee/src/mrbee.h ../../mrbee/src/xbee.h
 
-AVRDUDE = avrdude -c usbtiny -p $(DEVICE) -B1
-AVRDUDE_SLOW = avrdude -c usbtiny -p $(DEVICE) -B32
+AVRDUDE = avrdude -c iseavrprog -p $(DEVICE) -B1
+AVRDUDE_SLOW = avrdude -c iseavrprog -p $(DEVICE) -B32
 
 OBJS = ${SRCS:.c=.o}
 INCLUDES = -I. -I./mrbus/src -I./avr-i2c/
